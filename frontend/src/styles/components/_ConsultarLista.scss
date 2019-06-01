@@ -1,0 +1,50 @@
+.TituloTabla {
+    text-align: center;
+    background: yellow;
+}
+
+.TituloTabla h1 {
+    margin: 0;
+    margin-bottom: 50px;
+    padding: 10px;
+}
+
+.Buscador {
+    padding: 0 5%;
+    width: 100%;
+}
+
+.Buscador input {
+    margin-right: 20px;
+}
+
+.Tabla {
+    padding: 0 5%;
+    width: 100%;
+}
+
+.Columnas {
+    display: flex;
+    flex-direction: row;
+}
+
+.TituloColumna {
+    text-align: center;
+    width: 20%;
+    background: green;
+    color: white;
+}
+
+.Tupla {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.Tupla .Atributo {
+    text-align: center;
+    width: 20%;
+    background: white;
+    color:#828282;
+
+}

@@ -10,6 +10,7 @@ import {PublicRoute} from './PublicRoute';
 // PAGINAS
 import {Home} from '../pages/Home';
 import {NotFoundPage} from '../pages/NotFoundPage';
+import {Mineral} from '../pages/Mineral';
 //import Dashboard from '../pages/Home';
 //import Pagina1 from '../pages/Pagina1';
 //import Pagina2 from '../pages/Pagina2';
@@ -25,6 +26,7 @@ const AppRouter = () => (
 
         {/* PAGINAS QUE CARGAN DESLOGEADO */}
         <PublicRoute path="/" component={Home} exact={true} />
+        <PublicRoute path="/mineral" component={Mineral} />
 
         {/* 
           PAGINAS QUE CARGAN LOGEADOS 

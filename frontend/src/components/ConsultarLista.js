@@ -35,7 +35,10 @@ export class ConsultarLista extends React.Component {
                 placeholder="Buscar nombre..." 
                 onChange={this.handleBuscar}
             />
-            {this.props.children[0]}
+            <i 
+                className="fas fa-plus-circle fa-lg IconoAgregar"
+                onClick={this.props.handleAgregar}
+            />
         </div>
 
         <div className="Tabla">

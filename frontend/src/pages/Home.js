@@ -1,5 +1,6 @@
 import React from 'react';
 import {HomeHeader} from '../components/HomeHeader'
+import {HomeContainer} from "../components/HomeContainer";
 
 
 export class Home extends React.Component {
@@ -23,6 +24,13 @@ export class Home extends React.Component {
 
   render = () => (
     <div>
+
     {<HomeHeader/>}
+    {<HomeContainer left={true} image="images/home/minera.jpg"
+                    text="Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    A architecto assumenda aut consequatur eaque eos fuga, ipsam libero,
+                    quibusdam reprehenderit sapiente temporibus, vero voluptate.
+                    Accusantium alias assumenda doloribus molestias praesentium."/>}
+
   </div>)
 }

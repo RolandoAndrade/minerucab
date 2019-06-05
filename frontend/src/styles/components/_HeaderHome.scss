@@ -6,7 +6,7 @@
   align-items: center;
   padding: 0 $s-size 0 $s-size;
   background: $header-color;
-  height: 100px;
+  height: $header-height;
   color: white;
 }
 
@@ -27,7 +27,24 @@
   width: 35%;
   text-align: center;
   padding: 5px;
+}
 
+.HeaderContent
+{
+  display: flex;
+  width: 35%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+
+}
+.HeaderContent.align-left
+{
+  justify-content: left;
+}
+.HeaderContent.align-right
+{
+  justify-content: flex-end;
 }
 
 .HeaderSubTitle.y
@@ -52,13 +69,26 @@
 
 .HeaderHomeLogo
 {
-  height: 50px;
+  height: 50%;
 }
 
 .LoginButton
 {
   font-size: 20px;
   cursor: pointer;
-  height: 100%;
-  line-height: 100px;
+  background: white;
+  color: $header-color;
+  border-radius: 15px;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px 20px;
+  float: right;
+}
+
+.LoginButton:hover
+{
+  background: $header-color;
+  border: solid white;
+  color: white;
+  transition: all 0.5s;
 }

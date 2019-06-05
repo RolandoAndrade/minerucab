@@ -14,9 +14,15 @@ export class HomeHeader extends React.Component {
     render = () => (
         <div className="HeaderContainer">
         <div className="HeaderHome">
-            <img src="images/logo.png" className="HeaderHomeLogo"/>
-            <div className="HeaderTitle">MinerUCAB</div>
-            <div className="LoginButton">Iniciar sesión <i className="fa fa-sign-in-alt"></i></div>
+            <div className="HeaderContent align-left">
+                <img src="images/logo.png" className="HeaderHomeLogo"/>
+            </div>
+            <div className="HeaderContent align-center">
+                <div className="HeaderTitle">MinerUCAB</div>
+            </div>
+            <div className="HeaderContent align-right">
+                <div className="LoginButton">Iniciar sesión <i className="fa fa-sign-in-alt"></i></div>
+            </div>
         </div>
         <div className="SubHeaderHome">
             <div className="HeaderSubTitle y">Historia</div>

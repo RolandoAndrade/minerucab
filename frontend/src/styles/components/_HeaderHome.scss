@@ -10,6 +10,41 @@
   color: white;
 }
 
+.SubHeaderHome
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  background: $blue;
+  height: 20px;
+  color: white;
+}
+
+.HeaderSubTitle
+{
+  font-size: 15px;
+  width: 35%;
+  text-align: center;
+  padding: 5px;
+
+}
+
+.HeaderSubTitle.y
+{
+  background: yellow;
+}
+
+.HeaderSubTitle.g
+{
+  background: green;
+}
+.HeaderSubTitle.b
+{
+  background: cyan;
+}
+
 .HeaderTitle
 {
   font-size: 30px;

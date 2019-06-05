@@ -1,0 +1,30 @@
+.HeaderHome
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 $s-size 0 $s-size;
+  background: $blue;
+  height: 100px;
+  color: white;
+}
+
+.HeaderTitle
+{
+  font-size: 30px;
+}
+
+
+.HeaderHomeLogo
+{
+  height: 50px;
+}
+
+.LoginButton
+{
+  font-size: 20px;
+  cursor: pointer;
+  height: 100%;
+  line-height: 100px;
+}

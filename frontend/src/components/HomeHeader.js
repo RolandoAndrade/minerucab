@@ -13,9 +13,9 @@ export class HomeHeader extends React.Component {
 
     render = () => (
         <div className="HeaderHome">
-            <img src="images/logo.png" className="Logo"/>
-            <h1>MinerUCAB</h1>
-            <button>Iniciar sesión <i className="fa fa-sign-in-alt"></i></button>
+            <img src="images/logo.png" className="HeaderHomeLogo"/>
+            <div className="HeaderTitle">MinerUCAB</div>
+            <div className="LoginButton">Iniciar sesión <i className="fa fa-sign-in-alt"></i></div>
         </div>
     )
 }

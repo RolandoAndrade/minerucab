@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {HomeHeader} from '../components/HomeHeader'
 
 
 export class Home extends React.Component {
@@ -23,19 +23,6 @@ export class Home extends React.Component {
 
   render = () => (
     <div>
-    {this.state.array.filter(
-      (e) => e > 2 )
-      .map( (e , posicion) => (
-      <div className="">
-        <div className="">
-          <h1 className="box-layout__title">MinerUCAB</h1>
-          {this.state.ver ? 
-            <p>{posicion}</p> :
-            <p>{posicion}</p>
-          }
-          <button className="button" onClick={this.login}>Login with Google</button>
-        </div>
-      </div>
-    ))}
+    {<HomeHeader/>}
   </div>)
 }

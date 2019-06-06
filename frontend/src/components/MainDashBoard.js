@@ -1,5 +1,6 @@
 import React from 'react';
 import {HeaderLogin} from "./HeaderLogin";
+import {DashBoardColumn} from "./DashBoardColumn";
 
 export class MainDashBoard extends React.Component {
 
@@ -12,6 +13,7 @@ export class MainDashBoard extends React.Component {
     render = () => (
         <div className="MainDashBoard">
             <HeaderLogin hideMenuButton={true}/>
+            <DashBoardColumn title="Lorem" sections={["Hola", "Como", "Estas"]}/>
         </div>
     )
 }

@@ -23,14 +23,30 @@ export class Home extends React.Component {
   }
 
   render = () => (
-    <div>
+    <div className="Home">
 
     {<HomeHeader/>}
-    {<HomeContainer left={true} image="images/home/minera.jpg"
+        {<div className="SubHeaderHome">
+            <div className="HeaderSubTitle y">Historia</div>
+            <div className="HeaderSubTitle b">Nosotros</div>
+            <div className="HeaderSubTitle g">Contacto</div>
+        </div>}
+    {<HomeContainer left={true} image="images/home/minera.jpg" title="Historia" center="right"
                     text="Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                     A architecto assumenda aut consequatur eaque eos fuga, ipsam libero,
                     quibusdam reprehenderit sapiente temporibus, vero voluptate.
                     Accusantium alias assumenda doloribus molestias praesentium."/>}
-
+    {<HomeContainer left={false} image="images/home/minera.jpg" title="Contacto" center="right"
+                    text="Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    A architecto assumenda aut consequatur eaque eos fuga, ipsam libero,
+                    quibusdam reprehenderit sapiente temporibus, vero voluptate.
+                    Accusantium alias assumenda doloribus molestias praesentium."/>
+    }
+    {<HomeContainer left={true} image="images/home/minera.jpg" title="Contacto" center="right"
+                    text="Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                   A architecto assumenda aut consequatur eaque eos fuga, ipsam libero,
+                   quibusdam reprehenderit sapiente temporibus, vero voluptate.
+                   Accusantium alias assumenda doloribus molestias praesentium."/>
+    }
   </div>)
 }

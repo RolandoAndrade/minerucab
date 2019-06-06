@@ -18,6 +18,9 @@
   align-items: center;
   padding: 0;
   color: white;
+  position: sticky;
+  z-index: 2;
+  top: 0;
 }
 
 .HeaderSubTitle
@@ -35,6 +38,7 @@
   height: 100%;
   align-items: center;
   justify-content: center;
+
 
 }
 .HeaderContent.align-left
@@ -77,6 +81,7 @@
   cursor: pointer;
   background: white;
   color: $header-color;
+  border: solid $header-color;
   border-radius: 15px;
   width: fit-content;
   height: fit-content;

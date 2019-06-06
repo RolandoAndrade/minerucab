@@ -10,14 +10,23 @@ export class HomeContainer extends React.Component {
     }
 
 
+    getStyle()
+    {
+        return {
+            background: "url("+this.props.image+")",
+            backgroundPosition: this.props.center,
+            backgroundSize: "cover"
+        }
+    }
+
     render = () => (
             <div className="HomeContainer">
                 <div className="ContainerBox">
-                    {this.props.left?<img src={this.props.image} className="ImageHome" alt=""/>:
-                        <div className="TextHome">{this.props.text}</div>}
+                    {this.props.left?
+                        <div className="ImageHome" style={this.getStyle()}/>:<div className="TextHome">{this.props.text}</div>}
                 </div>
                 <div className="ContainerBox">
-                    {!this.props.left?<img src={this.props.image} className="ImageHome" alt=""/>:
+                    {!this.props.left?<div className="ImageHome" style={this.getStyle()}/>:
                         <div className="TextHome">{this.props.text}</div>}
                 </div>
             </div>

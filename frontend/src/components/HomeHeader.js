@@ -24,11 +24,6 @@ export class HomeHeader extends React.Component {
                 <div className="LoginButton">Iniciar sesión <i className="fa fa-sign-in-alt"></i></div>
             </div>
         </div>
-        <div className="SubHeaderHome">
-            <div className="HeaderSubTitle y">Historia</div>
-            <div className="HeaderSubTitle b">Nosotros</div>
-            <div className="HeaderSubTitle g">Contacto</div>
-        </div>
         </div>
     )
 }

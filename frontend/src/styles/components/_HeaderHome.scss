@@ -29,6 +29,8 @@
   width: 35%;
   padding: 5px;
   text-align: center;
+  cursor: pointer;
+  transition: all 0.5s;
 }
 
 .HeaderContent
@@ -54,15 +56,27 @@
 {
   background: $yellow;
 }
-
+.HeaderSubTitle.y:hover
+{
+  background: #ffae35;
+}
 .HeaderSubTitle.g
 {
   background: $deep-green;
+}
+.HeaderSubTitle.g:hover
+{
+  background: #07340e;
 }
 .HeaderSubTitle.b
 {
   background: $cyan;
 }
+.HeaderSubTitle.b:hover
+{
+  background: #4e64ff;
+}
+
 
 .HeaderTitle
 {

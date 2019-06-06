@@ -1,7 +1,7 @@
 import React from 'react';
 import {HomeHeader} from '../components/HomeHeader'
 import {HomeContainer} from "../components/HomeContainer";
-
+import {SubHeader} from "../components/SubHeader";
 
 export class Home extends React.Component {
   constructor(props){
@@ -26,11 +26,7 @@ export class Home extends React.Component {
     <div className="Home">
 
     {<HomeHeader/>}
-        {<div className="SubHeaderHome">
-            <div className="HeaderSubTitle y">Historia</div>
-            <div className="HeaderSubTitle b">Nosotros</div>
-            <div className="HeaderSubTitle g">Contacto</div>
-        </div>}
+    {<SubHeader/>}
     {<HomeContainer left={true} image="images/home/minera.jpg" title="Historia" center="right"
                     text="En 1887 por iniciativa de un grupo de empresarios venezolanos nace la Corporación constituida en ciudad
 Bolívar, siendo las primeras minas en operación: Tumeremo. En 1967 es designado Presidente del Consejo de Administración el

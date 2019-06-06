@@ -26,8 +26,8 @@ export class HomeHeader extends React.Component {
         </div>
         <div className="SubHeaderHome">
             <div className="HeaderSubTitle y">Historia</div>
-            <div className="HeaderSubTitle g">Nosotros</div>
-            <div className="HeaderSubTitle b">Contacto</div>
+            <div className="HeaderSubTitle b">Nosotros</div>
+            <div className="HeaderSubTitle g">Contacto</div>
         </div>
         </div>
     )

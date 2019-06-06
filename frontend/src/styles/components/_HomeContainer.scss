@@ -1,0 +1,40 @@
+.Home
+{
+
+}
+
+.HomeContainer
+{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+
+  flex-wrap: wrap;
+
+}
+
+.ContainerBox
+{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 50%;
+}
+
+.ImageHome
+{
+  min-width: 0;
+}
+.ImageHome.img
+{
+  width: 100%;
+}
+.TextHome
+{
+  padding: 50px;
+  text-align: justify;
+}
+

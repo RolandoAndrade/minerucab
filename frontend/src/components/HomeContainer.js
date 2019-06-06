@@ -11,13 +11,15 @@ export class HomeContainer extends React.Component {
 
 
     render = () => (
-        <div className="HomeContainer">
-            <div className="ContainerBox">
-                {this.props.left?<img src={this.props.image} alt=""/>:"Hola"}
+            <div className="HomeContainer">
+                <div className="ContainerBox">
+                    {this.props.left?<img src={this.props.image} className="ImageHome" alt=""/>:
+                        <div className="TextHome">{this.props.text}</div>}
+                </div>
+                <div className="ContainerBox">
+                    {!this.props.left?<img src={this.props.image} className="ImageHome" alt=""/>:
+                        <div className="TextHome">{this.props.text}</div>}
+                </div>
             </div>
-            <div className="ContainerBox">
-                {!this.props.left?<img src={this.props.image} alt=""/>:"Hola"}
-            </div>
-        </div>
     )
 }

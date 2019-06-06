@@ -21,7 +21,7 @@ export class HomeHeader extends React.Component {
                 <div className="HeaderTitle">MinerUCAB</div>
             </div>
             <div className="HeaderContent align-right">
-                <div className="LoginButton">Iniciar sesión <i className="fa fa-sign-in-alt"></i></div>
+                <div className="LoginButton">Ingresar<i className="fa fa-sign-in-alt"></i></div>
             </div>
         </div>
         </div>

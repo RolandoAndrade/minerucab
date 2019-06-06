@@ -4,7 +4,7 @@ window.addEventListener("wheel",function (event)
 {
     if(event.deltaY>50)
     {
-        SubHeader.move(Math.min(3,SubHeader.number+1));
+        SubHeader.move(Math.min(2,SubHeader.number+1));
     }
     else if(event.deltaY<-50)
     {

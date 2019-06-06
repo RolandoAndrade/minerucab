@@ -35,16 +35,13 @@ Bolsa de Valores de Venezuela. En 1974 se inaugura la Refinería de Zinc en Bail
 América Latina. En 2015 la Corporación recibe un reconocimiento por parte del ejecutivo nacional como empresa líder en el
 mercado minero."/>}
     {<HomeContainer left={false} image="images/home/minera2.jpg" title="Nosotros" center="center"
-                    text="Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    A architecto assumenda aut consequatur eaque eos fuga, ipsam libero,
-                    quibusdam reprehenderit sapiente temporibus, vero voluptate.
-                    Accusantium alias assumenda doloribus molestias praesentium."/>
+                    text="MinerUCAB es una corporación nacional orgullosamente venezolana con 130 años de trayectoria, siendo uno de los actores clave en los sectores minero - metalúrgico y químico del país.
+                    Nosotros como la gran corporación nacional de desarrollo mineral nos dedicamos a la explotación de
+distintos miner     les presentes en Venezuela, sin embargo el 80% de nuestro trabajo va destinado a la
+explotación del     carbón."/>
     }
     {<HomeContainer left={true} image="images/home/minera3.jpg" title="Contacto" center="center"
-                    text="Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                   A architecto assumenda aut consequatur eaque eos fuga, ipsam libero,
-                   quibusdam reprehenderit sapiente temporibus, vero voluptate.
-                   Accusantium alias assumenda doloribus molestias praesentium."/>
+                    text="(212) 58743214"/>
     }
   </div>)
 }

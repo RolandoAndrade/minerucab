@@ -13,7 +13,12 @@ export class MainDashBoard extends React.Component {
     render = () => (
         <div className="MainDashBoard">
             <HeaderLogin hideMenuButton={true}/>
-            <DashBoardColumn title="Lorem" sections={["Hola", "Como", "Estas"]}/>
+            <div className="DashBoardItems">
+                <DashBoardColumn title="Lorem" sections={["Hola", "Como", "Estas"]}/>
+                <DashBoardColumn title="Lorem" sections={["Hola", "Como", "Estas"]}/>
+                <DashBoardColumn title="Lorem" sections={["Hola", "Como", "Estas"]}/>
+            </div>
+
         </div>
     )
 }

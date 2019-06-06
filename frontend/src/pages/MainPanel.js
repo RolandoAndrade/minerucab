@@ -1,4 +1,5 @@
 import React from 'react';
+import {MainDashBoard} from "../components/MainDashBoard";
 
 export class MainPanel extends React.Component {
     constructor(props){
@@ -15,7 +16,7 @@ export class MainPanel extends React.Component {
 
     render = () => (
         <div>
-           Estoy en el panel
+           <MainDashBoard/>
         </div>
     )
 }

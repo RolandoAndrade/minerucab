@@ -32,17 +32,19 @@ export class Home extends React.Component {
             <div className="HeaderSubTitle g">Contacto</div>
         </div>}
     {<HomeContainer left={true} image="images/home/minera.jpg" title="Historia" center="right"
-                    text="Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    A architecto assumenda aut consequatur eaque eos fuga, ipsam libero,
-                    quibusdam reprehenderit sapiente temporibus, vero voluptate.
-                    Accusantium alias assumenda doloribus molestias praesentium."/>}
-    {<HomeContainer left={false} image="images/home/minera.jpg" title="Contacto" center="right"
+                    text="En 1887 por iniciativa de un grupo de empresarios venezolanos nace la Corporación constituida en ciudad
+Bolívar, siendo las primeras minas en operación: Tumeremo. En 1967 es designado Presidente del Consejo de Administración el
+Lic. Pedro Pérez, quien ocupa el cargo a la fecha. En 1968 se constituye a la Corporación como empresa controladora, la que a su vez inicia su cotización en la
+Bolsa de Valores de Venezuela. En 1974 se inaugura la Refinería de Zinc en Bailadores Estado Mérida. En 2010 La Corporación se convierte en la primer empresa venezolana pionera en exportación de oro de
+América Latina. En 2015 la Corporación recibe un reconocimiento por parte del ejecutivo nacional como empresa líder en el
+mercado minero."/>}
+    {<HomeContainer left={false} image="images/home/minera2.jpg" title="Nosotros" center="center"
                     text="Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                     A architecto assumenda aut consequatur eaque eos fuga, ipsam libero,
                     quibusdam reprehenderit sapiente temporibus, vero voluptate.
                     Accusantium alias assumenda doloribus molestias praesentium."/>
     }
-    {<HomeContainer left={true} image="images/home/minera.jpg" title="Contacto" center="right"
+    {<HomeContainer left={true} image="images/home/minera3.jpg" title="Contacto" center="center"
                     text="Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                    A architecto assumenda aut consequatur eaque eos fuga, ipsam libero,
                    quibusdam reprehenderit sapiente temporibus, vero voluptate.

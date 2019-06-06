@@ -23,11 +23,12 @@ export class HomeContainer extends React.Component {
             <div className="HomeContainer">
                 <div className="ContainerBox">
                     {this.props.left?
-                        <div className="ImageHome" style={this.getStyle()}/>:<div className="TextHome">{this.props.text}</div>}
+                        <div className="ImageHome" style={this.getStyle()}/>:
+                        <div className="TextHome"><h1>{this.props.title}</h1><p>{this.props.text}</p></div>}
                 </div>
                 <div className="ContainerBox">
                     {!this.props.left?<div className="ImageHome" style={this.getStyle()}/>:
-                        <div className="TextHome">{this.props.text}</div>}
+                        <div className="TextHome"><h1>{this.props.title}</h1><p>{this.props.text}</p></div>}
                 </div>
             </div>
     )

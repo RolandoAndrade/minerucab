@@ -14,9 +14,9 @@ export class MainDashBoard extends React.Component {
         <div className="MainDashBoard">
             <HeaderLogin hideMenuButton={true}/>
             <div className="DashBoardItems">
-                <DashBoardColumn title="Lorem" sections={["Hola", "Como", "Estas"]}/>
-                <DashBoardColumn title="Lorem" sections={["Hola", "Como", "Estas"]}/>
-                <DashBoardColumn title="Lorem" sections={["Hola", "Como", "Estas"]}/>
+                <DashBoardColumn color="y" title="Lorem" sections={["Lorem", "ipsum", "sit"]}/>
+                <DashBoardColumn color="b" title="Lorem" sections={["ammet", "dolor", "sit"]}/>
+                <DashBoardColumn color="g" title="Lorem" sections={["rolando", "josé", "andrade"]}/>
             </div>
 
         </div>

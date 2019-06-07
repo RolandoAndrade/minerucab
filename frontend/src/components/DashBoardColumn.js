@@ -4,13 +4,14 @@ export class DashBoardColumn extends React.Component {
 
 
     render = () => (
-        <div className="DashBoardColumn">
+        <div className={"DashBoardColumn "+this.props.color}>
             <div className="ColumnTitle">
                 {this.props.title}
             </div>
             <div className="SectionsContainer">
                 <div className="SectionsDashboard">
-                    {this.props.sections.map(
+                    {
+                        this.props.sections.map(
                         function(element)
                         {
                             return <div key={element}>{element}</div>
@@ -19,7 +20,6 @@ export class DashBoardColumn extends React.Component {
                 </div>
             </div>
             <div className="ColumnImage">
-
             </div>
         </div>
     )

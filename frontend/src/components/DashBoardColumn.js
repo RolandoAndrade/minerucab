@@ -4,11 +4,11 @@ export class DashBoardColumn extends React.Component {
 
 
     render = () => (
-        <div className={"DashBoardColumn "+this.props.color}>
+        <div className={"DashBoardColumn "+this.props.color} style={(!this.props.main?{height: "50%"}:{})}>
             <div className={"ColumnTitle"+(this.props.main?" "+this.props.color:"")}>
                 {this.props.title}
             </div>
-            <div className="SectionsContainer">
+            <div className="SectionsContainer" style={(!this.props.main?{height: "100%"}:{})}>
                 <div className="SectionsDashboard">
                     {
                         this.props.sections.map(
@@ -19,9 +19,9 @@ export class DashBoardColumn extends React.Component {
                     }
                 </div>
             </div>
-            <div className="ColumnImage">
-                <img src={this.props.image} alt=""/>
-            </div>
+
+            {this.props.main?<div className="ColumnImage"><img src={this.props.image} alt=""/></div>:""}
+
         </div>
     )
 }

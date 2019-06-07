@@ -1,7 +1,7 @@
 import React from 'react';
 import {MainDashBoard} from "../components/MainDashBoard";
 
-export class MainPanel extends React.Component {
+export class TestPlayGround extends React.Component {
     constructor(props){
         super(props)
 
@@ -10,13 +10,9 @@ export class MainPanel extends React.Component {
         }
     }
 
-    login  = () => {
-
-    }
-
     render = () => (
         <div>
-           <MainDashBoard main={true}/>
+            <MainDashBoard main={false}/>
         </div>
     )
 }

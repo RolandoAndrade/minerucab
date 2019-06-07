@@ -14,8 +14,8 @@ export class DashBoardColumn extends React.Component {
                         this.props.sections.map(
                         function(element)
                         {
-                            return <div key={element}>{element}</div>
-                        })
+                            return <div key={element} className={"DisplayedSection "+this.props.color}>{element}</div>
+                        },this)
                     }
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 
+/*
 window.addEventListener("wheel",function (event)
 {
     if(event.deltaY>50)
@@ -10,7 +11,7 @@ window.addEventListener("wheel",function (event)
     {
         SubHeader.move(Math.max(0,SubHeader.number-1));
     }
-});
+});*/
 
 export class SubHeader extends React.Component {
 

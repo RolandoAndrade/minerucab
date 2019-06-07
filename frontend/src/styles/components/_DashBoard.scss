@@ -13,6 +13,7 @@
   width: 100%;
   height: 100%;
   text-align: center;
+  color: white;
 }
 .DashBoardColumn
 {
@@ -20,6 +21,7 @@
   flex-direction: column;
   width: 35%;
   height: 100%;
+
 }
 .DashBoardColumn.y
 {
@@ -52,6 +54,13 @@
 
 .ColumnImage
 {
+  display: flex;
   height: 50%;
+  align-items: center;
+  justify-content: center;
+}
+.ColumnImage img
+{
+  width: 70%;
 }
 

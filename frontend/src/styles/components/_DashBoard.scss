@@ -1,0 +1,30 @@
+.MainDashBoard
+{
+
+}
+.DashBoardItems
+{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  text-align: center;
+}
+.DashBoardColumn
+{
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  height: 100%;
+}
+
+.ColumnTitle
+{
+  padding: 15px;
+}
+
+.SectionsContainer
+{
+
+}

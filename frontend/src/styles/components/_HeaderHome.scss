@@ -1,0 +1,112 @@
+.HeaderHome
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 $s-size 0 $s-size;
+  background: $header-color;
+  height: $header-height;
+  color: white;
+}
+
+.SubHeaderHome
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  color: white;
+  position: sticky;
+  z-index: 2;
+  top: 0;
+}
+
+.HeaderSubTitle
+{
+  font-size: 15px;
+  width: 35%;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.HeaderContent
+{
+  display: flex;
+  width: 35%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+
+
+}
+.HeaderContent.align-left
+{
+  justify-content: left;
+}
+.HeaderContent.align-right
+{
+  justify-content: flex-end;
+}
+
+.HeaderSubTitle.y
+{
+  background: $yellow;
+}
+.HeaderSubTitle.y:hover
+{
+  background: #ffae35;
+}
+.HeaderSubTitle.g
+{
+  background: $deep-green;
+}
+.HeaderSubTitle.g:hover
+{
+  background: #07340e;
+}
+.HeaderSubTitle.b
+{
+  background: $cyan;
+}
+.HeaderSubTitle.b:hover
+{
+  background: #4e64ff;
+}
+
+
+.HeaderTitle
+{
+  font-size: 30px;
+}
+
+
+.HeaderHomeLogo
+{
+  height: 50%;
+}
+
+.LoginButton
+{
+  font-size: 20px;
+  cursor: pointer;
+  background: white;
+  color: $header-color;
+  border: solid $header-color;
+  border-radius: 15px;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px 20px;
+  float: right;
+}
+
+.LoginButton:hover
+{
+  background: $header-color;
+  border: solid white;
+  color: white;
+  transition: all 0.5s;
+}

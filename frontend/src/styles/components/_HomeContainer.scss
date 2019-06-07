@@ -1,0 +1,47 @@
+.Home
+{
+  width: 100%;
+  height: 305vh;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.HomeContainer
+{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.HomeContainer h1
+{
+  padding-bottom: 50px;
+  text-align: center;
+  font-size: 26px;
+}
+
+.ContainerBox
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+}
+
+.ImageHome
+{
+  width: 100%;
+  height: 100%;
+}
+
+.TextHome
+{
+  padding: 50px;
+  text-align: justify;
+}
+

@@ -40,7 +40,26 @@
 
 .ColumnTitle
 {
-  padding: 15px;
+  padding: 20px;
+  font-weight: bold;
+}
+
+.ColumnTitle.y
+{
+  color: $yellow;
+  background: white;
+}
+
+.ColumnTitle.b
+{
+  color: $azul-ucab;
+  background: white;
+}
+
+.ColumnTitle.g
+{
+  color: $verde-ucab;
+  background: white;
 }
 
 

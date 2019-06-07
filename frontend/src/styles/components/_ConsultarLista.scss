@@ -1,6 +1,6 @@
 .TituloTabla {
     text-align: center;
-    background: yellow;
+    background: $amarillo-ucab;
 }
 
 .TituloTabla h1 {
@@ -31,7 +31,7 @@
 .TituloColumna {
     text-align: center;
     width: 20%;
-    background: $green;
+    background: $verde-ucab;
     color: white;
 }
 
@@ -49,6 +49,6 @@
 }
 
 .IconoAgregar {
-    color:$green;
+    color:$verde-ucab;
     cursor: pointer;
 }

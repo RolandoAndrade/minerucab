@@ -43,7 +43,8 @@ distintos miner     les presentes en Venezuela, sin embargo el 80% de nuestro tr
 explotación del     carbón."/>
     }
     {<HomeContainer left={true} image="images/home/minera3.jpg" title="Contacto" center="center"
-                    text="(212) 58743214"/>
+                    text={["(212) 58743214","(212) 1198754","contacto@minerucab.ve","@minerucab"]}
+                    icons={["fas fa-user-circle fa-3x","fas fa-phone-alt","fa fa-mail","fa fa-react"]}/>
     }
     </div>
   </div>)

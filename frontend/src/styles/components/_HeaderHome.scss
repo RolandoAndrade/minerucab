@@ -21,6 +21,7 @@
   position: sticky;
   z-index: 2;
   top: 0;
+  height: 36px;
 }
 
 .HeaderSubTitle
@@ -31,6 +32,7 @@
   text-align: center;
   cursor: pointer;
   transition: all 0.5s;
+  height: 100%;
 }
 
 .HeaderContent

@@ -27,7 +27,9 @@ export class Home extends React.Component {
 
     {<HomeHeader/>}
     {<SubHeader/>}
-    {<HomeContainer left={true} image="images/home/minera.jpg" title="Historia" center="right"
+    <div className="HomeContent">
+    {
+      <HomeContainer left={true} image="images/home/minera.jpg" title="Historia" center="right"
                     text="En 1887 por iniciativa de un grupo de empresarios venezolanos nace la Corporación constituida en ciudad
 Bolívar, siendo las primeras minas en operación: Tumeremo. En 1967 es designado Presidente del Consejo de Administración el
 Lic. Pedro Pérez, quien ocupa el cargo a la fecha. En 1968 se constituye a la Corporación como empresa controladora, la que a su vez inicia su cotización en la
@@ -43,5 +45,6 @@ explotación del     carbón."/>
     {<HomeContainer left={true} image="images/home/minera3.jpg" title="Contacto" center="center"
                     text="(212) 58743214"/>
     }
+    </div>
   </div>)
 }

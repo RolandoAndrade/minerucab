@@ -29,22 +29,22 @@ export class Home extends React.Component {
     {<SubHeader/>}
     <div className="HomeContent">
     {
-      <HomeContainer left={true} image="images/home/minera.jpg" title="Historia" center="right"
+      <HomeContainer left={true} image="resources/img/Home01.jpg" title="Historia" center="right"
                     text="En 1887 por iniciativa de un grupo de empresarios venezolanos nace la Corporación constituida en ciudad
 Bolívar, siendo las primeras minas en operación: Tumeremo. En 1967 es designado Presidente del Consejo de Administración el
 Lic. Pedro Pérez, quien ocupa el cargo a la fecha. En 1968 se constituye a la Corporación como empresa controladora, la que a su vez inicia su cotización en la
 Bolsa de Valores de Venezuela. En 1974 se inaugura la Refinería de Zinc en Bailadores Estado Mérida. En 2010 La Corporación se convierte en la primer empresa venezolana pionera en exportación de oro de
 América Latina. En 2015 la Corporación recibe un reconocimiento por parte del ejecutivo nacional como empresa líder en el
 mercado minero."/>}
-    {<HomeContainer left={false} image="images/home/minera2.jpg" title="Nosotros" center="center"
+    {<HomeContainer left={false} image="resources/img/Home02.jpg" title="Nosotros" center="center"
                     text="MinerUCAB es una corporación nacional orgullosamente venezolana con 130 años de trayectoria, siendo uno de los actores clave en los sectores minero - metalúrgico y químico del país.
                     Nosotros como la gran corporación nacional de desarrollo mineral nos dedicamos a la explotación de
 distintos miner     les presentes en Venezuela, sin embargo el 80% de nuestro trabajo va destinado a la
 explotación del     carbón."/>
     }
-    {<HomeContainer left={true} image="images/home/minera3.jpg" title="Contacto" center="center"
-                    text={["(212) 58743214","(212) 1198754","contacto@minerucab.ve","@minerucab"]}
-                    icons={["fas fa-user-circle fa-3x","fas fa-phone-alt","fa fa-mail","fa fa-react"]}/>
+    {<HomeContainer left={true} image="resources/img/Home03.jpg" title="Contacto" center="center"
+                    text={["(212) 58743214","(212) 11987544","contacto@minerucab.ve","@minerucab"]}
+                    icons={["zmdi zmdi-phone","zmdi zmdi-phone","zmdi zmdi-email","zmdi zmdi-twitter"]}/>
     }
     </div>
   </div>)

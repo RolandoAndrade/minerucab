@@ -38,7 +38,7 @@ export class HomeContainer extends React.Component {
                             {!this.props.icons?<p>{this.props.text}</p>:
                                 this.props.text.map(function (element,i)
                                 {
-                                    return <span><i className={this.props.icons[i]/*"fas fa-user-circle fa-3x"*/}></i>{element}</span>
+                                    return <span className="HomeLine"><i className={this.props.icons[i]/*"fas fa-user-circle fa-3x"*/}></i>{element}</span>
                                 },this)
                             }</div>}
                 </div>

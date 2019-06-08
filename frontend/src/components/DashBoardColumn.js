@@ -4,7 +4,7 @@ export class DashBoardColumn extends React.Component {
 
 
     render = () => (
-        <div className={"DashBoardColumn "+this.props.color} style={(!this.props.main?{height: "50%"}:{})}>
+        <div className={"DashBoardColumn "+this.props.color} style={(!this.props.main?{height: "50vh"}:{})}>
             <div className={"ColumnTitle"+(this.props.main?" "+this.props.color:"")}>
                 {this.props.title}
             </div>

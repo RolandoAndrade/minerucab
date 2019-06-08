@@ -1,4 +1,5 @@
 import React from 'react';
+import {TestPlayGround} from "../pages/TestPlayGround";
 
 export class HeaderLogin extends React.Component {
   constructor(props){
@@ -10,7 +11,7 @@ export class HeaderLogin extends React.Component {
   }
 
   handleShowDashboard  = () => {
-    console.log("handleShowDashboard")
+    TestPlayGround.clickMenu()
   }
 
   render = () => (

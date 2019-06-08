@@ -10,7 +10,7 @@ export class DashBoardSimple extends React.Component {
 
 
     render = () => (
-        <div className="DashBoardSimple">
+        <div className="DashBoardSimple" id="DashBoardSimple">
             <div className="DashBoardItems">
                 <DashBoardColumn main={this.props.main} image="resources/img/Dashboard_1.png" color="y"
                                  title="Administración" sections={["Usuarios", "Roles", "Minerales","Yacimientos", "Depósitos", "Plantas","Procesos", "Productos", "Maquinaria"]}/>

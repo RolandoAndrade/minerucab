@@ -12,10 +12,28 @@ export class TestPlayGround extends React.Component {
         }
     }
 
+    static clickMenu()
+    {
+        let element = document.getElementById("DashboardMenu");
+        if(element.classList.contains("Up"))
+        {
+            element.classList.remove("Up");
+            element.classList.add("Down");
+        }
+        else
+        {
+            element.classList.remove("Down");
+            element.classList.add("Up");
+        }
+
+    }
     render = () => (
         <div className="TestPlayGround">
             <HeaderLogin hideMenuButton={this.props.main}/>
-            <DashBoardSimple main={false}/>
+            <div id="DashboardMenu" className="DashBoardMenu Down">
+                <DashBoardSimple main={false}/>
+            </div>
+
             <div>
                 <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, ab architecto consequuntur corporis
                     dicta dolores ducimus exercitationem ipsum, iusto minima minus molestiae nobis odio praesentium quia

@@ -11,7 +11,23 @@
   display: flex;
   position: relative;
   height: 100%;
+
 }
+.DashBoardMenu
+{
+  z-index: 100;
+  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
+}
+.DashBoardMenu.Up
+{
+  transform: translate(0,-50vh);
+}
+.DashBoardMenu.Down
+{
+  transform: translate(0,0);
+}
+
+
 .DashBoardItems
 {
   display: flex;

@@ -1,5 +1,5 @@
 import React from 'react';
-import {TestPlayGround} from "../pages/TestPlayGround";
+import {MenuDashBoard} from "./MenuDashBoard";
 
 export class HeaderLogin extends React.Component {
   constructor(props){
@@ -11,7 +11,7 @@ export class HeaderLogin extends React.Component {
   }
 
   handleShowDashboard  = () => {
-    TestPlayGround.clickMenu()
+    MenuDashBoard.clickMenu()
   }
 
   render = () => (

@@ -1,6 +1,7 @@
 import React from 'react';
 import {HeaderLogin} from "./HeaderLogin";
 import {DashBoardColumn} from "./DashBoardColumn";
+import {DashBoardSimple} from "./DashBoardSimple";
 
 export class MainDashBoard extends React.Component {
 
@@ -12,13 +13,8 @@ export class MainDashBoard extends React.Component {
 
     render = () => (
         <div className="MainDashBoard">
-            <HeaderLogin hideMenuButton={true}/>
-            <div className="DashBoardItems">
-                <DashBoardColumn title="Lorem" sections={["Hola", "Como", "Estas"]}/>
-                <DashBoardColumn title="Lorem" sections={["Hola", "Como", "Estas"]}/>
-                <DashBoardColumn title="Lorem" sections={["Hola", "Como", "Estas"]}/>
-            </div>
-
+            <HeaderLogin hideMenuButton={this.props.main}/>
+            <DashBoardSimple main={true}/>
         </div>
     )
 }

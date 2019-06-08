@@ -16,7 +16,7 @@ export class MainPanel extends React.Component {
 
     render = () => (
         <div>
-           <MainDashBoard/>
+           <MainDashBoard main={true}/>
         </div>
     )
 }

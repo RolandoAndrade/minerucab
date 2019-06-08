@@ -4,23 +4,24 @@ export class DashBoardColumn extends React.Component {
 
 
     render = () => (
-        <div className="DashBoardColumn">
-            <div className="ColumnTitle">
+        <div className={"DashBoardColumn "+this.props.color} style={(!this.props.main?{height: "50vh"}:{})}>
+            <div className={"ColumnTitle"+(this.props.main?" "+this.props.color:"")}>
                 {this.props.title}
             </div>
-            <div className="SectionsContainer">
+            <div className="SectionsContainer" style={(!this.props.main?{height: "100%"}:{})}>
                 <div className="SectionsDashboard">
-                    {this.props.sections.map(
+                    {
+                        this.props.sections.map(
                         function(element)
                         {
-                            return <div key={element}>{element}</div>
-                        })
+                            return <div key={element} className={"DisplayedSection "+this.props.color}>{element}</div>
+                        },this)
                     }
                 </div>
             </div>
-            <div className="ColumnImage">
 
-            </div>
+            {this.props.main?<div className="ColumnImage"><img src={this.props.image} alt=""/></div>:""}
+
         </div>
     )
 }

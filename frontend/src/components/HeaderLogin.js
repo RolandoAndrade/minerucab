@@ -1,4 +1,5 @@
 import React from 'react';
+import {MenuDashBoard} from "./MenuDashBoard";
 
 export class HeaderLogin extends React.Component {
   constructor(props){
@@ -10,7 +11,7 @@ export class HeaderLogin extends React.Component {
   }
 
   handleShowDashboard  = () => {
-    console.log("handleShowDashboard")
+    MenuDashBoard.clickMenu()
   }
 
   render = () => (

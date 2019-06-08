@@ -2,6 +2,7 @@ import React from 'react';
 
 import {HeaderLogin} from '../components/HeaderLogin'
 import {ConsultarLista} from '../components/ConsultarLista'
+import {MenuDashBoard} from "../components/MenuDashBoard";
 
 
 export class Mineral extends React.Component {
@@ -25,7 +26,7 @@ export class Mineral extends React.Component {
 
   render = () => (
     <div>
-        <HeaderLogin />
+        <MenuDashBoard/>
 
         <ConsultarLista
             tabla="Mineral"

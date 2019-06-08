@@ -1,15 +1,42 @@
 .MainDashBoard
 {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.DashBoardSimple
+{
+  display: flex;
+  position: relative;
+  height: 100%;
 
 }
+.DashBoardMenu
+{
+  z-index: 100;
+  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
+}
+.DashBoardMenu.Up
+{
+  transform: translate(0,-50vh);
+}
+.DashBoardMenu.Down
+{
+  transform: translate(0,0);
+}
+
+
 .DashBoardItems
 {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 100%;
-  position: absolute;
   text-align: center;
+  color: white;
+  position: absolute;
 }
 .DashBoardColumn
 {
@@ -17,14 +44,102 @@
   flex-direction: column;
   width: 35%;
   height: 100%;
+
+}
+.DashBoardColumn.y
+{
+  background: $amarillo-ucab;
+}
+
+.DashBoardColumn.b
+{
+  background: $azul-ucab;
+}
+
+.DashBoardColumn.g
+{
+  background: $verde-ucab;
 }
 
 .ColumnTitle
 {
-  padding: 15px;
+  font-size: 18px;
+  padding: 20px;
+  font-weight: bold;
 }
+
+.ColumnTitle.y
+{
+  color: $yellow;
+  background: white;
+}
+
+.ColumnTitle.b
+{
+  color: $azul-ucab;
+  background: white;
+}
+
+.ColumnTitle.g
+{
+  color: $verde-ucab;
+  background: white;
+}
+
 
 .SectionsContainer
 {
+  display: flex;
+  height: 50%;
+  align-items: center;
+  justify-content: center;
 
+}
+
+.ColumnImage
+{
+  display: flex;
+  height: 50%;
+  align-items: center;
+  justify-content: center;
+}
+
+.ColumnImage img
+{
+  width: 70%;
+}
+.DisplayedSection
+{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+
+  transition: all 0.5s;
+  cursor: pointer;
+}
+.DisplayedSection.y:hover
+{
+  background: darken($amarillo-ucab,10%);
+}
+
+.DisplayedSection.b:hover
+{
+  background: darken($azul-ucab,10%);
+}
+
+.DisplayedSection.g:hover
+{
+  background: darken($verde-ucab,10%);
+}
+
+.SectionsDashboard
+{
+  display: grid;
+  grid-template-rows: repeat(5, auto);
+  width: 100%;
+  height: 100%;
+
+  grid-auto-flow: column;
 }

@@ -21,6 +21,7 @@
   position: sticky;
   z-index: 2;
   top: 0;
+  height: 36px;
 }
 
 .HeaderSubTitle
@@ -31,6 +32,7 @@
   text-align: center;
   cursor: pointer;
   transition: all 0.5s;
+  height: 100%;
 }
 
 .HeaderContent
@@ -54,27 +56,28 @@
 
 .HeaderSubTitle.y
 {
-  background: $yellow;
+  background: $amarillo-ucab;
 }
 .HeaderSubTitle.y:hover
 {
-  background: #ffae35;
+  background: darken($amarillo-ucab,10%);
 }
 .HeaderSubTitle.g
 {
-  background: $deep-green;
+  background: $verde-ucab;
+
 }
 .HeaderSubTitle.g:hover
 {
-  background: #07340e;
+  background: darken($verde-ucab,10%);
 }
 .HeaderSubTitle.b
 {
-  background: $cyan;
+  background: $azul-ucab;
 }
 .HeaderSubTitle.b:hover
 {
-  background: #4e64ff;
+  background: darken($azul-ucab,10%);
 }
 
 

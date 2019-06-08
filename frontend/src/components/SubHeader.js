@@ -25,10 +25,12 @@ export class SubHeader extends React.Component {
 
     static move(number)
     {
+        let a=document.getElementsByClassName("HomeContainer")[number];
+        console.log(a.offsetTop);
         window.scrollTo({
             'behavior': 'smooth',
             'left': 0,
-            'top': window.outerHeight*number*0.95
+            'top': a.offsetTop-35
         });
         SubHeader.number=number;
 

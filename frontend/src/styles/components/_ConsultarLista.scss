@@ -1,22 +1,33 @@
 .TituloTabla {
     text-align: center;
-    background: $amarillo-ucab;
-}
+    background: $amarillo-claro;
 
-.TituloTabla h1 {
-    margin: 0;
-    margin-bottom: $xl-size;
-    padding: $s-size;
+    h1 {
+        margin: 0;
+        margin-bottom: $xl-size;
+        padding: $s-size;
+        font-size: $xl-size;
+    }
 }
 
 .Buscador {
     padding: 0 5%;
     width: 100%;
-}
+    margin-bottom: 5px;
 
-.Buscador input {
-    margin-right: $s-size;
-}
+    input {
+        margin-right: $s-size;
+        background: $azul-ucab;
+        border: none;
+        width: 40%;
+        padding-left: 10px;
+        color:white;
+    }
+
+    input::placeholder {
+        color: white;
+    }
+}    
 
 .Tabla {
     padding: 0 5%;
@@ -26,10 +37,15 @@
 .Columnas {
     display: flex;
     flex-direction: row;
+    margin-bottom: -10px;
+    border-left: 1px solid #E6E6E6;
+    border-right: 1px solid #E6E6E6;
 }
 
 .TituloColumna {
     text-align: center;
+    border-left: 1px solid #E6E6E6;
+    border-right: 1px solid #E6E6E6;
     width: 20%;
     background: $verde-ucab;
     color: white;
@@ -39,13 +55,22 @@
     width: 100%;
     display: flex;
     flex-direction: row;
+    cursor: pointer;
+    margin-bottom: -10px;
+
+    .Atributo {
+        text-align: center;
+        width: 20%;
+        background: white;
+        color: $grey;
+        border-left: 1px solid #E6E6E6;
+        border-right: 1px solid #E6E6E6;
+        height: 100%;
+    }
 }
 
-.Tupla .Atributo {
-    text-align: center;
-    width: 20%;
-    background: white;
-    color: $grey;
+.FinalTabla {
+    border-top: 2px solid #E6E6E6;
 }
 
 .IconoAgregar {

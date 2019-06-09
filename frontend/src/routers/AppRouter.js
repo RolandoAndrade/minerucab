@@ -11,6 +11,7 @@ import {PublicRoute} from './PublicRoute';
 import {Home} from '../pages/Home';
 import {NotFoundPage} from '../pages/NotFoundPage';
 import {Mineral} from '../pages/Mineral';
+import {MineralAgregar} from '../pages/MineralAgregar';
 //import Dashboard from '../pages/Home';
 //import Pagina1 from '../pages/Pagina1';
 //import Pagina2 from '../pages/Pagina2';
@@ -27,6 +28,7 @@ const AppRouter = () => (
         {/* PAGINAS QUE CARGAN DESLOGEADO */}
         <PublicRoute path="/" component={Home} exact={true} />
         <PublicRoute path="/mineral" component={Mineral} />
+        <PublicRoute path="/mineral-agregar" component={MineralAgregar} />
 
         {/* 
           PAGINAS QUE CARGAN LOGEADOS 

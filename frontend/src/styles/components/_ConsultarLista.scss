@@ -21,13 +21,23 @@
         border: none;
         width: 40%;
         padding-left: 10px;
+        padding-right: 40px;
         color:white;
+        z-index: -5;
     }
 
     input::placeholder {
         color: white;
     }
-}    
+
+    .field-icon {
+        margin-left: -40px;
+        margin-right: 20px;
+        color: white;
+    }
+}
+
+
 
 .Tabla {
     padding: 0 5%;
@@ -38,14 +48,14 @@
     display: flex;
     flex-direction: row;
     margin-bottom: -10px;
-    border-left: 1px solid #E6E6E6;
-    border-right: 1px solid #E6E6E6;
+    border-left: 1px solid $gris-claro;
+    border-right: 1px solid $gris-claro;
 }
 
 .TituloColumna {
     text-align: center;
-    border-left: 1px solid #E6E6E6;
-    border-right: 1px solid #E6E6E6;
+    border-left: 1px solid $gris-claro;
+    border-right: 1px solid $gris-claro;
     width: 20%;
     background: $verde-ucab;
     color: white;
@@ -63,17 +73,17 @@
         width: 20%;
         background: white;
         color: $grey;
-        border-left: 1px solid #E6E6E6;
-        border-right: 1px solid #E6E6E6;
+        border-left: 1px solid $gris-claro;
+        border-right: 1px solid $gris-claro;
         height: 100%;
     }
 }
 
 .FinalTabla {
-    border-top: 2px solid #E6E6E6;
+    border-top: 2px solid $gris-claro;
 }
 
 .IconoAgregar {
-    color:$verde-ucab;
     cursor: pointer;
+    margin-right: 10px;
 }

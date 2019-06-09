@@ -43,8 +43,10 @@
     display: inline-block;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+    z-index: -1;
 } 
 .form-switch i {
+    z-index: -1;
     position: relative;
     display: inline-block;
     margin-right: .5rem;
@@ -56,6 +58,7 @@
     transition: all 0.3s linear;
 }
 .form-switch i::before {
+    z-index: -1;
     content: "";
     position: absolute;
     left: 0;
@@ -67,6 +70,7 @@
     transition: all 0.25s linear;
 }
 .form-switch i::after {
+    z-index: -1;    
     content: "";
     position: absolute;
     left: 0;
@@ -79,11 +83,12 @@
     transition: all 0.2s ease-in-out;
 }
 .form-switch:active i::after {
+    z-index: -1;
     width: 28px;
     transform: translate3d(2px, 2px, 0);
 }
-.form-switch:active input:checked + i::after { transform: translate3d(16px, 2px, 0); }
-.form-switch input { display: none; }
-.form-switch input:checked + i { background-color: $azul-ucab; }
-.form-switch input:checked + i::before { transform: translate3d(18px, 2px, 0) scale3d(0, 0, 0); }
-.form-switch input:checked + i::after { transform: translate3d(22px, 2px, 0); }
+.form-switch:active input:checked + i::after { transform: translate3d(16px, 2px, 0); z-index: -1; }
+.form-switch input { display: none; z-index: -1;}
+.form-switch input:checked + i { background-color: $azul-ucab; z-index: -1;}
+.form-switch input:checked + i::before { transform: translate3d(18px, 2px, 0) scale3d(0, 0, 0); z-index: -1;}
+.form-switch input:checked + i::after { transform: translate3d(22px, 2px, 0); z-index: -1;}

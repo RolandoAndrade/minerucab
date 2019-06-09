@@ -3,7 +3,7 @@ import React from 'react';
 import {Modal, Button} from 'react-bootstrap';
 
 import {API} from '../API/API'
-import {HeaderLogin} from '../components/HeaderLogin'
+import {MenuDashBoard} from "../components/MenuDashBoard";
 
 const columnas = ["ID", "Nombre", "esMetal?", "esRadioactivo?", "Nacionalizado"] 
 
@@ -85,7 +85,7 @@ export class MineralAgregar extends React.Component {
   
   render = () => (
     <div>
-        <HeaderLogin />
+        <MenuDashBoard />
 
         <div>
             <div className="TituloTabla">

@@ -18,8 +18,14 @@ export class EmpleadosCrear extends React.Component {
     render = () => (
         <div>
             <MenuDashBoard/>
-            <div className="WideContainer">
-                <Dropdown placeholder="Cargo" id="CargoSelect" options={["Lorem Ipsum","Dolor sit","Amet consectetur"]}/>
+            <div className="RowContainer">
+                <div className="WideContainer">
+                    <Dropdown placeholder="Cargo" id="Cargo" options={["Lorem Ipsum","Dolor sit","Amet consectetur"]}/>
+                </div>
+                <div className="WideContainer">
+                </div>
+                <div className="WideContainer">
+                </div>
             </div>
         </div>
     )

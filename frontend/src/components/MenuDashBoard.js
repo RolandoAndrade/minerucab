@@ -15,17 +15,22 @@ export class MenuDashBoard extends React.Component {
     {
         let element = document.getElementById("DashboardMenu");
         let back = document.getElementById("DarkBackground");
+        let icon = document.getElementById("IconoMenu");
         if(element.classList.contains("Up"))
         {
             element.classList.remove("Up");
             element.classList.add("Down");
             back.style.visibility="visible";
+            icon.classList.remove("zmdi-menu");
+            icon.classList.add("zmdi-close");
         }
         else
         {
             element.classList.remove("Down");
             element.classList.add("Up");
             back.style.visibility="hidden";
+            icon.classList.remove("zmdi-close");
+            icon.classList.add("zmdi-menu");
         }
 
     }

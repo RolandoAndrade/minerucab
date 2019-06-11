@@ -13,6 +13,7 @@ import {NotFoundPage} from '../pages/NotFoundPage';
 import {Mineral} from '../pages/Mineral';
 import {MainPanel} from "../pages/MainPanel";
 import {MineralAgregar} from '../pages/MineralAgregar';
+import {MineralEditar} from '../pages/MineralEditar';
 //import Dashboard from '../pages/Home';
 //import Pagina1 from '../pages/Pagina1';
 //import Pagina2 from '../pages/Pagina2';
@@ -31,6 +32,7 @@ const AppRouter = () => (
         <PublicRoute path="/mineral" component={Mineral} />
         <PublicRoute path="/panel" component={MainPanel} />
         <PublicRoute path="/mineral-agregar" component={MineralAgregar} />
+        <PublicRoute path="/mineral-editar/:id" component={MineralEditar} />
 
         {/* 
           PAGINAS QUE CARGAN LOGEADOS 

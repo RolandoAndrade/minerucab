@@ -39,7 +39,14 @@
 
 .mc-boton {
     padding: 0 50px;
-    font-size: $l-size;
+    margin-left: 5px;
+    margin-left: 5px;
+    font-size: $xm-size;
+}
+
+.mc-boton-guardar {
+    background: $azul-ucab;
+    border: none;
 }
 
 .mc-atributo {

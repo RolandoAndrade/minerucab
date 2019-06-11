@@ -8,15 +8,18 @@ import {MenuDashBoard} from "../components/MenuDashBoard";
 
 const columnas = ["ID", "Nombre", "esMetal?", "esRadioactivo?", "Nacionalizado"] 
 
-export class MineralAgregar extends React.Component {
+export class MineralEditar extends React.Component {
   constructor(props){
     super(props)
     
+    console.log("consultarTodos( Mineral )")
     this.state  = {
-        minerales : null,
+        minerales : API.consultarTodos("Mineral"),
         nuevo_mineral: {
+            id: 0,
             esMetal : false,
             esRadioactivo : false,
+            nacionalizado : ""
         },
         compuestos : [],
         por_componer : null,
@@ -28,9 +31,12 @@ export class MineralAgregar extends React.Component {
   }
 
   componentDidMount = () => {
-    console.log("consultarTodos( Mineral )")
+    const id = Number.parseInt (this.props.location.pathname.split("/")[2] , 10)
+    const mineral =  this.state.minerales.find( m => m.id === id)
+
     this.setState({
-        minerales : API.consultarTodos("Mineral")
+        nuevo_mineral : { ...mineral, id },
+        compuestos : mineral.compuestos || [] 
     })
   }
 
@@ -102,7 +108,7 @@ export class MineralAgregar extends React.Component {
         compuestos: this.state.compuestos
     }
 
-    console.log("agregarMineral()")
+    console.log("editarMineral()")
     console.log(nuevo_mineral)
 
     this.handleCancelar()
@@ -139,11 +145,16 @@ export class MineralAgregar extends React.Component {
 
         <div>
             <div className="TituloTabla">
-              <h1>Crear Mineral</h1>
+              <h1>Editar Mineral: <span style={{fontWeight: "bold"}}>{this.state.nuevo_mineral.nombre}</span></h1>
             </div>
-
+            
+            { this.state.nuevo_mineral &&
             <div className="CrearElemento">
                 <form>
+                    <p>
+                        <span className="mc-atributo">ID</span><span> : </span>
+                        <span>{this.state.nuevo_mineral.id.toString(10).padStart(4, '0')}</span>
+                    </p>
                     <p>
                         <span className="mc-atributo">Nombre</span><span> : </span>
                         <input 
@@ -151,6 +162,7 @@ export class MineralAgregar extends React.Component {
                             type="text"
                             placeholder="nombre ..."
                             onChange={this.handleChange}
+                            value={this.state.nuevo_mineral.nombre}
                         />
                     </p>
                     <p>
@@ -183,6 +195,7 @@ export class MineralAgregar extends React.Component {
                             type="date"
                             name="nacionalizado"
                             onChange={this.handleChange}
+                            value={this.state.nuevo_mineral.nacionalizado}
                         />
                     </p>
                     <p>
@@ -191,13 +204,14 @@ export class MineralAgregar extends React.Component {
                             name="descripcion"
                             placeholder="descripción ..."
                             onChange={this.handleChange}
+                            value={this.state.nuevo_mineral.descripcion}
                         />
                     </p>
                     <div className="compuesto-de">
                             <span className="mc-atributo">Compuesto de</span><span> : </span>
                             {this.state.compuestos.map( (compuesto, i) => (
                                 <div className="compuesto" key={i}>
-                                    <span>${compuesto.nombre}</span>
+                                    <span>{compuesto.nombre}</span>
                                     <img 
                                         src="../resources/icons/Eliminar.png"
                                         width="20px"
@@ -232,7 +246,7 @@ export class MineralAgregar extends React.Component {
                         </Button>
                     </div>
                 </form>
-            </div>
+            </div> }
 
             {this.state.goMineral && <Redirect to="/mineral" /> }
 
@@ -271,7 +285,8 @@ export class MineralAgregar extends React.Component {
                         {   this.state.minerales &&
                             this.state.minerales.filter( 
                                 (m) => m.nombre.toLowerCase().includes( this.state.textoBuscardor.toLowerCase() ) &&  
-                                    !this.state.compuestos.find( (c) => c.id === m.id)
+                                    !this.state.compuestos.find( (c) => c.id === m.id) &&
+                                    m.id !== this.state.nuevo_mineral.id
                             )
                             .map ( (mineral) => (
                             <div 

@@ -50,6 +50,9 @@ export class Mineral extends React.Component {
 
   handleModificar = () => {
     console.log(`modificarMineral(${this.state.consultarMineral.id})`)
+    this.setState({
+      modificarMineral : this.state.consultarMineral.id
+    })
   }
 
   handleEliminar = () => {
@@ -82,6 +85,7 @@ export class Mineral extends React.Component {
                   placeholder="Buscar nombre..." 
                   onChange={this.handleBuscar}
               />
+              <span className="fa fa-fw fa-search field-icon"></span>
               <img 
                   src="../resources/icons/Agregar.png"
                   width="25px"
@@ -109,7 +113,7 @@ export class Mineral extends React.Component {
                       key={mineral.id}
                       onClick={() => this.handleConsultar(mineral.id)}
                   >
-                    <p className="Atributo"> {mineral.id} </p>
+                    <p className="Atributo"> {mineral.id.toString(10).padStart(4, '0')} </p>
                     <p className="Atributo"> {mineral.nombre} </p>
                     <p className="Atributo"> {mineral.esMetal ? "Si" : "No"} </p>
                     <p className="Atributo"> {mineral.esRadioactivo ? "Si" : "No"} </p>
@@ -119,7 +123,8 @@ export class Mineral extends React.Component {
               <div className="Tupla">No existen minerales registrados</div>
             }
 
-              <div className="FinalTabla"></div>
+            {!!this.state.minerales && <div className="FinalTabla"></div>}
+            
           </div>
 
           {!!this.state.consultarMineral && 
@@ -139,7 +144,7 @@ export class Mineral extends React.Component {
             <Modal.Body className="mc-body"> 
               <p>
                 <span className="mc-atributo">ID</span>
-                <span> : {this.state.consultarMineral.id}</span>
+                <span> : {this.state.consultarMineral.id.toString(10).padStart(4, '0')}</span>
               </p>
               <p>
                 <span className="mc-atributo">esMetal?</span>
@@ -167,7 +172,7 @@ export class Mineral extends React.Component {
               <p><span className="mc-atributo">Compuesto de</span><span> :</span></p>
               { this.state.consultarMineral.compuestos ?
                 this.state.consultarMineral.compuestos.map( (compuesto, i) => (
-                  <p className="mc-multivalor" key={i}>- {compuesto}</p>
+                  <p className="mc-multivalor" key={i}>- {compuesto.nombre}</p>
                 )) :
                 <p className="mc-multivalor">El mineral no esta compuesto de otros minerales.</p>
               }
@@ -175,7 +180,7 @@ export class Mineral extends React.Component {
             </Modal.Body>
             
             <Modal.Footer className="mc-footer">
-              <Button variant="primary" className="mc-boton" onClick={this.handleModificar}>
+              <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleModificar}>
                 Modificar
               </Button>
 
@@ -186,6 +191,9 @@ export class Mineral extends React.Component {
           </Modal>
           }
 
+          {!!this.state.modificarMineral 
+            && <Redirect to={`/mineral-editar/${this.state.modificarMineral}`} />
+          }
           {this.state.agregarPresionado && <Redirect to="/mineral-agregar" />}
       </div>
     </div>  

@@ -15,21 +15,26 @@ export class Dropdown extends React.Component {
         options.style.height="0";
         options.classList.remove("WithBorder");
     }
+    fillSearch(value)
+    {
+        let search = document.getElementById("DropdownSearch"+this.props.id);
+        search.value=value;
+    }
 
 
     render = () => (
         <div className="DropdownContainer">
-            <input className="DropdownSearch" type="text"
+            <input className="DropdownSearch" type="text" id={"DropdownSearch"+this.props.id}
                    placeholder={this.props.placeholder} onFocus={() => {this.showOptions()}}
                     onBlur={()=>{this.hideOptions()}}/>
             <i className="zmdi zmdi-chevron-down DropdownIcon"></i>
             <div className="DropdownOptions" id={"DropdownOptions"+this.props.id}>
-                <div className="DropdownOption">Prueba</div>
-                <div className="DropdownOption">Prueba1</div>
-                <div className="DropdownOption">Prueba2</div>
-                <div className="DropdownOption">Prueba3</div>
-                <div className="DropdownOption">Prueba4</div>
-                <div className="DropdownOption">Prueba5</div>
+                <div onClick={()=>this.fillSearch("Prueba")} className="DropdownOption">Prueba</div>
+                <div onClick={()=>this.fillSearch("Prueba1")} className="DropdownOption">Prueba1</div>
+                <div onClick={()=>this.fillSearch("Prueba2")} className="DropdownOption">Prueba2</div>
+                <div onClick={()=>this.fillSearch("Prueba3")} className="DropdownOption">Prueba3</div>
+                <div onClick={()=>this.fillSearch("Prueba4")} className="DropdownOption">Prueba4</div>
+                <div onClick={()=>this.fillSearch("Prueba5")} className="DropdownOption">Prueba5</div>
             </div>
         </div>
     )

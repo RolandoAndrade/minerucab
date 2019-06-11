@@ -13,6 +13,9 @@ import {NotFoundPage} from '../pages/NotFoundPage';
 import {Mineral} from '../pages/Mineral';
 import {MainPanel} from "../pages/MainPanel";
 import {Empleados} from "../pages/Empleados";
+
+import {MineralAgregar} from '../pages/MineralAgregar';
+import {MineralEditar} from '../pages/MineralEditar';
 //import Dashboard from '../pages/Home';
 //import Pagina1 from '../pages/Pagina1';
 //import Pagina2 from '../pages/Pagina2';
@@ -29,8 +32,11 @@ const AppRouter = () => (
         {/* PAGINAS QUE CARGAN DESLOGEADO */}
         <PublicRoute path="/" component={Home} exact={true} />
         <PublicRoute path="/mineral" component={Mineral} />
-        <PublicRoute path="/panel" component={MainPanel} />
-        <PublicRoute path="/empleados" component={Empleados} />
+        <PublicRoute path="/dashboard" component={MainPanel} />
+        <PublicRoute path="/crear/empleados" component={Empleados} />
+        <PublicRoute path="/agregar/mineral" component={MineralAgregar} />
+        <PublicRoute path="/editar/mineral/:id" component={MineralEditar} />
+
         {/* 
           PAGINAS QUE CARGAN LOGEADOS 
           <PrivateRoute path="/dashboard" component={Dashboard} />

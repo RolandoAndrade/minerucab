@@ -1,14 +1,14 @@
 import React from 'react';
 
-export class Dropdown extends React.Component {
-
+export class Dropdown extends React.Component
+{
     constructor(props)
     {
         super(props);
-
-        this.state  = {
-            search : "",
+        this.state={
+            searchText: ""
         }
+
     }
 
     showOptions()
@@ -26,16 +26,19 @@ export class Dropdown extends React.Component {
     }
     fillSearch(value)
     {
-        console.log("entro")
         let search = document.getElementById("DropdownSearch"+this.props.id);
         search.value=value;
+        this.setState({
+            searchText : value
+        })
     }
 
     handleBuscar  = ({target}) => {
         this.setState({
-            textoBuscardor : target.value.toLowerCase()||"",
+            searchText : target.value.toLowerCase(),
         })
     }
+
 
     render = () => (
         <div className="DropdownContainer">
@@ -44,13 +47,10 @@ export class Dropdown extends React.Component {
                     onBlur={()=>{this.hideOptions()}}   onChange={this.handleBuscar}/>
             <i className="zmdi zmdi-chevron-down DropdownIcon"/>
             <div className="DropdownOptions" id={"DropdownOptions"+this.props.id}>
+                {this.props.options.filter((o)=>o.toLowerCase().includes(this.state.searchText),this).map(function (e)
                 {
-                    this.props.options.filter((a)=>a.toLowerCase().includes(this.state.textoBuscardor||"")).map(function (e,i)
-                    {
-                        console.log(<div key={i} onClick={()=>{this.fillSearch(e)}} className="DropdownOption">{e}</div>)
-                        return  <div key={i} onClick={()=>{this.fillSearch(e)}} className="DropdownOption">{e}</div>
-                    },this)
-                }
+                    return <div onClick={()=>this.fillSearch(e.toString())} className="DropdownOption">{e}</div>
+                },this)}
             </div>
         </div>
     )

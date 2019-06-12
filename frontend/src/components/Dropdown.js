@@ -2,10 +2,19 @@ import React from 'react';
 
 export class Dropdown extends React.Component {
 
+    constructor(props)
+    {
+        super(props);
+
+        this.state  = {
+            search : "",
+        }
+    }
+
     showOptions()
     {
         let options=document.getElementById("DropdownOptions"+this.props.id);
-        options.style.height="100px";
+        options.style.height="auto";
         options.classList.add("WithBorder");
     }
 
@@ -17,24 +26,31 @@ export class Dropdown extends React.Component {
     }
     fillSearch(value)
     {
+        console.log("entro")
         let search = document.getElementById("DropdownSearch"+this.props.id);
         search.value=value;
     }
 
+    handleBuscar  = ({target}) => {
+        this.setState({
+            textoBuscardor : target.value.toLowerCase()||"",
+        })
+    }
 
     render = () => (
         <div className="DropdownContainer">
             <input className="DropdownSearch" type="text" id={"DropdownSearch"+this.props.id}
                    placeholder={this.props.placeholder} onFocus={() => {this.showOptions()}}
-                    onBlur={()=>{this.hideOptions()}}/>
-            <i className="zmdi zmdi-chevron-down DropdownIcon"></i>
+                    onBlur={()=>{this.hideOptions()}}   onChange={this.handleBuscar}/>
+            <i className="zmdi zmdi-chevron-down DropdownIcon"/>
             <div className="DropdownOptions" id={"DropdownOptions"+this.props.id}>
-                <div onClick={()=>this.fillSearch("Prueba")} className="DropdownOption">Prueba</div>
-                <div onClick={()=>this.fillSearch("Prueba1")} className="DropdownOption">Prueba1</div>
-                <div onClick={()=>this.fillSearch("Prueba2")} className="DropdownOption">Prueba2</div>
-                <div onClick={()=>this.fillSearch("Prueba3")} className="DropdownOption">Prueba3</div>
-                <div onClick={()=>this.fillSearch("Prueba4")} className="DropdownOption">Prueba4</div>
-                <div onClick={()=>this.fillSearch("Prueba5")} className="DropdownOption">Prueba5</div>
+                {
+                    this.props.options.filter((a)=>a.toLowerCase().includes(this.state.textoBuscardor||"")).map(function (e,i)
+                    {
+                        console.log(<div key={i} onClick={()=>{this.fillSearch(e)}} className="DropdownOption">{e}</div>)
+                        return  <div key={i} onClick={()=>{this.fillSearch(e)}} className="DropdownOption">{e}</div>
+                    },this)
+                }
             </div>
         </div>
     )

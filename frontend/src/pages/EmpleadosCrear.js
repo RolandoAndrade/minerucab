@@ -20,7 +20,8 @@ export class EmpleadosCrear extends React.Component {
             <MenuDashBoard/>
             <div className="RowContainer">
                 <div className="WideContainer">
-                    <Dropdown placeholder="Cargo" id="Cargo" options={["Lorem Ipsum","Dolor sit","Amet consectetur"]}/>
+                    <Dropdown placeholder="Cargo" id="Cargo"
+                              options={["Prueba0","Prueba1","Prueba2","Prueba3","Prueba4","Prueba5"]}/>
                 </div>
                 <div className="WideContainer">
                 </div>

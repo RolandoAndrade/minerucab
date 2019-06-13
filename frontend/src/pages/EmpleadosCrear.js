@@ -25,6 +25,7 @@ export class EmpleadosCrear extends React.Component {
                               options={["Prueba0","Prueba1","Prueba2","Prueba3","Prueba4","Prueba5"]}/>
                 </div>
                 <div className="WideContainer">
+                    <br/><br/>
                     <InputText id="CrearNombreEmpleado" label="Nombre"/>
                 </div>
                 <div className="WideContainer">

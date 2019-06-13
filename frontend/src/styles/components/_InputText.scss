@@ -9,6 +9,10 @@
   width: 100%;
   padding: 1rem;
   border: solid #dcdcdc 1px;
+  &:focus
+  {
+    border: solid $azul-ucab 1px;
+  }
 }
 
 .InputTextLabel
@@ -20,4 +24,15 @@
   padding: 1rem;
   color: grey;
   transition: 0.5s all;
+}
+
+.InputTextLabel.BeSmall
+{
+  font-size: 10px;
+  top: -10px;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-left: 5px;
+  color: $azul-ucab;
+  background: white;
 }

@@ -5,8 +5,7 @@ export class InputText extends React.Component
     selectInput()
     {
         let label = document.getElementById("InputTextLabel"+this.props.id);
-        label.style.fontSize="8px";
-        label.style.paddingTop="1px";
+        label.classList.add("BeSmall");
     }
 
     outInput()
@@ -15,8 +14,7 @@ export class InputText extends React.Component
         let label = document.getElementById("InputTextLabel"+this.props.id);
         if(input.value=="")
         {
-            label.style.removeProperty("font-size");
-            label.style.removeProperty("padding-top");
+            label.classList.remove("BeSmall");
         }
     }
     render = () => (

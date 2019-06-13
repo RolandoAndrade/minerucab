@@ -14,15 +14,13 @@ export class Dropdown extends React.Component
     showOptions()
     {
         let options=document.getElementById("DropdownOptions"+this.props.id);
-        options.style.height="auto";
-        options.classList.add("WithBorder");
+        options.style.height="100px";
     }
 
     hideOptions()
     {
         let options=document.getElementById("DropdownOptions"+this.props.id);
-        options.style.height="0";
-        options.classList.remove("WithBorder");
+        options.style.height="0px";
     }
     fillSearch(value)
     {

@@ -37,7 +37,7 @@ export class Dropdown extends React.Component
         this.setState({
             searchText : target.value.toLowerCase(),
         })
-    }
+    };
 
 
     render = () => (
@@ -47,9 +47,9 @@ export class Dropdown extends React.Component
                     onBlur={()=>{this.hideOptions()}}   onChange={this.handleBuscar}/>
             <i className="zmdi zmdi-chevron-down DropdownIcon"/>
             <div className="DropdownOptions" id={"DropdownOptions"+this.props.id}>
-                {this.props.options.filter((o)=>o.toLowerCase().includes(this.state.searchText),this).map(function (e)
+                {this.props.options.filter((o)=>o.toLowerCase().includes(this.state.searchText),this).map(function (e,i)
                 {
-                    return <div onClick={()=>this.fillSearch(e.toString())} className="DropdownOption">{e}</div>
+                    return <div key={i} onClick={()=>this.fillSearch(e.toString())} className="DropdownOption">{e}</div>
                 },this)}
             </div>
         </div>

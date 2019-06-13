@@ -1,6 +1,7 @@
 import React from 'react';
 import {MenuDashBoard} from "../components/MenuDashBoard";
 import {Dropdown} from "../components/Dropdown";
+import {InputText} from "../components/InputText";
 
 export class EmpleadosCrear extends React.Component {
     constructor(props){
@@ -20,10 +21,11 @@ export class EmpleadosCrear extends React.Component {
             <MenuDashBoard/>
             <div className="RowContainer">
                 <div className="WideContainer">
-                    <Dropdown placeholder="Cargo" id="Cargo"
+                    <Dropdown placeholder="Cargo" id="Cargo..."
                               options={["Prueba0","Prueba1","Prueba2","Prueba3","Prueba4","Prueba5"]}/>
                 </div>
                 <div className="WideContainer">
+                    <InputText/>
                 </div>
                 <div className="WideContainer">
                 </div>

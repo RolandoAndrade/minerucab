@@ -14,6 +14,11 @@
   flex-direction: row;
 }
 
+.RowContainer.center
+{
+  align-items: center;
+}
+
 .WideContainer
 {
   position: relative;
@@ -26,6 +31,7 @@
 
 .FormContainer
 {
+  width: 90%;
   display: grid;
   margin-top: 50px;
   margin-bottom: 50px;

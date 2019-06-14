@@ -20,8 +20,8 @@ export class InputDate extends React.Component
     render = () => (
         <div className="InputTextContainer">
             <input
+                className="InputDate"
                 type="date"
-                name="nacionalizado"
                 onChange={this.handleChange}
             />
         </div>

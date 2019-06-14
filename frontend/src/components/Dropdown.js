@@ -11,10 +11,12 @@ export class Dropdown extends React.Component
 
     }
 
-    showOptions()
+    showOptions(target)
     {
         let options=document.getElementById("DropdownOptions"+this.props.id);
         options.style.height="100px";
+        target.target.value="";
+        this.fillSearch("");
     }
 
     hideOptions()
@@ -41,7 +43,7 @@ export class Dropdown extends React.Component
     render = () => (
         <div className="DropdownContainer">
             <input className="DropdownSearch" type="text" id={"DropdownSearch"+this.props.id}
-                   placeholder={this.props.placeholder} onFocus={() => {this.showOptions()}}
+                   placeholder={this.props.placeholder} onFocus={(t) => {this.showOptions(t)}}
                     onBlur={()=>{this.hideOptions()}}   onChange={this.handleBuscar}/>
             <i className="zmdi zmdi-chevron-down DropdownIcon"/>
             <div className="DropdownOptions" id={"DropdownOptions"+this.props.id}>

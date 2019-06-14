@@ -3,6 +3,7 @@ import {MenuDashBoard} from "../components/MenuDashBoard";
 import {Dropdown} from "../components/Dropdown";
 import {InputText} from "../components/InputText";
 import {SectionTitle} from "../components/Header/SectionTitle";
+import {InputDate} from "../components/InputDate";
 
 export class EmpleadosCrear extends React.Component {
     constructor(props){
@@ -31,7 +32,17 @@ export class EmpleadosCrear extends React.Component {
                     </div>
                 </div>
                 <div className="WideContainer">
-
+                    <div className="FormContainer">
+                        <div className="RowContainer center">
+                            <div className="LabelContainer">
+                                Fecha de nacimiento:
+                            </div>
+                            <InputDate/>
+                        </div>
+                        <Dropdown id="CrearEmpleadoEstado" placeholder="Estado actual..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
+                        <Dropdown id="CrearEmpleadoMunicipio" placeholder="Municipio actual..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
+                        <Dropdown id="CrearEmpleadoParroquia" placeholder="Parroquia actual..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
+                    </div>
                 </div>
                 <div className="WideContainer">
                     <div className="FormContainer">

@@ -16,10 +16,12 @@
 
 .WideContainer
 {
+  position: relative;
   display: flex;
   text-align: center;
   justify-content: center;
   width: 100%;
+  z-index: 0;
 }
 
 .FormContainer

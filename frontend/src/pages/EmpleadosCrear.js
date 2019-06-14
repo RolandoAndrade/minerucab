@@ -26,9 +26,8 @@ export class EmpleadosCrear extends React.Component {
                     <div className="FormContainer">
                         <InputText id="CrearEmpleadoNombre" label="Nombre"/>
                         <InputText id="CrearEmpleadoApellido" label="Apellido"/>
-                        <InputText id="CrearEmpleadoCédula" label="Número de cédula"/>
+                        <InputText id="CrearEmpleadoCedula" label="Número de cédula"/>
                         <Dropdown id="CrearEmpleadoCargo" placeholder="Cargo..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
-
                     </div>
                 </div>
                 <div className="WideContainer">

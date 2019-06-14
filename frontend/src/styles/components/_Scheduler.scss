@@ -12,6 +12,7 @@
   border: #c0c0c0 solid 1px;
   transition: 0.25s all;
 
+
   &:hover
   {
     background: lighten($azul-ucab,20%);
@@ -28,4 +29,11 @@
   {
     background: $verde-ucab;
   }
+}
+
+.Scheduler div
+{
+  font-weight: bold;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }

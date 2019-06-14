@@ -7,9 +7,17 @@ export class Scheduler extends React.Component
         super(props);
     }
 
-    saveHours(h,d,t)
+    saveHours(hour,day,t)
     {
-        t.target.classList.add("clicked")
+        if(t.target.classList.contains("clicked"))
+        {
+            t.target.classList.remove("clicked");
+        }
+        else
+        {
+            t.target.classList.add("clicked");
+        }
+
     }
 
     render = () => (
@@ -144,77 +152,77 @@ export class Scheduler extends React.Component
                 <div onClick={(target)=>this.saveHours(14,5,target)} className="SelectHora"></div>
                 <div onClick={(target)=>this.saveHours(14,6,target)} className="SelectHora"></div>
                 <div className="Hora">15:00-16:00</div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(15,0,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(15,1,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(15,2,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(15,3,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(15,4,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(15,5,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(15,6,target)} className="SelectHora"></div>
                 <div className="Hora">16:00-17:00</div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(16,0,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(16,1,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(16,2,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(16,3,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(16,4,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(16,5,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(16,6,target)} className="SelectHora"></div>
                 <div className="Hora">17:00-18:00</div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(17,0,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(17,1,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(17,2,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(17,3,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(17,4,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(17,5,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(17,6,target)} className="SelectHora"></div>
                 <div className="Hora">18:00-19:00</div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(18,0,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(18,1,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(18,2,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(18,3,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(18,4,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(18,5,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(18,6,target)} className="SelectHora"></div>
                 <div className="Hora">19:00-20:00</div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(19,0,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(19,1,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(19,2,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(19,3,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(19,4,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(19,5,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(19,6,target)} className="SelectHora"></div>
                 <div className="Hora">20:00-21:00</div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(20,0,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(20,1,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(20,2,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(20,3,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(20,4,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(20,5,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(20,6,target)} className="SelectHora"></div>
                 <div className="Hora">21:00-22:00</div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(21,0,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(21,1,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(21,2,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(21,3,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(21,4,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(21,5,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(21,6,target)} className="SelectHora"></div>
                 <div className="Hora">22:00-23:00</div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(22,0,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(22,1,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(22,2,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(22,3,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(22,4,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(22,5,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(22,6,target)} className="SelectHora"></div>
                 <div className="Hora">23:00-00:00</div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
-                    <div className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(23,0,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(23,1,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(23,2,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(23,3,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(23,4,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(23,5,target)} className="SelectHora"></div>
+                <div onClick={(target)=>this.saveHours(23,6,target)} className="SelectHora"></div>
 
             </div>
         </div>

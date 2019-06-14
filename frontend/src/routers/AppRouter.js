@@ -16,6 +16,8 @@ import {Empleados} from "../pages/Empleados";
 
 import {MineralAgregar} from '../pages/MineralAgregar';
 import {MineralEditar} from '../pages/MineralEditar';
+import {EmpleadosCrear} from "../pages/EmpleadosCrear";
+import {HorarioCrear} from "../pages/HorarioCrear";
 //import Dashboard from '../pages/Home';
 //import Pagina1 from '../pages/Pagina1';
 //import Pagina2 from '../pages/Pagina2';
@@ -33,8 +35,9 @@ const AppRouter = () => (
         <PublicRoute path="/" component={Home} exact={true} />
         <PublicRoute path="/mineral" component={Mineral} />
         <PublicRoute path="/dashboard" component={MainPanel} />
-        <PublicRoute path="/crear/empleados" component={Empleados} />
-        <PublicRoute path="/agregar/mineral" component={MineralAgregar} />
+        <PublicRoute path="/crear/empleado" component={EmpleadosCrear} />
+        <PublicRoute path="/crear/mineral" component={MineralAgregar} />
+        <PublicRoute path="/crear/horario" component={HorarioCrear} />
         <PublicRoute path="/editar/mineral/:id" component={MineralEditar} />
 
         {/* 

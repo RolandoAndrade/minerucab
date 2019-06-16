@@ -11,6 +11,7 @@ import {PublicRoute} from './PublicRoute';
 import {Home} from '../pages/Home';
 import {NotFoundPage} from '../pages/NotFoundPage';
 import {Mineral} from '../pages/Mineral';
+import {Mineral_v1} from '../pages/Mineral_v1';
 import {MainPanel} from "../pages/MainPanel";
 import {MineralAgregar} from '../pages/MineralAgregar';
 import {MineralEditar} from '../pages/MineralEditar';
@@ -30,6 +31,7 @@ const AppRouter = () => (
         {/* PAGINAS QUE CARGAN DESLOGEADO */}
         <PublicRoute path="/" component={Home} exact={true} />
         <PublicRoute path="/mineral" component={Mineral} />
+        <PublicRoute path="/mineral-v1" component={Mineral_v1} />
         <PublicRoute path="/panel" component={MainPanel} />
         <PublicRoute path="/mineral-agregar" component={MineralAgregar} />
         <PublicRoute path="/mineral-editar/:id" component={MineralEditar} />

@@ -2,6 +2,7 @@ import React from 'react';
 
 import {Redirect} from 'react-router-dom';
 import {Modal, Button} from 'react-bootstrap';
+import MaterialTable from 'material-table';
 
 import {API} from '../API/API'
 import {MenuDashBoard} from "../components/MenuDashBoard";
@@ -18,12 +19,6 @@ export class Mineral extends React.Component {
       consultarMineral : null,
       agregarPresionado : null
     }
-  }
-
-  handleBuscar  = ({target}) => {
-    this.setState({
-        textoBuscardor : target.value,
-    })
   }
 
   componentDidMount = () => {
@@ -78,54 +73,81 @@ export class Mineral extends React.Component {
           <div className="TituloTabla">
               <h1>Minerales</h1>
           </div>
-          {/* ------------> OJO AGREGAR ICONO DE LA LUPA */}
-          <div className="Buscador">
-              <input
-                  type="text"
-                  placeholder="Buscar nombre..." 
-                  onChange={this.handleBuscar}
-              />
-              <span className="fa fa-fw fa-search field-icon"></span>
-              <img 
-                  src="../resources/icons/Agregar.png"
-                  width="25px"
-                  onClick={this.handleAgregar}
-                  className="IconoAgregar"
-              />
-          </div>
 
-          <div className="Tabla">
-              <div className="Columnas">
-                  {columnas.map( (columna,i) => (
-                      <p className="TituloColumna" key={i}>
-                          {columna}
-                      </p>
-                  ))}
-              </div>
+            <MaterialTable
+              style={{margin: "0 5%"}}
+              columns={[
+                {
+                  title: 'ID', field: 'id', type: 'string', 
+                  cellStyle : {
+                    fontSize : "large",
+                    textAlign : "right"
+                  }, 
+                },
+                {
+                  title: 'Nombre', field: 'nombre', type: 'string',
+                  cellStyle : {
+                    fontSize : "large",
+                    textAlign : "left"                    
+                  },
+                },
+                {
+                  title: '¿Metal?', field: 'esMetal', type: 'string',
+                  cellStyle : {
+                    fontSize : "large",
+                    textAlign : "center"
+                  },
+                },
+                { 
+                  title: '¿Radioactivo?', field: 'esRadioactivo', type: 'string',
+                  cellStyle : {
+                    fontSize : "large",
+                    textAlign : "center"
+                  },
+                },
+                { 
+                  title: 'Nacionalizado', field: 'nacionalizado', type:'string',
+                  cellStyle : {
+                    fontSize : "large",
+                    textAlign: "left"
+                  },
+                }
+              ]}
+              data={API.consultarTodos("MINERAL")}
+              title={null}
+              
+              options={{
+                headerStyle: {
+                  backgroundColor: '#0C5426',
+                  color: "white",
+                  fontSize: "large"
+                },
+                searchFieldAlignment: "left",
+                exportButton: true,
+                exportFileName: "Minerales"
+              }}
 
-              { this.state.minerales ? 
-                this.state.minerales.filter( 
-                  (m) => m.nombre.toLowerCase().includes( this.state.textoBuscardor.toLowerCase() )
-                )
-                .map ( (mineral) => (
-                  <div 
-                      className="Tupla"
-                      key={mineral.id}
-                      onClick={() => this.handleConsultar(mineral.id)}
-                  >
-                    <p className="Atributo"> {mineral.id.toString(10).padStart(4, '0')} </p>
-                    <p className="Atributo"> {mineral.nombre} </p>
-                    <p className="Atributo"> {mineral.esMetal ? "Si" : "No"} </p>
-                    <p className="Atributo"> {mineral.esRadioactivo ? "Si" : "No"} </p>
-                    <p className="Atributo"> {mineral.nacionalizado || "No" } </p>
-                  </div>
-              )) :
-              <div className="Tupla">No existen minerales registrados</div>
-            }
+              onRowClick={(event, rowData) => this.handleConsultar(rowData.id)}
+              localization={{
+                toolbar : {
+                  searchPlaceholder : "Buscar ..."
+                }}
+              }
 
-            {!!this.state.minerales && <div className="FinalTabla"></div>}
-            
-          </div>
+              actions={[
+                {
+                  icon: () => <img 
+                    src="../resources/icons/Agregar.png"
+                    width="25px"
+                    onClick={this.handleAgregar}
+                    className="IconoAgregar"
+                  />,
+                  tooltip: 'Agregar',
+                  isFreeAction: true
+                }
+              ]}
+
+            />
 
           {!!this.state.consultarMineral && 
           <Modal 

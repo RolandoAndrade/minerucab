@@ -2,6 +2,7 @@ import React from 'react';
 
 import {Modal, Button} from 'react-bootstrap';
 import {Redirect} from 'react-router-dom';
+import MaterialTable from 'material-table';
 
 import {API} from '../API/API'
 import {MenuDashBoard} from "../components/MenuDashBoard";
@@ -264,47 +265,64 @@ export class MineralEditar extends React.Component {
                 </Modal.Header>
 
                 <Modal.Body className="mc-body"> 
+                    <MaterialTable
+                        style={{margin: "0 5%"}}
+                        columns={[
+                            {
+                            title: 'ID', field: 'id', type: 'string', 
+                            cellStyle : {
+                                fontSize : "large",
+                                textAlign : "right"
+                            }, 
+                            },
+                            {
+                            title: 'Nombre', field: 'nombre', type: 'string',
+                            cellStyle : {
+                                fontSize : "large",
+                                textAlign : "left"                    
+                            },
+                            },
+                            {
+                            title: '¿Metal?', field: 'esMetal', type: 'string',
+                            cellStyle : {
+                                fontSize : "large",
+                                textAlign : "center"
+                            },
+                            },
+                            { 
+                            title: '¿Radioactivo?', field: 'esRadioactivo', type: 'string',
+                            cellStyle : {
+                                fontSize : "large",
+                                textAlign : "center"
+                            },
+                            },
+                            { 
+                            title: 'Nacionalizado', field: 'nacionalizado', type:'string',
+                            cellStyle : {
+                                fontSize : "large",
+                                textAlign: "left"
+                            },
+                            }
+                        ]}
+                        data={API.consultarTodos("MINERAL")}
+                        title={null}
+                        
+                        options={{
+                            headerStyle: {
+                                backgroundColor: '#0C5426',
+                                color: "white",
+                                fontSize: "large"
+                            },
+                            searchFieldAlignment: "left"
+                        }}
 
-                    <div className="Buscador">
-                        <input
-                            type="text"
-                            placeholder="Buscar nombre..." 
-                            onChange={this.handleBuscar}
-                        />
-                        <span className="fa fa-fw fa-search field-icon"></span>           
-                    </div>
-                    <div className="Tabla">
-                        <div className="Columnas">
-                            {columnas.map( (columna,i) => (
-                                <p className="TituloColumna" key={i}>
-                                    {columna}
-                                </p>
-                            ))}
-                        </div>
-
-                        {   this.state.minerales &&
-                            this.state.minerales.filter( 
-                                (m) => m.nombre.toLowerCase().includes( this.state.textoBuscardor.toLowerCase() ) &&  
-                                    !this.state.compuestos.find( (c) => c.id === m.id) &&
-                                    m.id !== this.state.nuevo_mineral.id
-                            )
-                            .map ( (mineral) => (
-                            <div 
-                                className="Tupla"
-                                key={mineral.id}
-                                onClick={() => this.handleOpenModal2(mineral.id)}
-                            >
-                                <p className="Atributo"> {mineral.id.toString(10).padStart(4, '0')} </p>
-                                <p className="Atributo"> {mineral.nombre} </p>
-                                <p className="Atributo"> {mineral.esMetal ? "Si" : "No"} </p>
-                                <p className="Atributo"> {mineral.esRadioactivo ? "Si" : "No"} </p>
-                                <p className="Atributo"> {mineral.nacionalizado || "No" } </p>
-                            </div>
-                            ))
+                        onRowClick={(event, rowData) => this.handleOpenModal2(rowData.id)}
+                        localization={{
+                            toolbar : {
+                                searchPlaceholder : "Buscar ..."
+                            }}
                         }
-
-                        <div className="FinalTabla"></div>
-                    </div>
+                    />
                 </Modal.Body>
                 
                 <Modal.Footer className="mc-footer">

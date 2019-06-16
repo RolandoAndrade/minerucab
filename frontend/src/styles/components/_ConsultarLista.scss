@@ -10,6 +10,43 @@
     }
 }
 
+.MuiInput-underline::before, .MuiInput-underline:hover {
+    border-bottom: 0px solid black !important;
+}
+
+.MuiInputBase-inputAdornedStart {
+    background: $azul-ucab !important;
+    border: none !important;
+    width: 60% !important;
+    padding-left: 10px !important;
+    padding-right: 40px !important;
+    color:white !important;
+    font-size: large !important;
+}
+
+.MuiInputBase-inputAdornedStart::placeholder {
+    color : white !important;
+    font-size: large !important;
+}
+
+.MuiInputAdornment-positionStart {
+    color : white !important;
+    margin-left: 250px !important;
+    margin-right: -300px !important;
+}
+
+.MuiInputAdornment-positionEnd {
+    color: $azul-ucab !important;
+}
+
+.MuiInputBase-formControl{
+    background: $azul-ucab !important;
+}
+
+.MuiInputAdornment-positionEnd {
+    display: none !important;
+}
+
 .Buscador {
     padding: 0 5%;
     width: 100%;

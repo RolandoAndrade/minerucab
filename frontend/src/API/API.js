@@ -6,9 +6,9 @@ const API = {
                     {
                         id: 1,
                         nombre: "Oro",
-                        esMetal: true,
-                        esRadioactivo: false,
-                        nacionalizado: null,
+                        esMetal: "Si",
+                        esRadioactivo: "No",
+                        nacionalizado: "No",
                         yacimientos : ["La Guaira", "Alemania", "Trinidad"],
                         compuestos : [{
                                 id : 32,
@@ -22,8 +22,8 @@ const API = {
                     {
                         id: 3,
                         nombre: "Plata",
-                        esMetal: true,
-                        esRadioactivo: true,
+                        esMetal: "Si",
+                        esRadioactivo: "Si",
                         nacionalizado: "1998-05-15",
                         yacimientos : ["Delta Amacuro", "Tucupita", "Barquisimeto"],
                         descripcion: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia"

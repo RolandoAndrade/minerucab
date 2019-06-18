@@ -4,6 +4,7 @@ import {Dropdown} from "../components/Dropdown";
 import {InputText} from "../components/InputText";
 import {SectionTitle} from "../components/Header/SectionTitle";
 import {InputDate} from "../components/InputDate";
+import {Button} from "react-bootstrap";
 
 export class EmpleadosCrear extends React.Component {
     constructor(props){
@@ -20,8 +21,7 @@ export class EmpleadosCrear extends React.Component {
 
     render = () => (
         <div>
-            <MenuDashBoard/>
-            <SectionTitle title="Crear Empleado"/>
+            <MenuDashBoard title="Crear empleado"/>
             <div className="RowContainer">
                 <div className="WideContainer">
                     <div className="FormContainer">
@@ -33,7 +33,7 @@ export class EmpleadosCrear extends React.Component {
                 </div>
                 <div className="WideContainer">
                     <div className="FormContainer">
-                        <div className="RowContainer center">
+                        <div className="RowContainer center" style={{width: "80%"}}>
                             <div className="LabelContainer">
                                 Fecha de nacimiento:
                             </div>
@@ -49,6 +49,51 @@ export class EmpleadosCrear extends React.Component {
                         <img src="resources/img/Empleado.png" alt="" width="80%" style={{margin: "0 auto"}}/>
                     </div>
                 </div>
+            </div>
+
+            <div className="Container-90p">
+                <div className="LabelContainer">
+                    Usuarios asociados al empleado
+                </div>
+                <div className="RowContainer">
+                    <div className="WideContainer" style={{justifyContent: "right", width: "30%"}}>
+                        <i className="zmdi zmdi-close-circle-o LabelIcon"></i>
+                    </div>
+                    <div className="WideContainer">
+                        <InputText id="CrearEmpleadoUsuarioCorreo" label="Correo electrónico"/>
+                    </div>
+                    <div className="WideContainer">
+                        <InputText id="CrearEmpleadoUsuarioContra" label="Contraseña inicial"/>
+                    </div>
+                    <div className="WideContainer">
+                        <Dropdown id="CrearEmpleadoUsuarioRol" placeholder="Rol..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
+                    </div>
+                </div>
+            </div>
+
+            <div className="Container-90p">
+                <div className="ButtonAddUser">
+                    Agregar usuario
+                </div>
+            </div>
+
+            <div className="botones-abajo">
+                <Button
+                    variant="primary"
+                    type="submit"
+                    className="mc-boton mc-boton-guardar"
+                    onClick={(e) => this.handleGuardar(e)}
+                >
+                    Guardar
+                </Button>
+
+                <Button
+                    variant="secondary"
+                    className="mc-boton"
+                    onClick={this.handleCancelar}
+                >
+                    Cancelar
+                </Button>
             </div>
         </div>
     )

@@ -5,6 +5,13 @@
   margin: $defaultMargin auto;
 }
 
+.InputDateContainer
+{
+  width: 60%;
+  position: relative;
+  margin: $defaultMargin auto;
+}
+
 .InputDate
 {
   background: $azul-ucab;
@@ -22,6 +29,10 @@
   &:focus
   {
     border: solid $azul-ucab 1px;
+  }
+  &.error
+  {
+    border: solid $rojo 1px;
   }
 }
 
@@ -45,4 +56,14 @@
   margin-left: 5px;
   color: $azul-ucab;
   background: white;
+}
+
+.InputTextLabel.BeSmall.grey
+{
+  color: grey;
+}
+
+.InputTextLabel.BeSmall.red
+{
+  color: $rojo;
 }

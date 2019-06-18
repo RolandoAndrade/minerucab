@@ -18,7 +18,7 @@ export class InputDate extends React.Component
         }*/
     }
     render = () => (
-        <div className="InputTextContainer">
+        <div className="InputDateContainer">
             <input
                 className="InputDate"
                 type="date"

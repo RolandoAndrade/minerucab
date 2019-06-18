@@ -1,17 +1,8 @@
-.SectionTitle
-{
-  background: $azul-oscuro;
-  color: white;
-  font-size: $xm-size;
-  width: 100%;
-  text-align: center;
-  padding: 12px;
-}
-
 .RowContainer
 {
   display: flex;
   flex-direction: row;
+  margin: 0 auto;
 }
 
 .RowContainer.center
@@ -37,3 +28,15 @@
   margin-bottom: 50px;
 }
 
+
+.Container-80p
+{
+  margin: 0 auto;
+  width: 80%;
+}
+
+.Container-90p
+{
+  margin: 0 auto;
+  width: 90%;
+}

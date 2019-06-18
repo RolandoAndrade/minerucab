@@ -5,6 +5,8 @@ import {Redirect} from 'react-router-dom';
 
 import {API} from '../API/API'
 import {MenuDashBoard} from "../components/MenuDashBoard";
+import {InputText} from "../components/InputText";
+import {InputDate} from "../components/InputDate";
 
 const columnas = ["ID", "Nombre", "esMetal?", "esRadioactivo?", "Nacionalizado"] 
 
@@ -135,103 +137,108 @@ export class MineralAgregar extends React.Component {
   
   render = () => (
     <div>
-        <MenuDashBoard />
+        <MenuDashBoard title="Agregar mineral"/>
 
         <div>
-            <div className="TituloTabla">
-              <h1>Crear Mineral</h1>
-            </div>
 
             <div className="CrearElemento">
-                <form>
-                    <p>
-                        <span className="mc-atributo">Nombre</span><span> : </span>
-                        <input 
-                            name="nombre"
-                            type="text"
-                            placeholder="nombre ..."
-                            onChange={this.handleChange}
-                        />
-                    </p>
-                    <p>
-                        <span className="mc-atributo">esMetal?</span><span> : </span>
+                <div className="firstColumn">
+                    <div className="mc-atributo">Nombre: </div>
+                </div>
+                <div className="secondColumn">
+                    <InputText placeholder="Nombre" id="AgregarMineralNombre"/>
+                </div>
+                <div className="firstColumn">
+                    <div className="mc-atributo">¿Metálico?: </div>
+                </div>
+                <div className="secondColumn">
+                    <form action="">
                         <label className="form-switch">
-                            <input 
-                                type="checkbox"
-                                name="esMetal"
-                                onChange={this.handleBool}
-                                checked={this.state.nuevo_mineral.esMetal}
-                            />
-                            <i></i>
-                        </label>
-                    </p>
-                    <p>
-                        <span className="mc-atributo">esRadioactivo?</span><span> : </span>
-                        <label className="form-switch">
-                            <input 
-                                type="checkbox"
-                                name="esRadioactivo"
-                                onChange={this.handleBool}
-                                checked={this.state.nuevo_mineral.esRadioactivo}
-                            />
-                            <i></i>
-                        </label>
-                    </p>
-                    <p>
-                        <span className="mc-atributo">Nacionalizado</span><span> : </span>
                         <input
-                            type="date"
-                            name="nacionalizado"
-                            onChange={this.handleChange}
+                            type="checkbox"
+                            name="esMetal"
+                            onChange={this.handleBool}
+                            checked={this.state.nuevo_mineral.esMetal}
                         />
-                    </p>
-                    <p>
-                        <span className="mc-atributo">Descripción</span><span> : </span>
-                        <textarea
-                            name="descripcion"
-                            placeholder="descripción ..."
-                            onChange={this.handleChange}
+                        <i></i>
+                        </label>
+                    </form>
+                </div>
+                <div className="firstColumn">
+                    <div className="mc-atributo">¿Radioactivo?: </div>
+                </div>
+                <div className="secondColumn">
+                    <form action="">
+                        <label className="form-switch">
+                        <input
+                            type="checkbox"
+                            name="esRadioactivo"
+                            onChange={this.handleBool}
+                            checked={this.state.nuevo_mineral.esRadioactivo}
                         />
-                    </p>
+                        <i></i>
+                        </label>
+                    </form>
+                </div>
+                <div className="firstColumn">
+                    <div className="mc-atributo">Nacionalizado: </div>
+                </div>
+
+                <div className="secondColumn">
+                    <InputDate id="AgregarMineralFecha"/>
+                </div>
+                <div className="firstColumn">
+                    <div className="mc-atributo">Descripción:</div>
+                </div>
+                <div className="secondColumn">
+                    <textarea
+                        name="descripcion"
+                        placeholder="Descripción"
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <div className="firstColumn">
+                    <span className="mc-atributo">Compuesto de</span><span> : </span>
+                    <img
+                        src="../resources/icons/Agregar.png"
+                        width="25px"
+                        onClick={this.handleOpenModal1}
+                        className="IconoAgregar"
+                    />
+                </div>
+                <div className="secondColumn">
                     <div className="compuesto-de">
-                            <span className="mc-atributo">Compuesto de</span><span> : </span>
-                            {this.state.compuestos.map( (compuesto, i) => (
-                                <div className="compuesto" key={i}>
-                                    <span>${compuesto.nombre}</span>
-                                    <img 
-                                        src="../resources/icons/Eliminar.png"
-                                        width="20px"
-                                        onClick={() => this.handleDescomponer(compuesto.id)}
-                                        className="IconoAgregar"
-                                    />
-                                </div>
-                            ))}
-                            <img 
-                                src="../resources/icons/Agregar.png"
-                                width="25px"
-                                onClick={this.handleOpenModal1}
+                    {this.state.compuestos.map( (compuesto, i) => (
+                        <div className="compuesto" key={i}>
+                            <span>${compuesto.nombre}</span>
+                            <img
+                                src="../resources/icons/Eliminar.png"
+                                width="20px"
+                                onClick={() => this.handleDescomponer(compuesto.id)}
                                 className="IconoAgregar"
                             />
+                        </div>
+                    ))}
                     </div>
-                    <div className="botones-abajo">
-                        <Button 
-                            variant="primary" 
-                            type="submit" 
-                            className="mc-boton mc-boton-guardar" 
-                            onClick={(e) => this.handleGuardar(e)}
-                        >
-                            Guardar
-                        </Button>
+                </div>
+            </div>
+            <div className="botones-abajo">
+                <Button
+                    variant="primary"
+                    type="submit"
+                    className="mc-boton mc-boton-guardar"
+                    onClick={(e) => this.handleGuardar(e)}
+                >
+                    Guardar
+                </Button>
 
-                        <Button 
-                            variant="secondary" 
-                            className="mc-boton" 
-                            onClick={this.handleCancelar}
-                        >
-                            Cancelar
-                        </Button>
-                    </div>
-                </form>
+                <Button
+                    variant="secondary"
+                    className="mc-boton"
+                    onClick={this.handleCancelar}
+                >
+                    Cancelar
+                </Button>
             </div>
 
             {this.state.goMineral && <Redirect to="/mineral" /> }

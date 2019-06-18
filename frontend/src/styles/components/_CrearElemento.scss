@@ -1,10 +1,10 @@
 .CrearElemento {
-    padding: 0 5%;
-
-    input, label, textarea {
-        margin-left: 20px;
-        padding-left: 10px;
-    }
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    width: 50%;
+    max-width: 800px;
+    grid-auto-flow: row;
 
     img {
         margin-left: 20px;
@@ -12,8 +12,8 @@
 
     textarea {
         resize: none;
-        margin-bottom: -40px;
-        width: 80%;    
+        width: 80%;
+        padding: 5px;
     }
 
 
@@ -33,6 +33,23 @@
         span {
             padding-left: 10px;
         }
+    }
+
+    .firstColumn
+    {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .secondColumn
+    {
+        padding: 25px;
+        text-align: left;
+    }
+    .secondColumn div
+    {
+        margin:0;
     }
 }
 

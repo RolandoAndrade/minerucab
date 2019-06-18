@@ -65,12 +65,9 @@ export class Mineral extends React.Component {
     
   render = () => (
     <div>
-        <MenuDashBoard/>
+        <MenuDashBoard title={"Minerales"}/>
 
         <div className="ConsultarLista">
-          <div className="TituloTabla">
-              <h1>Minerales</h1>
-          </div>
 
             <MaterialTable
               style={{margin: "0 5%"}}

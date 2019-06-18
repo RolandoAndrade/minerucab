@@ -33,7 +33,7 @@ export class EmpleadosCrear extends React.Component {
                 </div>
                 <div className="WideContainer">
                     <div className="FormContainer">
-                        <div className="RowContainer center">
+                        <div className="RowContainer center" style={{width: "80%"}}>
                             <div className="LabelContainer">
                                 Fecha de nacimiento:
                             </div>

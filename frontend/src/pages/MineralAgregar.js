@@ -197,45 +197,48 @@ export class MineralAgregar extends React.Component {
                         onChange={this.handleChange}
                     />
                 </div>
+                <div className="firstColumn">
+                    <span className="mc-atributo">Compuesto de</span><span> : </span>
+                    <img
+                        src="../resources/icons/Agregar.png"
+                        width="25px"
+                        onClick={this.handleOpenModal1}
+                        className="IconoAgregar"
+                    />
+                </div>
+                <div className="secondColumn">
                     <div className="compuesto-de">
-                            <span className="mc-atributo">Compuesto de</span><span> : </span>
-                            {this.state.compuestos.map( (compuesto, i) => (
-                                <div className="compuesto" key={i}>
-                                    <span>${compuesto.nombre}</span>
-                                    <img 
-                                        src="../resources/icons/Eliminar.png"
-                                        width="20px"
-                                        onClick={() => this.handleDescomponer(compuesto.id)}
-                                        className="IconoAgregar"
-                                    />
-                                </div>
-                            ))}
-                            <img 
-                                src="../resources/icons/Agregar.png"
-                                width="25px"
-                                onClick={this.handleOpenModal1}
+                    {this.state.compuestos.map( (compuesto, i) => (
+                        <div className="compuesto" key={i}>
+                            <span>${compuesto.nombre}</span>
+                            <img
+                                src="../resources/icons/Eliminar.png"
+                                width="20px"
+                                onClick={() => this.handleDescomponer(compuesto.id)}
                                 className="IconoAgregar"
                             />
+                        </div>
+                    ))}
                     </div>
-                    <div className="botones-abajo">
-                        <Button 
-                            variant="primary" 
-                            type="submit" 
-                            className="mc-boton mc-boton-guardar" 
-                            onClick={(e) => this.handleGuardar(e)}
-                        >
-                            Guardar
-                        </Button>
+                </div>
+            </div>
+            <div className="botones-abajo">
+                <Button
+                    variant="primary"
+                    type="submit"
+                    className="mc-boton mc-boton-guardar"
+                    onClick={(e) => this.handleGuardar(e)}
+                >
+                    Guardar
+                </Button>
 
-                        <Button 
-                            variant="secondary" 
-                            className="mc-boton" 
-                            onClick={this.handleCancelar}
-                        >
-                            Cancelar
-                        </Button>
-                    </div>
-
+                <Button
+                    variant="secondary"
+                    className="mc-boton"
+                    onClick={this.handleCancelar}
+                >
+                    Cancelar
+                </Button>
             </div>
 
             {this.state.goMineral && <Redirect to="/mineral" /> }

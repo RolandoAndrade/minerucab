@@ -4,6 +4,7 @@ import {Dropdown} from "../components/Dropdown";
 import {InputText} from "../components/InputText";
 import {SectionTitle} from "../components/Header/SectionTitle";
 import {InputDate} from "../components/InputDate";
+import {Button} from "react-bootstrap";
 
 export class EmpleadosCrear extends React.Component {
     constructor(props){
@@ -72,8 +73,27 @@ export class EmpleadosCrear extends React.Component {
 
             <div className="Container-90p">
                 <div className="ButtonAddUser">
-                    Añadir usuario
+                    Agregar usuario
                 </div>
+            </div>
+
+            <div className="botones-abajo">
+                <Button
+                    variant="primary"
+                    type="submit"
+                    className="mc-boton mc-boton-guardar"
+                    onClick={(e) => this.handleGuardar(e)}
+                >
+                    Guardar
+                </Button>
+
+                <Button
+                    variant="secondary"
+                    className="mc-boton"
+                    onClick={this.handleCancelar}
+                >
+                    Cancelar
+                </Button>
             </div>
         </div>
     )

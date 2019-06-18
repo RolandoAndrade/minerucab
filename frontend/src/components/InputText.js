@@ -37,8 +37,10 @@ export class InputText extends React.Component
 
     render = () => (
         <div className="InputTextContainer">
-            <input id={"InputText"+this.props.id} onFocus={()=>this.selectInput()} onBlur={()=>this.outInput()} className="InputText" type="text"/>
-            <div id={"InputTextLabel"+this.props.id} className="InputTextLabel">{this.props.label}</div>
+            <input id={"InputText"+this.props.id} onFocus={()=>this.selectInput()} onBlur={()=>this.outInput()} className="InputText" type="text"
+            placeholder={this.props.placeholder||""}/>
+
+            {<div id={"InputTextLabel"+this.props.id} className="InputTextLabel">{this.props.label||""}</div>}
         </div>
     )
 }

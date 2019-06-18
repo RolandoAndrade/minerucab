@@ -49,6 +49,32 @@ export class EmpleadosCrear extends React.Component {
                     </div>
                 </div>
             </div>
+
+            <div className="Container-90p">
+                <div className="LabelContainer">
+                    Usuarios asociados al empleado
+                </div>
+                <div className="RowContainer">
+                    <div className="WideContainer" style={{justifyContent: "right", width: "30%"}}>
+                        <i className="zmdi zmdi-close-circle-o LabelIcon"></i>
+                    </div>
+                    <div className="WideContainer">
+                        <InputText id="CrearEmpleadoUsuarioCorreo" label="Correo electrónico"/>
+                    </div>
+                    <div className="WideContainer">
+                        <InputText id="CrearEmpleadoUsuarioContra" label="Contraseña inicial"/>
+                    </div>
+                    <div className="WideContainer">
+                        <Dropdown id="CrearEmpleadoUsuarioRol" placeholder="Rol..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
+                    </div>
+                </div>
+            </div>
+
+            <div className="Container-90p">
+                <div className="ButtonAddUser">
+                    Añadir usuario
+                </div>
+            </div>
         </div>
     )
 }

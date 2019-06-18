@@ -47,6 +47,14 @@
     display: none !important;
 }
 
+.MuiTablePagination-root {
+    font-size: 2rem !important;
+}
+
+.MuiTypography-root {
+    font-size: 2rem !important;
+}
+
 .Buscador {
     padding: 0 5%;
     width: 100%;
@@ -73,8 +81,6 @@
         color: white;
     }
 }
-
-
 
 .Tabla {
     padding: 0 5%;

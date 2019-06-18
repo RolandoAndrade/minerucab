@@ -7,8 +7,6 @@ import MaterialTable from 'material-table';
 import {API} from '../API/API'
 import {MenuDashBoard} from "../components/MenuDashBoard";
 
-const columnas = ["ID", "Nombre", "esMetal?", "esRadioactivo?", "Nacionalizado"] 
-
 export class Mineral extends React.Component {
   constructor(props){
     super(props)
@@ -78,38 +76,38 @@ export class Mineral extends React.Component {
               style={{margin: "0 5%"}}
               columns={[
                 {
-                  title: 'ID', field: 'id', type: 'string', 
+                  title: 'ID', field: 'id', type: 'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
-                    textAlign : "right"
+                    textAlign : "center"
                   }, 
                 },
                 {
-                  title: 'Nombre', field: 'nombre', type: 'string',
+                  title: 'Nombre', field: 'nombre', type: 'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
-                    textAlign : "left"                    
+                    textAlign : "center"                    
                   },
                 },
                 {
-                  title: '¿Metal?', field: 'esMetal', type: 'string',
+                  title: '¿Metal?', field: 'esMetal', type: 'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
                   },
                 },
                 { 
-                  title: '¿Radioactivo?', field: 'esRadioactivo', type: 'string',
+                  title: '¿Radioactivo?', field: 'esRadioactivo', type: 'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
                   },
                 },
                 { 
-                  title: 'Nacionalizado', field: 'nacionalizado', type:'string',
+                  title: 'Nacionalizado', field: 'nacionalizado', type:'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
-                    textAlign: "left"
+                    textAlign: "center"
                   },
                 }
               ]}
@@ -169,11 +167,11 @@ export class Mineral extends React.Component {
                 <span> : {this.state.consultarMineral.id.toString(10).padStart(4, '0')}</span>
               </p>
               <p>
-                <span className="mc-atributo">esMetal?</span>
+                <span className="mc-atributo">¿Metal?</span>
                 <span> : {this.state.consultarMineral.esMetal ? "Si" : "No"}</span>
               </p>
               <p>
-                <span className="mc-atributo">esRadioactivo</span>
+                <span className="mc-atributo">¿Radioactivo?</span>
                 <span> : {this.state.consultarMineral.esRadioactivo ? "Si" : "No"}</span>
               </p>
               <p>

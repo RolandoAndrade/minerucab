@@ -167,7 +167,7 @@ export class MineralEditar extends React.Component {
                         />
                     </p>
                     <p>
-                        <span className="mc-atributo">esMetal?</span><span> : </span>
+                        <span className="mc-atributo">¿Metal?</span><span> : </span>
                         <label className="form-switch">
                             <input 
                                 type="checkbox"
@@ -179,7 +179,7 @@ export class MineralEditar extends React.Component {
                         </label>
                     </p>
                     <p>
-                        <span className="mc-atributo">esRadioactivo?</span><span> : </span>
+                        <span className="mc-atributo">¿Radioactivo?</span><span> : </span>
                         <label className="form-switch">
                             <input 
                                 type="checkbox"

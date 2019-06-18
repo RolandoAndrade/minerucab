@@ -20,8 +20,7 @@ export class EmpleadosCrear extends React.Component {
 
     render = () => (
         <div>
-            <MenuDashBoard/>
-            <SectionTitle title="Crear Empleado"/>
+            <MenuDashBoard title="Crear empleado"/>
             <div className="RowContainer">
                 <div className="WideContainer">
                     <div className="FormContainer">

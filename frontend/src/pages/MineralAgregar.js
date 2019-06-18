@@ -135,12 +135,9 @@ export class MineralAgregar extends React.Component {
   
   render = () => (
     <div>
-        <MenuDashBoard />
+        <MenuDashBoard title="Agregar mineral"/>
 
         <div>
-            <div className="TituloTabla">
-              <h1>Crear Mineral</h1>
-            </div>
 
             <div className="CrearElemento">
                 <form>

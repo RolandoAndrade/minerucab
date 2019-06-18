@@ -1,6 +1,7 @@
 import React from 'react';
 import {DashBoardSimple} from "./DashBoardSimple";
 import {HeaderLogin} from "./HeaderLogin";
+import {SectionTitle} from "./Header/SectionTitle";
 
 export class MenuDashBoard extends React.Component {
     constructor(props){
@@ -40,7 +41,9 @@ export class MenuDashBoard extends React.Component {
             </div>
             <HeaderLogin hideMenuButton={this.props.main}/>
             <div id="DashboardMenu" className="DashBoardMenu Up">
-                <DashBoardSimple main={false}/></div>
+            <DashBoardSimple main={false}/></div>
+            {this.props.title?<SectionTitle title={this.props.title}/>:""}
+
 
         </div>
     )

@@ -1,0 +1,39 @@
+.SectionTitle
+{
+  background: $azul-oscuro;
+  color: white;
+  font-size: $xm-size;
+  width: 100%;
+  text-align: center;
+  padding: 12px;
+}
+
+.RowContainer
+{
+  display: flex;
+  flex-direction: row;
+}
+
+.RowContainer.center
+{
+  align-items: center;
+}
+
+.WideContainer
+{
+  position: relative;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+  z-index: 0;
+}
+
+.FormContainer
+{
+  width: 90%;
+  display: grid;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+

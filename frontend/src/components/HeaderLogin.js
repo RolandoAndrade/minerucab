@@ -17,14 +17,16 @@ export class HeaderLogin extends React.Component {
   render = () => (
 
     <div className="HeaderLogin">
-        {!this.props.hideMenuButton?<i className="fas fa-bars fa-2x IconoMenu" onClick={this.handleShowDashboard}/>:
-            <i className="fas fa-bars fa-2x IconoMenu" onClick={this.handleShowDashboard} style={{visibility: "hidden"}}/>}
+        <div className="HeaderContent align-left">
+            {<i id="IconoMenu" className="zmdi zmdi-menu zmdi-hc-3x IconoMenu" onClick={this.handleShowDashboard} style={this.props.hideMenuButton?{visibility:"hidden"}:{}}/>}
+        </div>
+        <div className="HeaderContent align-center">
+            <div className="HeaderTitle">MinerUCAB</div>
+        </div>
+        <div className="HeaderContent align-right">
+            <i className="fas fa-user-circle fa-3x IconoUser"/>
+        </div>
 
-
-      <h1>MinerUCAB</h1>
-      <i 
-        className="fas fa-user-circle fa-3x IconoUser"
-      />
     </div>
     )
 

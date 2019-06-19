@@ -106,7 +106,7 @@ export class Mineral extends React.Component {
               style={{margin: "0 5%"}}
               columns={[
                 {
-                  title: 'ID', field: 'm_id_mineral', type: 'string', headerStyle:{ textAlign : "center"},
+                  title: 'ID', field: 'm_id_mineral', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'asc',
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"

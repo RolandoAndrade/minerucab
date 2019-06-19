@@ -21,6 +21,24 @@ const API = {
                         nacionalizado: "15/05/1998",
                         yacimientos : ["Delta Amacuro", "Tucupita", "Barquisimeto"],
                         descripcion: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia"
+                    },
+                    {
+                        id: 4,
+                        nombre: "Bronce",
+                        esMetal: true,
+                        esRadioactivo: false,
+                        nacionalizado: "14/06/1975",
+                        yacimientos : ["Delta Amacuro", "Tucupita", "Barquisimeto"],
+                        descripcion: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia"
+                    },
+                    {
+                        id: 5,
+                        nombre: "Hierro",
+                        esMetal: true,
+                        esRadioactivo: false,
+                        nacionalizado: "17/11/1952",
+                        yacimientos : ["Delta Amacuro", "Tucupita", "Barquisimeto"],
+                        descripcion: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia"
                     }
                 ]) 
                 break;

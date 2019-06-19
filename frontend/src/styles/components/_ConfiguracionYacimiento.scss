@@ -1,0 +1,51 @@
+.dropdown-minerUcab button{
+    background-color: $azul-ucab;
+    border: 1px solid black;
+    padding-right: 10px;
+    height: 30px;
+    width : 90px;
+}
+
+.horizontal {
+    display: flex;
+    flex-direction: row;
+}
+
+.agregar-otro {
+    background-color: $verde-ucab;
+    width: 50%;
+}
+
+.info-mineral {
+    background: $gris-claro;
+}
+
+.titulo-yacimiento {
+    text-align: center;
+    background: $amarillo-claro;
+
+    h1 {
+        margin: 0;
+        padding: $s-size;
+        font-size: $xl-size;
+    }
+}
+
+.subtitulo-centrado {
+    text-align: center;
+}
+
+.pegar-derecha{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.largo-input{
+    width: 17%;
+    height: 30px;
+}
+
+.separador{
+    padding-left: 5px;
+    padding-right: 5px;
+}

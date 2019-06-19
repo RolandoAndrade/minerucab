@@ -217,28 +217,26 @@ export class MineralAgregar extends React.Component {
                         />
                     </p>
                     <div className="compuesto-de">
-                            <span className="mc-atributo">Compuesto de</span><span> : </span>
-                            {this.state.compuestos.map( (compuesto, i) => (
-                                <div className="compuesto" key={i}>
-                                    <span>{compuesto.m_nombre}</span>
-                                    <img 
-                                        src="../resources/icons/Eliminar.png"
-                                        width="20px"
-                                        onClick={() => this.handleDescomponer(compuesto.m_id_mineral)}
-                                        className="IconoAgregar"
-                                    />
-                                </div>
-                            ))}
-                            <img 
-                                src="../resources/icons/Agregar.png"
-                                width="25px"
-                                onClick={this.handleOpenModal1}
-                                className="IconoAgregar"
-                            />
-                        </div>
-                    ))}
+                        <span className="mc-atributo">Compuesto de</span><span> : </span>
+                        {this.state.compuestos.map( (compuesto, i) => (
+                            <div className="compuesto" key={i}>
+                                <span>{compuesto.m_nombre}</span>
+                                <img 
+                                    src="../resources/icons/Eliminar.png"
+                                    width="20px"
+                                    onClick={() => this.handleDescomponer(compuesto.m_id_mineral)}
+                                    className="IconoAgregar"
+                                />
+                            </div>
+                        ))}
+                        <img 
+                            src="../resources/icons/Agregar.png"
+                            width="25px"
+                            onClick={this.handleOpenModal1}
+                            className="IconoAgregar"
+                        />
                     </div>
-                </div>
+                </form>
             </div>
             <div className="botones-abajo">
                 <Button

@@ -35,17 +35,12 @@ const AppRouter = () => (
         {/* PAGINAS QUE CARGAN DESLOGEADO */}
         <PublicRoute path="/" component={Home} exact={true} />
         <PublicRoute path="/mineral" component={Mineral} />
-<<<<<<< HEAD
-        <PublicRoute path="/panel" component={MainPanel} />
-        <PublicRoute path="/mineral-agregar" component={MineralAgregar} />
         <PublicRoute path="/configuracion-yacimiento-agregar" component={ConfiguracionYacimientoAgregar} />
-=======
         <PublicRoute path="/dashboard" component={MainPanel} />
         <PublicRoute path="/crear/empleado" component={EmpleadosCrear} />
         <PublicRoute path="/crear/mineral" component={MineralAgregar} />
         <PublicRoute path="/crear/horario" component={HorarioCrear} />
         <PublicRoute path="/editar/mineral/:id" component={MineralEditar} />
->>>>>>> develop
 
         {/* 
           PAGINAS QUE CARGAN LOGEADOS 

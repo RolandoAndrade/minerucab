@@ -74,7 +74,19 @@ export class Mineral extends React.Component {
   }
 
   handleEliminarSeguro = () => {
-    console.log("SI")
+    console.log(`----> localhost:4000/eliminar/mineral/${this.state.consultarMineral.m_id_mineral}`)
+    axios.post('http://127.0.0.1:4000/eliminar/mineral', 
+        {
+            "m_id_mineral" : this.state.consultarMineral.m_id_mineral,
+        })
+        .then( (res) => {
+            if( res.status === 200) {
+                console.log(`<---- (OK 200) localhost:4000/eliminar/mineral`)
+                this.handleCloseModal()
+                this.handleCloseEliminar()
+                location.reload()
+            }
+        })
   }
 
   handleCloseModal = () => {
@@ -248,7 +260,7 @@ export class Mineral extends React.Component {
 
             <Modal.Body className="mc-body"> 
               <div>
-                <p style={{textAlign: "center"}}>{`¿Estas segur@ que deseas eliminar el ${this.state.consultarMineral.m_nombre}?`}</p>
+                <p style={{textAlign: "center"}}>{`¿Estas segur@ que deseas eliminar el ${this.state.consultarMineral && this.state.consultarMineral.m_nombre}?`}</p>
               </div>
              
             </Modal.Body>

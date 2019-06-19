@@ -1,10 +1,10 @@
 .CrearElemento {
-    padding: 0 5%;
-
-    input, label, textarea {
-        margin-left: 20px;
-        padding-left: 10px;
-    }
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    width: 50%;
+    max-width: 800px;
+    grid-auto-flow: row;
 
     img {
         margin-left: 20px;
@@ -12,8 +12,8 @@
 
     textarea {
         resize: none;
-        margin-bottom: -40px;
-        width: 80%;    
+        width: 80%;
+        padding: 5px;
     }
 
 
@@ -27,10 +27,29 @@
     .compuesto {
         margin-left: 20px;
         border: 1px solid #a39797;
+        color: black;
+        display: flex;
+        align-items: center;
         span {
             padding-left: 10px;
-            padding-right: 30px;
         }
+    }
+
+    .firstColumn
+    {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .secondColumn
+    {
+        padding: 25px;
+        text-align: left;
+    }
+    .secondColumn div
+    {
+        margin:0;
     }
 }
 
@@ -92,3 +111,9 @@
 .form-switch input:checked + i { background-color: $azul-ucab; z-index: -1;}
 .form-switch input:checked + i::before { transform: translate3d(18px, 2px, 0) scale3d(0, 0, 0); z-index: -1;}
 .form-switch input:checked + i::after { transform: translate3d(22px, 2px, 0); z-index: -1;}
+
+.botones-abajo {
+    display :flex;
+    justify-content: center;
+    margin-top: 30px;
+}

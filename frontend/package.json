@@ -14,6 +14,7 @@
     "heroku-postbuild": "npm run build:prod"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "babel-cli": "6.24.1",
     "babel-core": "6.25.0",
     "babel-loader": "7.1.1",
@@ -27,11 +28,13 @@
     "express": "4.15.4",
     "extract-text-webpack-plugin": "3.0.0",
     "history": "4.7.2",
+    "material-table": "^1.39.0",
     "moment": "2.18.1",
     "node-sass": "4.12.0",
     "normalize.css": "7.0.0",
     "numeral": "2.0.6",
     "path": "^0.12.7",
+    "pg": "^7.11.0",
     "react": "^16.8.6",
     "react-addons-shallow-compare": "15.6.0",
     "react-bootstrap": "^1.0.0-beta.9",

@@ -1,0 +1,42 @@
+.RowContainer
+{
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+}
+
+.RowContainer.center
+{
+  align-items: center;
+}
+
+.WideContainer
+{
+  position: relative;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+  z-index: 0;
+}
+
+.FormContainer
+{
+  width: 90%;
+  display: grid;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+
+.Container-80p
+{
+  margin: 0 auto;
+  width: 80%;
+}
+
+.Container-90p
+{
+  margin: 0 auto;
+  width: 90%;
+}

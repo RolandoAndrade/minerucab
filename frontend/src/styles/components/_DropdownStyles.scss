@@ -1,0 +1,89 @@
+.DropdownContainer
+{
+  position: relative;
+  margin: $defaultMargin auto;
+  height: 5rem;
+  width: 80%;
+}
+.DropdownSearch
+{
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  padding: 1rem;
+  height: 100%;
+  background-color: $azul-ucab;
+  border: 3px solid transparent;
+  transition: .3s ease-in-out;
+  color: white;
+
+
+  &::-webkit-input-placeholder
+  {
+    color: white;
+  }
+
+  &:hover
+  {
+    background-color: darken($azul-ucab,10%);
+    cursor: pointer;
+
+    &::-webkit-input-placeholder
+    {
+      color: #e0e9f7;
+    }
+  }
+
+  &:focus,
+  &.open
+  {
+    box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.2);
+    outline: 0;
+    background-color: darken($azul-ucab,10%);
+    color: #fff;
+
+    &::-webkit-input-placeholder
+    {
+      color: lightblue;
+    }
+  }
+}
+
+.DropdownIcon
+{
+  color: white;
+  position: absolute;
+  right: calc(2.5rem - 7px);
+  top: calc(2.5rem - 7px);
+  font-size: 15px;
+  transition: .3s ease-in-out;
+  pointer-events: none;
+  &:hover
+  {
+    cursor: pointer;
+  }
+}
+
+.DropdownOptions
+{
+  width: 100%;
+  position: relative;
+  overflow-y: auto;
+  max-height: 100px;
+  border: none;
+  height: 0;
+  transition: 0.5s all;
+  z-index: 10;
+}
+.DropdownOption
+{
+  width: 100%;
+  color: white;
+  background: lighten($azul-ucab,10%);
+  padding: 5px;
+  &:hover
+  {
+    background: $azul-ucab;
+  }
+}
+

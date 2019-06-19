@@ -7,10 +7,8 @@ import MaterialTable from 'material-table';
 
 import {cleanerMineral} from '../utils/cleanerMineral';
 import {MenuDashBoard} from "../components/MenuDashBoard";
-import {InputText} from "../components/InputText";
-import {InputDate} from "../components/InputDate";
 
-export class MineralAgregar extends React.Component {
+export class MineralEditar extends React.Component {
   constructor(props){
     super(props)
     
@@ -34,6 +32,10 @@ export class MineralAgregar extends React.Component {
   }
 
   componentDidMount = () => {
+    // ID PROVENIENTE DEL URL
+    const id = Number.parseInt(this.props.location.pathname.split("/")[3] , 10)
+    
+    // !!! OJO !!! TRAER TAMBIEN DE BASE DE DATOS LOS COMPUESTOS DEL MINERAL
     console.log(`----> localhost:4000/consultarLista/mineral`)
     axios.get('http://127.0.0.1:4000/consultarLista/mineral')
       .then( (res) => {
@@ -44,6 +46,19 @@ export class MineralAgregar extends React.Component {
             minerales : res.data.rows
         })
 
+        return (res.data.rows)
+      })
+      .then( (minerales) => {
+            // MINERAL A MODIFICAR
+            const mineral = minerales.find( m => m.m_id_mineral === id)
+            this.setState({
+                nuevo_mineral : { 
+                    ...mineral, 
+                    "m_id_mineral" : id,
+                    "m_fecha_nacionalizacion" : mineral.m_fecha_nacionalizacion && mineral.m_fecha_nacionalizacion.split('T')[0]
+                },
+                compuestos : []
+            })
       })
   }
 
@@ -76,7 +91,7 @@ export class MineralAgregar extends React.Component {
     console.log(`handleOkComponer( ${this.state.por_componer.m_id_mineral} )`)
     const porcentaje = this.state.porcentaje
 
-    // !!! OJO !!! REVISAR MAXIMO PORCENTAJE    
+    // !!! OJO !!! REVISAR MAXIMO PORCENTAJE
     
     if (porcentaje > 0 && porcentaje < 100)
         this.setState( (prev) => ({
@@ -117,9 +132,10 @@ export class MineralAgregar extends React.Component {
 
     // !!! OJO !!! FALTA AGREGAR MINERALES COMPUESTOS
 
-    console.log(`----> localhost:4000/insertar/mineral`)
-    axios.post('http://127.0.0.1:4000/insertar/mineral', 
+    console.log(`----> localhost:4000/modificar/mineral/${nuevo_mineral.m_id_mineral}`)
+    axios.post('http://127.0.0.1:4000/modificar/mineral', 
         {
+            "m_id_mineral" : nuevo_mineral.m_id_mineral,
             "m_nombre" : nuevo_mineral.m_nombre,
             "m_metalico" : nuevo_mineral.m_metalico , 
             "m_radioactivo" : nuevo_mineral.m_radioactivo, 
@@ -128,7 +144,7 @@ export class MineralAgregar extends React.Component {
         })
         .then( (res) => {
             if( res.status === 200) {
-                console.log(`<---- (OK 200) localhost:4000/insertar/mineral`)
+                console.log(`<---- (OK 200) localhost:4000/modificar/mineral/${nuevo_mineral.m_id_mineral}`)
                 this.handleCancelar()
             }
         })
@@ -161,12 +177,20 @@ export class MineralAgregar extends React.Component {
   
   render = () => (
     <div>
-        <MenuDashBoard title="Agregar mineral"/>
+        <MenuDashBoard />
 
         <div>
-
+            <div className="TituloTabla">
+              <h1>Editar Mineral: <span style={{fontWeight: "bold"}}>{this.state.nuevo_mineral.m_nombre}</span></h1>
+            </div>
+            
+            { this.state.nuevo_mineral &&
             <div className="CrearElemento">
                 <form>
+                    <p>
+                        <span className="mc-atributo">ID</span><span> : </span>
+                        <span>{this.state.nuevo_mineral.m_id_mineral.toString(10).padStart(4, '0')}</span>
+                    </p>
                     <p>
                         <span className="mc-atributo">Nombre</span><span> : </span>
                         <input 
@@ -174,6 +198,7 @@ export class MineralAgregar extends React.Component {
                             type="text"
                             placeholder="nombre ..."
                             onChange={this.handleChange}
+                            value={this.state.nuevo_mineral.m_nombre}
                         />
                     </p>
                     <p>
@@ -206,6 +231,7 @@ export class MineralAgregar extends React.Component {
                             type="date"
                             name="m_fecha_nacionalizacion"
                             onChange={this.handleChange}
+                            value={this.state.nuevo_mineral.m_fecha_nacionalizacion}
                         />
                     </p>
                     <p>
@@ -214,48 +240,49 @@ export class MineralAgregar extends React.Component {
                             name="m_descripcion"
                             placeholder="descripción ..."
                             onChange={this.handleChange}
+                            value={this.state.nuevo_mineral.m_descripcion}
                         />
                     </p>
                     <div className="compuesto-de">
-                        <span className="mc-atributo">Compuesto de</span><span> : </span>
-                        {this.state.compuestos.map( (compuesto, i) => (
-                            <div className="compuesto" key={i}>
-                                <span>{compuesto.m_nombre}</span>
-                                <img 
-                                    src="../resources/icons/Eliminar.png"
-                                    width="20px"
-                                    onClick={() => this.handleDescomponer(compuesto.m_id_mineral)}
-                                    className="IconoAgregar"
-                                />
-                            </div>
-                        ))}
-                        <img 
-                            src="../resources/icons/Agregar.png"
-                            width="25px"
-                            onClick={this.handleOpenModal1}
-                            className="IconoAgregar"
-                        />
+                            <span className="mc-atributo">Compuesto de</span><span> : </span>
+                            {this.state.compuestos.map( (compuesto, i) => (
+                                <div className="compuesto" key={i}>
+                                    <span>{compuesto.nombre}</span>
+                                    <img 
+                                        src="../resources/icons/Eliminar.png"
+                                        width="20px"
+                                        onClick={() => this.handleDescomponer(compuesto.m_id_mineral)}
+                                        className="IconoAgregar"
+                                    />
+                                </div>
+                            ))}
+                            <img 
+                                src="../resources/icons/Agregar.png"
+                                width="25px"
+                                onClick={this.handleOpenModal1}
+                                className="IconoAgregar"
+                            />
+                    </div>
+                    <div className="botones-abajo">
+                        <Button 
+                            variant="primary" 
+                            type="submit" 
+                            className="mc-boton mc-boton-guardar" 
+                            onClick={(e) => this.handleGuardar(e)}
+                        >
+                            Guardar
+                        </Button>
+
+                        <Button 
+                            variant="secondary" 
+                            className="mc-boton" 
+                            onClick={this.handleCancelar}
+                        >
+                            Cancelar
+                        </Button>
                     </div>
                 </form>
-            </div>
-            <div className="botones-abajo">
-                <Button
-                    variant="primary"
-                    type="submit"
-                    className="mc-boton mc-boton-guardar"
-                    onClick={(e) => this.handleGuardar(e)}
-                >
-                    Guardar
-                </Button>
-
-                <Button
-                    variant="secondary"
-                    className="mc-boton"
-                    onClick={this.handleCancelar}
-                >
-                    Cancelar
-                </Button>
-            </div>
+            </div> }
 
             {this.state.goMineral && <Redirect to="/mineral" /> }
 
@@ -324,7 +351,7 @@ export class MineralAgregar extends React.Component {
                             searchFieldAlignment: "left"
                         }}
 
-                        onRowClick={(event, rowData) => this.handleOpenModal2( Number.parseInt(rowData.m_id_mineral, 10))}
+                        onRowClick={(event, rowData) => this.handleOpenModal2( Number.parseInt(rowData.m_id_mineral, 10) )}
                         localization={{
                             toolbar : {
                                 searchPlaceholder : "Buscar ..."
@@ -332,7 +359,7 @@ export class MineralAgregar extends React.Component {
                         }
                     />
                 </Modal.Body>
-
+                
                 <Modal.Footer className="mc-footer">
                     <Button variant="secondary" className="mc-boton" onClick={this.handleCloseModal1}>
                         Volver

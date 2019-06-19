@@ -10,6 +10,55 @@
     }
 }
 
+.ConsultarLista{
+    margin-top: $xl-size;
+}
+
+.MuiInput-underline::before, .MuiInput-underline:hover {
+    border-bottom: 0px solid black !important;
+}
+
+.MuiInputBase-inputAdornedStart {
+    background: $azul-ucab !important;
+    border: none !important;
+    width: 60% !important;
+    padding-left: 10px !important;
+    padding-right: 40px !important;
+    color:white !important;
+    font-size: large !important;
+}
+
+.MuiInputBase-inputAdornedStart::placeholder {
+    color : white !important;
+    font-size: large !important;
+}
+
+.MuiInputAdornment-positionStart {
+    color : white !important;
+    margin-left: 250px !important;
+    margin-right: -300px !important;
+}
+
+.MuiInputAdornment-positionEnd {
+    color: $azul-ucab !important;
+}
+
+.MuiInputBase-formControl{
+    background: $azul-ucab !important;
+}
+
+.MuiInputAdornment-positionEnd {
+    display: none !important;
+}
+
+.MuiTablePagination-root {
+    font-size: 2rem !important;
+}
+
+.MuiTypography-root {
+    font-size: 2rem !important;
+}
+
 .Buscador {
     padding: 0 5%;
     width: 100%;
@@ -21,13 +70,21 @@
         border: none;
         width: 40%;
         padding-left: 10px;
+        padding-right: 40px;
         color:white;
+        z-index: -5;
     }
 
     input::placeholder {
         color: white;
     }
-}    
+
+    .field-icon {
+        margin-left: -40px;
+        margin-right: 20px;
+        color: white;
+    }
+}
 
 .Tabla {
     padding: 0 5%;
@@ -38,14 +95,14 @@
     display: flex;
     flex-direction: row;
     margin-bottom: -10px;
-    border-left: 1px solid #E6E6E6;
-    border-right: 1px solid #E6E6E6;
+    border-left: 1px solid $gris-claro;
+    border-right: 1px solid $gris-claro;
 }
 
 .TituloColumna {
     text-align: center;
-    border-left: 1px solid #E6E6E6;
-    border-right: 1px solid #E6E6E6;
+    border-left: 1px solid $gris-claro;
+    border-right: 1px solid $gris-claro;
     width: 20%;
     background: $verde-ucab;
     color: white;
@@ -63,17 +120,17 @@
         width: 20%;
         background: white;
         color: $grey;
-        border-left: 1px solid #E6E6E6;
-        border-right: 1px solid #E6E6E6;
+        border-left: 1px solid $gris-claro;
+        border-right: 1px solid $gris-claro;
         height: 100%;
     }
 }
 
 .FinalTabla {
-    border-top: 2px solid #E6E6E6;
+    border-top: 2px solid $gris-claro;
 }
 
 .IconoAgregar {
-    color:$verde-ucab;
     cursor: pointer;
+    margin-right: 10px;
 }

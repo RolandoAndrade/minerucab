@@ -5,18 +5,37 @@ import {InputText} from "../components/InputText";
 import {SectionTitle} from "../components/Header/SectionTitle";
 import {InputDate} from "../components/InputDate";
 import {Button} from "react-bootstrap";
+import {GuardarCancelar} from "../components/GuardarCancelar";
 
 export class EmpleadosCrear extends React.Component {
     constructor(props){
         super(props);
 
         this.state = {
-
+            users: [1]
         }
     }
 
-    login  = () => {
+    addUser()
+    {
+        let users=this.state.users;
+        users.push(1);
+        this.setState(
+            {
+                users: users
+            }
+        )
+    }
 
+    removeUser(i)
+    {
+        let users=this.state.users;
+        users.splice(i,1);
+        this.setState(
+            {
+                users: users
+            }
+        )
     }
 
     render = () => (
@@ -55,46 +74,34 @@ export class EmpleadosCrear extends React.Component {
                 <div className="LabelContainer">
                     Usuarios asociados al empleado
                 </div>
-                <div className="RowContainer">
-                    <div className="WideContainer" style={{justifyContent: "right", width: "30%"}}>
-                        <i className="zmdi zmdi-close-circle-o LabelIcon"></i>
-                    </div>
-                    <div className="WideContainer">
-                        <InputText id="CrearEmpleadoUsuarioCorreo" label="Correo electrónico"/>
-                    </div>
-                    <div className="WideContainer">
-                        <InputText id="CrearEmpleadoUsuarioContra" label="Contraseña inicial"/>
-                    </div>
-                    <div className="WideContainer">
-                        <Dropdown id="CrearEmpleadoUsuarioRol" placeholder="Rol..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
-                    </div>
-                </div>
+                {
+                    this.state.users.map((e,i)=>
+                    {
+                        return<div className="RowContainer" key={i}>
+                            <div className="WideContainer" style={{justifyContent: "right", width: "30%"}}>
+                                <i className="zmdi zmdi-close-circle-o LabelIcon" onClick={()=>this.removeUser(i)}></i>
+                            </div>
+                            <div className="WideContainer">
+                                <InputText id={"CrearEmpleadoUsuarioCorreo"+i} label="Correo electrónico"/>
+                            </div>
+                            <div className="WideContainer">
+                                <InputText id={"CrearEmpleadoUsuarioContra"+i} label="Contraseña inicial"/>
+                            </div>
+                            <div className="WideContainer">
+                                <Dropdown id={"CrearEmpleadoUsuarioRol"+i} placeholder="Rol..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
+                            </div>
+                        </div>
+                    },this)
+                }
             </div>
 
             <div className="Container-90p">
-                <div className="ButtonAddUser">
+                <div className="ButtonAddUser" onClick={()=>this.addUser()}>
                     Agregar usuario
                 </div>
             </div>
 
-            <div className="botones-abajo">
-                <Button
-                    variant="primary"
-                    type="submit"
-                    className="mc-boton mc-boton-guardar"
-                    onClick={(e) => this.handleGuardar(e)}
-                >
-                    Guardar
-                </Button>
-
-                <Button
-                    variant="secondary"
-                    className="mc-boton"
-                    onClick={this.handleCancelar}
-                >
-                    Cancelar
-                </Button>
-            </div>
+            <GuardarCancelar position="right"/>
         </div>
     )
 }

@@ -1,0 +1,34 @@
+.GuardarCancelar
+{
+  color: white;
+  text-align: center;
+  font-size: 25px;
+  margin: 50px auto;
+  width: 90%;
+}
+.GC
+{
+  padding: 5px 70px;
+  margin: 0 5px;
+  display: inline-block;
+  cursor: pointer;
+  transition: 0.5s all;
+}
+
+.ButtonPrimary
+{
+  background: $azul-ucab;
+  &:hover
+  {
+    background: darken($azul-ucab,10%);
+  }
+}
+
+.ButtonSecondary
+{
+  background: grey;
+  &:hover
+  {
+    background: darken(grey,10%);
+  }
+}

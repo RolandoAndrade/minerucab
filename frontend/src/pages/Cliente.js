@@ -5,7 +5,7 @@ import {Redirect} from 'react-router-dom';
 import {Modal, Button} from 'react-bootstrap';
 import MaterialTable from 'material-table';
 
-// import {cleanerCliente} from '../utils/cleanerCliente';
+import {cleanerCliente} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
 
 export class Cliente extends React.Component {
@@ -140,7 +140,7 @@ export class Cliente extends React.Component {
                   },
                 }
               ]}
-              data={ this.state.clientes }
+              data={ cleanerCliente.limpiarLista( this.state.clientes ) }
               title={null}
               
               options={{

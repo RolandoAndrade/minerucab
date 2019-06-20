@@ -5,7 +5,7 @@ import {Modal, Button} from 'react-bootstrap';
 import {Redirect} from 'react-router-dom';
 import MaterialTable from 'material-table';
 
-import {cleanerMineral} from '../utils/cleanerMineral';
+import {cleanerMineral} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
 import {InputText} from "../components/InputText";
 import {InputDate} from "../components/InputDate";
@@ -277,7 +277,7 @@ export class MineralAgregar extends React.Component {
                         style={{margin: "0 5%"}}
                         columns={[
                             {
-                            title: 'ID', field: 'm_id_mineral', type: 'string', 
+                            title: 'ID', field: 'm_id_mineral', type: 'string', defaultSort : 'asc',
                             cellStyle : {
                                 fontSize : "large",
                                 textAlign : "right"

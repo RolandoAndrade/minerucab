@@ -4,7 +4,8 @@ CREATE TABLE CLIENTE (
 	c_nombre	    VARCHAR(50) NOT NULL,
 	c_telefono	    VARCHAR(50) NOT NULL,
 	lugar_id	    INTEGER NOT NULL,
-    
+    /* !!! OJO !!! REVISAR SI PONER FECHA DESDE QUE SON CLIENTES */
+
 	CONSTRAINT c_id_cliente PRIMARY KEY (c_id_cliente)
 );
 

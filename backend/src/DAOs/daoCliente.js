@@ -1,59 +1,51 @@
 import {psql} from '../postgreConnection'
 
-const daoMineral = {
-    // CRUD BASICO
+const daoCliente = {
     consultarTodos() {
-        // RETORNA UNA PROMESA
         return psql.query(`
-            SELECT * FROM MINERAL
+            SELECT * FROM CLIENTE
         `)
     },
 
     consultar( id ){
         return psql.query(`
-            SELECT * FROM MINERAL
-            WHERE m_id_mineral = ${id}
+            SELECT * FROM CLIENTE
+            WHERE c_id_cliente = ${id}
         `)
     },
 
     eliminar( id ){
         return psql.query(`
-            DELETE FROM MINERAL
-            WHERE m_id_mineral = ${id}
+            DELETE FROM CLIENTE
+            WHERE c_id_cliente = ${id}
         `)
     },
-
-    insertar( m_nombre, m_metalico, m_radioactivo, m_fecha_nacionalizacion, m_descripcion ){
+ 
+    insertar( c_rif, c_nombre, c_telefono, lugar_id ){
         return psql.query(`
-            INSERT INTO MINERAL (m_id_mineral, m_nombre, m_metalico, m_radioactivo, m_fecha_nacionalizacion, m_descripcion)
+            INSERT INTO CLIENTE (c_id_cliente, c_rif, c_nombre, c_telefono, lugar_id)
             VALUES ( 
                 DEFAULT,
-                '${m_nombre}', 
-                ${m_metalico ? 'TRUE' : 'NULL'}, 
-                ${m_radioactivo ? 'TRUE' : 'NULL'}, 
-                ${m_fecha_nacionalizacion ? `'${m_fecha_nacionalizacion}'` : 'NULL'}, 
-                ${m_descripcion ? `'${m_descripcion}'` : 'NULL'}
+                ${c_rif ? `'${c_rif}'` : 'NULL'}, 
+                '${c_nombre}', 
+                ${c_telefono ? `'${c_telefono}'` : 'NULL'}, 
+                ${lugar_id}
             )
         `)
     },
 
-    modificar( m_id_mineral, m_nombre, m_metalico, m_radioactivo, m_fecha_nacionalizacion, m_descripcion ){
+    modificar( c_id_cliente, c_rif, c_nombre, c_telefono, lugar_id ){
         return psql.query(`
-            UPDATE MINERAL SET
-                m_nombre = '${m_nombre}',
-                m_metalico = ${m_metalico ? 'TRUE' : 'NULL'},
-                m_radioactivo = ${m_radioactivo ? 'TRUE' : 'NULL'},
-                m_fecha_nacionalizacion = ${m_fecha_nacionalizacion ? `'${m_fecha_nacionalizacion}'` : 'NULL'},
-                m_descripcion = ${m_descripcion ? `'${m_descripcion}'` : 'NULL'}
-                WHERE m_id_mineral = ${m_id_mineral}
+            UPDATE CLIENTE SET
+                c_nombre = '${c_nombre}',
+                c_rif = ${c_rif ? `'${c_rif}'` : 'NULL'},
+                c_telefono = ${c_telefono ? `'${c_telefono}'` : 'NULL'},
+                lugar_id = ${lugar_id ? `'${lugar_id}'` : 'NULL'}
+                WHERE c_id_cliente = ${c_id_cliente}
         `)
     },
 
 
-    // EN CASO DE HABER MAS METODOS
-    insertarCompuesto( padre, hijo ){
-        // POR EJEMPLO
-    }
 }
 
-export {daoMineral}
+export {daoCliente}

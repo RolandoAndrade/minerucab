@@ -24,9 +24,14 @@ const getAhora = () => {
 
 /* METODO DE PRUEBA */
 app.get('/prueba', (req, res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/prueba")
+  
   const respuesta = {
     stringInterno: "TODO BIEN, REQUEST FUNCIONANDO"
   }
+  console.log(`bd_response : ${JSON.stringify(respuesta)}`)
 
   res.status(200).json(respuesta);
 });
@@ -139,6 +144,129 @@ app.post('/modificar/mineral', (req, res) => {
 
 
   daoMineral.modificar(m_id_mineral, m_nombre, m_metalico, m_radioactivo, m_fecha_nacionalizacion, m_descripcion)
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      console.log(`bd_response : ${JSON.stringify(bd_response)}`)
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+/* ****************************** CLIENTE ****************************** */
+import {daoCliente} from './DAOs/daoCliente'
+
+app.get('/consultarLista/cliente', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/cliente")
+
+  daoCliente.consultarTodos()
+    .then( ({rows}) => {
+      console.log(`bd_response : ${JSON.stringify(rows)}`)
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/consultar/cliente', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultar/cliente/${req.body.c_id_cliente}`)
+  daoCliente.consultar(req.body.c_id_cliente)
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+      console.log(`bd_response : ${JSON.stringify(rows)}`)
+
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/eliminar/cliente', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/eliminar/cliente/${req.body.c_id_cliente}`)
+  daoCliente.eliminar(req.body.c_id_cliente)
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      console.log(`bd_response : ${JSON.stringify(bd_response)}`)
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/insertar/cliente', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/insertar/cliente/`)
+  console.log(req.body)
+
+  const {
+    c_rif, c_nombre, c_telefono, lugar_id
+  } = req.body
+
+  daoCliente.insertar( c_rif, c_nombre, c_telefono, lugar_id )
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      console.log(`bd_response : ${JSON.stringify(bd_response)}`)
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/modificar/cliente', (req, res) => {
+  
+  const {
+    c_id_cliente, c_rif, c_nombre, c_telefono, lugar_id
+  } = req.body
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/modificar/cliente/${c_id_cliente}`)
+  console.log(req.body)
+
+
+  daoCliente.modificar(c_id_cliente, c_rif, c_nombre, c_telefono, lugar_id)
     .then( (bd_response) => {
       console.log(`STATUS OK : 200`)      
       console.log(`bd_response : ${JSON.stringify(bd_response)}`)

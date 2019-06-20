@@ -5,7 +5,7 @@ import {Redirect} from 'react-router-dom';
 import {Modal, Button} from 'react-bootstrap';
 import MaterialTable from 'material-table';
 
-import {cleanerMineral} from '../utils/cleanerMineral';
+import {cleanerMineral} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
 
 export class Mineral extends React.Component {
@@ -100,7 +100,6 @@ export class Mineral extends React.Component {
         <MenuDashBoard title={"Minerales"}/>
 
         <div className="ConsultarLista">
-          {/* !!! OJO !!! INTENTAR ORDENAR POR ID, REVISAR DOCUMENTACION */}
           { this.state.minerales &&
             <MaterialTable
               style={{margin: "0 5%"}}

@@ -5,7 +5,7 @@ import {Modal, Button} from 'react-bootstrap';
 import {Redirect} from 'react-router-dom';
 import MaterialTable from 'material-table';
 
-import {cleanerMineral} from '../utils/cleanerMineral';
+import {cleanerMineral} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
 
 export class MineralEditar extends React.Component {

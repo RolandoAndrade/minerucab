@@ -1,8 +1,8 @@
 import React from 'react';
+import axios from 'axios';
 
 import {DropdownButton, Dropdown, Button} from 'react-bootstrap';
 
-import {API} from '../API/API'
 import {MenuDashBoard} from "../components/MenuDashBoard";
 
 export class ConfiguracionYacimientoAgregar extends React.Component {
@@ -10,26 +10,35 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
       super(props)
       
       this.state  = {
-        minerales : null,
+        minerales : [],
         principal : {
-            nombre: "Mineral...",
-            cantidad: null},
+            m_nombre: "Mineral...",
+            m_antidad: null},
         requisitos : [],
         seleccionados: []
       }
     }
 
     componentDidMount = () => {
-        this.setState({
-            minerales : API.consultarTodos("Mineral")
-        })
-      }
+        console.log(`----> localhost:4000/consultarLista/mineral `)
+        axios.get('http://127.0.0.1:4000/consultarLista/mineral')
+            .then( (res) => {
+                if(res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral`)
+                    this.setState({
+                        minerales : res.data.rows
+                    })
+                }else {
+                    console.log(`<---- (ERROR 500) localhost:4000/consultarLista/mineral`)
+                }
+            })
+    }
     
     handleAgregarRequisito = () => {
         this.setState( (prev) => ({
             requisitos:[...prev.requisitos, {
-                nombre: "Mineral...",
-                cantidad: null}]
+                m_nombre: "Mineral...",
+                m_cantidad: null}]
         }))
     }
 
@@ -38,7 +47,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
         this.setState( (prev) => ({
             principal:{
                 ...prev.principal,
-                nombre :  valorNuevo
+                m_nombre :  valorNuevo
             },
             seleccionados: [...nuevosSeleccionados, valorNuevo.toLowerCase()]
         }))
@@ -48,7 +57,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
         const nuevosSeleccionados = this.state.seleccionados.filter(s => s !== valorViejo.toLowerCase())
         const lista = this.state.requisitos.map( (req,posicion) => {
             if (posicion === index){
-                req.nombre = valorNuevo
+                req.m_nombre = valorNuevo
             }
             return req
         });
@@ -61,12 +70,9 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
 
     render = () => (
         <div>   
-             <MenuDashBoard />
+             <MenuDashBoard title={"Crear Configuracion de Yacimiento"}/>
 
              <div>
-                <div className="titulo-yacimiento">
-                    <h1>Crear Configuracion de Yacimiento</h1>
-                </div>
                 {/* sobre el mineral, debo agregar el fondo gris*/}
                 <div className="info-mineral">
                     <h1 className = "subtitulo-centrado">Sobre el mineral</h1>
@@ -75,17 +81,17 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                             <div > {/*Todas las lineas de info */}
                                 <div className="horizontal pegar-derecha"> {/* primera linea */}
                                     <p className="separador"> Mineral a explotar</p>
-                                    <DropdownButton className="dropdown-minerUcab separador" title={this.state.principal.nombre}>
+                                    <DropdownButton className="dropdown-minerUcab separador" title={this.state.principal.m_nombre}>
                                         {
                                             this.state.minerales ?
                                             this.state.minerales.filter( 
-                                                (m) => !this.state.seleccionados.includes( m.nombre.toLowerCase())
+                                                (m) => !this.state.seleccionados.includes( m.m_nombre.toLowerCase())
                                             ).map(
                                                 (mineral) => (
                                                     <Dropdown.Item 
-                                                        onSelect={ () => this.handleSeleccionarPrincipal(mineral.nombre, this.state.principal.nombre) }
+                                                        onSelect={ () => this.handleSeleccionarPrincipal(mineral.m_nombre, this.state.principal.m_nombre) }
                                                     >
-                                                        {mineral.nombre}
+                                                        {mineral.m_nombre}
                                                     </Dropdown.Item>
                                                 )
                                             ):<Dropdown.Item>Mineral...</Dropdown.Item>
@@ -106,15 +112,15 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                                 <div className="pegar-derecha">
                                                     {/*aqui va la x */}
                                                     <img></img>
-                                                    <DropdownButton className="dropdown-minerUcab separador" title={requisito.nombre}>
+                                                    <DropdownButton className="dropdown-minerUcab separador" title={requisito.m_nombre}>
                                                         {
                                                             this.state.minerales ?
                                                             this.state.minerales.filter( 
-                                                                (m) => !this.state.seleccionados.includes( m.nombre.toLowerCase())
+                                                                (m) => !this.state.seleccionados.includes( m.m_nombre.toLowerCase())
                                                             ).map(
                                                                 (mineral) => (
-                                                                    <Dropdown.Item onSelect={() => this.handleSeleccionarRequisito(mineral.nombre, requisito.nombre,index)}>
-                                                                        {mineral.nombre}
+                                                                    <Dropdown.Item onSelect={() => this.handleSeleccionarRequisito(mineral.m_nombre, requisito.m_nombre,index)}>
+                                                                        {mineral.m_nombre}
                                                                     </Dropdown.Item>
                                                                 )
                                                             ):<Dropdown.Item >Mineral...</Dropdown.Item>

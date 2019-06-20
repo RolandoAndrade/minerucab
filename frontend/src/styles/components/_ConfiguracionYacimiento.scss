@@ -20,6 +20,12 @@
     background: $gris-claro;
 }
 
+.btn-primary::after {
+    float: right;
+    margin-top: 10%; 
+
+}
+
 .titulo-yacimiento {
     text-align: center;
     background: $amarillo-claro;

@@ -20,12 +20,11 @@ const cleanerCliente = {
             return []
         else 
             return clientesBD.map( (c) => ({
-                "m_id_mineral" : c.m_id_mineral.toString(10).padStart(4, '0'),
-                "m_nombre" : c.m_nombre,
-                "m_radioactivo" : c.m_radioactivo ? "Si" : "No" ,
-                "m_metalico" : c.m_metalico ? "Si" : "No" ,
-                "m_fecha_nacionalizacion" : c.m_fecha_nacionalizacion ? c.m_fecha_nacionalizacion.split('T')[0] : "No",
-                "m_descripcion" : c.m_descripcion
+                "c_id_cliente" : c.c_id_cliente.toString(10).padStart(4, '0'),
+                "c_nombre" : c.c_nombre,
+                "c_rif" : c.c_rif || "No posee" ,
+                "c_telefono" : c.c_telefono || "No posee",
+                "lugar_id" : c.lugar_id
             }))
     }
 }

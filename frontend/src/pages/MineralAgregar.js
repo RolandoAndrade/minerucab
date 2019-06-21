@@ -225,7 +225,7 @@ export class MineralAgregar extends React.Component {
                                     src="../resources/icons/Eliminar.png"
                                     width="20px"
                                     onClick={() => this.handleDescomponer(compuesto.m_id_mineral)}
-                                    className="IconoAgregar"
+                                    className="IconoEliminar"
                                 />
                             </div>
                         ))}

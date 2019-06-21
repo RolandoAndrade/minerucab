@@ -180,13 +180,9 @@ export class MineralEditar extends React.Component {
   
   render = () => (
     <div>
-        <MenuDashBoard />
+        <MenuDashBoard title={`Editar Mineral: ${this.state.nuevo_mineral.m_nombre}`}/>
 
         <div>
-            <div className="TituloTabla">
-              <h1>Editar Mineral: <span style={{fontWeight: "bold"}}>{this.state.nuevo_mineral.m_nombre}</span></h1>
-            </div>
-            
             { this.state.nuevo_mineral &&
             <div className="CrearElemento">
                 <form>
@@ -255,7 +251,7 @@ export class MineralEditar extends React.Component {
                                         src="../resources/icons/Eliminar.png"
                                         width="20px"
                                         onClick={() => this.handleDescomponer(compuesto.m_id_mineral)}
-                                        className="IconoAgregar"
+                                        className="IconoEliminar"
                                     />
                                 </div>
                             ))}

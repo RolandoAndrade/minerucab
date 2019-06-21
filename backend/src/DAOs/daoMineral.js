@@ -23,7 +23,7 @@ const daoMineral = {
         `)
     },
 
-    insertar( m_nombre, m_metalico, m_radioactivo, m_fecha_nacionalizacion, m_descripcion ){
+    insertar({ m_nombre, m_metalico, m_radioactivo, m_fecha_nacionalizacion, m_descripcion }){
         return psql.query(`
             INSERT INTO MINERAL (m_id_mineral, m_nombre, m_metalico, m_radioactivo, m_fecha_nacionalizacion, m_descripcion)
             VALUES ( 
@@ -37,7 +37,7 @@ const daoMineral = {
         `)
     },
 
-    modificar( m_id_mineral, m_nombre, m_metalico, m_radioactivo, m_fecha_nacionalizacion, m_descripcion ){
+    modificar({ m_id_mineral, m_nombre, m_metalico, m_radioactivo, m_fecha_nacionalizacion, m_descripcion }){
         return psql.query(`
             UPDATE MINERAL SET
                 m_nombre = '${m_nombre}',

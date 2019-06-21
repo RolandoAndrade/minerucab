@@ -37,6 +37,7 @@ const AppRouter = () => (
         <PublicRoute path="/dashboard" component={MainPanel} />
         <PublicRoute path="/cliente" component={Cliente} />
         <PublicRoute path="/mineral" component={Mineral} />
+        <PublicRoute path="/empleado" component={Empleados} />
         <PublicRoute path="/crear/cliente" component={ClienteAgregar} />
         <PublicRoute path="/crear/empleado" component={EmpleadosCrear} />
         <PublicRoute path="/crear/mineral" component={MineralAgregar} />

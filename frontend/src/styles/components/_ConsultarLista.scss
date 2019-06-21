@@ -18,6 +18,10 @@
     border-bottom: 0px solid black !important;
 }
 
+.MuiTableSortLabel-root.MuiTableSortLabel-active, .MuiTableSortLabel-icon, .MuiTableSortLabel-root:hover{
+    color: saturate($amarillo-claro, 10) !important;
+}
+
 .MuiInputBase-inputAdornedStart {
     background: $azul-ucab !important;
     border: none !important;
@@ -131,6 +135,10 @@
 }
 
 .IconoAgregar {
+    cursor: pointer;
+}
+
+.IconoEliminar {
     cursor: pointer;
     margin-right: 10px;
 }

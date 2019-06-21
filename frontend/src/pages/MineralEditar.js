@@ -5,7 +5,7 @@ import {Modal, Button} from 'react-bootstrap';
 import {Redirect} from 'react-router-dom';
 import MaterialTable from 'material-table';
 
-import {cleanerMineral} from '../utils/cleanerMineral';
+import {cleanerMineral} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
 
 export class MineralEditar extends React.Component {
@@ -53,9 +53,12 @@ export class MineralEditar extends React.Component {
             const mineral = minerales.find( m => m.m_id_mineral === id)
             this.setState({
                 nuevo_mineral : { 
-                    ...mineral, 
+                    ...mineral,
+                    "m_metalico" :  !!mineral.m_metalico,
+                    "m_radioactivo" : !!mineral.m_radioactivo, 
                     "m_id_mineral" : id,
-                    "m_fecha_nacionalizacion" : mineral.m_fecha_nacionalizacion && mineral.m_fecha_nacionalizacion.split('T')[0]
+                    "m_fecha_nacionalizacion" : mineral.m_fecha_nacionalizacion ? mineral.m_fecha_nacionalizacion.split('T')[0] : "",
+                    "m_descripcion" : mineral.m_descripcion || ""
                 },
                 compuestos : []
             })
@@ -177,13 +180,9 @@ export class MineralEditar extends React.Component {
   
   render = () => (
     <div>
-        <MenuDashBoard />
+        <MenuDashBoard title={`Editar Mineral: ${this.state.nuevo_mineral.m_nombre}`}/>
 
         <div>
-            <div className="TituloTabla">
-              <h1>Editar Mineral: <span style={{fontWeight: "bold"}}>{this.state.nuevo_mineral.m_nombre}</span></h1>
-            </div>
-            
             { this.state.nuevo_mineral &&
             <div className="CrearElemento">
                 <form>
@@ -247,12 +246,12 @@ export class MineralEditar extends React.Component {
                             <span className="mc-atributo">Compuesto de</span><span> : </span>
                             {this.state.compuestos.map( (compuesto, i) => (
                                 <div className="compuesto" key={i}>
-                                    <span>{compuesto.nombre}</span>
+                                    <span>{compuesto.m_nombre}</span>
                                     <img 
                                         src="../resources/icons/Eliminar.png"
                                         width="20px"
                                         onClick={() => this.handleDescomponer(compuesto.m_id_mineral)}
-                                        className="IconoAgregar"
+                                        className="IconoEliminar"
                                     />
                                 </div>
                             ))}
@@ -304,7 +303,7 @@ export class MineralEditar extends React.Component {
                         style={{margin: "0 5%"}}
                         columns={[
                             {
-                            title: 'ID', field: 'm_id_mineral', type: 'string', 
+                            title: 'ID', field: 'm_id_mineral', type: 'string', defaultSort : 'asc',
                             cellStyle : {
                                 fontSize : "large",
                                 textAlign : "right"

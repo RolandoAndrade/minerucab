@@ -5,31 +5,31 @@ import {Redirect} from 'react-router-dom';
 import {Modal, Button} from 'react-bootstrap';
 import MaterialTable from 'material-table';
 
-import {cleanerMineral} from '../utils/cleaner';
+import {cleanerCliente} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
 
-export class Mineral extends React.Component {
+export class Cliente extends React.Component {
   constructor(props){
     super(props)
     
     this.state  = {
-      minerales : [],
+      clientes : [],
       textoBuscardor : "",
-      consultarMineral : null,
+      consultarCliente : null,
       agregarPresionado : null
     }
   }
 
   componentDidMount = () => {
     // API REQUEST GET
-    console.log(`----> localhost:4000/consultarLista/mineral`)
-    axios.get('http://127.0.0.1:4000/consultarLista/mineral')
+    console.log(`----> localhost:4000/consultarLista/cliente`)
+    axios.get('http://127.0.0.1:4000/consultarLista/cliente')
       .then( (res) => {
         if(res.status === 200)
-          console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral`)
+          console.log(`<---- (OK 200) localhost:4000/consultarLista/cliente`)
 
         this.setState({
-            minerales : res.data.rows
+            clientes : res.data.rows
         })
 
       })
@@ -43,23 +43,23 @@ export class Mineral extends React.Component {
   }
 
   handleConsultar = (id) => {
-    console.log(`consultarMineral(${id})`)
-    const consultarMineral = this.state.minerales.find( m => m.m_id_mineral == id)
+    console.log(`consultarCliente(${id})`)
+    const consultarCliente = this.state.clientes.find( c => c.c_id_cliente == id)
 
     this.setState({
-      consultarMineral
+      consultarCliente
     })
   }
 
   handleModificar = () => {
-    console.log(`modificarMineral(${this.state.consultarMineral.m_id_mineral})`)
+    console.log(`modificarCliente(${this.state.consultarCliente.c_id_cliente})`)
     this.setState({
-      modificarMineral : this.state.consultarMineral.m_id_mineral
+      modificarMineral : this.state.consultarCliente.c_id_cliente
     })
   }
 
   handleEliminar = () => {
-    console.log(`eliminarMineral(${this.state.consultarMineral.m_id_mineral})`)
+    console.log(`eliminarCliente(${this.state.consultarCliente.c_id_cliente})`)
 
     this.setState({
       warningEliminar : true
@@ -74,14 +74,14 @@ export class Mineral extends React.Component {
   }
 
   handleEliminarSeguro = () => {
-    console.log(`----> localhost:4000/eliminar/mineral/${this.state.consultarMineral.m_id_mineral}`)
-    axios.post('http://127.0.0.1:4000/eliminar/mineral', 
+    console.log(`----> localhost:4000/eliminar/cliente/${this.state.consultarCliente.c_id_cliente}`)
+    axios.post('http://127.0.0.1:4000/eliminar/cliente', 
         {
-            "m_id_mineral" : this.state.consultarMineral.m_id_mineral,
+            "c_id_cliente" : this.state.consultarCliente.c_id_cliente,
         })
         .then( (res) => {
             if( res.status === 200) {
-                console.log(`<---- (OK 200) localhost:4000/eliminar/mineral`)
+                console.log(`<---- (OK 200) localhost:4000/eliminar/cliente`)
                 this.handleCloseModal()
                 this.handleCloseEliminar()
                 location.reload()
@@ -91,56 +91,56 @@ export class Mineral extends React.Component {
 
   handleCloseModal = () => {
     this.setState({
-      consultarMineral: null
+      consultarCliente: null
     })
   }
     
   render = () => (
     <div>
-        <MenuDashBoard title={"Minerales"}/>
+        <MenuDashBoard title={"Clientes"}/>
 
         <div className="ConsultarLista">
-          { this.state.minerales &&
+          { this.state.clientes &&
             <MaterialTable
               style={{margin: "0 5%"}}
               columns={[
                 {
-                  title: 'ID', field: 'm_id_mineral', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'asc',
+                  title: 'ID', field: 'c_id_cliente', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'asc',
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
                   }, 
                 },
                 {
-                  title: 'Nombre', field: 'm_nombre', type: 'string', headerStyle:{ textAlign : "center"},
+                  title: 'Nombre', field: 'c_nombre', type: 'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"                    
                   },
                 },
                 {
-                  title: '¿Metal?', field: 'm_metalico', type: 'string', headerStyle:{ textAlign : "center"},
+                  title: 'RIF', field: 'c_rif', type: 'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
                   },
                 },
                 { 
-                  title: '¿Radioactivo?', field: 'm_radioactivo', type: 'string', headerStyle:{ textAlign : "center"},
+                  title: 'Teléfono', field: 'c_telefono', type: 'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
                   },
                 },
                 { 
-                  title: 'Nacionalizado', field: 'm_fecha_nacionalizacion', type:'string', headerStyle:{ textAlign : "center"},
+                  title: 'Ubicación', field: 'lugar_id', type:'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign: "center"
                   },
                 }
               ]}
-              data={ cleanerMineral.limpiarLista( this.state.minerales ) }
+              data={ cleanerCliente.limpiarLista( this.state.clientes ) }
               title={null}
               
               options={{
@@ -151,10 +151,10 @@ export class Mineral extends React.Component {
                 },
                 searchFieldAlignment: "left",
                 exportButton: true,
-                exportFileName: "Minerales"
+                exportFileName: "clientes"
               }}
 
-              onRowClick={(event, rowData) => this.handleConsultar(rowData.m_id_mineral)}
+              onRowClick={(event, rowData) => this.handleConsultar(rowData.c_id_cliente)}
               localization={{
                 toolbar : {
                   searchPlaceholder : "Buscar ..."
@@ -163,7 +163,7 @@ export class Mineral extends React.Component {
 
               actions={[
                 {
-                  icon: () => <img 
+                  icon : () => <img 
                     src="../resources/icons/Agregar.png"
                     width="25px"
                     onClick={this.handleAgregar}
@@ -177,10 +177,10 @@ export class Mineral extends React.Component {
             />
           }
           
-          {!!this.state.consultarMineral && 
+          {!!this.state.consultarCliente && 
           <Modal 
             size="lg"
-            show={!!this.state.consultarMineral} 
+            show={!!this.state.consultarCliente} 
             onHide={this.handleCloseModal}
             centered
             scrollable
@@ -188,44 +188,28 @@ export class Mineral extends React.Component {
           >
             <Modal.Header closeButton className="mc-header">
               <div></div>
-              <h1>{this.state.consultarMineral.m_nombre.toUpperCase()}</h1>
+              <h1>{this.state.consultarCliente.c_nombre.toUpperCase()}</h1>
             </Modal.Header>
 
             <Modal.Body className="mc-body"> 
               <p>
                 <span className="mc-atributo">ID</span>
-                <span> : {this.state.consultarMineral.m_id_mineral.toString(10).padStart(4, '0')}</span>
+                <span> : {this.state.consultarCliente.c_id_cliente.toString(10).padStart(4, '0')}</span>
               </p>
               <p>
-                <span className="mc-atributo">¿Metal?</span>
-                <span> : {this.state.consultarMineral.m_metalico ? "Si" : "No"}</span>
+                <span className="mc-atributo">RIF</span>
+                {/* !!! OJO !!! CLIENTE PUEDE NO TENER RIF?? QUE SIGFNIFICA ESO??*/}
+                <span> : {this.state.consultarCliente.c_rif || "No posee RIF"}</span>
               </p>
               <p>
-                <span className="mc-atributo">¿Radioactivo?</span>
-                <span> : {this.state.consultarMineral.m_radioactivo ? "Si" : "No"}</span>
+                <span className="mc-atributo">Teléfono</span>
+                <span> : {this.state.consultarCliente.c_telefono}</span>
               </p>
               <p>
-                <span className="mc-atributo">Nacionalizado</span>
-                <span> : {this.state.consultarMineral.m_fecha_nacionalizacion ? this.state.consultarMineral.m_fecha_nacionalizacion.split('T')[0] : "No"}</span>
+                <span className="mc-atributo">Lugar</span>
+                {/* !!! OJO !!! AGREGAR EL NOMBRE DE LUGAR CON QUERY */}
+                <span> : {this.state.consultarCliente.lugar_id}</span>
               </p>
-              <p>
-                <span className="mc-atributo">Descripción</span>
-                <span> : {this.state.consultarMineral.m_descripcion || "El mineral no posee descripción"}</span>
-              </p>
-              <p><span className="mc-atributo">Yacimientos</span><span> :</span></p>
-              { this.state.consultarMineral.yacimientos ?
-                this.state.consultarMineral.yacimientos.map( (yacimiento, i) => (
-                  <p className="mc-multivalor" key={i}>- {yacimiento}</p>
-                )) :
-                <p className="mc-multivalor">El mineral no se ha registrado en ningún yacimiento.</p>
-              }
-              <p><span className="mc-atributo">Compuesto de</span><span> :</span></p>
-              { this.state.consultarMineral.compuestos ?
-                this.state.consultarMineral.compuestos.map( (compuesto, i) => (
-                  <p className="mc-multivalor" key={i}>- {compuesto.nombre}</p>
-                )) :
-                <p className="mc-multivalor">El mineral no esta compuesto de otros minerales.</p>
-              }
              
             </Modal.Body>
             
@@ -256,7 +240,7 @@ export class Mineral extends React.Component {
 
             <Modal.Body className="mc-body"> 
               <div>
-                <p style={{textAlign: "center"}}>{`¿Estas segur@ que deseas eliminar el ${this.state.consultarMineral && this.state.consultarMineral.m_nombre}?`}</p>
+                <p style={{textAlign: "center"}}>{`¿Estas segur@ que deseas eliminar a ${this.state.consultarCliente && this.state.consultarCliente.c_nombre}?`}</p>
               </div>
              
             </Modal.Body>
@@ -274,9 +258,9 @@ export class Mineral extends React.Component {
           }
 
           {!!this.state.modificarMineral 
-            && <Redirect to={`/editar/mineral/${this.state.modificarMineral}`} />
+            && <Redirect to={`/editar/cliente/${this.state.modificarMineral}`} />
           }
-          {this.state.agregarPresionado && <Redirect to="/crear/mineral" />}
+          {this.state.agregarPresionado && <Redirect to="/crear/cliente" />}
       </div>
     </div>  
   )

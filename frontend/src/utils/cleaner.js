@@ -14,5 +14,20 @@ const cleanerMineral = {
     }
 }
 
+const cleanerCliente = {
+    limpiarLista( clientesBD ) {
+        if (clientesBD === undefined || clientesBD.length == 0)
+            return []
+        else 
+            return clientesBD.map( (c) => ({
+                "c_id_cliente" : c.c_id_cliente.toString(10).padStart(4, '0'),
+                "c_nombre" : c.c_nombre,
+                "c_rif" : c.c_rif || "No posee" ,
+                "c_telefono" : c.c_telefono || "No posee",
+                "lugar_id" : c.lugar_id
+            }))
+    }
+}
 
-export {cleanerMineral}
+
+export {cleanerMineral, cleanerCliente}

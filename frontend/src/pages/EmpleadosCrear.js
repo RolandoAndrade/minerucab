@@ -4,16 +4,13 @@ import {Dropdown} from "../components/Dropdown";
 import {InputText} from "../components/InputText";
 import {InputDate} from "../components/InputDate";
 import {GuardarCancelar} from "../components/GuardarCancelar";
+import Swal from "sweetalert2";
 
 export class EmpleadosCrear extends React.Component {
     constructor(props){
         super(props);
 
         this.state = {
-            name: "",
-            surname: "",
-            ci: "",
-            position: "",
             users: [1]
         }
     }
@@ -40,14 +37,79 @@ export class EmpleadosCrear extends React.Component {
         )
     }
 
+    storeData()
+    {
+        let name = document.getElementById("InputTextCrearEmpleadoNombre");
+        let surname = document.getElementById("InputTextCrearEmpleadoApellido");
+        let ci = document.getElementById("InputTextCrearEmpleadoCedula");
+        let position = document.getElementById("DropdownSearchCrearEmpleadoCargo");
+        if(name.value.length===0)
+        {
+            Swal.fire({title: "Error", text: "Hace falta establecer un nombre", type:"error"});
+            name.classList.add("error");
+            return false;
+        }
+        else if(surname.value.length===0)
+        {
+            Swal.fire({title: "Error", text: "Hace falta establecer un apellido", type:"error"});
+            surname.classList.add("error");
+            return false;
+        }
+        else if(ci.value.length===0)
+        {
+            Swal.fire({title: "Error", text: "Hace falta establecer una cédula", type:"error"});
+            ci.classList.add("error");
+            return false;
+        }
+        return true;
+    }
+
     saveData()
     {
-
+        Swal.fire({
+            title: '¿Está seguro?',
+            text: 'Se guardará los datos del empleado con la información dada',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, guardar',
+            cancelButtonText: 'No, editar',
+            confirmButtonColor: "#1CA1DC",
+            cancelButtonColor: "#dc3832"
+        }).then((result) => {
+            if (result.value) {
+                if(this.storeData())
+                    Swal.fire(
+                        'Guardado',
+                        'Los datos fueron guardados satisfactoriamente',
+                        'success'
+                    )
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelado',
+                    'Se ha detenido el proceso de guardado',
+                    'error'
+                )
+            }
+        })
     }
 
     cancelData()
     {
-
+        Swal.fire({
+            title: '¿Está seguro?',
+            text: 'Todos los datos introducidos se perderán',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, salir',
+            cancelButtonText: 'No, editar',
+            confirmButtonColor: "#1CA1DC",
+            cancelButtonColor: "#dc3832"
+        }).then((result) => {
+            if (result.value)
+            {
+                console.log("volver");
+            }
+        })
     }
 
 
@@ -114,7 +176,7 @@ export class EmpleadosCrear extends React.Component {
                 </div>
             </div>
 
-            <GuardarCancelar position="right" accept={()=>this.saveData()} decline={(this.cancelData())}/>
+            <GuardarCancelar position="right" accept={()=>this.saveData()} decline={()=>(this.cancelData())}/>
         </div>
     )
 }

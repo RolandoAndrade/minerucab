@@ -42,7 +42,7 @@ export class InputText extends React.Component
                 id={"InputText"+this.props.id}
                 onFocus={()=>this.selectInput()}
                 onBlur={()=>this.outInput()}
-                className={"InputText"}
+                className={`InputText ${this.props.value && "BeSmall"}`}
                 type="text"
                 placeholder={this.props.placeholder||""}
             />

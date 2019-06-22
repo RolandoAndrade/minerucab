@@ -109,12 +109,7 @@ app.post('/insertar/mineral', (req, res) => {
   console.log(`/insertar/mineral/`)
   console.log(req.body)
 
-  // TECNICA DE DESTRUCTURING (SIRVE PARA DESCOMPONER UN OBJETO)
-  const {
-    m_nombre, m_metalico, m_radioactivo, m_fecha_nacionalizacion, m_descripcion
-  } = req.body
-
-  daoMineral.insertar(m_nombre, m_metalico, m_radioactivo, m_fecha_nacionalizacion, m_descripcion)
+  daoMineral.insertar( req.body )
     .then( (bd_response) => {
       console.log(`STATUS OK : 200`)      
       console.log(`bd_response : ${JSON.stringify(bd_response)}`)
@@ -132,18 +127,14 @@ app.post('/insertar/mineral', (req, res) => {
 });
 
 app.post('/modificar/mineral', (req, res) => {
-  
-  const {
-    m_id_mineral, m_nombre, m_metalico, m_radioactivo, m_fecha_nacionalizacion, m_descripcion
-  } = req.body
 
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
-  console.log(`/modificar/mineral/${m_id_mineral}`)
+  console.log(`/modificar/mineral/${req.body.m_id_mineral}`)
   console.log(req.body)
 
 
-  daoMineral.modificar(m_id_mineral, m_nombre, m_metalico, m_radioactivo, m_fecha_nacionalizacion, m_descripcion)
+  daoMineral.modificar( req.body )
     .then( (bd_response) => {
       console.log(`STATUS OK : 200`)      
       console.log(`bd_response : ${JSON.stringify(bd_response)}`)
@@ -186,8 +177,8 @@ app.post('/consultar/cliente', (req, res) => {
   
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
-  console.log(`/consultar/cliente/${req.body.c_id_cliente}`)
-  daoCliente.consultar(req.body.c_id_cliente)
+  console.log(`/consultar/cliente/${req.body.e_id_empleado}`)
+  daoCliente.consultar(req.body.e_id_empleado)
     .then( ({rows}) => {
       console.log(`STATUS OK : 200`)      
       console.log(`bd_response : ${JSON.stringify(rows)}`)
@@ -208,8 +199,8 @@ app.post('/eliminar/cliente', (req, res) => {
   
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
-  console.log(`/eliminar/cliente/${req.body.c_id_cliente}`)
-  daoCliente.eliminar(req.body.c_id_cliente)
+  console.log(`/eliminar/cliente/${req.body.e_id_empleado}`)
+  daoCliente.eliminar(req.body.e_id_empleado)
     .then( (bd_response) => {
       console.log(`STATUS OK : 200`)      
       console.log(`bd_response : ${JSON.stringify(bd_response)}`)
@@ -233,11 +224,7 @@ app.post('/insertar/cliente', (req, res) => {
   console.log(`/insertar/cliente/`)
   console.log(req.body)
 
-  const {
-    c_rif, c_nombre, c_telefono, lugar_id
-  } = req.body
-
-  daoCliente.insertar( c_rif, c_nombre, c_telefono, lugar_id )
+  daoCliente.insertar( req.body )
     .then( (bd_response) => {
       console.log(`STATUS OK : 200`)      
       console.log(`bd_response : ${JSON.stringify(bd_response)}`)
@@ -256,17 +243,13 @@ app.post('/insertar/cliente', (req, res) => {
 
 app.post('/modificar/cliente', (req, res) => {
   
-  const {
-    c_id_cliente, c_rif, c_nombre, c_telefono, lugar_id
-  } = req.body
-
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
-  console.log(`/modificar/cliente/${c_id_cliente}`)
+  console.log(`/modificar/cliente/${req.body.c_id_cliente}`)
   console.log(req.body)
 
 
-  daoCliente.modificar(c_id_cliente, c_rif, c_nombre, c_telefono, lugar_id)
+  daoCliente.modificar( req.body )
     .then( (bd_response) => {
       console.log(`STATUS OK : 200`)      
       console.log(`bd_response : ${JSON.stringify(bd_response)}`)
@@ -282,6 +265,122 @@ app.post('/modificar/cliente', (req, res) => {
 
     })
 });
+
+/* ****************************** EMPLEADO ****************************** */
+import {daoEmpleado} from './DAOs/daoEmpleado'
+
+app.get('/consultarLista/empleado', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/empleado")
+
+  daoEmpleado.consultarTodos()
+    .then( ({rows}) => {
+      console.log(`bd_response : ${JSON.stringify(rows)}`)
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/consultar/empleado', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultar/empleado/${req.body.e_id_empleado}`)
+  daoEmpleado.consultar(req.body.e_id_empleado)
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+      console.log(`bd_response : ${JSON.stringify(rows)}`)
+
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/eliminar/empleado', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/eliminar/empleado/${req.body.e_id_empleado}`)
+  daoEmpleado.eliminar(req.body.e_id_empleado)
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      console.log(`bd_response : ${JSON.stringify(bd_response)}`)
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/insertar/empleado', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/insertar/empleado/`)
+  console.log(req.body)
+
+  daoEmpleado.insertar( req.body )
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      console.log(`bd_response : ${JSON.stringify(bd_response)}`)
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/modificar/empleado', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/modificar/empleado/${req.body.e_id_empleado}`)
+  console.log(req.body)
+
+
+  daoEmpleado.modificar( req.body )
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      console.log(`bd_response : ${JSON.stringify(bd_response)}`)
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
 
 /* ****************************** YACIMIENTO ****************************** */
 app.get('/consultarLista/yacimiento', (req, res) => { 

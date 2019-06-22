@@ -17,13 +17,15 @@ import {ConfiguracionYacimientoAgregar} from '../pages/ConfiguracionYacimientoAg
 
 import {Cliente} from '../pages/Cliente';
 import {Mineral} from '../pages/Mineral';
-import {Empleados} from "../pages/Empleados";
+import {Empleado} from "../pages/Empleado";
 import {ClienteAgregar} from '../pages/ClienteAgregar';
-import {EmpleadosCrear} from "../pages/EmpleadosCrear";
+import {EmpleadoAgregar} from "../pages/EmpleadoAgregar";
 import {MineralAgregar} from '../pages/MineralAgregar';
 import {HorarioCrear} from "../pages/HorarioCrear";
 import {MineralEditar} from '../pages/MineralEditar';
 import {ClienteEditar} from '../pages/ClienteEditar';
+import {EmpleadoEditar} from "../pages/EmpleadoEditar";
+
 
 
 export const history = createHistory(); // PARA LLEVAR EL CONTROL DE PAGINAS VISITADAS POR USER
@@ -40,12 +42,14 @@ const AppRouter = () => (
         <PublicRoute path="/dashboard" component={MainPanel} />
         <PublicRoute path="/cliente" component={Cliente} />
         <PublicRoute path="/mineral" component={Mineral} />
+        <PublicRoute path="/empleado" component={Empleado} />
         <PublicRoute path="/crear/cliente" component={ClienteAgregar} />
-        <PublicRoute path="/crear/empleado" component={EmpleadosCrear} />
+        <PublicRoute path="/crear/empleado" component={EmpleadoAgregar} />
         <PublicRoute path="/crear/mineral" component={MineralAgregar} />
         <PublicRoute path="/crear/horario" component={HorarioCrear} />
         <PublicRoute path="/editar/cliente/:id" component={ClienteEditar} />
         <PublicRoute path="/editar/mineral/:id" component={MineralEditar} />
+        <PublicRoute path="/editar/empleado/:id" component={EmpleadoEditar} />
 
         {/* 
           PAGINAS QUE CARGAN LOGEADOS 

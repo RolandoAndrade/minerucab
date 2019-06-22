@@ -21,7 +21,7 @@ const daoCliente = {
         `)
     },
  
-    insertar( c_rif, c_nombre, c_telefono, lugar_id ){
+    insertar({ c_rif, c_nombre, c_telefono, lugar_id }){
         return psql.query(`
             INSERT INTO CLIENTE (c_id_cliente, c_rif, c_nombre, c_telefono, lugar_id)
             VALUES ( 
@@ -34,7 +34,7 @@ const daoCliente = {
         `)
     },
 
-    modificar( c_id_cliente, c_rif, c_nombre, c_telefono, lugar_id ){
+    modificar({ c_id_cliente, c_rif, c_nombre, c_telefono, lugar_id }){
         return psql.query(`
             UPDATE CLIENTE SET
                 c_nombre = '${c_nombre}',

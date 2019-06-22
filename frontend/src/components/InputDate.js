@@ -22,7 +22,7 @@ export class InputDate extends React.Component
             <input
                 className="InputDate"
                 type="date"
-                onChange={this.handleChange}
+                {...this.props}
             />
         </div>
     )

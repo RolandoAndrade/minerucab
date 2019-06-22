@@ -10,6 +10,7 @@ import {MenuDashBoard} from "../components/MenuDashBoard";
 import {InputText} from "../components/InputText";
 import {InputDate} from "../components/InputDate";
 import {GuardarCancelar} from "../components/GuardarCancelar";
+import Swal from "sweetalert2";
 
 export class MineralAgregar extends React.Component {
   constructor(props){
@@ -107,39 +108,88 @@ export class MineralAgregar extends React.Component {
     this.setState({
         compuestos : compuestosNuevo 
     })
+  };
+
+
+  async storeData()
+  {
+      const nuevo_mineral = {
+          ...this.state.nuevo_mineral,
+          compuestos: this.state.compuestos
+      };
+
+      // !!! OJO !!! FALTA AGREGAR MINERALES COMPUESTOS
+
+      console.log(`----> localhost:4000/insertar/mineral`)
+      return await axios.post('http://127.0.0.1:4000/insertar/mineral',
+          {
+              "m_nombre" : nuevo_mineral.m_nombre,
+              "m_metalico" : nuevo_mineral.m_metalico ,
+              "m_radioactivo" : nuevo_mineral.m_radioactivo,
+              "m_fecha_nacionalizacion" : nuevo_mineral.m_fecha_nacionalizacion,
+              "m_descripcion" : nuevo_mineral.m_descripcion
+          })
+          .then( (res) => {
+              console.log("Entro", res);
+              if( res.status === 200) {
+                  console.log(`<---- (OK 200) localhost:4000/insertar/mineral`)
+                  return true;
+              }
+              return false;
+          })
+  }
+ confirmarGuardar()
+  {
+      Swal.fire({
+          title: '¿Está seguro?',
+          text: 'Se guardará los datos del mineral con la información dada',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Sí, guardar',
+          cancelButtonText: 'No, editar',
+          confirmButtonColor: "#1CA1DC",
+          cancelButtonColor: "#dc3832"
+      }).then(async (result) =>
+      {
+          if (result.value)
+          {
+              if (await this.storeData())
+              {
+                  Swal.fire(
+                      'Guardado',
+                      'Los datos fueron guardados satisfactoriamente',
+                      'success'
+                  )
+                  this.handleCancelar();
+              } else
+              {
+                  Swal.fire(
+                      'Error',
+                      'No se pudo guardar',
+                      'error'
+                  )
+              }
+          } else if (result.dismiss === Swal.DismissReason.cancel)
+          {
+              Swal.fire(
+                  'Cancelado',
+                  'Se ha detenido el proceso de guardado',
+                  'error'
+              )
+          }
+      })
   }
 
   handleGuardar = (e) => {
     e.preventDefault();
-    const nuevo_mineral = { 
-        ...this.state.nuevo_mineral,
-        compuestos: this.state.compuestos
-    }
-
-    // !!! OJO !!! FALTA AGREGAR MINERALES COMPUESTOS
-
-    console.log(`----> localhost:4000/insertar/mineral`)
-    axios.post('http://127.0.0.1:4000/insertar/mineral', 
-        {
-            "m_nombre" : nuevo_mineral.m_nombre,
-            "m_metalico" : nuevo_mineral.m_metalico , 
-            "m_radioactivo" : nuevo_mineral.m_radioactivo, 
-            "m_fecha_nacionalizacion" : nuevo_mineral.m_fecha_nacionalizacion,
-            "m_descripcion" : nuevo_mineral.m_descripcion
-        })
-        .then( (res) => {
-            if( res.status === 200) {
-                console.log(`<---- (OK 200) localhost:4000/insertar/mineral`)
-                this.handleCancelar()
-            }
-        })
-  }
+    this.confirmarGuardar();
+  };
 
   handleCancelar = () => {
       this.setState({
           goMineral : true
       })
-  }
+  };
 
   handleChange = ({target}) => {
       console.log(target);

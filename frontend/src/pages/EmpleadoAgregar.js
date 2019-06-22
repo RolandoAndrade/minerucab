@@ -11,7 +11,7 @@ import {InputDate} from "../components/InputDate";
 import {GuardarCancelar} from "../components/GuardarCancelar";
 import { DropdownArreglado } from '../components/DropdownArreglado';
 
-export class EmpleadosCrear extends React.Component {
+export class EmpleadoAgregar extends React.Component {
     constructor(props){
         super(props);
 

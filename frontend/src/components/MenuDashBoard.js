@@ -37,7 +37,7 @@ export class MenuDashBoard extends React.Component {
     }
     render = () => (
         <div>
-            <div className="DarkBackground" id="DarkBackground">
+            <div className="DarkBackground" id="DarkBackground" onClick={()=>MenuDashBoard.clickMenu()}>
             </div>
             <HeaderLogin hideMenuButton={this.props.main}/>
             <div id="DashboardMenu" className="DashBoardMenu Up">

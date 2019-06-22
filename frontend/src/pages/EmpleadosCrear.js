@@ -1,9 +1,13 @@
 import React from 'react';
+import axios from 'axios';
+
+import {Redirect} from 'react-router-dom';
+import {Button} from "react-bootstrap";
+
 import {MenuDashBoard} from "../components/MenuDashBoard";
 import {InputText} from "../components/InputText";
 import {SectionTitle} from "../components/Header/SectionTitle";
 import {InputDate} from "../components/InputDate";
-import {Button} from "react-bootstrap";
 import {GuardarCancelar} from "../components/GuardarCancelar";
 import { DropdownArreglado } from '../components/DropdownArreglado';
 
@@ -39,6 +43,44 @@ export class EmpleadosCrear extends React.Component {
             }
         }
     }
+
+    componentDidMount = () => {
+        // !!! OJO !!! FALTA QUERY PARA PEDIR LUGARES
+        /*
+        console.log(`----> localhost:4000/consultarLista/cliente`)
+        axios.get('http://127.0.0.1:4000/consultarLista/cliente')
+          .then( (res) => {
+            if(res.status === 200)
+              console.log(`<---- (OK 200) localhost:4000/consultarLista/cliente`)
+    
+            this.setState({
+                clientes : res.data.rows
+            })
+    
+          })
+        */
+      }
+
+    handleGuardar = () => {
+        console.log(`----> localhost:4000/insertar/empleado`)
+        axios.post('http://127.0.0.1:4000/insertar/empleado', 
+            this.state.nuevo_empleado
+        )
+        .then( (res) => {
+            if( res.status === 200) {
+                console.log(`<---- (OK 200) localhost:4000/insertar/empleado`)
+                this.goEmpleado()
+            }
+        })
+    }
+
+    goEmpleado = () => {
+        console.log("asdsd")
+        this.setState({
+            goEmpleado : true
+        })
+    }
+
 
     addUser = () =>
     {
@@ -123,6 +165,16 @@ export class EmpleadosCrear extends React.Component {
                             name="e_cedula"
                             onChange={this.handleChange}
                         />
+                        <InputText 
+                            id="CrearEmpleadoTelefono" 
+                            label="Número de teléfono" 
+                            name="e_telefono"
+                            onChange={this.handleChange}
+                        />
+                    </div>
+                </div>
+                <div className="WideContainer">
+                    <div className="FormContainer">
                         <DropdownArreglado
                             name="cargo_id"
                             onChange={this.handleChange}
@@ -134,10 +186,6 @@ export class EmpleadosCrear extends React.Component {
                                 {text: "Opción 4", value: 4}
                             ]}
                         />
-                    </div>
-                </div>
-                <div className="WideContainer">
-                    <div className="FormContainer">
                         <DropdownArreglado
                             name="estado_id"
                             onChange={this.handleChange}
@@ -248,12 +296,18 @@ export class EmpleadosCrear extends React.Component {
             </div>
 
             <div className="Container-90p">
-                <div className="ButtonAddUser" onClick={()=>this.addUser()}>
+                <div className="ButtonAddUser" onClick={this.addUser}>
                     Agregar usuario
                 </div>
             </div>
 
-            <GuardarCancelar position="right"/>
+            <GuardarCancelar 
+                position="right"
+                guardar={this.handleGuardar}
+                cancelar={this.goEmpleado}
+            />
+
+            {this.state.goEmpleado && <Redirect to="/empleado" /> }
         </div>
     )
 }

@@ -8,7 +8,7 @@ import MaterialTable from 'material-table';
 import {cleanerEmpleado} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
 
-export class Empleados extends React.Component {
+export class Empleado extends React.Component {
   constructor(props){
     super(props)
     

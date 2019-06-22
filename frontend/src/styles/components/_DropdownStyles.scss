@@ -87,3 +87,36 @@
   }
 }
 
+
+// FUNCIONAL - TATO
+
+.DropdownArreglado {
+  width: 80%;
+  padding: 1rem;
+  height: 60px;
+  background-color: $azul-ucab;
+  border: 3px solid transparent;
+  transition: .3s ease-in-out;
+  color: white;
+
+  &::-webkit-input-placeholder {
+    color: white;
+  }
+
+  &:hover{
+    background-color: darken($azul-ucab,10%);
+    cursor: pointer;
+
+    &::-webkit-input-placeholder{
+      color: #e0e9f7;
+    }
+  }
+}
+
+.DrowpdownArregladoItem {
+  background: lighten($azul-ucab, 10%);
+  padding: 5px;
+  &:hover{
+    background: green; // PRUEBA
+  }
+}

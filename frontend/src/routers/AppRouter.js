@@ -22,6 +22,8 @@ import {MineralAgregar} from '../pages/MineralAgregar';
 import {HorarioCrear} from "../pages/HorarioCrear";
 import {MineralEditar} from '../pages/MineralEditar';
 import {ClienteEditar} from '../pages/ClienteEditar';
+import {EmpleadoEditar} from "../pages/EmpleadoEditar";
+
 
 
 export const history = createHistory(); // PARA LLEVAR EL CONTROL DE PAGINAS VISITADAS POR USER
@@ -44,6 +46,7 @@ const AppRouter = () => (
         <PublicRoute path="/crear/horario" component={HorarioCrear} />
         <PublicRoute path="/editar/cliente/:id" component={ClienteEditar} />
         <PublicRoute path="/editar/mineral/:id" component={MineralEditar} />
+        <PublicRoute path="/editar/empleado/:id" component={EmpleadoEditar} />
 
         {/* 
           PAGINAS QUE CARGAN LOGEADOS 

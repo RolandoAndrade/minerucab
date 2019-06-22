@@ -2,7 +2,7 @@ import React from 'react';
 import {HomeHeader} from '../components/HomeHeader'
 import {HomeContainer} from "../components/HomeContainer";
 import {SubHeader} from "../components/SubHeader";
-
+import Swal from "sweetalert2"
 export class Home extends React.Component {
   constructor(props){
     super(props)
@@ -14,17 +14,8 @@ export class Home extends React.Component {
     }
   }
 
-  login  = () => {
-    // PARA LLEVAR EL LOG DE LO QUE VA PASANDO DESDE LA CONSOLA
-    this.setState({
-      array : [...this.state.array, 5] 
-    })
-    console.log("Home.login()")
-  }
-
   render = () => (
     <div className="Home">
-
     {<HomeHeader/>}
     {<SubHeader/>}
     <div className="HomeContent">
@@ -47,5 +38,6 @@ explotación del     carbón."/>
                     icons={["zmdi zmdi-phone","zmdi zmdi-phone","zmdi zmdi-email","zmdi zmdi-twitter"]}/>
     }
     </div>
+
   </div>)
 }

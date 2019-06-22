@@ -9,6 +9,7 @@ import {cleanerMineral} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
 import {InputText} from "../components/InputText";
 import {InputDate} from "../components/InputDate";
+import {GuardarCancelar} from "../components/GuardarCancelar";
 
 export class MineralAgregar extends React.Component {
   constructor(props){
@@ -109,7 +110,7 @@ export class MineralAgregar extends React.Component {
   }
 
   handleGuardar = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const nuevo_mineral = { 
         ...this.state.nuevo_mineral,
         compuestos: this.state.compuestos
@@ -141,6 +142,7 @@ export class MineralAgregar extends React.Component {
   }
 
   handleChange = ({target}) => {
+      console.log(target);
     this.setState({
         nuevo_mineral : {
             ...this.state.nuevo_mineral,
@@ -150,6 +152,7 @@ export class MineralAgregar extends React.Component {
   }
 
   handleBool = ({target}) => {
+
       this.setState({
         nuevo_mineral : {
             ...this.state.nuevo_mineral,
@@ -166,20 +169,25 @@ export class MineralAgregar extends React.Component {
         <div>
 
             <div className="CrearElemento">
-                <form>
-                    <p>
-                        <span className="mc-atributo">Nombre</span><span> : </span>
-                        <input 
-                            name="m_nombre"
-                            type="text"
-                            placeholder="nombre ..."
-                            onChange={this.handleChange}
-                        />
-                    </p>
-                    <p>
-                        <span className="mc-atributo">¿Metal?</span><span> : </span>
+                <div className="firstColumn">
+                    <div className="mc-atributo">Nombre: </div>
+                </div>
+                <div className="secondColumn">
+                    <InputText
+                        id={"m_nombre"}
+                        name={"m_nombre"}
+                        placeholder={"Nombre"}
+                        onChange={this.handleChange}
+                        styles={{width: "100%"}}
+                    />
+                </div>
+                <div className={"firstColumn"}>
+                    <div className="mc-atributo">¿Metal?: </div>
+                </div>
+                <div className="secondColumn">
+                    <form action="">
                         <label className="form-switch">
-                            <input 
+                            <input
                                 type="checkbox"
                                 name="m_metalico"
                                 onChange={this.handleBool}
@@ -187,9 +195,13 @@ export class MineralAgregar extends React.Component {
                             />
                             <i></i>
                         </label>
-                    </p>
-                    <p>
-                        <span className="mc-atributo">¿Radioactivo?</span><span> : </span>
+                    </form>
+                </div>
+                <div className="firstColumn">
+                    <div className="mc-atributo">¿Radioactivo?: </div>
+                </div>
+                <div className="secondColumn">
+                    <form action="">
                         <label className="form-switch">
                             <input 
                                 type="checkbox"
@@ -199,63 +211,54 @@ export class MineralAgregar extends React.Component {
                             />
                             <i></i>
                         </label>
-                    </p>
-                    <p>
-                        <span className="mc-atributo">Nacionalizado</span><span> : </span>
-                        <input
-                            type="date"
-                            name="m_fecha_nacionalizacion"
-                            onChange={this.handleChange}
-                        />
-                    </p>
-                    <p>
-                        <span className="mc-atributo">Descripción</span><span> : </span>
-                        <textarea
-                            name="m_descripcion"
-                            placeholder="descripción ..."
-                            onChange={this.handleChange}
-                        />
-                    </p>
-                    <div className="compuesto-de">
-                        <span className="mc-atributo">Compuesto de</span><span> : </span>
-                        {this.state.compuestos.map( (compuesto, i) => (
-                            <div className="compuesto" key={i}>
-                                <span>{compuesto.m_nombre}</span>
-                                <img 
-                                    src="../resources/icons/Eliminar.png"
-                                    width="20px"
-                                    onClick={() => this.handleDescomponer(compuesto.m_id_mineral)}
-                                    className="IconoEliminar"
-                                />
-                            </div>
-                        ))}
-                        <img 
-                            src="../resources/icons/Agregar.png"
-                            width="25px"
-                            onClick={this.handleOpenModal1}
-                            className="IconoAgregar"
-                        />
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div className="firstColumn">
+                    <div className="mc-atributo">Nacionalizado:</div>
+                </div>
+                <div className="secondColumn">
+                    <InputDate
+                        id="m_fecha_nacionalizacion"
+                        name={"m_fecha_nacionalizacion"}
+                        onChange={this.handleChange}
+                        styles={{width: "100%"}}
+                        style={{background: "white", color: "black"}}
+                    />
+                </div>
+                <div className="firstColumn">
+                    <div className="mc-atributo">Descripción:</div>
+                </div>
+                <div className="secondColumn">
+                    <textarea
+                        name="m_descripcion"
+                        placeholder="Descripción"
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <div className="firstColumn">
+                    <span className="mc-atributo">Compuesto de</span><span> : </span>
+                    <img
+                        src="../resources/icons/Agregar.png"
+                        width="25px"
+                        onClick={this.handleOpenModal1}
+                        className="IconoAgregar"
+                    />
+                </div>
+                <div>
+                    {this.state.compuestos.map( (compuesto, i) => (
+                        <div className="compuesto" key={i}>
+                            <span>{compuesto.m_nombre}</span>
+                            <img
+                                src="../resources/icons/Eliminar.png"
+                                width="20px"
+                                onClick={() => this.handleDescomponer(compuesto.m_id_mineral)}
+                                className="IconoEliminar"
+                            />
+                        </div>
+                    ))}
+                </div>
             </div>
-            <div className="botones-abajo">
-                <Button
-                    variant="primary"
-                    type="submit"
-                    className="mc-boton mc-boton-guardar"
-                    onClick={(e) => this.handleGuardar(e)}
-                >
-                    Guardar
-                </Button>
-
-                <Button
-                    variant="secondary"
-                    className="mc-boton"
-                    onClick={this.handleCancelar}
-                >
-                    Cancelar
-                </Button>
-            </div>
+            <GuardarCancelar accept={(e) => this.handleGuardar(e)} decline={this.handleCancelar}/>
 
             {this.state.goMineral && <Redirect to="/mineral" /> }
 

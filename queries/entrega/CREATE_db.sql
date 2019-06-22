@@ -176,13 +176,10 @@ CREATE TABLE FASE (
 CREATE TABLE FASE_CARG (
     f_id_fase_cargo SERIAL,
     f_cantidad INTEGER NOT NULL,
-    f_salario NUMERIC(10,2) NOT NULL,
     fase_configuracion_id INTEGER NOT NULL,
     cargo_id INTEGER NOT NULL,
-    unidad_id INTEGER NOT NULL,
 
     CONSTRAINT check_f_cantidad CHECK (f_cantidad > 0),
-    CONSTRAINT check_f_salario CHECK (f_salario > 0),
     CONSTRAINT f_id_fase_cargo PRIMARY KEY (f_id_fase_cargo)
 );
 
@@ -408,6 +405,7 @@ CREATE TABLE PRODUCTO (
     p_nombre VARCHAR(255) NOT NULL,
     p_porcentaje_pureza NUMERIC(10,2) NOT NULL,
     p_peso NUMERIC(10,2) NOT NULL,
+    p_fabricado BOOLEAN NOT NULL DEFAULT FALSE,
     unidad_id INTEGER NOT NULL,
     mineral_id INTEGER NOT NULL,
 
@@ -585,9 +583,6 @@ ADD CONSTRAINT fk_fase_configuracion_id FOREIGN KEY (fase_configuracion_id) REFE
 
 ALTER TABLE FASE_CARG
 ADD CONSTRAINT fk_cargo_id FOREIGN KEY (cargo_id) REFERENCES CARGO (c_id_cargo);
-
-ALTER TABLE FASE_CARG
-ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
 
 ALTER TABLE FASE_CONFIGURACION
 ADD CONSTRAINT fk_etapa_configuracion_id FOREIGN KEY (etapa_configuracion_id) REFERENCES ETAPA_CONFIGURACION (e_id_etapa_configuracion);

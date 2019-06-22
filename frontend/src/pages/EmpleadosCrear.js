@@ -82,10 +82,10 @@ export class EmpleadosCrear extends React.Component {
                                 <i className="zmdi zmdi-close-circle-o LabelIcon" onClick={()=>this.removeUser(i)}></i>
                             </div>
                             <div className="WideContainer">
-                                <InputText id={"CrearEmpleadoUsuarioCorreo"+i} label="Correo electrónico"/>
+                                <InputText styles={{width:"95%"}} id={"CrearEmpleadoUsuarioCorreo"+i} label="Correo electrónico"/>
                             </div>
                             <div className="WideContainer">
-                                <InputText id={"CrearEmpleadoUsuarioContra"+i} label="Contraseña inicial"/>
+                                <InputText styles={{width:"95%"}} id={"CrearEmpleadoUsuarioContra"+i} label="Contraseña inicial"/>
                             </div>
                             <div className="WideContainer">
                                 <Dropdown id={"CrearEmpleadoUsuarioRol"+i} placeholder="Rol..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>

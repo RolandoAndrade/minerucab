@@ -1,5 +1,6 @@
 import React from 'react';
 import Swal from "sweetalert2";
+import {Redirect} from "react-router-dom";
 
 export class HomeHeader extends React.Component {
 
@@ -7,7 +8,8 @@ export class HomeHeader extends React.Component {
         super(props)
 
         this.state = {
-            showDashboard : false
+            goToDashBoard: false
+
         }
     }
 
@@ -39,6 +41,11 @@ export class HomeHeader extends React.Component {
                 )
             }
         })*/
+
+        this.setState({
+                goToDashBoard: true
+        }
+        );
     }
 
 
@@ -54,6 +61,7 @@ export class HomeHeader extends React.Component {
             <div className="HeaderContent align-right">
                 <div className="LoginButton" onClick={()=>this.login()}>Ingresar<i className="fa fa-sign-in-alt"></i></div>
             </div>
+            {this.state.goToDashBoard&&<Redirect to="/dashboard"/>}
         </div>
         </div>
     )

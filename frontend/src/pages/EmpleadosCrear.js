@@ -1,41 +1,90 @@
 import React from 'react';
 import {MenuDashBoard} from "../components/MenuDashBoard";
-import {Dropdown} from "../components/Dropdown";
 import {InputText} from "../components/InputText";
 import {SectionTitle} from "../components/Header/SectionTitle";
 import {InputDate} from "../components/InputDate";
 import {Button} from "react-bootstrap";
 import {GuardarCancelar} from "../components/GuardarCancelar";
+import { DropdownArreglado } from '../components/DropdownArreglado';
 
 export class EmpleadosCrear extends React.Component {
     constructor(props){
         super(props);
 
         this.state = {
-            users: [1]
+            users: [{
+                u_id_usuario : 0,
+                u_correo : "",
+                u_clave : "",
+                rol_id : ""
+            }],
+            lastIndex : 0,
+            nuevo_empleado : {
+                e_id_empleado : 0,
+                e_cedula : "",
+                e_nombre : "",
+                e_segundo_nombre : "",
+                e_apellido : "",
+                e_segundo_apellido : "",
+                e_telefono : "",
+                e_fecha_nacimiento : "",
+                e_fecha_ingreso : "",
+                cargo_id : 0,
+                lugar_id : 0,
+                estado_id : 0
+            },
+            lugar : {
+                estado_id : 0,
+                municipio_id : 0
+            }
         }
     }
 
-    addUser()
+    addUser = () =>
     {
-        let users=this.state.users;
-        users.push(1);
+        let newUsers= this.state.users;
+        newUsers.push({
+            u_id_usuario : this.state.lastIndex +1,
+            u_correo : "",
+            u_clave : ""
+        });
+
         this.setState(
             {
-                users: users
+                users: newUsers,
+                lastIndex : this.state.lastIndex +1
             }
         )
     }
 
-    removeUser(i)
+    removeUser = (id) =>
     {
-        let users=this.state.users;
-        users.splice(i,1);
+        const newUsers = this.state.users.filter( u => u.u_id_usuario !== id)
         this.setState(
             {
-                users: users
+                users: newUsers
             }
         )
+    }
+
+    handleChange = ({target}) => {
+        console.log(`nuevo_empleado.${target.name} = ${target.value}`)
+        this.setState({
+            nuevo_empleado :{
+                ...this.state.nuevo_empleado,
+                [target.name] : target.value
+            }
+        })
+      }
+
+    handleChangeLugar = ({target}) => {
+        console.log(`lugar.${target.name} = ${target.value}`)
+        this.setState({
+            lugar :{
+                ...this.state.lugar,
+                [target.name] : target.value
+            }
+        })
     }
 
     render = () => (
@@ -44,23 +93,114 @@ export class EmpleadosCrear extends React.Component {
             <div className="RowContainer">
                 <div className="WideContainer">
                     <div className="FormContainer">
-                        <InputText id="CrearEmpleadoNombre" label="Nombre"/>
-                        <InputText id="CrearEmpleadoApellido" label="Apellido"/>
-                        <InputText id="CrearEmpleadoCedula" label="Número de cédula"/>
-                        <Dropdown id="CrearEmpleadoCargo" placeholder="Cargo..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
+                        <InputText 
+                            id="CrearEmpleadoNombre" 
+                            label="Nombre"
+                            name="e_nombre"
+                            onChange={this.handleChange}
+                        />
+                        <InputText 
+                            id="CrearEmpleadoNombre2"
+                            label="Segundo Nombre"
+                            name="e_segundo_nombre"
+                            onChange={this.handleChange}
+                        />
+                        <InputText 
+                            id="CrearEmpleadoApellido" 
+                            label="Apellido" 
+                            name="e_apellido"
+                            onChange={this.handleChange}
+                        />
+                        <InputText 
+                            id="CrearEmpleadoApellido2" 
+                            label="Segundo Apellido"
+                            name="e_segundo_apellido"
+                            onChange={this.handleChange}
+                        />
+                        <InputText 
+                            id="CrearEmpleadoCedula" 
+                            label="Número de cédula" 
+                            name="e_cedula"
+                            onChange={this.handleChange}
+                        />
+                        <DropdownArreglado
+                            name="cargo_id"
+                            onChange={this.handleChange}
+                            options={[
+                                {text: "Cargo ...", value: 0},
+                                {text: "Opción 1", value: 1},
+                                {text: "Opción 2", value: 2},
+                                {text: "Opción 3", value: 3},
+                                {text: "Opción 4", value: 4}
+                            ]}
+                        />
                     </div>
                 </div>
                 <div className="WideContainer">
                     <div className="FormContainer">
+                        <DropdownArreglado
+                            name="estado_id"
+                            onChange={this.handleChange}
+                            options={[
+                                {text: "Status ...", value: 0},
+                                {text: "Opción 1", value: 1},
+                                {text: "Opción 2", value: 2},
+                                {text: "Opción 3", value: 3},
+                                {text: "Opción 4", value: 4}
+                            ]}
+                        />
                         <div className="RowContainer center" style={{width: "80%"}}>
                             <div className="LabelContainer">
-                                Fecha de nacimiento:
+                                Fecha de nacimiento : &nbsp;
                             </div>
-                            <InputDate/>
+                            <InputDate 
+                                name="e_fecha_nacimiento"
+                                onChange={this.handleChange}
+                            />
                         </div>
-                        <Dropdown id="CrearEmpleadoEstado" placeholder="Estado actual..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
-                        <Dropdown id="CrearEmpleadoMunicipio" placeholder="Municipio actual..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
-                        <Dropdown id="CrearEmpleadoParroquia" placeholder="Parroquia actual..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
+                        <div className="RowContainer center" style={{width: "80%"}}>
+                            <div className="LabelContainer">
+                                Fecha de ingreso :
+                            </div>
+                            <InputDate
+                                name="e_fecha_ingreso"
+                                onChange={this.handleChange}
+                                style={{float: "right"}}
+                            />
+                        </div>
+                        <DropdownArreglado
+                            name="estado_id"
+                            onChange={this.handleChangeLugar}
+                            options={[
+                                {text: "Estado donde vive ...", value: 0},
+                                {text: "Opción 1", value: 1},
+                                {text: "Opción 2", value: 2},
+                                {text: "Opción 3", value: 3},
+                                {text: "Opción 4", value: 4}
+                            ]}
+                        />
+                        <DropdownArreglado
+                            name="municipio_id"
+                            onChange={this.handleChangeLugar}
+                            options={[
+                                {text: "Municipio donde vive...", value: 0},
+                                {text: "Opción 1", value: 1},
+                                {text: "Opción 2", value: 2},
+                                {text: "Opción 3", value: 3},
+                                {text: "Opción 4", value: 4}
+                            ]}
+                        />
+                        <DropdownArreglado
+                            name="lugar_id"
+                            onChange={this.handleChange}
+                            options={[
+                                {text: "Parroquia donde vive...", value: 0},
+                                {text: "Opción 1", value: 1},
+                                {text: "Opción 2", value: 2},
+                                {text: "Opción 3", value: 3},
+                                {text: "Opción 4", value: 4}
+                            ]}
+                        />
                     </div>
                 </div>
                 <div className="WideContainer">
@@ -72,26 +212,38 @@ export class EmpleadosCrear extends React.Component {
 
             <div className="Container-90p">
                 <div className="LabelContainer">
-                    Usuarios asociados al empleado
+                    Usuarios asociados al empleado (SEGUNDA ENTREGA)
                 </div>
                 {
-                    this.state.users.map((e,i)=>
+                    this.state.users.map( (u,i)=>
                     {
-                        return<div className="RowContainer" key={i}>
-                            <div className="WideContainer" style={{justifyContent: "right", width: "30%"}}>
-                                <i className="zmdi zmdi-close-circle-o LabelIcon" onClick={()=>this.removeUser(i)}></i>
+                        return(
+                            <div className="RowContainer" key={i}>
+                                <div className="WideContainer" style={{justifyContent: "right", width: "30%"}}>
+                                    <i className="zmdi zmdi-close-circle-o LabelIcon" onClick={()=>this.removeUser(u.u_id_usuario)}></i>
+                                </div>
+                                <div className="WideContainer">
+                                    <InputText id={"CrearEmpleadoUsuarioCorreo"+i} label="Correo electrónico"/>
+                                </div>
+                                <div className="WideContainer">
+                                    <InputText id={"CrearEmpleadoUsuarioContra"+i} label="Contraseña inicial"/>
+                                </div>
+                                <div className="WideContainer">
+                                    <DropdownArreglado
+                                        name={`user_${u.u_id_usuario}`}
+                                        style={{}} 
+                                        options={[
+                                            {text: "Rol ...", value: 0},
+                                            {text: "Opción 1", value: 1},
+                                            {text: "Opción 2", value: 2},
+                                            {text: "Opción 3", value: 3},
+                                            {text: "Opción 4", value: 4}
+                                        ]} 
+                                    />
+                                </div>
                             </div>
-                            <div className="WideContainer">
-                                <InputText id={"CrearEmpleadoUsuarioCorreo"+i} label="Correo electrónico"/>
-                            </div>
-                            <div className="WideContainer">
-                                <InputText id={"CrearEmpleadoUsuarioContra"+i} label="Contraseña inicial"/>
-                            </div>
-                            <div className="WideContainer">
-                                <Dropdown id={"CrearEmpleadoUsuarioRol"+i} placeholder="Rol..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
-                            </div>
-                        </div>
-                    },this)
+                        )
+                    })
                 }
             </div>
 

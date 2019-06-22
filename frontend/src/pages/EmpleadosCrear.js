@@ -2,9 +2,7 @@ import React from 'react';
 import {MenuDashBoard} from "../components/MenuDashBoard";
 import {Dropdown} from "../components/Dropdown";
 import {InputText} from "../components/InputText";
-import {SectionTitle} from "../components/Header/SectionTitle";
 import {InputDate} from "../components/InputDate";
-import {Button} from "react-bootstrap";
 import {GuardarCancelar} from "../components/GuardarCancelar";
 
 export class EmpleadosCrear extends React.Component {
@@ -12,6 +10,10 @@ export class EmpleadosCrear extends React.Component {
         super(props);
 
         this.state = {
+            name: "",
+            surname: "",
+            ci: "",
+            position: "",
             users: [1]
         }
     }
@@ -37,6 +39,17 @@ export class EmpleadosCrear extends React.Component {
             }
         )
     }
+
+    saveData()
+    {
+
+    }
+
+    cancelData()
+    {
+
+    }
+
 
     render = () => (
         <div>
@@ -101,7 +114,7 @@ export class EmpleadosCrear extends React.Component {
                 </div>
             </div>
 
-            <GuardarCancelar position="right"/>
+            <GuardarCancelar position="right" accept={()=>this.saveData()} decline={(this.cancelData())}/>
         </div>
     )
 }

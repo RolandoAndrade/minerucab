@@ -9,6 +9,7 @@ export class InputText extends React.Component
         label.classList.add("BeSmall");
         label.classList.remove("red");
         input.classList.remove("error");
+        label.classList.remove("grey");
     }
 
     outInput()
@@ -18,7 +19,7 @@ export class InputText extends React.Component
         if(input.value=="")
         {
             label.classList.remove("BeSmall");
-            label.classList.remove("grey")
+            label.classList.remove("grey");
         }
         else
         {
@@ -42,7 +43,7 @@ export class InputText extends React.Component
                 id={"InputText"+this.props.id}
                 onFocus={()=>this.selectInput()}
                 onBlur={()=>this.outInput()}
-                className={`InputText ${this.props.value && "BeSmall"}`}
+                className={"InputText"+(this.props.value?" BeSmall":"")}
                 type="text"
                 placeholder={this.props.placeholder||""}
             />

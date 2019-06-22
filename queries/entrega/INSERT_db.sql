@@ -1,4 +1,4 @@
-/* AQUI TODOS LOS INSERTS EN ORDEN DEL MODELO LOGICO POR TABLA */
+/* INSERTS DE TABLA LUGAR */
 INSERT INTO LUGAR (l_id_lugar, l_nombre, l_tipo) VALUES (1,'Venezuela','pais');
 INSERT INTO LUGAR (l_id_lugar, l_nombre, l_tipo, lugar_id) VALUES (2,'Amazonas','estado', 1);
 INSERT INTO LUGAR (l_id_lugar, l_nombre, l_tipo, lugar_id) VALUES (3,'Anzoátegui','estado', 1);
@@ -1498,3 +1498,218 @@ INSERT INTO LUGAR (l_id_lugar, l_nombre, l_tipo, lugar_id) VALUES (1496,'Santa R
 INSERT INTO LUGAR (l_id_lugar, l_nombre, l_tipo, lugar_id) VALUES (1497,'Santa Teresa','parroquia', 488);
 INSERT INTO LUGAR (l_id_lugar, l_nombre, l_tipo, lugar_id) VALUES (1498,'Sucre (Catia)','parroquia', 488);
 INSERT INTO LUGAR (l_id_lugar, l_nombre, l_tipo, lugar_id) VALUES (1499,'23 de enero','parroquia', 488);
+
+/* INSERTS DE TABLA  UNIDAD */
+INSERT INTO UNIDAD (u_id_unidad, u_nombre, u_tipo, u_abreviatura) VALUES (1,'hora','temporal','hr');
+INSERT INTO UNIDAD (u_id_unidad, u_nombre, u_tipo, u_abreviatura) VALUES (2, 'dia', 'temporal','min');
+INSERT INTO UNIDAD (u_id_unidad, u_nombre, u_tipo, u_abreviatura) VALUES (3, 'semana', 'temporal','sem');
+INSERT INTO UNIDAD (u_id_unidad, u_nombre, u_tipo, u_abreviatura) VALUES (4, 'mes', 'temporal', 'mes');
+INSERT INTO UNIDAD (u_id_unidad, u_nombre, u_tipo, u_abreviatura) VALUES (5, 'anio', 'temporal', 'anio');
+INSERT INTO UNIDAD (u_id_unidad, u_nombre, u_tipo, u_abreviatura) VALUES (6, 'kilogramo', 'masa', 'kg');
+INSERT INTO UNIDAD (u_id_unidad, u_nombre, u_tipo, u_abreviatura) VALUES (7, 'tonelada', 'masa', 'ton');
+INSERT INTO UNIDAD (u_id_unidad, u_nombre, u_tipo, u_abreviatura) VALUES (8, 'kilometro cuadrado', 'area', 'km2');
+INSERT INTO UNIDAD (u_id_unidad, u_nombre, u_tipo, u_abreviatura) VALUES (9, 'metro cuadrado', 'area', 'm2');
+INSERT INTO UNIDAD (u_id_unidad, u_nombre, u_tipo, u_abreviatura) VALUES (10, 'hectaria', 'area', 'ha');
+INSERT INTO UNIDAD (u_id_unidad, u_nombre, u_tipo, u_abreviatura) VALUES (11, 'bolivar Soberano', 'monetaria', 'Bss');
+INSERT INTO UNIDAD (u_id_unidad, u_nombre, u_tipo, u_abreviatura) VALUES (12, 'dolar', 'monetaria', '$');
+INSERT INTO UNIDAD (u_id_unidad, u_nombre, u_tipo, u_abreviatura) VALUES (13, 'euro', 'monetaria', '€');
+
+/* INSERTS DE TABLA ESTADO  */
+INSERT INTO ESTADO (e_id_estado, e_nombre) VALUES (1, 'operativa');
+INSERT INTO ESTADO (e_id_estado, e_nombre) VALUES (2, 'finalizada');
+INSERT INTO ESTADO (e_id_estado, e_nombre) VALUES (3, 'pendiente');
+INSERT INTO ESTADO (e_id_estado, e_nombre) VALUES (4, 'atrasada');
+INSERT INTO ESTADO (e_id_estado, e_nombre) VALUES (5, 'no pagado');
+INSERT INTO ESTADO (e_id_estado, e_nombre) VALUES (6, 'pagado');
+INSERT INTO ESTADO (e_id_estado, e_nombre) VALUES (7, 'entregado');
+INSERT INTO ESTADO (e_id_estado, e_nombre) VALUES (8, 'activo');
+INSERT INTO ESTADO (e_id_estado, e_nombre) VALUES (9, 'suspendido');
+INSERT INTO ESTADO (e_id_estado, e_nombre) VALUES (10, 'finalizado');
+INSERT INTO ESTADO (e_id_estado, e_nombre) VALUES (11, 'disponible');
+INSERT INTO ESTADO (e_id_estado, e_nombre) VALUES (12, 'ocupado');
+INSERT INTO ESTADO (e_id_estado, e_nombre) VALUES (13, 'retirado');
+
+
+/* INSERTS DE TABLA  SECTOR_USO*/
+INSERT INTO SECTOR_USO (s_id_sector_uso, s_nombre, s_descripcion) VALUES (1, ' construcción', 'Creacion de edificios e inmuebles');
+INSERT INTO SECTOR_USO (s_id_sector_uso, s_nombre, s_descripcion) VALUES (2, 'metalmecánica', 'desarrollo de piezas metalicas');
+INSERT INTO SECTOR_USO (s_id_sector_uso, s_nombre, s_descripcion) VALUES (3, ' orfebrería', 'joyeria exotica');
+INSERT INTO SECTOR_USO (s_id_sector_uso, s_nombre, s_descripcion) VALUES (4, 'cocina', 'comida internacional');
+INSERT INTO SECTOR_USO (s_id_sector_uso, s_nombre, s_descripcion) VALUES (5, 'cosmetico', 'productos de belleza');
+INSERT INTO SECTOR_USO (s_id_sector_uso, s_nombre, s_descripcion) VALUES (6, 'electricidad', 'transporte de energia electrica');
+INSERT INTO SECTOR_USO (s_id_sector_uso, s_nombre, s_descripcion) VALUES (7, 'agricultura', 'fertilizantes y fungicidas');
+INSERT INTO SECTOR_USO (s_id_sector_uso, s_nombre, s_descripcion) VALUES (8, 'farmacia', 'fabricacion de medicamentos');
+
+/* INSERTS DE TABLA  MINERAL*/
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES (1, 'hierro', FALSE, '1975-01-04','El hierro o fierro​​ es un elemento químico de número atómico 26.',80,20,null,'metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES (2, 'bauxita', FALSE, null, 'La bauxita es una roca sedimentaria con un contenido de aluminio relativamente alto.', 40, 50, null, 'metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES (3, 'oro', FALSE, null, 'El oro es un elemento químico cuyo número atómico es 79.', 90, 70, null, 'metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES (4, 'carbón', FALSE, null, 'El carbón se origina por la descomposición de vegetales terrestres.', 30, 70, null, 'metal' );
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES (5, 'diamante', FALSE, null, ' El diamante es la segunda forma más estable de carbono, después del grafito', 100, 10, null, 'metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES (6, 'manganeso', FALSE, null, 'El manganeso es un elemento químico de número atómico 25 situado en el grupo 7.',50,40,null, 'metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES (7, 'níquel', FALSE,null,'Es un metal de transición de color blanco con un ligerísimo tono amarillo',60,60,null,'metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES (8, 'cobre', False,null,'Es un metal de transición de color rojizo y brillo metálico',55,32,null,'metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES (9, 'arena', FALSE, null, 'La arena es un conjunto de fragmentos sueltos de rocas o minerales de pequeño tamaño.',null,null,15,'no metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES(10,'cal', FALSE, null, 'Se obtiene como resultado de la calcinación de las rocas calizas o dolomías.', null,null,20,'no metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES(11,'caliza', FALSE, null, 'La caliza es una roca sedimentaria ', null,null,16,'no metal')
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES(12, 'granito', FALSE, null, 'El granito es una roca ígnea plutónica formada esencialmente por cuarzo', null,null,33,'no metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES(13,'yeso', FALSE, null, 'También conocido como yeso cocido o yeso de París', null,null,18,'no metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES(14,'arcilla', FALSE, null, 'Procedentes de la descomposición de rocas que contienen feldespato', null,null,7,'no metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES(15, 'azufre', FALSE, null, 'Es un no metal abundante con un color amarillo característico', null,null,12,'no metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES(16, 'baritina', FALSE, null, 'Es un mineral de la clase de los sulfatos y del tipo AXO4', null,null,25,'no metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES(17,'bentonita', FALSE, null, 'La bentonita es una arcilla de grano muy fino ', null,null,32,'no metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES(18, 'carbon antracita', FALSE, null, 'La antracita es el carbón mineral más metamórfico y el que presenta mayor contenido en carbono', null,null,43,'no metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES(19, 'mica', FALSE, null, 'Son minerales pertenecientes a un grupo numeroso de silicatos de alúmina, hierro, calcio', null,null,20,'no metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES(20, 'sal comun', FALSE, null, 'Es un compuesto químico con la fórmula NaCl', null,null,12,'no metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES(21, 'talco', FALSE, null, 'Mineral de color blanco a gris azul', null,null,19,'no metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES(22, 'silicio', FALSE, '1927-01-15', null, null,null,70,'no metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES(23,'feldespato',FALSE,'1990-02-05','Es ua piedra de color oscuro',null,null,40,'no metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES(25, 'uranio', TRUE, null, null, null, null, 80, 'no metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES(26, 'calcio', FALSE,null,null,null,null,25,'no metal');
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+VALUES(27, 'aluminio', FALSE, '1892-11-11',null,24,15,null,'metal');
+
+/* INSERTS DE TABLA  MINE_MINE*/
+INSERT INTO MINE_MINE (m_id_mine_mine,mineral_id_compone,mineral_id_compuesto) VALUES (1,22,9);
+INSERT INTO MINE_MINE (m_id_mine_mine,mineral_id_compone,mineral_id_compuesto) VALUES (2,19,12);
+INSERT INTO MINE_MINE (m_id_mine_mine,mineral_id_compone,mineral_id_compuesto) VALUES (3,23,12);
+INSERT INTO MINE_MINE (m_id_mine_mine,mineral_id_compone,mineral_id_compuesto) VALUES (4,4,5);
+INSERT INTO MINE_MINE (m_id_mine_mine,mineral_id_compone,mineral_id_compuesto) VALUES (5,26,10);
+INSERT INTO MINE_MINE (m_id_mine_mine,mineral_id_compone,mineral_id_compuesto) VALUES (6,27,2);
+INSERT INTO MINE_MINE (m_id_mine_mine,mineral_id_compone,mineral_id_compuesto) VALUES (7,26,13);
+INSERT INTO MINE_MINE (m_id_mine_mine,mineral_id_compone,mineral_id_compuesto) VALUES (8,22,14);
+
+/* INSERTS DE TABLA  SECT_MINE*/
+INSERT INTO SECT_MINE (s_id_sect_mine,mineral_id,sector_uso_id) VALUES (1,20,4);
+INSERT INTO SECT_MINE (s_id_sect_mine,mineral_id,sector_uso_id) VALUES (2,1,1);
+INSERT INTO SECT_MINE (s_id_sect_mine,mineral_id,sector_uso_id) VALUES (3,9,1);
+INSERT INTO SECT_MINE (s_id_sect_mine,mineral_id,sector_uso_id) VALUES (4,3,3);
+INSERT INTO SECT_MINE (s_id_sect_mine,mineral_id,sector_uso_id) VALUES (5,5,3);
+INSERT INTO SECT_MINE (s_id_sect_mine,mineral_id,sector_uso_id) VALUES (6,8,6);
+INSERT INTO SECT_MINE (s_id_sect_mine,mineral_id,sector_uso_id) VALUES (7,26,8);
+INSERT INTO SECT_MINE (s_id_sect_mine,mineral_id,sector_uso_id) VALUES (8,15,7);
+INSERT INTO SECT_MINE (s_id_sect_mine,mineral_id,sector_uso_id) VALUES (9,1,2);
+
+/* INSERTS DE TABLA  TIPO_YACIMIENTO*/
+INSERT INTO TIPO_YACIMIENTO (t_id_tipo_yacimiento,t_nombre) VALUES (1,'autoctono');
+INSERT INTO TIPO_YACIMIENTO (t_id_tipo_yacimiento,t_nombre) VALUES (2,'aloctono');
+INSERT INTO TIPO_YACIMIENTO (t_id_tipo_yacimiento,t_nombre) VALUES (3,'magmático');
+INSERT INTO TIPO_YACIMIENTO (t_id_tipo_yacimiento,t_nombre) VALUES (4,'pegmatitas');
+INSERT INTO TIPO_YACIMIENTO (t_id_tipo_yacimiento,t_nombre) VALUES (5,'vulcanogénico');
+INSERT INTO TIPO_YACIMIENTO (t_id_tipo_yacimiento,t_nombre) VALUES (6,'regular');
+INSERT INTO TIPO_YACIMIENTO (t_id_tipo_yacimiento,t_nombre) VALUES (7,'irregular');
+INSERT INTO TIPO_YACIMIENTO (t_id_tipo_yacimiento,t_nombre) VALUES (8,'mesotermales');
+INSERT INTO TIPO_YACIMIENTO (t_id_tipo_yacimiento,t_nombre) VALUES (9,'epitermales');
+INSERT INTO TIPO_YACIMIENTO (t_id_tipo_yacimiento,t_nombre) VALUES (10,'teletermales');
+
+/* INSERTS DE TABLA  CARACTERISTICA*/
+INSERT INTO CARACTERISTICA(c_id_caracteristica,c_nombre,c_descripcion) VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();
+
+/* INSERTS DE TABLA  */
+INSERT INTO () VALUES ();

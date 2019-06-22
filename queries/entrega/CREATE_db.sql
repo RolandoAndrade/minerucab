@@ -138,7 +138,7 @@ CREATE TABLE ETAPA_CONFIGURACION (
     e_tipo VARCHAR(255) NOT NULL,
     yacimiento_configuracion_id INTEGER NOT NULL,
 
-    CONSTRAINT check_e_tipo CHECK (e_tipo in ('explotacion', 'refinacion'))
+    CONSTRAINT check_e_tipo CHECK (e_tipo in ('explotacion', 'refinacion')),
     CONSTRAINT check_e_orden CHECK (e_orden > 0),
     CONSTRAINT e_id_etapa_configuracion PRIMARY KEY (e_id_etapa_configuracion)
 );
@@ -207,7 +207,7 @@ CREATE TABLE FASE_EMPL (
     horario_id INTEGER NOT NULL,
     unidad_id INTEGER ,
 
-    CONSTRAINT check_f_viatico CHECK (f_viatico >= 0)
+    CONSTRAINT check_f_viatico CHECK (f_viatico >= 0),
     CONSTRAINT f_id_fase_empl PRIMARY KEY (f_id_fase_empl)
 );
 
@@ -312,7 +312,7 @@ CREATE TABLE MINE_YACI (
     mineral_id INTEGER NOT NULL,
     unidad_id INTEGER NOT NULL,
 
-    CONSTRAINT check_m_cantidad CHECK (m_cantidad > 0)
+    CONSTRAINT check_m_cantidad CHECK (m_cantidad > 0),
     CONSTRAINT m_id_mine_yaci PRIMARY KEY (m_id_mine_yaci)
 );
 
@@ -336,6 +336,7 @@ CREATE TABLE PEDI_ESTA (
     p_fecha_modificacion DATE NOT NULL,
     estado_id INTEGER NOT NULL,
     pedido_id INTEGER NOT NULL,
+
     CONSTRAINT p_id_pedi_esta PRIMARY KEY (p_id_pedi_esta)
 );
 
@@ -472,7 +473,7 @@ CREATE TABLE TIPO_YACIMIENTO (
 
 CREATE TABLE TRANSFERENCIA (
     t_id_transferencia SERIAL,
-    t_banco varq(255) NOT NULL,
+    t_banco VARCHAR(255) NOT NULL,
     t_numero_transferencia VARCHAR(255) NOT NULL UNIQUE,
 
     CONSTRAINT t_id_transferencia PRIMARY KEY (t_id_transferencia)
@@ -556,219 +557,219 @@ ALTER TABLE ETAPA
 ADD CONSTRAINT fk_proyecto_id FOREIGN KEY (proyecto_id) REFERENCES PROYECTO (p_id_proyecto);
 
 ALTER TABLE ETAPA
-ADD CONSTRAINT fk_etapa_configuracion_id FOREIGN KEY etapa_configuracion_id REFERENCES ETAPA_CONFIGURACION (e_id_etapa_configuracion);
+ADD CONSTRAINT fk_etapa_configuracion_id FOREIGN KEY (etapa_configuracion_id) REFERENCES ETAPA_CONFIGURACION (e_id_etapa_configuracion);
 
 ALTER TABLE ETAPA_CONFIGURACION
-ADD CONSTRAINT fk_yacimiento_configuracion_id FOREIGN KEY yacimiento_configuracion_id REFERENCES YACIMIENTO_CONFIGURACION (y_id_yacimiento_configuracion);
+ADD CONSTRAINT fk_yacimiento_configuracion_id FOREIGN KEY (yacimiento_configuracion_id) REFERENCES YACIMIENTO_CONFIGURACION (y_id_yacimiento_configuracion);
 
 ALTER TABLE FACTURA_COMPRA
-ADD CONSTRAINT fk_solicitud_id FOREIGN KEY solicitud_id REFERENCES SOLICITUD (s_id_solicitud);
+ADD CONSTRAINT fk_solicitud_id FOREIGN KEY (solicitud_id) REFERENCES SOLICITUD (s_id_solicitud);
 
 ALTER TABLE FACTURA_VENTA
-ADD CONSTRAINT fk_pedido_id FOREIGN KEY pedido_id REFERENCES PEDIDO (p_id_pedido);
+ADD CONSTRAINT fk_pedido_id FOREIGN KEY (pedido_id) REFERENCES PEDIDO (p_id_pedido);
 
 ALTER TABLE FASE
-ADD CONSTRAINT fk_etapa_id FOREIGN KEY etapa_id REFERENCES ETAPA (e_id_etapa);
+ADD CONSTRAINT fk_etapa_id FOREIGN KEY (etapa_id) REFERENCES ETAPA (e_id_etapa);
 
 ALTER TABLE FASE
-ADD CONSTRAINT fk_fase_configuracion_id FOREIGN KEY fase_configuracion_id REFERENCES FASE_CONFIGURACION (f_id_fase_configuracion);
+ADD CONSTRAINT fk_fase_configuracion_id FOREIGN KEY (fase_configuracion_id) REFERENCES FASE_CONFIGURACION (f_id_fase_configuracion);
 
 ALTER TABLE FASE
-ADD CONSTRAINT fk_estado_id FOREIGN KEY estado_id REFERENCES ESTADO (e_id_estado);
+ADD CONSTRAINT fk_estado_id FOREIGN KEY (estado_id) REFERENCES ESTADO (e_id_estado);
 
 ALTER TABLE FASE_CARG
-ADD CONSTRAINT fk_fase_configuracion_id FOREIGN KEY fase_configuracion_id REFERENCES FASE_CONFIGURACION (f_id_fase_configuracion);
+ADD CONSTRAINT fk_fase_configuracion_id FOREIGN KEY (fase_configuracion_id) REFERENCES FASE_CONFIGURACION (f_id_fase_configuracion);
 
 ALTER TABLE FASE_CARG
-ADD CONSTRAINT fk_cargo_id FOREIGN KEY cargo_id REFERENCES CARGO (c_id_cargo);
+ADD CONSTRAINT fk_cargo_id FOREIGN KEY (cargo_id) REFERENCES CARGO (c_id_cargo);
 
 ALTER TABLE FASE_CARG
-ADD CONSTRAINT fk_unidad_id FOREIGN KEY unidad_id REFERENCES UNIDAD (u_id_unidad);
+ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
 
 ALTER TABLE FASE_CONFIGURACION
-ADD CONSTRAINT fk_etapa_configuracion_id FOREIGN KEY etapa_configuracion_id REFERENCES ETAPA_CONFIGURACION (e_id_etapa_configuracion);
+ADD CONSTRAINT fk_etapa_configuracion_id FOREIGN KEY (etapa_configuracion_id) REFERENCES ETAPA_CONFIGURACION (e_id_etapa_configuracion);
 
 ALTER TABLE FASE_CONFIGURACION
-ADD CONSTRAINT fk_unidad_id FOREIGN KEY unidad_id REFERENCES UNIDAD (u_id_unidad);
+ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
 
 ALTER TABLE FASE_EMPL
-ADD CONSTRAINT fk_empleado_id FOREIGN KEY empleado_id REFERENCES EMPLEADO (e_id_empleado);
+ADD CONSTRAINT fk_empleado_id FOREIGN KEY (empleado_id) REFERENCES EMPLEADO (e_id_empleado);
 
 ALTER TABLE FASE_EMPL
-ADD CONSTRAINT fk_fase_id FOREIGN KEY fase_id REFERENCES FASE (f_id_fase);
+ADD CONSTRAINT fk_fase_id FOREIGN KEY (fase_id) REFERENCES FASE (f_id_fase);
 
 ALTER TABLE FASE_EMPL
-ADD CONSTRAINT fk_horario_id FOREIGN KEY horario_id REFERENCES HORARIO (h_id_horario);
+ADD CONSTRAINT fk_horario_id FOREIGN KEY (horario_id) REFERENCES HORARIO (h_id_horario);
 
 ALTER TABLE FASE_EMPL
-ADD CONSTRAINT fk_unidad_id FOREIGN KEY unidad_id REFERENCES UNIDAD (u_id_unidad);
+ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
 
 ALTER TABLE FASE_EQUI
-ADD CONSTRAINT fk_equipo_id FOREIGN KEY equipo_id REFERENCES EQUIPO (e_id_equipo);
+ADD CONSTRAINT fk_equipo_id FOREIGN KEY (equipo_id) REFERENCES EQUIPO (e_id_equipo);
 
 ALTER TABLE FASE_EQUI
-ADD CONSTRAINT fk_fase_id FOREIGN KEY fase_id REFERENCES FASE (f_id_fase);
+ADD CONSTRAINT fk_fase_id FOREIGN KEY (fase_id) REFERENCES FASE (f_id_fase);
 
 ALTER TABLE FASE_MAQU
-ADD CONSTRAINT fk_fase_configuracion_id FOREIGN KEY fase_configuracion_id REFERENCES FASE_CONFIGURACION (f_id_fase_configuracion);
+ADD CONSTRAINT fk_fase_configuracion_id FOREIGN KEY (fase_configuracion_id) REFERENCES FASE_CONFIGURACION (f_id_fase_configuracion);
 
 ALTER TABLE FASE_MAQU
-ADD CONSTRAINT fk_maquinaria_id FOREIGN KEY maquinaria_id REFERENCES MAQUINARIA (m_id_maquinaria);
+ADD CONSTRAINT fk_maquinaria_id FOREIGN KEY (maquinaria_id) REFERENCES MAQUINARIA (m_id_maquinaria);
 
 ALTER TABLE FASE_MAQU
-ADD CONSTRAINT fk_unidad_id FOREIGN KEY unidad_id REFERENCES UNIDAD (u_id_unidad);
+ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
 
 ALTER TABLE GASTO_ADICIONAL
-ADD CONSTRAINT fk_unidad_id FOREIGN KEY unidad_id REFERENCES UNIDAD (u_id_unidad;)
+ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
 
 ALTER TABLE GASTO_ADICIONAL
-ADD CONSTRAINT fk_fase_id FOREIGN KEY fase_id REFERENCES FASE (f_id_fase);
+ADD CONSTRAINT fk_fase_id FOREIGN KEY (fase_id) REFERENCES FASE (f_id_fase);
 
 ALTER TABLE INVENTARIO
-ADD CONSTRAINT fk_mineral_id FOREIGN KEY mineral_id REFERENCES MINERAL (m_id_mineral);
+ADD CONSTRAINT fk_mineral_id FOREIGN KEY (mineral_id) REFERENCES MINERAL (m_id_mineral);
 
 ALTER TABLE INVENTARIO
-ADD CONSTRAINT fk_unidad_id FOREIGN KEY unidad_id REFERENCES UNIDAD (u_id_unidad);
+ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
 
 ALTER TABLE INVENTARIO
-ADD CONSTRAINT fk_proyecto_id FOREIGN KEY proyecto_id REFERENCES PROYECTO (p_id_proyecto);
+ADD CONSTRAINT fk_proyecto_id FOREIGN KEY (proyecto_id) REFERENCES PROYECTO (p_id_proyecto);
 
 ALTER TABLE INVENTARIO
-ADD CONSTRAINT fk_solicitud_id FOREIGN KEY solicitud_id REFERENCES SOLICITUD (s_id_solicitud);
+ADD CONSTRAINT fk_solicitud_id FOREIGN KEY (solicitud_id) REFERENCES SOLICITUD (s_id_solicitud);
 
 ALTER TABLE INVENTARIO
-ADD CONSTRAINT fk_pedido_id FOREIGN KEY pedido_id REFERENCES PEDIDO (p_id_pedido);
+ADD CONSTRAINT fk_pedido_id FOREIGN KEY (pedido_id) REFERENCES PEDIDO (p_id_pedido);
 
 ALTER TABLE JORNADA
-ADD CONSTRAINT fk_horario_id FOREIGN KEY horario_id REFERENCES HORARIO (h_id_horario);
+ADD CONSTRAINT fk_horario_id FOREIGN KEY (horario_id) REFERENCES HORARIO (h_id_horario);
 
 ALTER TABLE LUGAR
-ADD CONSTRAINT fk_lugar_id FOREIGN KEY lugar_id REFERENCES LUGAR (l_id_lugar);
+ADD CONSTRAINT fk_lugar_id FOREIGN KEY (lugar_id) REFERENCES LUGAR (l_id_lugar);
 
 ALTER TABLE MINE_MINE
-ADD CONSTRAINT fk_mineral_id_compone FOREIGN KEY mineral_id_compone REFERENCES MINERAL (m_id_mineral);
+ADD CONSTRAINT fk_mineral_id_compone FOREIGN KEY (mineral_id_compone) REFERENCES MINERAL (m_id_mineral);
 
 ALTER TABLE MINE_MINE
-ADD CONSTRAINT fk_mineral_id_compuesto FOREIGN KEY mineral_id_compuesto REFERENCES MINERAL (m_id_mineral);
+ADD CONSTRAINT fk_mineral_id_compuesto FOREIGN KEY (mineral_id_compuesto) REFERENCES MINERAL (m_id_mineral);
 
 ALTER TABLE MINE_YACI
-ADD CONSTRAINT fk_yacimineto_id FOREIGN KEY yacimineto_id REFERENCES YACIMIENTO (y_id_yacimiento);
+ADD CONSTRAINT fk_yacimineto_id FOREIGN KEY (yacimineto_id) REFERENCES YACIMIENTO (y_id_yacimiento);
 
 ALTER TABLE MINE_YACI
-ADD CONSTRAINT fk_mineral_id FOREIGN KEY mineral_id REFERENCES MINERAL (m_id_mineral);
+ADD CONSTRAINT fk_mineral_id FOREIGN KEY (mineral_id) REFERENCES MINERAL (m_id_mineral);
 
 ALTER TABLE MINE_YACI
-ADD CONSTRAINT fk_unidad_id FOREIGN KEY unidad_id REFERENCES UNIDAD (u_id_unidad);
+ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
 
 ALTER TABLE PEDI_ESTA
-ADD CONSTRAINT fk_estado_id FOREIGN KEY estado_id REFERENCES ESTADO (e_id_estado);
+ADD CONSTRAINT fk_estado_id FOREIGN KEY (estado_id) REFERENCES ESTADO (e_id_estado);
 
 ALTER TABLE PEDI_ESTA
-ADD CONSTRAINT fk_pedido_id FOREIGN KEY pedido_id REFERENCES PEDIDO (p_id_pedido);
+ADD CONSTRAINT fk_pedido_id FOREIGN KEY (pedido_id) REFERENCES PEDIDO (p_id_pedido);
 
 ALTER TABLE PEDI_PROD
-ADD CONSTRAINT fk_unidad_id FOREIGN KEY unidad_id REFERENCES UNIDAD (u_id_unidad);
+ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
 
 ALTER TABLE PEDI_PROD
-ADD CONSTRAINT fk_producto_id FOREIGN KEY producto_id REFERENCES PRODUCTO (p_id_producto);
+ADD CONSTRAINT fk_producto_id FOREIGN KEY (producto_id) REFERENCES PRODUCTO (p_id_producto);
 
 ALTER TABLE PEDI_PROD
-ADD CONSTRAINT fk_pedido_id FOREIGN KEY pedido_id REFERENCES PEDIDO (p_id_pedido);
+ADD CONSTRAINT fk_pedido_id FOREIGN KEY (pedido_id) REFERENCES PEDIDO (p_id_pedido);
 
 ALTER TABLE PEDI_TIPO
-ADD CONSTRAINT fk_credito_id FOREIGN KEY credito_id REFERENCES CREDITO (c_id_credito);
+ADD CONSTRAINT fk_credito_id FOREIGN KEY (credito_id) REFERENCES CREDITO (c_id_credito);
 
 ALTER TABLE PEDI_TIPO
-ADD CONSTRAINT fk_debito_id FOREIGN KEY debito_id REFERENCES DEBITO (d_id_debito);
+ADD CONSTRAINT fk_debito_id FOREIGN KEY (debito_id) REFERENCES DEBITO (d_id_debito);
 
 ALTER TABLE PEDI_TIPO
-ADD CONSTRAINT fk_transferencia_id FOREIGN KEY transferencia_id REFERENCES TRANSFERENCIA (t_id_transferencia);
+ADD CONSTRAINT fk_transferencia_id FOREIGN KEY (transferencia_id) REFERENCES TRANSFERENCIA (t_id_transferencia);
 
 ALTER TABLE PEDI_TIPO
-ADD CONSTRAINT fk_cheque_id FOREIGN KEY cheque_id REFERENCES CHEQUE (c_id_cheque);
+ADD CONSTRAINT fk_cheque_id FOREIGN KEY (cheque_id) REFERENCES CHEQUE (c_id_cheque);
 
 ALTER TABLE PEDI_TIPO
-ADD CONSTRAINT fk_pedido_id FOREIGN KEY pedido_id REFERENCES PEDIDO (p_id_pedido);
+ADD CONSTRAINT fk_pedido_id FOREIGN KEY (pedido_id) REFERENCES PEDIDO (p_id_pedido);
 
 ALTER TABLE PEDI_TIPO
-ADD CONSTRAINT fk_unidad_id FOREIGN KEY unidad_id REFERENCES UNIDAD (u_id_unidad);
+ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
 
 ALTER TABLE PEDIDO
-ADD CONSTRAINT fk_cliente_id FOREIGN KEY cliente_id REFERENCES CLIENTE (c_id_cliente);
+ADD CONSTRAINT fk_cliente_id FOREIGN KEY (cliente_id) REFERENCES CLIENTE (c_id_cliente);
 
 ALTER TABLE PROD_COMP
-ADD CONSTRAINT fk_compania_id FOREIGN KEY compania_id REFERENCES COMPANIA (c_id_compania);
+ADD CONSTRAINT fk_compania_id FOREIGN KEY (compania_id) REFERENCES COMPANIA (c_id_compania);
 
 ALTER TABLE PROD_COMP
-ADD CONSTRAINT fk_producto_id FOREIGN KEY producto_id REFERENCES PRODUCTO (p_id_producto);
+ADD CONSTRAINT fk_producto_id FOREIGN KEY (producto_id) REFERENCES PRODUCTO (p_id_producto);
 
 ALTER TABLE PROD_COMP
-ADD CONSTRAINT fk_unidad_id FOREIGN KEY unidad_id REFERENCES UNIDAD (u_id_unidad);
+ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
 
 ALTER TABLE PROD_SOLI
-ADD CONSTRAINT fk_solicitud_id FOREIGN KEY solicitud_id REFERENCES SOLICITUD (s_id_solicitud);
+ADD CONSTRAINT fk_solicitud_id FOREIGN KEY (solicitud_id) REFERENCES SOLICITUD (s_id_solicitud);
 
 ALTER TABLE PROD_SOLI
-ADD CONSTRAINT fk_prod_comp_id FOREIGN KEY prod_comp_id REFERENCES PROD_COMP (p_id_prod_comp);
+ADD CONSTRAINT fk_prod_comp_id FOREIGN KEY (prod_comp_id) REFERENCES PROD_COMP (p_id_prod_comp);
 
 ALTER TABLE PROD_SOLI
-ADD CONSTRAINT fk_unidad_id FOREIGN KEY unidad_id REFERENCES UNIDAD (u_id_unidad);
+ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
 
 ALTER TABLE PRODUCTO
-ADD CONSTRAINT fk_unidad_id FOREIGN KEY unidad_id REFERENCES UNIDAD (u_id_unidad);
+ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
 
 ALTER TABLE PRODUCTO
-ADD CONSTRAINT fk_mineral_id FOREIGN KEY mineral_id REFERENCES MINERAL (m_id_mineral);
+ADD CONSTRAINT fk_mineral_id FOREIGN KEY (mineral_id) REFERENCES MINERAL (m_id_mineral);
 
 ALTER TABLE PROYECTO
-ADD CONSTRAINT fk_estado_id FOREIGN KEY estado_id REFERENCES ESTADO (e_id_estado);
+ADD CONSTRAINT fk_estado_id FOREIGN KEY (estado_id) REFERENCES ESTADO (e_id_estado);
 
 ALTER TABLE PROYECTO
-ADD CONSTRAINT fk_yacimiento_id FOREIGN KEY yacimiento_id REFERENCES YACIMIENTO (y_id_yacimiento);
+ADD CONSTRAINT fk_yacimiento_id FOREIGN KEY (yacimiento_id) REFERENCES YACIMIENTO (y_id_yacimiento);
 
 ALTER TABLE PROYECTO
-ADD CONSTRAINT fk_pedido_id FOREIGN KEY pedido_id REFERENCES PEDIDO (p_id_pedido);
+ADD CONSTRAINT fk_pedido_id FOREIGN KEY (pedido_id) REFERENCES PEDIDO (p_id_pedido);
 
 ALTER TABLE ROL_ACCI
-ADD CONSTRAINT fk_rol_id FOREIGN KEY rol_id REFERENCES ROL (r_id_rol);
+ADD CONSTRAINT fk_rol_id FOREIGN KEY (rol_id) REFERENCES ROL (r_id_rol);
 
 ALTER TABLE ROL_ACCI
-ADD CONSTRAINT fk_accion_id FOREIGN KEY accion_id REFERENCES ACCION (a_id_accion);
+ADD CONSTRAINT fk_accion_id FOREIGN KEY (accion_id) REFERENCES ACCION (a_id_accion);
 
 ALTER TABLE SECT_MINE
-ADD CONSTRAINT fk_mineral_id FOREIGN KEY mineral_id REFERENCES MINERAL (m_id_mineral);
+ADD CONSTRAINT fk_mineral_id FOREIGN KEY (mineral_id) REFERENCES MINERAL (m_id_mineral);
 
 ALTER TABLE SECT_MINE
-ADD CONSTRAINT fk_sector_uso_id FOREIGN KEY sector_uso_id REFERENCES SECTOR_USO (s_id_sector_uso);
+ADD CONSTRAINT fk_sector_uso_id FOREIGN KEY (sector_uso_id) REFERENCES SECTOR_USO (s_id_sector_uso);
 
 ALTER TABLE SOLICITUD
-ADD CONSTRAINT fk_proyecto_id FOREIGN KEY proyecto_id REFERENCES PROYECTO (p_id_proyecto);
+ADD CONSTRAINT fk_proyecto_id FOREIGN KEY (proyecto_id) REFERENCES PROYECTO (p_id_proyecto);
 
 ALTER TABLE SOLICITUD
-ADD CONSTRAINT fk_estado_id FOREIGN KEY estado_id REFERENCES ESTADO (e_id_estado);
+ADD CONSTRAINT fk_estado_id FOREIGN KEY (estado_id) REFERENCES ESTADO (e_id_estado);
 
 ALTER TABLE USUARIO
-ADD CONSTRAINT fk_empleado_id FOREIGN KEY empleado_id REFERENCES EMPLEADO (e_id_empleado);
+ADD CONSTRAINT fk_empleado_id FOREIGN KEY (empleado_id) REFERENCES EMPLEADO (e_id_empleado);
 
 ALTER TABLE USUARIO
-ADD CONSTRAINT fk_rol_id FOREIGN KEY rol_id REFERENCES ROL (r_id_rol);
+ADD CONSTRAINT fk_rol_id FOREIGN KEY (rol_id) REFERENCES ROL (r_id_rol);
 
 ALTER TABLE YACIMIENTO
-ADD CONSTRAINT fk_yacimiento_configuracion_id FOREIGN KEY yacimiento_configuracion_id REFERENCES YACIMIENTO_CONFIGURACION (y_id_yacimiento_configuracion);
+ADD CONSTRAINT fk_yacimiento_configuracion_id FOREIGN KEY (yacimiento_configuracion_id) REFERENCES YACIMIENTO_CONFIGURACION (y_id_yacimiento_configuracion);
 
 ALTER TABLE YACIMIENTO
-ADD CONSTRAINT fk_tipo_yacimiento_id FOREIGN KEY tipo_yacimiento_id REFERENCES TIPO_YACIMIENTO (t_id_tipo_yacimiento);
+ADD CONSTRAINT fk_tipo_yacimiento_id FOREIGN KEY (tipo_yacimiento_id) REFERENCES TIPO_YACIMIENTO (t_id_tipo_yacimiento);
 
 ALTER TABLE YACIMIENTO
-ADD CONSTRAINT fk_lugar_id FOREIGN KEY lugar_id REFERENCES LUGAR (l_id_lugar);
+ADD CONSTRAINT fk_lugar_id FOREIGN KEY (lugar_id) REFERENCES LUGAR (l_id_lugar);
 
 ALTER TABLE YACIMIENTO
-ADD CONSTRAINT fk_unidad_id FOREIGN KEY unidad_id REFERENCES UNIDAD (u_id_unidad);
+ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
 
 ALTER TABLE YACIMIENTO_CONFIGURACION
-ADD CONSTRAINT fk_mineral_id FOREIGN KEY mineral_id REFERENCES MINERAL (m_id_mineral);
+ADD CONSTRAINT fk_mineral_id FOREIGN KEY (mineral_id) REFERENCES MINERAL (m_id_mineral);
 
 ALTER TABLE YACIMIENTO_CONFIGURACION
-ADD CONSTRAINT fk_unidad_id FOREIGN KEY unidad_id REFERENCES UNIDAD (u_id_unidad);
+ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
 /* AQUI TODOS LOS CREATES DE LAS TABLAS EN ORDEN DE MODELO LOGICO */
 /* NO PONER LAS RESTRICCIONES DE FOREIGN AQUI, VAN EN EL ARCHIVO RELACIONES.sql */

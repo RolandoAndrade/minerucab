@@ -138,52 +138,7 @@ export class MineralAgregar extends React.Component {
               return false;
           })
   }
- confirmarGuardar()
-  {
-      Swal.fire({
-          title: '¿Está seguro?',
-          text: 'Se guardará los datos del mineral con la información dada',
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Sí, guardar',
-          cancelButtonText: 'No, editar',
-          confirmButtonColor: "#1CA1DC",
-          cancelButtonColor: "#dc3832"
-      }).then(async (result) =>
-      {
-          if (result.value)
-          {
-              if (await this.storeData())
-              {
-                  Swal.fire(
-                      'Guardado',
-                      'Los datos fueron guardados satisfactoriamente',
-                      'success'
-                  )
-                  this.handleCancelar();
-              } else
-              {
-                  Swal.fire(
-                      'Error',
-                      'No se pudo guardar',
-                      'error'
-                  )
-              }
-          } else if (result.dismiss === Swal.DismissReason.cancel)
-          {
-              Swal.fire(
-                  'Cancelado',
-                  'Se ha detenido el proceso de guardado',
-                  'error'
-              )
-          }
-      })
-  }
 
-  handleGuardar = (e) => {
-    e.preventDefault();
-    this.confirmarGuardar();
-  };
 
   handleCancelar = () => {
       this.setState({
@@ -308,7 +263,25 @@ export class MineralAgregar extends React.Component {
                     ))}
                 </div>
             </div>
-            <GuardarCancelar accept={(e) => this.handleGuardar(e)} decline={this.handleCancelar}/>
+
+            <GuardarCancelar
+                storeData={() => this.storeData()}
+                success={this.handleCancelar} decline={this.handleCancelar}/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             {this.state.goMineral && <Redirect to="/mineral" /> }
 

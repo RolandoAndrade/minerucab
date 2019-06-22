@@ -92,6 +92,7 @@ CREATE TABLE DEBITO (
 CREATE TABLE EMPLEADO (
     e_id_empleado SERIAL,
     e_cedula  VARCHAR(255) NOT NULL UNIQUE,
+    e_genero VARCHAR(255) NOT NULL,
     e_nombre VARCHAR(255) NOT NULL,
     e_segundo_nombre VARCHAR(255),
     e_apellido VARCHAR(255) NOT NULL,
@@ -103,6 +104,7 @@ CREATE TABLE EMPLEADO (
     lugar_id INTEGER NOT NULL,
     estado_id INTEGER NOT NULL,
     
+    CONSTRAINT check_e_genero CHECK (e_genero in ('m', 'f')),
     CONSTRAINT e_id_empleado PRIMARY KEY (e_id_empleado)
 );
 
@@ -202,6 +204,7 @@ CREATE TABLE FASE_CONFIGURACION (
 CREATE TABLE FASE_EMPL (
     f_id_fase_empl SERIAL,
     f_viatico NUMERIC(10,2) DEFAULT 0,
+    f_salario NUMERIC(10,2) NOT NULL,
     empleado_id INTEGER NOT NULL,
     fase_id INTEGER NOT NULL,
     horario_id INTEGER NOT NULL,

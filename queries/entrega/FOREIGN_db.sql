@@ -85,14 +85,14 @@ ADD CONSTRAINT fk_equipo_id FOREIGN KEY (equipo_id) REFERENCES EQUIPO (e_id_equi
 ALTER TABLE FASE_EQUI
 ADD CONSTRAINT fk_fase_id FOREIGN KEY (fase_id) REFERENCES FASE (f_id_fase);
 
+ALTER TABLE FASE_EQUI
+ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
+
 ALTER TABLE FASE_MAQU
 ADD CONSTRAINT fk_fase_configuracion_id FOREIGN KEY (fase_configuracion_id) REFERENCES FASE_CONFIGURACION (f_id_fase_configuracion);
 
 ALTER TABLE FASE_MAQU
 ADD CONSTRAINT fk_maquinaria_id FOREIGN KEY (maquinaria_id) REFERENCES MAQUINARIA (m_id_maquinaria);
-
-ALTER TABLE FASE_MAQU
-ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
 
 ALTER TABLE GASTO_ADICIONAL
 ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);

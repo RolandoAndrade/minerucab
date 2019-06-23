@@ -7,6 +7,9 @@ import MaterialTable from 'material-table';
 
 import {cleanerMineral} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
+import {GuardarCancelar} from "../components/GuardarCancelar";
+import {InputText} from "../components/InputText";
+import {InputDate} from "../components/InputDate";
 
 export class MineralEditar extends React.Component {
   constructor(props){
@@ -126,8 +129,7 @@ export class MineralEditar extends React.Component {
     })
   }
 
-  handleGuardar = (e) => {
-    e.preventDefault()
+  handleGuardar = () => {
     const nuevo_mineral = { 
         ...this.state.nuevo_mineral,
         compuestos: this.state.compuestos
@@ -136,7 +138,7 @@ export class MineralEditar extends React.Component {
     // !!! OJO !!! FALTA AGREGAR MINERALES COMPUESTOS
 
     console.log(`----> localhost:4000/modificar/mineral/${nuevo_mineral.m_id_mineral}`)
-    axios.post('http://127.0.0.1:4000/modificar/mineral', 
+    return axios.post('http://127.0.0.1:4000/modificar/mineral', 
         {
             "m_id_mineral" : nuevo_mineral.m_id_mineral,
             "m_nombre" : nuevo_mineral.m_nombre,
@@ -148,12 +150,12 @@ export class MineralEditar extends React.Component {
         .then( (res) => {
             if( res.status === 200) {
                 console.log(`<---- (OK 200) localhost:4000/modificar/mineral/${nuevo_mineral.m_id_mineral}`)
-                this.handleCancelar()
             }
-        })
+            return res
+        }).catch( err => err)
   }
 
-  handleCancelar = () => {
+  goMineral = () => {
       this.setState({
           goMineral : true
       })
@@ -191,11 +193,10 @@ export class MineralEditar extends React.Component {
                         <span>{this.state.nuevo_mineral.m_id_mineral.toString(10).padStart(4, '0')}</span>
                     </p>
                     <p>
-                        <span className="mc-atributo">Nombre</span><span> : </span>
-                        <input 
+                        <InputText 
                             name="m_nombre"
-                            type="text"
-                            placeholder="nombre ..."
+                            id="CrearMineralNombre" 
+                            label="Nombre"
                             onChange={this.handleChange}
                             value={this.state.nuevo_mineral.m_nombre}
                         />
@@ -226,18 +227,19 @@ export class MineralEditar extends React.Component {
                     </p>
                     <p>
                         <span className="mc-atributo">Nacionalizado</span><span> : </span>
-                        <input
-                            type="date"
+                        <InputDate
                             name="m_fecha_nacionalizacion"
+                            id="CrearMineralFecha" 
+                            label="Fecha Nacionalización"
                             onChange={this.handleChange}
                             value={this.state.nuevo_mineral.m_fecha_nacionalizacion}
                         />
                     </p>
                     <p>
-                        <span className="mc-atributo">Descripción</span><span> : </span>
-                        <textarea
+                        <InputText
                             name="m_descripcion"
-                            placeholder="descripción ..."
+                            id="CrearMineralDescripcion" 
+                            label="Descripción"
                             onChange={this.handleChange}
                             value={this.state.nuevo_mineral.m_descripcion}
                         />
@@ -262,28 +264,16 @@ export class MineralEditar extends React.Component {
                                 className="IconoAgregar"
                             />
                     </div>
-                    <div className="botones-abajo">
-                        <Button 
-                            variant="primary" 
-                            type="submit" 
-                            className="mc-boton mc-boton-guardar" 
-                            onClick={(e) => this.handleGuardar(e)}
-                        >
-                            Guardar
-                        </Button>
-
-                        <Button 
-                            variant="secondary" 
-                            className="mc-boton" 
-                            onClick={this.handleCancelar}
-                        >
-                            Cancelar
-                        </Button>
-                    </div>
+                    <GuardarCancelar 
+                        position="center"
+                        storeData={this.handleGuardar}
+                        success={this.goMineral}
+                        decline={this.goMineral}
+                    />
                 </form>
             </div> }
 
-            {this.state.goMineral && <Redirect to="/mineral" /> }
+            {this.state.goMineral && <Redirect push to="/mineral" /> }
 
             <Modal 
                 size="lg"

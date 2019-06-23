@@ -137,7 +137,7 @@ export class MineralAgregar extends React.Component {
   }
 
 
-  handleCancelar = () => {
+  goMineral = () => {
       this.setState({
           goMineral : true
       })
@@ -178,7 +178,7 @@ export class MineralAgregar extends React.Component {
                     <InputText
                         id={"m_nombre"}
                         name={"m_nombre"}
-                        placeholder={"Nombre"}
+                        label="Nombre"
                         onChange={this.handleChange}
                         styles={{width: "100%"}}
                     />
@@ -263,8 +263,8 @@ export class MineralAgregar extends React.Component {
 
             <GuardarCancelar
                 storeData={this.storeData}
-                success={this.handleCancelar} 
-                decline={this.handleCancelar}
+                success={this.goMineral} 
+                decline={this.goMineral}
             />
 
             {this.state.goMineral && <Redirect to="/mineral" /> }

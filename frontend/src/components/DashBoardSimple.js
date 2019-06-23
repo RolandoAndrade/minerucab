@@ -1,25 +1,41 @@
 import React from 'react';
 import {DashBoardColumn} from "./DashBoardColumn";
+import {Redirect} from "react-router-dom";
 
 export class DashBoardSimple extends React.Component {
 
-    constructor(props){
-        super(props);
-
-    }
 
 
     render = () => (
         <div className="DashBoardSimple" id="DashBoardSimple">
             <div className="DashBoardItems">
                 <DashBoardColumn main={this.props.main} image="resources/img/Dashboard_1.png" color="y"
-                                 title="Administración" sections={["Usuarios", "Roles", "Minerales","Yacimientos", "Depósitos", "Plantas","Procesos", "Productos", "Maquinaria"]}/>
+                                 title="Administración"
+                                 sections={[
+                                     {text: "Usuarios", url: "usuarios"},
+                                     {text: "Roles", url: "rol"},
+                                     {text: "Minerales", url: "mineral"},
+                                     {text: "Yacimientos", url: "yacimiento"},
+                                     {text: "Depósitos", url: "deposito"},
+                                     {text: "Plantas", url: "planta"},
+                                     {text: "Procesos", url: "proceso"},
+                                     {text: "Productos", url: "producto"},
+                                     {text: "Maquinaria", url: "maquinaria"}]}/>
                 <DashBoardColumn main={this.props.main} image="resources/img/Dashboard_2.png" color="b"
-                                 title="Ventas" sections={["Aliados", "Clientes", "Pedidos","Solicitudes"]}/>
+                                 title="Ventas" sections={
+                                     [
+                                         {text: "Aliados", url: "aliado"},
+                                         {text: "Clientes", url: "cliente"},
+                                         {text: "Pedidos", url: "pedido"},
+                                         {text: "Solicitudes", url: "solicitud"}]}/>
                 <DashBoardColumn main={this.props.main} image="resources/img/Dashboard_3.png" color="g"
-                                 title="Proyectos" sections={["Proyectos", "Explotaciones", "Etapas","Empleados"]}/>
+                                 title="Proyectos" sections={
+                                     [
+                                         {text: "Proyectos", url: "proyecto"},
+                                         {text: "Explotaciones", url: "explotacion"},
+                                         {text: "Etapas", url: "etapa"},
+                                         {text: "Empleados", url: "empleado"}]}/>
             </div>
-
         </div>
     )
 }

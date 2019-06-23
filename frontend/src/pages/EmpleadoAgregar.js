@@ -10,6 +10,7 @@ import {SectionTitle} from "../components/Header/SectionTitle";
 import {InputDate} from "../components/InputDate";
 import {GuardarCancelar} from "../components/GuardarCancelar";
 import { DropdownArreglado } from '../components/DropdownArreglado';
+import {Dropdown} from "../components/Dropdown";
 
 export class EmpleadoAgregar extends React.Component {
     constructor(props){
@@ -121,7 +122,7 @@ export class EmpleadoAgregar extends React.Component {
         })
       }
 
-    handleChangeLugar = ({target}) => {
+    handleChangeLugar = (target) => {
         console.log(`lugar.${target.name} = ${target.value}`)
         this.setState({
             lugar :{
@@ -129,6 +130,7 @@ export class EmpleadoAgregar extends React.Component {
                 [target.name] : target.value
             }
         })
+        console.log(this.state)
     }
 
     render = () => (
@@ -177,17 +179,18 @@ export class EmpleadoAgregar extends React.Component {
                 </div>
                 <div className="WideContainer">
                     <div className="FormContainer">
-                        <DropdownArreglado
-                            name="cargo_id"
-                            onChange={this.handleChange}
-                            options={[
-                                {text: "Cargo ...", value: 0},
-                                {text: "Opción 1", value: 1},
-                                {text: "Opción 2", value: 2},
-                                {text: "Opción 3", value: 3},
-                                {text: "Opción 4", value: 4}
-                            ]}
-                        />
+                        <Dropdown id="CrearEmpleadoCargo"
+                                  name="cargo_id"
+                                  retrieveData={this.handleChange}
+                                  placeholder="Cargo..."
+                                  options={[
+                                      {text:"Opción 1",id:1},
+                                      {text:"Opción 2",id:2},
+                                      {text:"Opción 3",id:3},
+                                      {text:"Opción 4",id:4},
+                                      {text:"Opción 5",id:5}]}/>
+                        {/*
+                        Según reglas de integridad El estado por defecto es activo, no se debe establecer de inmediato
                         <DropdownArreglado
                             name="estado_id"
                             onChange={this.handleChange}
@@ -198,7 +201,7 @@ export class EmpleadoAgregar extends React.Component {
                                 {text: "Opción 3", value: 3},
                                 {text: "Opción 4", value: 4}
                             ]}
-                        />
+                        />*/}
                         <div className="RowContainer center" style={{width: "80%"}}>
                             <div className="LabelContainer">
                                 Fecha de nacimiento : &nbsp;
@@ -218,39 +221,36 @@ export class EmpleadoAgregar extends React.Component {
                                 style={{float: "right"}}
                             />
                         </div>
-                        <DropdownArreglado
-                            name="estado_id"
-                            onChange={this.handleChangeLugar}
-                            options={[
-                                {text: "Estado donde vive ...", value: 0},
-                                {text: "Opción 1", value: 1},
-                                {text: "Opción 2", value: 2},
-                                {text: "Opción 3", value: 3},
-                                {text: "Opción 4", value: 4}
-                            ]}
-                        />
-                        <DropdownArreglado
-                            name="municipio_id"
-                            onChange={this.handleChangeLugar}
-                            options={[
-                                {text: "Municipio donde vive...", value: 0},
-                                {text: "Opción 1", value: 1},
-                                {text: "Opción 2", value: 2},
-                                {text: "Opción 3", value: 3},
-                                {text: "Opción 4", value: 4}
-                            ]}
-                        />
-                        <DropdownArreglado
-                            name="lugar_id"
-                            onChange={this.handleChange}
-                            options={[
-                                {text: "Parroquia donde vive...", value: 0},
-                                {text: "Opción 1", value: 1},
-                                {text: "Opción 2", value: 2},
-                                {text: "Opción 3", value: 3},
-                                {text: "Opción 4", value: 4}
-                            ]}
-                        />
+                        <Dropdown id="CrearEmpleadoLugarEstado"
+                                  name="estado_id"
+                                  retrieveData={this.handleChangeLugar}
+                                  placeholder="Estado donde vive..."
+                                  options={[
+                                      {text:"Opción 1",id:1},
+                                      {text:"Opción 2",id:2},
+                                      {text:"Opción 3",id:3},
+                                      {text:"Opción 4",id:4},
+                                      {text:"Opción 5",id:5}]}/>
+                        <Dropdown id="CrearEmpleadoLugarMunicipio"
+                                  name="municipio_id"
+                                  retrieveData={this.handleChangeLugar}
+                                  placeholder="Municipio donde vive..."
+                                  options={[
+                                      {text:"Opción 1",id:1},
+                                      {text:"Opción 2",id:2},
+                                      {text:"Opción 3",id:3},
+                                      {text:"Opción 4",id:4},
+                                      {text:"Opción 5",id:5}]}/>
+                        <Dropdown id="CrearEmpleadoLugarParroquia"
+                                  name="parroquia_id"
+                                  retrieveData={this.handleChangeLugar}
+                                  placeholder="Parroquia donde vive..."
+                                  options={[
+                                      {text:"Opción 1",id:1},
+                                      {text:"Opción 2",id:2},
+                                      {text:"Opción 3",id:3},
+                                      {text:"Opción 4",id:4},
+                                      {text:"Opción 5",id:5}]}/>
                     </div>
                 </div>
                 <div className="WideContainer">
@@ -273,22 +273,22 @@ export class EmpleadoAgregar extends React.Component {
                                     <i className="zmdi zmdi-close-circle-o LabelIcon" onClick={()=>this.removeUser(u.u_id_usuario)}></i>
                                 </div>
                                 <div className="WideContainer">
-                                    <InputText id={"CrearEmpleadoUsuarioCorreo"+i} label="Correo electrónico"/>
+                                    <InputText styles={{width:"95%"}}  id={"CrearEmpleadoUsuarioCorreo"+i} label="Correo electrónico"/>
                                 </div>
                                 <div className="WideContainer">
-                                    <InputText id={"CrearEmpleadoUsuarioContra"+i} label="Contraseña inicial"/>
+                                    <InputText styles={{width:"95%"}} id={"CrearEmpleadoUsuarioContra"+i} label="Contraseña inicial"/>
                                 </div>
                                 <div className="WideContainer">
-                                    <DropdownArreglado
-                                        name={`user_${u.u_id_usuario}`}
-                                        style={{}} 
-                                        options={[
-                                            {text: "Rol ...", value: 0},
-                                            {text: "Opción 1", value: 1},
-                                            {text: "Opción 2", value: 2},
-                                            {text: "Opción 3", value: 3},
-                                            {text: "Opción 4", value: 4}
-                                        ]} 
+                                    <Dropdown id={"CrearEmpleadoRol"+i}
+                                              name={`user_${u.u_id_usuario}`}
+                                              retrieveData={this.handleChangeLugar}
+                                              placeholder="Cargo..."
+                                              options={[
+                                                  {text:"Opción 1",id:1},
+                                                  {text:"Opción 2",id:2},
+                                                  {text:"Opción 3",id:3},
+                                                  {text:"Opción 4",id:4},
+                                                  {text:"Opción 5",id:5}]}
                                     />
                                 </div>
                             </div>

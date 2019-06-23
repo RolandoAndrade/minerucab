@@ -81,6 +81,7 @@
   color: white;
   background: lighten($azul-ucab,10%);
   padding: 5px;
+  cursor: pointer;
   &:hover
   {
     background: $azul-ucab;

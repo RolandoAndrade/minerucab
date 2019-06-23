@@ -63,14 +63,16 @@ export class EmpleadoAgregar extends React.Component {
 
     handleGuardar = () => {
         console.log(`----> localhost:4000/insertar/empleado`)
-        axios.post('http://127.0.0.1:4000/insertar/empleado', 
+        return axios.post('http://127.0.0.1:4000/insertar/empleado', 
             this.state.nuevo_empleado
         )
         .then( (res) => {
             if( res.status === 200) {
                 console.log(`<---- (OK 200) localhost:4000/insertar/empleado`)
-                this.goEmpleado()
             }
+            return res
+        }).catch( (err) => {
+            return err
         })
     }
 
@@ -303,8 +305,9 @@ export class EmpleadoAgregar extends React.Component {
 
             <GuardarCancelar 
                 position="right"
-                guardar={this.handleGuardar}
-                cancelar={this.goEmpleado}
+                storeData={this.handleGuardar}
+                success={this.goEmpleado}
+                decline={this.goEmpleado}
             />
 
             {this.state.goEmpleado && <Redirect to="/empleado" /> }

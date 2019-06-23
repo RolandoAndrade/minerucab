@@ -329,7 +329,7 @@ export class EmpleadoEditar extends React.Component {
                 decline={this.goEmpleado}
             />
 
-            {this.state.goEmpleado && <Redirect to="/empleado" /> }
+            {this.state.goEmpleado && <Redirect push to="/empleado" /> }
         </div>
     )
 }

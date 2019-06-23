@@ -258,9 +258,9 @@ export class Cliente extends React.Component {
           }
 
           {!!this.state.modificarMineral 
-            && <Redirect to={`/editar/cliente/${this.state.modificarMineral}`} />
+            && <Redirect push to={`/editar/cliente/${this.state.modificarMineral}`} />
           }
-          {this.state.agregarPresionado && <Redirect to="/crear/cliente" />}
+          {this.state.agregarPresionado && <Redirect push to="/crear/cliente" />}
       </div>
     </div>  
   )

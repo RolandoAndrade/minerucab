@@ -292,9 +292,9 @@ export class Empleado extends React.Component {
           }
 
           {!!this.state.modificarEmpleado 
-            && <Redirect to={`/editar/empleado/${this.state.modificarEmpleado}`} />
+            && <Redirect push to={`/editar/empleado/${this.state.modificarEmpleado}`} />
           }
-          {this.state.agregarPresionado && <Redirect to="/crear/empleado" />}
+          {this.state.agregarPresionado && <Redirect push to="/crear/empleado" />}
       </div>
     </div>  
   )

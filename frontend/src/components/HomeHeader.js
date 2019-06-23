@@ -61,7 +61,7 @@ export class HomeHeader extends React.Component {
             <div className="HeaderContent align-right">
                 <div className="LoginButton" onClick={()=>this.login()}>Ingresar<i className="fa fa-sign-in-alt"></i></div>
             </div>
-            {this.state.goToDashBoard&&<Redirect to="/dashboard"/>}
+            {this.state.goToDashBoard&&<Redirect push to="/dashboard"/>}
         </div>
         </div>
     )

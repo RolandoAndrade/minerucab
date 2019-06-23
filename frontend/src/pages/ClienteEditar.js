@@ -165,7 +165,7 @@ export class ClienteEditar extends React.Component {
                 </Button>
             </div>
 
-            {this.state.goCliente && <Redirect to="/cliente" /> }
+            {this.state.goCliente && <Redirect push to="/cliente" /> }
       </div>
     </div>  
   )

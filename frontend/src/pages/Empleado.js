@@ -105,7 +105,7 @@ export class Empleado extends React.Component {
               style={{margin: "0 5%"}}
               columns={[
                 {
-                  title: 'ID', field: 'e_id_empleado', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'asc',
+                  title: 'ID', field: 'e_id_empleado', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'desc',
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"

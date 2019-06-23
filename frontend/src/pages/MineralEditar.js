@@ -293,17 +293,17 @@ export class MineralEditar extends React.Component {
                         style={{margin: "0 5%"}}
                         columns={[
                             {
-                            title: 'ID', field: 'm_id_mineral', type: 'string', defaultSort : 'asc',
+                            title: 'ID', field: 'm_id_mineral', type: 'string', defaultSort : 'desc',
                             cellStyle : {
                                 fontSize : "large",
-                                textAlign : "right"
+                                textAlign : "center"
                             }, 
                             },
                             {
                             title: 'Nombre', field: 'm_nombre', type: 'string',
                             cellStyle : {
                                 fontSize : "large",
-                                textAlign : "left"                    
+                                textAlign : "center"                    
                             },
                             },
                             {
@@ -324,7 +324,7 @@ export class MineralEditar extends React.Component {
                             title: 'Nacionalizado', field: 'm_fecha_nacionalizacion', type:'string',
                             cellStyle : {
                                 fontSize : "large",
-                                textAlign: "left"
+                                textAlign: "center"
                             },
                             }
                         ]}

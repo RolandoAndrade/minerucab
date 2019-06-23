@@ -105,7 +105,7 @@ export class Cliente extends React.Component {
               style={{margin: "0 5%"}}
               columns={[
                 {
-                  title: 'ID', field: 'c_id_cliente', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'asc',
+                  title: 'ID', field: 'c_id_cliente', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'desc',
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"

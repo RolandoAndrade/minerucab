@@ -287,7 +287,7 @@ export class MineralAgregar extends React.Component {
                         style={{margin: "0 5%"}}
                         columns={[
                             {
-                            title: 'ID', field: 'm_id_mineral', type: 'string', defaultSort : 'asc',
+                            title: 'ID', field: 'm_id_mineral', type: 'string', defaultSort : 'desc',
                             cellStyle : {
                                 fontSize : "large",
                                 textAlign : "right"

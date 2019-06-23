@@ -274,9 +274,9 @@ export class Mineral extends React.Component {
           }
 
           {!!this.state.modificarMineral 
-            && <Redirect to={`/editar/mineral/${this.state.modificarMineral}`} />
+            && <Redirect push to={`/editar/mineral/${this.state.modificarMineral}`} />
           }
-          {this.state.agregarPresionado && <Redirect to="/crear/mineral" />}
+          {this.state.agregarPresionado && <Redirect push to="/crear/mineral" />}
       </div>
     </div>  
   )

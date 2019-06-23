@@ -15,7 +15,7 @@ export class DashBoardColumn extends React.Component {
     {
         this.setState(
             {
-                whereToGo: url
+                whereToGo: "../../../"+url
             }
         )
     }

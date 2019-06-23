@@ -151,13 +151,22 @@ export class Mineral extends React.Component {
                 },
                 searchFieldAlignment: "left",
                 exportButton: true,
-                exportFileName: "Minerales"
+                exportFileName: "Minerales",
+
               }}
 
               onRowClick={(event, rowData) => this.handleConsultar(rowData.m_id_mineral)}
-              localization={{
+              localization={
+                  {
                 toolbar : {
                   searchPlaceholder : "Buscar ..."
+                },
+                pagination:
+                {
+                    labelRowsSelect: "Filas"
+                },
+                body: {
+                    emptyDataSourceMessage: "No hay entradas disponibles"
                 }
               }}
 
@@ -173,6 +182,8 @@ export class Mineral extends React.Component {
                   isFreeAction: true
                 }
               ]}
+
+
 
             />
           }

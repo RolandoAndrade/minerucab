@@ -40,80 +40,19 @@ export class EmpleadosCrear extends React.Component {
 
     storeData()
     {
-        let name = document.getElementById("InputTextCrearEmpleadoNombre");
-        let surname = document.getElementById("InputTextCrearEmpleadoApellido");
-        let ci = document.getElementById("InputTextCrearEmpleadoCedula");
-        let position = document.getElementById("DropdownSearchCrearEmpleadoCargo");
-        if(name.value.length===0)
-        {
-            Swal.fire({title: "Error", text: "Hace falta establecer un nombre", type:"error"});
-            name.classList.add("error");
-            return false;
-        }
-        else if(surname.value.length===0)
-        {
-            Swal.fire({title: "Error", text: "Hace falta establecer un apellido", type:"error"});
-            surname.classList.add("error");
-            return false;
-        }
-        else if(ci.value.length===0)
-        {
-            Swal.fire({title: "Error", text: "Hace falta establecer una cédula", type:"error"});
-            ci.classList.add("error");
-            return false;
-        }
-        return true;
+
     }
 
-    saveData()
-    {
-        // No hace falta aqui, ya esta en el componente
-        Swal.fire({
-            title: '¿Está seguro?',
-            text: 'Se guardará los datos del empleado con la información dada',
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Sí, guardar',
-            cancelButtonText: 'No, editar',
-            confirmButtonColor: "#1CA1DC",
-            cancelButtonColor: "#dc3832"
-        }).then((result) => {
-            if (result.value) {
-                if(this.storeData())
-                    Swal.fire(
-                        'Guardado',
-                        'Los datos fueron guardados satisfactoriamente',
-                        'success'
-                    )
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire(
-                    'Cancelado',
-                    'Se ha detenido el proceso de guardado',
-                    'error'
-                )
+    handleChange = ({target}) => {
+        console.log(`nuevo_empleado.${target.name} = ${target.value}`)
+        this.setState({
+            nuevo_empleado :{
+                ...this.state.nuevo_empleado,
+                [target.name] : target.value
             }
         })
     }
 
-    cancelData()
-    {
-        // No hace falta aqui, ya esta en el componente
-        Swal.fire({
-            title: '¿Está seguro?',
-            text: 'Todos los datos introducidos se perderán',
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Sí, salir',
-            cancelButtonText: 'No, editar',
-            confirmButtonColor: "#1CA1DC",
-            cancelButtonColor: "#dc3832"
-        }).then((result) => {
-            if (result.value)
-            {
-                console.log("volver");
-            }
-        })
-    }
 
 
     render = () => (
@@ -122,10 +61,17 @@ export class EmpleadosCrear extends React.Component {
             <div className="RowContainer">
                 <div className="WideContainer">
                     <div className="FormContainer">
-                        <InputText id="CrearEmpleadoNombre" label="Nombre"/>
+                        <InputText
+                            id="CrearEmpleadoNombre"
+                            label="Nombre"
+                            name="e_nombre"
+                        />
                         <InputText id="CrearEmpleadoApellido" label="Apellido"/>
                         <InputText id="CrearEmpleadoCedula" label="Número de cédula"/>
-                        <Dropdown id="CrearEmpleadoCargo" placeholder="Cargo..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
+                        <Dropdown id="CrearEmpleadoCargo" placeholder="Cargo..."
+                                  options={[
+                                      {text:"Opción 1",id:1},{text:"Opción 2",id:2},{text:"Opción 3",id:3},
+                                      {text:"Opción 4",id:4},{text:"Opción 5",id:5}]}/>
                     </div>
                 </div>
                 <div className="WideContainer">
@@ -136,9 +82,13 @@ export class EmpleadosCrear extends React.Component {
                             </div>
                             <InputDate/>
                         </div>
-                        <Dropdown id="CrearEmpleadoEstado" placeholder="Estado actual..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
-                        <Dropdown id="CrearEmpleadoMunicipio" placeholder="Municipio actual..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
-                        <Dropdown id="CrearEmpleadoParroquia" placeholder="Parroquia actual..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
+                        <Dropdown id="CrearEmpleadoEstado" placeholder="Estado actual..." options={[
+                            {text:"Opción 1",id:1},{text:"Opción 2",id:2},{text:"Opción 3",id:3},
+                            {text:"Opción 4",id:4},{text:"Opción 5",id:5}]}/>
+                        <Dropdown id="CrearEmpleadoMunicipio" placeholder="Municipio actual..." options={[{text:"Opción 1",id:1},{text:"Opción 2",id:2}
+                            ,{text:"Opción 3",id:3},{text:"Opción 4",id:4},{text:"Opción 5",id:5}]}/>
+                        <Dropdown id="CrearEmpleadoParroquia" placeholder="Parroquia actual..." options={[{text:"Opción 1",id:1},{text:"Opción 2",id:2}
+                            ,{text:"Opción 3",id:3},{text:"Opción 4",id:4},{text:"Opción 5",id:5}]}/>
                     </div>
                 </div>
                 <div className="WideContainer">
@@ -166,7 +116,8 @@ export class EmpleadosCrear extends React.Component {
                                 <InputText styles={{width:"95%"}} id={"CrearEmpleadoUsuarioContra"+i} label="Contraseña inicial"/>
                             </div>
                             <div className="WideContainer">
-                                <Dropdown id={"CrearEmpleadoUsuarioRol"+i} placeholder="Rol..." options={["Opción 1","Opción 2","Opción 3","Opción 4","Opción 5"]}/>
+                                <Dropdown id={"CrearEmpleadoUsuarioRol"+i} placeholder="Rol..." options={[{text:"Opción 1",id:1},{text:"Opción 2",id:2}
+                                    ,{text:"Opción 3",id:3},{text:"Opción 4",id:4},{text:"Opción 5",id:5}]}/>
                             </div>
                         </div>
                     },this)

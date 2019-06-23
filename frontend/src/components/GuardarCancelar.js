@@ -1,9 +1,18 @@
 import React from "react";
 import Swal from "sweetalert2";
+import {Loader} from "./Loader";
 
 
 export class GuardarCancelar extends React.Component {
 
+    constructor(props)
+    {
+        super(props);
+        this.state={
+            loading: false
+        }
+
+    }
     saveData = () =>
     {
         Swal.fire({
@@ -17,8 +26,11 @@ export class GuardarCancelar extends React.Component {
             cancelButtonColor: "#dc3832"
         })
         .then( (result) => {
-            if (result.value) {
+            if (result.value)
+            {
+                this.setState({loading:true});
                 this.props.storeData().then( (res) => {
+                    this.setState({loading:false});
                     if ( res.status === 200 )
                         Swal.fire(
                             'Guardado',
@@ -75,6 +87,7 @@ export class GuardarCancelar extends React.Component {
             <div className="GC ButtonSecondary" onClick={this.dismiss}>
                 Cancelar
             </div>
+            {this.state.loading && <Loader/>}
         </div>
     )
 }

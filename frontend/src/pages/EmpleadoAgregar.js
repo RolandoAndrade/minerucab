@@ -78,7 +78,6 @@ export class EmpleadoAgregar extends React.Component {
     }
 
     goEmpleado = () => {
-        console.log("asdsd")
         this.setState({
             goEmpleado : true
         })
@@ -112,7 +111,8 @@ export class EmpleadoAgregar extends React.Component {
         )
     }
 
-    handleChange = ({target}) => {
+    handleChange = (target) => {
+        target=target.target||target;
         console.log(`nuevo_empleado.${target.name} = ${target.value}`)
         this.setState({
             nuevo_empleado :{

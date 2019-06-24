@@ -52,7 +52,7 @@ const AppRouter = () => (
         <PublicRoute path="/editar/cliente/:id" component={ClienteEditar} />
         <PublicRoute path="/editar/mineral/:id" component={MineralEditar} />
         <PublicRoute path="/editar/empleado/:id" component={EmpleadoEditar} />
-        <PublicRoute path="/crear/solicitud" component={CrearVenta} />
+        <PublicRoute path="/crear/pedido" component={CrearVenta} />
 
         <PublicRoute path="/crear/empleadoRolando" component={EmpleadosCrear} />
 

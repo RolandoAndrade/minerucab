@@ -6,6 +6,7 @@ import {InputText} from "../components/InputText";
 import {Dropdown} from "../components/Dropdown";
 import {MenuDashBoard} from "../components/MenuDashBoard";
 import {GuardarCancelar} from "../components/GuardarCancelar";
+import {cleanerLugar, cleanerMineral} from "../utils/cleaner";
 
 const IVA = 1.16;
 
@@ -18,9 +19,25 @@ export class CrearVenta extends React.Component
             cliente_id: -1,
             minerales: [{mineral_id: -1, cantidad: 0, precio: 0, presentacion_id: -1}],
             goSolicitud: false,
+            listaMinerales: [],
             total: 0,
             subtotal: 0
         }
+    }
+
+    componentDidMount = () => {
+
+        console.log(`----> localhost:4000/consultarLista/mineral`)
+        axios.get('http://127.0.0.1:4000/consultarLista/mineral')
+            .then( (res) => {
+                if(res.status === 200)
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral`)
+
+                this.setState({
+                    listaMinerales: cleanerMineral.limpiarListaDropdown(res.data.rows)
+                })
+
+            })
     }
 
     handleGuardar = () =>
@@ -117,7 +134,7 @@ export class CrearVenta extends React.Component
 
     render = () => (
         <div>
-            <MenuDashBoard title="Crear solicitud"/>
+            <MenuDashBoard title="Crear pedido"/>
 
 
             <div className="Container-90p" style={{margin: "5% auto"}}>
@@ -161,12 +178,9 @@ export class CrearVenta extends React.Component
                                               name={"mineral_id"}
                                               placeholder="Mineral..."
                                               retrieveData={(target)=>this.handleRemovable(target,i)}
-                                              options={[
-                                                  {text:"Opción 1",id:1},
-                                                  {text:"Opción 2",id:2},
-                                                  {text:"Opción 3",id:3},
-                                                  {text:"Opción 4",id:4},
-                                                  {text:"Opción 5",id:5}]}
+                                              options={
+                                                  this.state.listaMinerales
+                                              }
                                     />
                                 </div>
                                 <div className="WideContainer">
@@ -175,6 +189,7 @@ export class CrearVenta extends React.Component
                                         id={"CrearSolicitudCantidad"+i}
                                         label="Cantidad"
                                         type="number"
+                                        min="0"
                                         name="cantidad"
                                         onChange={(target)=>this.handleRemovable(target,i)}
                                         value={""+this.state.minerales[i].cantidad}
@@ -188,6 +203,7 @@ export class CrearVenta extends React.Component
                                                id={"CrearSolicitudPrecio"+i}
                                                label="Precio por unidad"
                                                name="precio"
+                                               min="0"
                                                onChange={(target)=>this.handleRemovable(target,i)}
                                                type="number"
                                                value={""+this.state.minerales[i].precio}

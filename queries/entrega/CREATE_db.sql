@@ -128,7 +128,7 @@ CREATE TABLE ESTADO (
 
 CREATE TABLE ETAPA (
     e_id_etapa SERIAL,
-    e_fecha_inicio DATE NOT NULL,
+    e_fecha_inicio DATE,
     estado_id INTEGER NOT NULL,
     proyecto_id INTEGER NOT NULL,
     etapa_configuracion_id INTEGER NOT NULL,
@@ -166,7 +166,7 @@ CREATE TABLE FACTURA_VENTA (
 
 CREATE TABLE FASE (
     f_id_fase SERIAL,
-    f_fecha_inicio DATE NOT NULL,
+    f_fecha_inicio DATE,
     f_fecha_fin DATE,
     etapa_id INTEGER NOT NULL,
     fase_configuracion_id INTEGER NOT NULL,
@@ -312,7 +312,7 @@ CREATE TABLE MINE_MINE (
 CREATE TABLE MINE_YACI (
     m_id_mine_yaci SERIAL,
     m_cantidad NUMERIC(10,2) NOT NULL,
-    yacimineto_id INTEGER NOT NULL,
+    yacimiento_configuracion_id INTEGER NOT NULL,
     mineral_id INTEGER NOT NULL,
     unidad_id INTEGER NOT NULL,
 

@@ -128,7 +128,7 @@ ALTER TABLE MINE_MINE
 ADD CONSTRAINT fk_mineral_id_compuesto FOREIGN KEY (mineral_id_compuesto) REFERENCES MINERAL (m_id_mineral);
 
 ALTER TABLE MINE_YACI
-ADD CONSTRAINT fk_yacimineto_id FOREIGN KEY (yacimineto_id) REFERENCES YACIMIENTO (y_id_yacimiento);
+ADD CONSTRAINT fk_yacimiento_configuracion_id FOREIGN KEY (yacimiento_configuracion_id) REFERENCES YACIMIENTO_CONFIGURACION (y_id_yacimiento_configuracion);
 
 ALTER TABLE MINE_YACI
 ADD CONSTRAINT fk_mineral_id FOREIGN KEY (mineral_id) REFERENCES MINERAL (m_id_mineral);

@@ -119,7 +119,7 @@ export class Mineral extends React.Component {
                   },
                 },
                 {
-                  title: '¿Metal?', field: 'm_metalico', type: 'string', headerStyle:{ textAlign : "center"},
+                  title: '¿Metal?', field: 'm_tipo', type: 'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
@@ -198,7 +198,7 @@ export class Mineral extends React.Component {
               </p>
               <p>
                 <span className="mc-atributo">¿Metal?</span>
-                <span> : {this.state.consultarMineral.m_metalico ? "Si" : "No"}</span>
+                <span> : {this.state.consultarMineral.m_tipo === "metal" ? "Si" : "No"}</span>
               </p>
               <p>
                 <span className="mc-atributo">¿Radioactivo?</span>

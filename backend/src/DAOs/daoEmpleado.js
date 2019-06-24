@@ -3,7 +3,28 @@ import {psql} from '../postgreConnection'
 const daoEmpleado = {
     consultarTodos() {
         return psql.query(`
-            SELECT * FROM EMPLEADO
+            SELECT 
+                E.e_id_empleado,
+                E.e_cedula,
+                E.e_genero,
+                E.e_nombre,
+                E.e_segundo_nombre,
+                E.e_apellido,
+                E.e_segundo_apellido,
+                E.e_telefono,
+                E.e_fecha_nacimiento,
+                E.e_fecha_ingreso,
+                E.cargo_id,
+                E.lugar_id,
+                E.estado_id,
+                L.l_nombre lugar,
+                C.c_nombre cargo,
+                EST.e_nombre estado
+            FROM EMPLEADO E, LUGAR L, CARGO C, ESTADO EST
+            WHERE
+                E.lugar_id =  L.l_id_lugar AND
+                E.cargo_id = C.c_id_cargo  AND
+                E.estado_id =  EST.e_id_estado
         `)
     },
 

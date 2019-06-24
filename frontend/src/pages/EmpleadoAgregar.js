@@ -12,7 +12,7 @@ import {GuardarCancelar} from "../components/GuardarCancelar";
 import { DropdownArreglado } from '../components/DropdownArreglado';
 import {Dropdown} from "../components/Dropdown";
 
-import {cleanerLugar} from "../utils/cleaner"
+import {cleanerLugar, cleanerCargo} from "../utils/cleaner"
 
 export class EmpleadoAgregar extends React.Component {
     constructor(props){
@@ -37,14 +37,15 @@ export class EmpleadoAgregar extends React.Component {
                 e_fecha_nacimiento : "",
                 e_fecha_ingreso : "",
                 cargo_id : 0,
-                estado_id : 8
+                estado_id : 11 // DISPONIBLE
             },
             lugar : {
                 estado_id : 0,
                 municipio_id : 0,
                 parroquia_id : 0
             },
-            lugares : []
+            lugares : [],
+            cargos : []
         }
     }
 
@@ -61,7 +62,19 @@ export class EmpleadoAgregar extends React.Component {
             this.setState({
                 lugares : res.data.rows
             })
-    
+          })
+          .then( (resLug) => {
+            console.log(`----> localhost:4000/consultarLista/cargo`)
+            axios.get('http://127.0.0.1:4000/consultarLista/cargo')
+              .then( (res) => {
+                if(res.status === 200)
+                  console.log(`<---- (OK 200) localhost:4000/consultarLista/cargo`)
+        
+                this.setState({
+                    cargos : res.data.rows
+                })
+
+            })
           })
       }
 
@@ -140,7 +153,7 @@ export class EmpleadoAgregar extends React.Component {
         console.log(this.state)
     }
 
-    render = () => (
+    render = () => ( 
         <div>
             <MenuDashBoard title="Crear empleado"/>
             <div className="RowContainer">
@@ -190,12 +203,12 @@ export class EmpleadoAgregar extends React.Component {
                                   name="cargo_id"
                                   retrieveData={this.handleChange}
                                   placeholder="Cargo..."
-                                  options={[
-                                      {text:"Opción 1",id:1},
-                                      {text:"Opción 2",id:2},
-                                      {text:"Opción 3",id:3},
-                                      {text:"Opción 4",id:4},
-                                      {text:"Opción 5",id:5}]}/>
+                                  options={
+                                    cleanerCargo.limpiarListaDropdown(
+                                        this.state.cargos
+                                      )
+                                  }
+                        />
                         <Dropdown id="CrearEmpleadoGenero"
                                   name="e_genero"
                                   retrieveData={this.handleChange}
@@ -203,19 +216,6 @@ export class EmpleadoAgregar extends React.Component {
                                   options={[
                                       {text:"Hombre",id:1},
                                       {text:"Mujer", id:2}]}/>
-                        {/*
-                        Según reglas de integridad El estado por defecto es activo, no se debe establecer de inmediato
-                        <DropdownArreglado
-                            name="estado_id"
-                            onChange={this.handleChange}
-                            options={[
-                                {text: "Status ...", value: 0},
-                                {text: "Opción 1", value: 1},
-                                {text: "Opción 2", value: 2},
-                                {text: "Opción 3", value: 3},
-                                {text: "Opción 4", value: 4}
-                            ]}
-                        />*/}
                         <div className="RowContainer center" style={{width: "80%"}}>
                             <div className="LabelContainer">
                                 Fecha de nacimiento : &nbsp;

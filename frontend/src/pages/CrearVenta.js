@@ -12,9 +12,28 @@ export class CrearVenta extends React.Component
     {
         super(props);
         this.state={
-            minerales: [1]
+            minerales: [{mineral_id: -1, cantidad: 0, precio: 0, presentacion_id: -1}]
         }
     }
+    addMineral=()=>
+    {
+        let newMinerales = this.state.minerales;
+        newMinerales.push(
+            {
+                mineral_id: -1,
+                cantidad: 0,
+                precio: 0,
+                presentacion_id: -1}
+        );
+
+        this.setState(
+            {
+                minerales: newMinerales,
+            }
+        );
+        console.log(this.state);
+    };
+
 
     render = () => (
         <div>
@@ -53,15 +72,33 @@ export class CrearVenta extends React.Component
                                     <i className="zmdi zmdi-close-circle-o LabelIcon"></i>
                                 </div>
                                 <div className="WideContainer">
+                                    <Dropdown id={"CrearSolicitudMineral"+i}
+                                              name={`user_${u.u_id_usuario}`}
+                                              placeholder="Mineral..."
+                                              options={[
+                                                  {text:"Opción 1",id:1},
+                                                  {text:"Opción 2",id:2},
+                                                  {text:"Opción 3",id:3},
+                                                  {text:"Opción 4",id:4},
+                                                  {text:"Opción 5",id:5}]}
+                                    />
+                                </div>
+                                <div className="WideContainer">
                                     <InputText styles={{width:"95%"}}  id={"CrearSolicitudCantidad"+i} label="Cantidad" type="number"/>
+                                </div>
+                                <div className="WideContainer" style={{width: "50%"}}>
+                                    <div className="LabelSimple">Toneladas</div>
                                 </div>
                                 <div className="WideContainer">
                                     <InputText styles={{width:"95%"}} id={"CrearSolicitudPrecio"+i} label="Precio" type="number"/>
                                 </div>
+                                <div className="WideContainer" style={{width: "20%"}}>
+                                    <div className="LabelSimple">Bs.S</div>
+                                </div>
                                 <div className="WideContainer">
                                     <Dropdown id={"CrearSolicitudPresentación"+i}
                                               name={`user_${u.u_id_usuario}`}
-                                              placeholder="Cargo..."
+                                              placeholder="Presentación..."
                                               options={[
                                                   {text:"Opción 1",id:1},
                                                   {text:"Opción 2",id:2},
@@ -74,7 +111,11 @@ export class CrearVenta extends React.Component
                         )
                     })
                 }
+                <div className="ButtonAddUser" onClick={this.addMineral} style={{marginLeft: "13%", width: "80%"}}>
+                    Agregar mineral
+                </div>
             </div>
+
         </div>
     )
 }

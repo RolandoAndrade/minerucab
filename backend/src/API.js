@@ -470,6 +470,47 @@ app.post('/consultar/cargo', (req, res) => {
     })
 });
 
+/* ****************************** ESTADO ****************************** */
+import {daoEstado} from './DAOs/daoEstado'
+
+app.get('/consultarLista/estado', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/estado")
+
+  daoEstado.consultarTodos()
+    .then( ({rows}) => {
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/consultar/estado', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultar/estado/${req.body.e_id_estado}`)
+  daoEstado.consultar(req.body.e_id_estado)
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
 
 /* ****************************** YACIMIENTO ****************************** */
 app.get('/consultarLista/yacimiento', (req, res) => { 

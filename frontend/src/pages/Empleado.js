@@ -17,8 +17,6 @@ export class Empleado extends React.Component {
       textoBuscardor : "",
       consultarEmpleado : null,
       agregarPresionado : null,
-      lugares : [],
-      cargos : []
     }
   }
 
@@ -34,60 +32,6 @@ export class Empleado extends React.Component {
             empleados : res.data.rows
         })
 
-        return res.data.rows
-      })
-      .then( empleados => {
-        console.log(`----> localhost:4000/consultarLista/lugar`)
-        return axios.get('http://127.0.0.1:4000/consultarLista/lugar')
-          .then( res => {
-            
-            if(res.status === 200)
-              console.log(`<---- (OK 200) localhost:4000/consultarLista/lugar`)
-
-            const lugares = res.data.rows
-
-            this.setState({
-                lugares : lugares 
-            })
-
-            const empleadosConLugares = empleados.map( e => ({
-              ...e,
-              lugar : lugares.find( l => l.l_id_lugar === e.lugar_id ).l_nombre
-            }))
-
-
-            this.setState({
-              empleados : empleadosConLugares
-            })
-
-            return empleadosConLugares
-          })
-        
-      })
-      .then( empleadosConLugares => {
-        console.log(`----> localhost:4000/consultarLista/cargo`)
-        axios.get('http://127.0.0.1:4000/consultarLista/cargo')
-          .then( res => {
-            
-            if(res.status === 200)
-              console.log(`<---- (OK 200) localhost:4000/consultarLista/cargo`)
-
-            const cargos = res.data.rows
-
-            this.setState({
-                cargos : cargos 
-            })
-
-            const empleadosConCargos = empleadosConLugares.map( e => ({
-              ...e,
-              cargo : cargos.find( c => c.c_id_cargo === e.cargo_id ).c_nombre
-            }))
-
-
-            this.setState({
-              empleados : empleadosConCargos
-            })
-          })
       })
   }
 
@@ -203,7 +147,7 @@ export class Empleado extends React.Component {
                   },
                 },
                 { 
-                    title: 'Estado', field: 'estado_id', type:'string', headerStyle:{ textAlign : "center"},
+                    title: 'Estado', field: 'estado', type:'string', headerStyle:{ textAlign : "center"},
                     cellStyle : {
                         fontSize : "large",
                         textAlign: "center"
@@ -298,7 +242,7 @@ export class Empleado extends React.Component {
               </p>
               <p>
                 <span className="mc-atributo">Estado</span>
-                <span> : {this.state.consultarEmpleado.estado_id}</span>
+                <span> : {this.state.consultarEmpleado.estado}</span>
               </p>
              
             </Modal.Body>

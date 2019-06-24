@@ -96,7 +96,12 @@ export class CrearVenta extends React.Component
                     this.state.minerales.map( (u,i)=>
                     {
                         return(
-                            <div className="RowContainer Container-90p" key={i}>
+                            <div className="RowContainer Container-90p" key={i}
+                                 style={
+                                     {
+                                         position: "relative",
+                                         zIndex: this.state.minerales.length-i
+                                     }}>
                                 <div className="WideContainer" style={{justifyContent: "right", width: "30%"}}>
                                     <i className="zmdi zmdi-close-circle-o LabelIcon" onClick={()=>this.removeMineral(i)}></i>
                                 </div>

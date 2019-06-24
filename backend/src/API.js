@@ -453,8 +453,8 @@ app.post('/consultar/cargo', (req, res) => {
   
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
-  console.log(`/consultar/cargo/${req.body.l_id_lugar}`)
-  daoCargo.consultar(req.body.l_id_lugar)
+  console.log(`/consultar/cargo/${req.body.c_id_cargo}`)
+  daoCargo.consultar(req.body.c_id_cargo)
     .then( ({rows}) => {
       console.log(`STATUS OK : 200`)      
 

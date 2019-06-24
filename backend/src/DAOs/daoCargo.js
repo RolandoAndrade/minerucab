@@ -10,7 +10,7 @@ const daoCargo = {
     consultar( id ){
         return psql.query(`
             SELECT * FROM CARGO
-            WHERE l_id_lugar = ${id}
+            WHERE c_id_cargo = ${id}
         `)
     }
 }

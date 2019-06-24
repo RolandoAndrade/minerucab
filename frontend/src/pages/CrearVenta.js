@@ -204,6 +204,7 @@ export class CrearVenta extends React.Component
                                                label="Precio por unidad"
                                                name="precio"
                                                min="0"
+                                               step="500"
                                                onChange={(target)=>this.handleRemovable(target,i)}
                                                type="number"
                                                value={""+this.state.minerales[i].precio}

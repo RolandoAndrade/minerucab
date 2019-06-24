@@ -55,9 +55,24 @@ const cleanerEmpleado = {
     }
 }
 
+const cleanerLugar = {
+    limpiarListaDropdown( lugaresDB ) {
+        if (lugaresDB === undefined || lugaresDB.length == 0)
+            return []
+        else 
+            return lugaresDB.map( l => ({
+                "id" : l.l_id_lugar,
+                "text": l.l_nombre,
+                "l_tipo" : l.l_tipo,
+                "lugar_id" : l.lugar_id 
+            }))
+    }
+}
+
 
 export {
     cleanerMineral, 
     cleanerCliente, 
-    cleanerEmpleado
+    cleanerEmpleado,
+    cleanerLugar
 }

@@ -1,7 +1,7 @@
 /* AQUI TODOS LOS CREATES DE LAS TABLAS EN ORDEN DE MODELO LOGICO */
 /* NO PONER LAS RESTRICCIONES DE FOREIGN AQUI, VAN EN EL ARCHIVO RELACIONES.sql */
 
-CREATE DATABASE MINERUCAB;
+CREATE DATABASE MINER_UCAB;
 
 CREATE TABLE ACCION (
     a_id_accion SERIAL,
@@ -128,7 +128,7 @@ CREATE TABLE ESTADO (
 
 CREATE TABLE ETAPA (
     e_id_etapa SERIAL,
-    e_fecha_inicio DATE NOT NULL,
+    e_fecha_inicio DATE,
     estado_id INTEGER NOT NULL,
     proyecto_id INTEGER NOT NULL,
     etapa_configuracion_id INTEGER NOT NULL,
@@ -166,7 +166,7 @@ CREATE TABLE FACTURA_VENTA (
 
 CREATE TABLE FASE (
     f_id_fase SERIAL,
-    f_fecha_inicio DATE NOT NULL,
+    f_fecha_inicio DATE,
     f_fecha_fin DATE,
     etapa_id INTEGER NOT NULL,
     fase_configuracion_id INTEGER NOT NULL,
@@ -210,27 +210,28 @@ CREATE TABLE FASE_EMPL (
     horario_id INTEGER NOT NULL,
     unidad_id INTEGER ,
 
+    CONSTRAINT check_f_salario CHECK (f_salario >= 0),
     CONSTRAINT check_f_viatico CHECK (f_viatico >= 0),
     CONSTRAINT f_id_fase_empl PRIMARY KEY (f_id_fase_empl)
 );
 
 CREATE TABLE FASE_EQUI (
     f_id_fase_equi SERIAL,
+    f_costo_alquiler NUMERIC(10,2) NOT NULL,
+    unidad_id INTEGER NOT NULL,
     equipo_id INTEGER NOT NULL,
     fase_id INTEGER NOT NULL,
 
+    CONSTRAINT check_f_costo_alquiler CHECK (f_costo_alquiler >= 0),
     CONSTRAINT f_id_fase_equi PRIMARY KEY (f_id_fase_equi)
 );
 
 CREATE TABLE FASE_MAQU (
     f_id_fase_maqu SERIAL,
     f_cantidad INTEGER NOT NULL,
-    f_costo_alquiler NUMERIC(10,2) NOT NULL,
     fase_configuracion_id INTEGER NOT NULL,
     maquinaria_id INTEGER NOT NULL,
-    unidad_id INTEGER NOT NULL,    
-    
-    CONSTRAINT check_f_costo_alquiler CHECK (f_costo_alquiler > 0),
+         
     CONSTRAINT check_f_cantidad CHECK (f_cantidad > 0),
     CONSTRAINT f_id_fase_maqu PRIMARY KEY (f_id_fase_maqu)
 );
@@ -311,7 +312,7 @@ CREATE TABLE MINE_MINE (
 CREATE TABLE MINE_YACI (
     m_id_mine_yaci SERIAL,
     m_cantidad NUMERIC(10,2) NOT NULL,
-    yacimineto_id INTEGER NOT NULL,
+    yacimiento_configuracion_id INTEGER NOT NULL,
     mineral_id INTEGER NOT NULL,
     unidad_id INTEGER NOT NULL,
 

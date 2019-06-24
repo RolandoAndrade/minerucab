@@ -85,14 +85,14 @@ ADD CONSTRAINT fk_equipo_id FOREIGN KEY (equipo_id) REFERENCES EQUIPO (e_id_equi
 ALTER TABLE FASE_EQUI
 ADD CONSTRAINT fk_fase_id FOREIGN KEY (fase_id) REFERENCES FASE (f_id_fase);
 
+ALTER TABLE FASE_EQUI
+ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
+
 ALTER TABLE FASE_MAQU
 ADD CONSTRAINT fk_fase_configuracion_id FOREIGN KEY (fase_configuracion_id) REFERENCES FASE_CONFIGURACION (f_id_fase_configuracion);
 
 ALTER TABLE FASE_MAQU
 ADD CONSTRAINT fk_maquinaria_id FOREIGN KEY (maquinaria_id) REFERENCES MAQUINARIA (m_id_maquinaria);
-
-ALTER TABLE FASE_MAQU
-ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
 
 ALTER TABLE GASTO_ADICIONAL
 ADD CONSTRAINT fk_unidad_id FOREIGN KEY (unidad_id) REFERENCES UNIDAD (u_id_unidad);
@@ -128,7 +128,7 @@ ALTER TABLE MINE_MINE
 ADD CONSTRAINT fk_mineral_id_compuesto FOREIGN KEY (mineral_id_compuesto) REFERENCES MINERAL (m_id_mineral);
 
 ALTER TABLE MINE_YACI
-ADD CONSTRAINT fk_yacimineto_id FOREIGN KEY (yacimineto_id) REFERENCES YACIMIENTO (y_id_yacimiento);
+ADD CONSTRAINT fk_yacimiento_configuracion_id FOREIGN KEY (yacimiento_configuracion_id) REFERENCES YACIMIENTO_CONFIGURACION (y_id_yacimiento_configuracion);
 
 ALTER TABLE MINE_YACI
 ADD CONSTRAINT fk_mineral_id FOREIGN KEY (mineral_id) REFERENCES MINERAL (m_id_mineral);

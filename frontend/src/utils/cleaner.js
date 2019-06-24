@@ -45,6 +45,7 @@ const cleanerEmpleado = {
                 "e_telefono" : e.e_telefono, 
                 "e_fecha_nacimiento" : e.e_fecha_nacimiento ? e.e_fecha_nacimiento.split('T')[0] : "No",
                 "e_fecha_ingreso" : e.e_fecha_ingreso ? e.e_fecha_ingreso.split('T')[0] : "No",
+                "e_genero" : e.e_genero === "m" ? "Hombre" : "Mujer",
                 "cargo_id" : e.cargo_id, 
                 "lugar_id" : e.lugar_id, 
                 "estado_id" : e.estado_id,

@@ -133,6 +133,13 @@ export class Empleado extends React.Component {
                   },
                 },
                 { 
+                  title: 'Género', field: 'e_genero', type: 'string', headerStyle:{ textAlign : "center"},
+                  cellStyle : {
+                    fontSize : "large",
+                    textAlign : "center"
+                  },
+                },
+                { 
                     title: 'Cargo', field: 'cargo', type:'string', headerStyle:{ textAlign : "center"},
                     cellStyle : {
                         fontSize : "large",
@@ -147,7 +154,7 @@ export class Empleado extends React.Component {
                   },
                 },
                 { 
-                    title: 'Estado', field: 'estado', type:'string', headerStyle:{ textAlign : "center"},
+                    title: 'Estado Actual', field: 'estado', type:'string', headerStyle:{ textAlign : "center"},
                     cellStyle : {
                         fontSize : "large",
                         textAlign: "center"
@@ -225,6 +232,10 @@ export class Empleado extends React.Component {
                 <span> : {this.state.consultarEmpleado.e_telefono}</span>
               </p>
               <p>
+                <span className="mc-atributo">Género</span>
+                <span> : {this.state.consultarEmpleado.e_genero === "m" ? "Hombre" : "Mujer"}</span>
+              </p>
+              <p>
                 <span className="mc-atributo">Fecha Nacimiento</span>
                 <span> : {this.state.consultarEmpleado.e_fecha_nacimiento.split('T')[0]}</span>
               </p>
@@ -241,7 +252,7 @@ export class Empleado extends React.Component {
                 <span> : {this.state.consultarEmpleado.lugar}</span>
               </p>
               <p>
-                <span className="mc-atributo">Estado</span>
+                <span className="mc-atributo">Estado Actual</span>
                 <span> : {this.state.consultarEmpleado.estado}</span>
               </p>
              

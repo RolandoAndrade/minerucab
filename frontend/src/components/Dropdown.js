@@ -53,7 +53,7 @@ export class Dropdown extends React.Component
 
 
     render = () => (
-        <div className="DropdownContainer">
+        <div className="DropdownContainer" style={this.props.styles||{}}>
             <input className="DropdownSearch" type="text" id={"DropdownSearch"+this.props.id}
                    placeholder={this.props.placeholder} onFocus={(t) => {this.showOptions(t)}}
                     onBlur={()=>{this.hideOptions()}}   onChange={this.handleBuscar}

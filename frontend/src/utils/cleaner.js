@@ -11,6 +11,16 @@ const cleanerMineral = {
                 "m_fecha_nacionalizacion" : m.m_fecha_nacionalizacion ? m.m_fecha_nacionalizacion.split('T')[0] : "No",
                 "m_descripcion" : m.m_descripcion
             }))
+    },
+    limpiarListaDropdown(mineralesDB)
+    {
+        if (mineralesDB === undefined || mineralesDB.length == 0)
+            return []
+        else
+            return mineralesDB.map( m => ({
+                "id" : m.m_id_mineral,
+                "text": m.m_nombre
+            }))
     }
 }
 

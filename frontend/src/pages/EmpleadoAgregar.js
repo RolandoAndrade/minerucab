@@ -282,7 +282,12 @@ export class EmpleadoAgregar extends React.Component {
                     this.state.users.map( (u,i)=>
                     {
                         return(
-                            <div className="RowContainer" key={i}>
+                            <div className="RowContainer Container-90p" key={i}
+                                 style={
+                                     {
+                                         position: "relative",
+                                         zIndex: this.state.users.length-i
+                                     }}>
                                 <div className="WideContainer" style={{justifyContent: "right", width: "30%"}}>
                                     <i className="zmdi zmdi-close-circle-o LabelIcon" onClick={()=>this.removeUser(u.u_id_usuario)}></i>
                                 </div>

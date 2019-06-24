@@ -19,7 +19,7 @@ export class MineralEditar extends React.Component {
         minerales : [],
         nuevo_mineral: {
             m_id_mineral: 0,
-            m_metalico : false,
+            m_tipo : "no metal",
             m_radioactivo : false,
             m_fecha_nacionalizacion : "",
             m_nombre : "",
@@ -57,7 +57,7 @@ export class MineralEditar extends React.Component {
             this.setState({
                 nuevo_mineral : { 
                     ...mineral,
-                    "m_metalico" :  !!mineral.m_metalico,
+                    "m_tipo" :  mineral.m_tipo,
                     "m_radioactivo" : !!mineral.m_radioactivo, 
                     "m_id_mineral" : id,
                     "m_fecha_nacionalizacion" : mineral.m_fecha_nacionalizacion ? mineral.m_fecha_nacionalizacion.split('T')[0] : "",
@@ -142,7 +142,7 @@ export class MineralEditar extends React.Component {
         {
             "m_id_mineral" : nuevo_mineral.m_id_mineral,
             "m_nombre" : nuevo_mineral.m_nombre,
-            "m_metalico" : nuevo_mineral.m_metalico , 
+            "m_tipo" : nuevo_mineral.m_tipo,
             "m_radioactivo" : nuevo_mineral.m_radioactivo, 
             "m_fecha_nacionalizacion" : nuevo_mineral.m_fecha_nacionalizacion,
             "m_descripcion" : nuevo_mineral.m_descripcion
@@ -171,12 +171,20 @@ export class MineralEditar extends React.Component {
   }
 
   handleBool = ({target}) => {
-      this.setState({
-        nuevo_mineral : {
-            ...this.state.nuevo_mineral,
-            [target.name] : target.checked
-        }
-    })
+    if (target.name === "m_tipo")
+        this.setState({
+            nuevo_mineral : {
+                ...this.state.nuevo_mineral,
+                m_tipo : target.checked ? "metal" : "no metal"
+            }
+        })
+    else
+        this.setState({
+            nuevo_mineral : {
+                ...this.state.nuevo_mineral,
+                [target.name] : target.checked
+            }
+        })
   }
 
   
@@ -206,9 +214,9 @@ export class MineralEditar extends React.Component {
                         <label className="form-switch">
                             <input 
                                 type="checkbox"
-                                name="m_metalico"
+                                name="m_tipo"
                                 onChange={this.handleBool}
-                                checked={this.state.nuevo_mineral.m_metalico}
+                                checked={this.state.nuevo_mineral.m_tipo === "metal" ? true : false}
                             />
                             <i></i>
                         </label>
@@ -307,7 +315,7 @@ export class MineralEditar extends React.Component {
                             },
                             },
                             {
-                            title: '¿Metal?', field: 'm_metalico', type: 'string',
+                            title: '¿Metal?', field: 'm_tipo', type: 'string',
                             cellStyle : {
                                 fontSize : "large",
                                 textAlign : "center"

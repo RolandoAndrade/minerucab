@@ -30,7 +30,7 @@ const daoMineral = {
                 DEFAULT,
                 ${m_nombre ? `'${m_nombre}'` : 'NULL' }, 
                 ${m_tipo ? `'${m_tipo}'` : 'NULL'}, 
-                ${m_radioactivo ? 'TRUE' : 'NULL'}, 
+                ${m_radioactivo ? 'TRUE' : 'FALSE'}, 
                 ${m_fecha_nacionalizacion ? `'${m_fecha_nacionalizacion}'` : 'NULL'}, 
                 ${m_descripcion ? `'${m_descripcion}'` : 'NULL'}
             )
@@ -42,7 +42,7 @@ const daoMineral = {
             UPDATE MINERAL SET
                 m_nombre = ${m_nombre ? `'${m_nombre}'` : 'NULL' },
                 m_tipo = ${m_tipo ? `'${m_tipo}'` : 'NULL'},
-                m_radioactivo = ${m_radioactivo ? 'TRUE' : 'NULL'},
+                m_radioactivo = ${m_radioactivo ? 'TRUE' : 'FALSE'},
                 m_fecha_nacionalizacion = ${m_fecha_nacionalizacion ? `'${m_fecha_nacionalizacion}'` : 'NULL'},
                 m_descripcion = ${m_descripcion ? `'${m_descripcion}'` : 'NULL'}
                 WHERE m_id_mineral = ${m_id_mineral}

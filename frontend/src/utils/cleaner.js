@@ -37,6 +37,16 @@ const cleanerCliente = {
                 "lugar_id" : c.lugar_id,
                 "lugar" : c.lugar
             }))
+    },
+    limpiarListaDropdown(clientesBD)
+    {
+        if (clientesBD === undefined || clientesBD.length == 0)
+            return []
+        else
+            return clientesBD.map( m => ({
+                "id" : m.c_id_cliente,
+                "text": m.c_nombre
+            }))
     }
 }
 

@@ -105,7 +105,7 @@ export class Empleado extends React.Component {
               style={{margin: "0 5%"}}
               columns={[
                 {
-                  title: 'ID', field: 'e_id_empleado', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'asc',
+                  title: 'ID', field: 'e_id_empleado', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'desc',
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
@@ -292,9 +292,9 @@ export class Empleado extends React.Component {
           }
 
           {!!this.state.modificarEmpleado 
-            && <Redirect to={`/editar/empleado/${this.state.modificarEmpleado}`} />
+            && <Redirect push to={`/editar/empleado/${this.state.modificarEmpleado}`} />
           }
-          {this.state.agregarPresionado && <Redirect to="/crear/empleado" />}
+          {this.state.agregarPresionado && <Redirect push to="/crear/empleado" />}
       </div>
     </div>  
   )

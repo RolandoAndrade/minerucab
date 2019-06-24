@@ -7,6 +7,9 @@ import MaterialTable from 'material-table';
 
 import {cleanerMineral} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
+import {GuardarCancelar} from "../components/GuardarCancelar";
+import {InputText} from "../components/InputText";
+import {InputDate} from "../components/InputDate";
 
 export class MineralEditar extends React.Component {
   constructor(props){
@@ -16,7 +19,7 @@ export class MineralEditar extends React.Component {
         minerales : [],
         nuevo_mineral: {
             m_id_mineral: 0,
-            m_metalico : false,
+            m_tipo : "no metal",
             m_radioactivo : false,
             m_fecha_nacionalizacion : "",
             m_nombre : "",
@@ -54,7 +57,7 @@ export class MineralEditar extends React.Component {
             this.setState({
                 nuevo_mineral : { 
                     ...mineral,
-                    "m_metalico" :  !!mineral.m_metalico,
+                    "m_tipo" :  mineral.m_tipo,
                     "m_radioactivo" : !!mineral.m_radioactivo, 
                     "m_id_mineral" : id,
                     "m_fecha_nacionalizacion" : mineral.m_fecha_nacionalizacion ? mineral.m_fecha_nacionalizacion.split('T')[0] : "",
@@ -126,8 +129,7 @@ export class MineralEditar extends React.Component {
     })
   }
 
-  handleGuardar = (e) => {
-    e.preventDefault()
+  handleGuardar = () => {
     const nuevo_mineral = { 
         ...this.state.nuevo_mineral,
         compuestos: this.state.compuestos
@@ -136,11 +138,11 @@ export class MineralEditar extends React.Component {
     // !!! OJO !!! FALTA AGREGAR MINERALES COMPUESTOS
 
     console.log(`----> localhost:4000/modificar/mineral/${nuevo_mineral.m_id_mineral}`)
-    axios.post('http://127.0.0.1:4000/modificar/mineral', 
+    return axios.post('http://127.0.0.1:4000/modificar/mineral', 
         {
             "m_id_mineral" : nuevo_mineral.m_id_mineral,
             "m_nombre" : nuevo_mineral.m_nombre,
-            "m_metalico" : nuevo_mineral.m_metalico , 
+            "m_tipo" : nuevo_mineral.m_tipo,
             "m_radioactivo" : nuevo_mineral.m_radioactivo, 
             "m_fecha_nacionalizacion" : nuevo_mineral.m_fecha_nacionalizacion,
             "m_descripcion" : nuevo_mineral.m_descripcion
@@ -148,12 +150,12 @@ export class MineralEditar extends React.Component {
         .then( (res) => {
             if( res.status === 200) {
                 console.log(`<---- (OK 200) localhost:4000/modificar/mineral/${nuevo_mineral.m_id_mineral}`)
-                this.handleCancelar()
             }
-        })
+            return res
+        }).catch( err => err)
   }
 
-  handleCancelar = () => {
+  goMineral = () => {
       this.setState({
           goMineral : true
       })
@@ -169,12 +171,20 @@ export class MineralEditar extends React.Component {
   }
 
   handleBool = ({target}) => {
-      this.setState({
-        nuevo_mineral : {
-            ...this.state.nuevo_mineral,
-            [target.name] : target.checked
-        }
-    })
+    if (target.name === "m_tipo")
+        this.setState({
+            nuevo_mineral : {
+                ...this.state.nuevo_mineral,
+                m_tipo : target.checked ? "metal" : "no metal"
+            }
+        })
+    else
+        this.setState({
+            nuevo_mineral : {
+                ...this.state.nuevo_mineral,
+                [target.name] : target.checked
+            }
+        })
   }
 
   
@@ -191,11 +201,10 @@ export class MineralEditar extends React.Component {
                         <span>{this.state.nuevo_mineral.m_id_mineral.toString(10).padStart(4, '0')}</span>
                     </p>
                     <p>
-                        <span className="mc-atributo">Nombre</span><span> : </span>
-                        <input 
+                        <InputText 
                             name="m_nombre"
-                            type="text"
-                            placeholder="nombre ..."
+                            id="CrearMineralNombre" 
+                            label="Nombre"
                             onChange={this.handleChange}
                             value={this.state.nuevo_mineral.m_nombre}
                         />
@@ -205,9 +214,9 @@ export class MineralEditar extends React.Component {
                         <label className="form-switch">
                             <input 
                                 type="checkbox"
-                                name="m_metalico"
+                                name="m_tipo"
                                 onChange={this.handleBool}
-                                checked={this.state.nuevo_mineral.m_metalico}
+                                checked={this.state.nuevo_mineral.m_tipo === "metal" ? true : false}
                             />
                             <i></i>
                         </label>
@@ -226,18 +235,19 @@ export class MineralEditar extends React.Component {
                     </p>
                     <p>
                         <span className="mc-atributo">Nacionalizado</span><span> : </span>
-                        <input
-                            type="date"
+                        <InputDate
                             name="m_fecha_nacionalizacion"
+                            id="CrearMineralFecha" 
+                            label="Fecha Nacionalización"
                             onChange={this.handleChange}
                             value={this.state.nuevo_mineral.m_fecha_nacionalizacion}
                         />
                     </p>
                     <p>
-                        <span className="mc-atributo">Descripción</span><span> : </span>
-                        <textarea
+                        <InputText
                             name="m_descripcion"
-                            placeholder="descripción ..."
+                            id="CrearMineralDescripcion" 
+                            label="Descripción"
                             onChange={this.handleChange}
                             value={this.state.nuevo_mineral.m_descripcion}
                         />
@@ -262,28 +272,16 @@ export class MineralEditar extends React.Component {
                                 className="IconoAgregar"
                             />
                     </div>
-                    <div className="botones-abajo">
-                        <Button 
-                            variant="primary" 
-                            type="submit" 
-                            className="mc-boton mc-boton-guardar" 
-                            onClick={(e) => this.handleGuardar(e)}
-                        >
-                            Guardar
-                        </Button>
-
-                        <Button 
-                            variant="secondary" 
-                            className="mc-boton" 
-                            onClick={this.handleCancelar}
-                        >
-                            Cancelar
-                        </Button>
-                    </div>
+                    <GuardarCancelar 
+                        position="center"
+                        storeData={this.handleGuardar}
+                        success={this.goMineral}
+                        decline={this.goMineral}
+                    />
                 </form>
             </div> }
 
-            {this.state.goMineral && <Redirect to="/mineral" /> }
+            {this.state.goMineral && <Redirect push to="/mineral" /> }
 
             <Modal 
                 size="lg"
@@ -303,21 +301,21 @@ export class MineralEditar extends React.Component {
                         style={{margin: "0 5%"}}
                         columns={[
                             {
-                            title: 'ID', field: 'm_id_mineral', type: 'string', defaultSort : 'asc',
+                            title: 'ID', field: 'm_id_mineral', type: 'string', defaultSort : 'desc',
                             cellStyle : {
                                 fontSize : "large",
-                                textAlign : "right"
+                                textAlign : "center"
                             }, 
                             },
                             {
                             title: 'Nombre', field: 'm_nombre', type: 'string',
                             cellStyle : {
                                 fontSize : "large",
-                                textAlign : "left"                    
+                                textAlign : "center"                    
                             },
                             },
                             {
-                            title: '¿Metal?', field: 'm_metalico', type: 'string',
+                            title: '¿Metal?', field: 'm_tipo', type: 'string',
                             cellStyle : {
                                 fontSize : "large",
                                 textAlign : "center"
@@ -334,7 +332,7 @@ export class MineralEditar extends React.Component {
                             title: 'Nacionalizado', field: 'm_fecha_nacionalizacion', type:'string',
                             cellStyle : {
                                 fontSize : "large",
-                                textAlign: "left"
+                                textAlign: "center"
                             },
                             }
                         ]}

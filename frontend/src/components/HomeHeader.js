@@ -1,4 +1,6 @@
 import React from 'react';
+import Swal from "sweetalert2";
+import {Redirect} from "react-router-dom";
 
 export class HomeHeader extends React.Component {
 
@@ -6,8 +8,44 @@ export class HomeHeader extends React.Component {
         super(props)
 
         this.state = {
-            showDashboard : false
+            goToDashBoard: false
+
         }
+    }
+
+    login()
+    {
+        /*
+        Swal.fire({
+            title: 'Iniciar sesión',
+            text: 'You will not be able to recover this imaginary file!',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, keep it',
+            confirmButtonColor: ""
+        }).then((result) => {
+            if (result.value) {
+                Swal.fire(
+                    'Deleted!',
+                    'Your imaginary file has been deleted.',
+                    'success'
+                )
+                // For more information about handling dismissals please visit
+                // https://sweetalert2.github.io/#handling-dismissals
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelled',
+                    'Your imaginary file is safe :)',
+                    'error'
+                )
+            }
+        })*/
+
+        this.setState({
+                goToDashBoard: true
+        }
+        );
     }
 
 
@@ -21,8 +59,9 @@ export class HomeHeader extends React.Component {
                 <div className="HeaderTitle">MinerUCAB</div>
             </div>
             <div className="HeaderContent align-right">
-                <div className="LoginButton">Ingresar<i className="fa fa-sign-in-alt"></i></div>
+                <div className="LoginButton" onClick={()=>this.login()}>Ingresar<i className="fa fa-sign-in-alt"></i></div>
             </div>
+            {this.state.goToDashBoard&&<Redirect push to="/dashboard"/>}
         </div>
         </div>
     )

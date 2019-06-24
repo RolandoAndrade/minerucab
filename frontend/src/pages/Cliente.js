@@ -105,7 +105,7 @@ export class Cliente extends React.Component {
               style={{margin: "0 5%"}}
               columns={[
                 {
-                  title: 'ID', field: 'c_id_cliente', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'asc',
+                  title: 'ID', field: 'c_id_cliente', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'desc',
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
@@ -258,9 +258,9 @@ export class Cliente extends React.Component {
           }
 
           {!!this.state.modificarMineral 
-            && <Redirect to={`/editar/cliente/${this.state.modificarMineral}`} />
+            && <Redirect push to={`/editar/cliente/${this.state.modificarMineral}`} />
           }
-          {this.state.agregarPresionado && <Redirect to="/crear/cliente" />}
+          {this.state.agregarPresionado && <Redirect push to="/crear/cliente" />}
       </div>
     </div>  
   )

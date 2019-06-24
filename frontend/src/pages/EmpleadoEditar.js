@@ -10,6 +10,9 @@ import {SectionTitle} from "../components/Header/SectionTitle";
 import {InputDate} from "../components/InputDate";
 import {GuardarCancelar} from "../components/GuardarCancelar";
 import { DropdownArreglado } from '../components/DropdownArreglado';
+import {Dropdown} from "../components/Dropdown"
+
+import {cleanerLugar} from "../utils/cleaner"
 
 export class EmpleadoEditar extends React.Component {
     constructor(props){
@@ -34,53 +37,100 @@ export class EmpleadoEditar extends React.Component {
                 e_fecha_nacimiento : "",
                 e_fecha_ingreso : "",
                 cargo_id : 0,
-                lugar_id : 0,
                 estado_id : 0
             },
             lugar : {
                 estado_id : 0,
-                municipio_id : 0
-            }
+                municipio_id : 0,
+                parroquia_id : 0
+            },
+            lugares : []
         }
     }
 
     componentDidMount = () => {
         const id = Number.parseInt(this.props.location.pathname.split("/")[3] , 10)
 
-        // !!! OJO !!! FALTA QUERY PARA PEDIR LUGARES
         // !!! OJO !!! FALTA QUERY PARA PEDIR CARGOS
-        // !!! OJO !!! FALTA QUERY PARA PEDIR STATUS
 
         console.log(`----> localhost:4000/consultar/empleado`)
         axios.post('http://127.0.0.1:4000/consultar/empleado', 
             { e_id_empleado : id }
         )
-          .then( (res) => {
-            if(res.status === 200)
-              console.log(`<---- (OK 200) localhost:4000/consultar/empleado`)
-    
-            this.setState({
-                nuevo_empleado : {
+            .then( (res) => {
+                if(res.status === 200)
+                console.log(`<---- (OK 200) localhost:4000/consultar/empleado`)
+                
+                const nuevo_empleado = {
                     ...res.data.rows[0],
                     e_fecha_nacimiento : res.data.rows[0].e_fecha_nacimiento.split('T')[0],
                     e_fecha_ingreso : res.data.rows[0].e_fecha_ingreso.split('T')[0]
                 }
+
+                this.setState({
+                    nuevo_empleado : nuevo_empleado
+                })
+                
+                return nuevo_empleado
+                
             })
-    
-          })
+            .then( (nuevo_empleado) => {
+                
+                console.log(`----> localhost:4000/consultarLista/lugar`)
+                axios.get('http://127.0.0.1:4000/consultarLista/lugar')
+                .then( (res) => {
+                    if(res.status === 200)
+                        console.log(`<---- (OK 200) localhost:4000/consultarLista/lugar`)
+            
+                    this.setState({
+                        lugares : res.data.rows
+                    },
+                        () => this.establecerLugar()
+                    )
+
+                    
+            
+                })
+
+            })
       }
+
+    establecerLugar = () => {
+        const parroquia = this.state.lugares.filter( 
+            l => l.l_id_lugar === this.state.nuevo_empleado.lugar_id 
+        )[0]
+        const municipio = this.state.lugares.filter( 
+            l => l.l_id_lugar === parroquia.lugar_id 
+        )[0]
+
+        const estado = this.state.lugares.filter( 
+            l => l.l_id_lugar === municipio.lugar_id 
+        )[0]
+        
+        this.setState({
+            lugar : {
+                estado_id : estado.l_id_lugar,
+                municipio_id : municipio.l_id_lugar,
+                parroquia_id : parroquia.l_id_lugar,
+                estado, municipio, parroquia
+            }
+        })
+
+    }
+
 
     handleGuardar = () => {
         console.log(`----> localhost:4000/modificar/empleado`)
-        axios.post('http://127.0.0.1:4000/modificar/empleado', 
+        return axios.post('http://127.0.0.1:4000/modificar/empleado', 
             this.state.nuevo_empleado
         )
         .then( (res) => {
             if( res.status === 200) {
                 console.log(`<---- (OK 200) localhost:4000/modificar/empleado`)
-                this.goEmpleado()
             }
+            return res
         })
+        .catch( (err) => err)
     }
 
     goEmpleado = () => {
@@ -128,10 +178,10 @@ export class EmpleadoEditar extends React.Component {
         })
       }
 
-    handleChangeLugar = ({target}) => {
+    handleChangeLugar = (target) => {
         console.log(`lugar.${target.name} = ${target.value}`)
         this.setState({
-            lugar :{
+            lugar : {
                 ...this.state.lugar,
                 [target.name] : target.value
             }
@@ -190,29 +240,25 @@ export class EmpleadoEditar extends React.Component {
                 </div>
                 <div className="WideContainer">
                     <div className="FormContainer">
-                        <DropdownArreglado
+                        <Dropdown id="CrearEmpleadoCargo"
                             name="cargo_id"
-                            value={this.state.nuevo_empleado.cargo_id}
-                            onChange={this.handleChange}
+                            placeholder="Cargo ..."
+                            retrieveData={this.handleChange}
                             options={[
-                                {text: "Cargo ...", value: 0},
-                                {text: "Opción 1", value: 1},
-                                {text: "Opción 2", value: 2},
-                                {text: "Opción 3", value: 3},
-                                {text: "Opción 4", value: 4}
+                                {text: "Cargo ...", id: 0},
+                                {text: "Opción 1", id: 1},
+                                {text: "Opción 2", id: 2},
+                                {text: "Opción 3", id: 3},
+                                {text: "Opción 4", id: 4}
                             ]}
                         />
-                        <DropdownArreglado
-                            name="estado_id"
-                            value={this.state.nuevo_empleado.estado_id}
-                            onChange={this.handleChange}
-                            options={[
-                                {text: "Status ...", value: 0},
-                                {text: "Opción 1", value: 1},
-                                {text: "Opción 2", value: 2},
-                                {text: "Opción 3", value: 3},
-                                {text: "Opción 4", value: 4}
-                            ]}
+                        <Dropdown id="CrearEmpleadoGenero"
+                                  name="e_genero"
+                                  retrieveData={this.handleChange}
+                                  placeholder="Género.."
+                                  options={[
+                                      {text:"Hombre",id:1},
+                                      {text:"Mujer", id:2}]}
                         />
                         <div className="RowContainer center" style={{width: "80%"}}>
                             <div className="LabelContainer">
@@ -235,40 +281,48 @@ export class EmpleadoEditar extends React.Component {
                                 style={{float: "right"}}
                             />
                         </div>
-                        <DropdownArreglado
-                            name="estado_id"
-                            onChange={this.handleChangeLugar}
-                            options={[
-                                {text: "Estado donde vive ...", value: 0},
-                                {text: "Opción 1", value: 1},
-                                {text: "Opción 2", value: 2},
-                                {text: "Opción 3", value: 3},
-                                {text: "Opción 4", value: 4}
-                            ]}
+                        {this.state.lugar.estado &&
+                        <Dropdown id="CrearEmpleadoLugarEstado"
+                                  name="estado_id"
+                                  searchText={this.state.lugar.estado.l_nombre}
+                                  value={this.state.lugar.estado_id}
+                                  retrieveData={this.handleChangeLugar}
+                                  placeholder="Estado donde vive..."
+                                  options={
+                                      cleanerLugar.limpiarListaDropdown(
+                                          this.state.lugares.filter( l => l.l_tipo === "estado")
+                                        )
+                                    }
                         />
-                        <DropdownArreglado
-                            name="municipio_id"
-                            onChange={this.handleChangeLugar}
-                            options={[
-                                {text: "Municipio donde vive...", value: 0},
-                                {text: "Opción 1", value: 1},
-                                {text: "Opción 2", value: 2},
-                                {text: "Opción 3", value: 3},
-                                {text: "Opción 4", value: 4}
-                            ]}
+                        }
+                        {this.state.lugar.municipio &&
+                        <Dropdown id="CrearEmpleadoLugarMunicipio"
+                                  name="municipio_id"
+                                  searchText={this.state.lugar.municipio.l_nombre}
+                                  value={this.state.lugar.municipio_id}
+                                  retrieveData={this.handleChangeLugar}
+                                  placeholder="Municipio donde vive..."
+                                  options={
+                                    cleanerLugar.limpiarListaDropdown(
+                                        this.state.lugares.filter( l => l.lugar_id === this.state.lugar.estado_id)
+                                      )
+                                  }
                         />
-                        <DropdownArreglado
-                            name="lugar_id"
-                            value={this.state.nuevo_empleado.lugar_id}
-                            onChange={this.handleChange}
-                            options={[
-                                {text: "Parroquia donde vive...", value: 0},
-                                {text: "Opción 1", value: 1},
-                                {text: "Opción 2", value: 2},
-                                {text: "Opción 3", value: 3},
-                                {text: "Opción 4", value: 4}
-                            ]}
+                        }
+                        {this.state.lugar.parroquia &&
+                        <Dropdown id="CrearEmpleadoLugarParroquia"
+                                  name="parroquia_id"
+                                  searchText={this.state.lugar.parroquia.l_nombre}
+                                  value={this.state.lugar.parroquia_id}
+                                  retrieveData={this.handleChangeLugar}
+                                  placeholder="Parroquia donde vive..."
+                                  options={
+                                    cleanerLugar.limpiarListaDropdown(
+                                        this.state.lugares.filter( l => l.lugar_id === this.state.lugar.municipio_id)
+                                      )
+                                  }
                         />
+                        }
                     </div>
                 </div>
                 <div className="WideContainer">
@@ -323,11 +377,12 @@ export class EmpleadoEditar extends React.Component {
 
             <GuardarCancelar 
                 position="right"
-                guardar={this.handleGuardar}
-                cancelar={this.goEmpleado}
+                storeData={this.handleGuardar}
+                success={this.goEmpleado}
+                decline={this.goEmpleado}
             />
 
-            {this.state.goEmpleado && <Redirect to="/empleado" /> }
+            {this.state.goEmpleado && <Redirect push to="/empleado" /> }
         </div>
     )
 }

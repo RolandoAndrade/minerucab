@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: repeat(2, auto);
     width: 50%;
-    max-width: 800px;
+    max-width: 500px;
     grid-auto-flow: row;
 
     img {
@@ -12,8 +12,14 @@
 
     textarea {
         resize: none;
-        width: 80%;
+        width: 100%;
         padding: 5px;
+        border: solid #dcdcdc 1px;
+
+        &:focus
+        {
+            border: solid $azul-ucab 1px;
+        }
     }
 
 
@@ -25,10 +31,10 @@
     }
 
     .compuesto {
-        margin-left: 20px;
+        margin: 5px;
         border: 1px solid #a39797;
         color: black;
-        display: flex;
+        display: inline-block;
         align-items: center;
         span {
             padding-left: 10px;

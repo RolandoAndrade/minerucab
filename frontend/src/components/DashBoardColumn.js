@@ -1,7 +1,24 @@
 import React from 'react';
+import {Redirect} from "react-router-dom";
 
 export class DashBoardColumn extends React.Component {
 
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            whereToGo: undefined
+        }
+    }
+
+    setUrlToGo(url)
+    {
+        this.setState(
+            {
+                whereToGo: "../../../"+url
+            }
+        )
+    }
 
     render = () => (
         <div className={"DashBoardColumn "+this.props.color} style={(!this.props.main?{height: "50vh"}:{})}>
@@ -12,9 +29,11 @@ export class DashBoardColumn extends React.Component {
                 <div className="SectionsDashboard">
                     {
                         this.props.sections.map(
-                        function(element)
+                        function(element,i)
                         {
-                            return <div key={element} className={"DisplayedSection "+this.props.color}>{element}</div>
+                            return <div key={i}
+                                        className={"DisplayedSection "+this.props.color}
+                                        onClick={()=>this.setUrlToGo(element.url)}>{element.text} </div>
                         },this)
                     }
                 </div>
@@ -22,6 +41,7 @@ export class DashBoardColumn extends React.Component {
 
             {this.props.main?<div className="ColumnImage"><img src={this.props.image} alt=""/></div>:""}
 
+            {this.state.whereToGo&&<Redirect push to={this.state.whereToGo} />}
         </div>
     )
 }

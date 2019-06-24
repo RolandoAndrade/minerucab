@@ -27,9 +27,9 @@ const daoCliente = {
             VALUES ( 
                 DEFAULT,
                 ${c_rif ? `'${c_rif}'` : 'NULL'}, 
-                '${c_nombre}', 
+                ${c_nombre ? `'${c_rif}'` : 'NULL'}, 
                 ${c_telefono ? `'${c_telefono}'` : 'NULL'}, 
-                ${lugar_id}
+                ${lugar_id ? lugar_id : 'NULL'}
             )
         `)
     },
@@ -37,10 +37,10 @@ const daoCliente = {
     modificar({ c_id_cliente, c_rif, c_nombre, c_telefono, lugar_id }){
         return psql.query(`
             UPDATE CLIENTE SET
-                c_nombre = '${c_nombre}',
+                c_nombre = ${c_nombre ? `'${c_nombre}'` : 'NULL'},
                 c_rif = ${c_rif ? `'${c_rif}'` : 'NULL'},
                 c_telefono = ${c_telefono ? `'${c_telefono}'` : 'NULL'},
-                lugar_id = ${lugar_id ? `'${lugar_id}'` : 'NULL'}
+                lugar_id = ${lugar_id ? lugar_id : 'NULL'}
                 WHERE c_id_cliente = ${c_id_cliente}
         `)
     },

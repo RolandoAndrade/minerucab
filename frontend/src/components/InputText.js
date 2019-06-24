@@ -9,6 +9,7 @@ export class InputText extends React.Component
         label.classList.add("BeSmall");
         label.classList.remove("red");
         input.classList.remove("error");
+        label.classList.remove("grey");
     }
 
     outInput()
@@ -18,7 +19,7 @@ export class InputText extends React.Component
         if(input.value=="")
         {
             label.classList.remove("BeSmall");
-            label.classList.remove("grey")
+            label.classList.remove("grey");
         }
         else
         {
@@ -36,23 +37,18 @@ export class InputText extends React.Component
 
 
     render = () => (
-        <div className="InputTextContainer">
-            <input 
-                id={"InputText"+this.props.id} 
+        <div className="InputTextContainer" style={this.props.styles||{}}>
+            <input
+                {...this.props}
+                id={"InputText"+this.props.id}
                 onFocus={()=>this.selectInput()}
-                onBlur={()=>this.outInput()} 
-                className={`InputText ${this.props.value && "BeSmall"}`} 
+                onBlur={()=>this.outInput()}
+                className={"InputText"+(this.props.value?" BeSmall":"")}
                 type="text"
                 placeholder={this.props.placeholder||""}
-                {...this.props}
             />
 
-            {<div 
-                id={"InputTextLabel"+this.props.id} 
-                className={`InputTextLabel ${this.props.value && "BeSmall"}`}
-            >
-                {this.props.label||""}
-            </div>}
+            {<div id={"InputTextLabel"+this.props.id} className={`InputTextLabel ${this.props.value && "BeSmall"}`}>{this.props.label||""}</div>}
         </div>
     )
 }

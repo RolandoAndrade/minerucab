@@ -105,7 +105,7 @@ export class Mineral extends React.Component {
               style={{margin: "0 5%"}}
               columns={[
                 {
-                  title: 'ID', field: 'm_id_mineral', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'asc',
+                  title: 'ID', field: 'm_id_mineral', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'desc',
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
@@ -119,7 +119,7 @@ export class Mineral extends React.Component {
                   },
                 },
                 {
-                  title: '¿Metal?', field: 'm_metalico', type: 'string', headerStyle:{ textAlign : "center"},
+                  title: '¿Metal?', field: 'm_tipo', type: 'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
@@ -151,13 +151,22 @@ export class Mineral extends React.Component {
                 },
                 searchFieldAlignment: "left",
                 exportButton: true,
-                exportFileName: "Minerales"
+                exportFileName: "Minerales",
+
               }}
 
               onRowClick={(event, rowData) => this.handleConsultar(rowData.m_id_mineral)}
-              localization={{
+              localization={
+                  {
                 toolbar : {
                   searchPlaceholder : "Buscar ..."
+                },
+                pagination:
+                {
+                    labelRowsSelect: "Filas"
+                },
+                body: {
+                    emptyDataSourceMessage: "No hay entradas disponibles"
                 }
               }}
 
@@ -173,6 +182,8 @@ export class Mineral extends React.Component {
                   isFreeAction: true
                 }
               ]}
+
+
 
             />
           }
@@ -198,7 +209,7 @@ export class Mineral extends React.Component {
               </p>
               <p>
                 <span className="mc-atributo">¿Metal?</span>
-                <span> : {this.state.consultarMineral.m_metalico ? "Si" : "No"}</span>
+                <span> : {this.state.consultarMineral.m_tipo === "metal" ? "Si" : "No"}</span>
               </p>
               <p>
                 <span className="mc-atributo">¿Radioactivo?</span>
@@ -274,9 +285,9 @@ export class Mineral extends React.Component {
           }
 
           {!!this.state.modificarMineral 
-            && <Redirect to={`/editar/mineral/${this.state.modificarMineral}`} />
+            && <Redirect push to={`/editar/mineral/${this.state.modificarMineral}`} />
           }
-          {this.state.agregarPresionado && <Redirect to="/crear/mineral" />}
+          {this.state.agregarPresionado && <Redirect push to="/crear/mineral" />}
       </div>
     </div>  
   )

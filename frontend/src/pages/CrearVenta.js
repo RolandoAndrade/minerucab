@@ -5,18 +5,53 @@ import {Redirect} from 'react-router-dom';
 import {InputText} from "../components/InputText";
 import {Dropdown} from "../components/Dropdown";
 import {MenuDashBoard} from "../components/MenuDashBoard";
+import {GuardarCancelar} from "../components/GuardarCancelar";
+
+const IVA = 1.16;
 
 export class CrearVenta extends React.Component
 {
     constructor(props)
     {
         super(props);
-        this.state={
+        this.state = {
             cliente_id: -1,
-            minerales: [{mineral_id: -1, cantidad: 0, precio: 0, presentacion_id: -1}]
+            minerales: [{mineral_id: -1, cantidad: 0, precio: 0, presentacion_id: -1}],
+            goSolicitud: false,
+            total: 0,
+            subtotal: 0
         }
     }
-    addMineral=()=>
+
+    handleGuardar = () =>
+    {
+        console.log(`----> localhost:4000/insertar/empleado`)
+        /*
+        return axios.post('http://127.0.0.1:4000/insertar/empleado',
+            {
+
+            }
+        )
+            .then( (res) => {
+                if( res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/insertar/empleado`)
+                }
+                return res
+            }).catch( (err) => {
+                return err
+            })*/
+
+    };
+
+    goSolicitud = () =>
+    {
+        this.setState({
+            goSolicitud: true
+        })
+    };
+
+
+    addMineral = () =>
     {
         let newMinerales = this.state.minerales;
         newMinerales.push(
@@ -24,7 +59,8 @@ export class CrearVenta extends React.Component
                 mineral_id: -1,
                 cantidad: 0,
                 precio: 0,
-                presentacion_id: -1}
+                presentacion_id: -1
+            }
         );
 
         this.setState(
@@ -37,7 +73,7 @@ export class CrearVenta extends React.Component
 
     removeMineral = (id) =>
     {
-        const newMinerales= this.state.minerales.splice(id,1);
+        const newMinerales = this.state.minerales.splice(id, 1);
         this.setState(
             {
                 minerales: newMinerales
@@ -45,24 +81,39 @@ export class CrearVenta extends React.Component
         )
     };
 
-    handleChange = (target) => {
-        target=target.target||target;
+    handleChange = (target) =>
+    {
+        target = target.target || target;
         this.setState({
-            [target.name]:target.value
+            [target.name]: target.value
         })
     };
 
-    handleRemovable= (target,i) => {
-        target=target.target||target;
+    handleRemovable = (target, i) =>
+    {
+        target = target.target || target;
         let newMinerales = this.state.minerales;
-        newMinerales[i][target.name]=target.value;
+        newMinerales[i][target.name] = target.value;
         this.setState(
             {
                 minerales: newMinerales
             }
         );
+        this.getTotal();
     };
 
+    getTotal()
+    {
+        let total=0;
+        for(let i=0;i<this.state.minerales.length;i++)
+        {
+            total+=this.state.minerales[i].precio*this.state.minerales[i].cantidad;
+        }
+        this.setState({
+            subtotal: (Math.floor(total*100)/100).toFixed(2),
+            total:(Math.floor(total*IVA*100)/100).toFixed(2)
+        });
+    }
 
     render = () => (
         <div>
@@ -135,7 +186,7 @@ export class CrearVenta extends React.Component
                                 <div className="WideContainer">
                                     <InputText styles={{width:"95%"}}
                                                id={"CrearSolicitudPrecio"+i}
-                                               label="Precio"
+                                               label="Precio por unidad"
                                                name="precio"
                                                onChange={(target)=>this.handleRemovable(target,i)}
                                                type="number"
@@ -166,6 +217,25 @@ export class CrearVenta extends React.Component
                 <div className="ButtonAddUser" onClick={this.addMineral} style={{marginLeft: "12%", width: "81%"}}>
                     Agregar mineral
                 </div>
+
+
+                <div className="TotalAmountContainer">
+                    <div className="AmountSquare">
+                        <div className="Amount">
+                            Subtotal: {this.state.subtotal} Bs.S
+                        </div>
+                        <div className="Amount">
+                            Total: {this.state.total} Bs.S (16% IVA)
+                        </div>
+                    </div>
+                </div>
+
+                <GuardarCancelar
+                    position="right"
+                    storeData={this.handleGuardar}
+                    success={this.goSolicitud}
+                    decline={this.goSolicitud}
+                />
             </div>
 
         </div>

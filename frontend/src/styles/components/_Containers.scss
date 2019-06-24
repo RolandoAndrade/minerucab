@@ -46,3 +46,20 @@
   margin: 0 auto;
   width: 100%;
 }
+
+.TotalAmountContainer
+{
+  color: white;
+  text-align: right;
+  margin: 10px auto;
+  width: 90%;
+}
+
+.AmountSquare
+{
+  background: $naranja;
+  padding: 20px;
+  width: 40%;
+  display: inline-block;
+  text-align: left;
+}

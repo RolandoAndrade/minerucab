@@ -70,10 +70,24 @@ const cleanerLugar = {
     }
 }
 
+const cleanerCargo = {
+    limpiarListaDropdown( cargosBD ) {
+        if (cargosBD === undefined || cargosBD.length == 0)
+            return []
+        else 
+            return cargosBD.map( c => ({
+                ...c,
+                "id" : c.c_id_cargo,
+                "text": c.c_nombre
+            }))
+    }
+}
+
 
 export {
     cleanerMineral, 
     cleanerCliente, 
     cleanerEmpleado,
-    cleanerLugar
+    cleanerLugar,
+    cleanerCargo
 }

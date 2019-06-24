@@ -37,7 +37,7 @@ export class EmpleadoAgregar extends React.Component {
                 e_fecha_nacimiento : "",
                 e_fecha_ingreso : "",
                 cargo_id : 0,
-                estado_id : 8
+                estado_id : 11 // DISPONIBLE
             },
             lugar : {
                 estado_id : 0,

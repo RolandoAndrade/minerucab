@@ -8,15 +8,16 @@ export class Dropdown extends React.Component
     {
         super(props);
         this.state={
-            searchText: "",
-            value: -1,
+            searchText: this.props.defaultText||"",
+            value: this.props.defaultID||-1,
+            name: this.props.name
         }
 
     }
 
     componentDidMount(){
         setTimeout( () =>
-            this.fillSearch( this.props.searchText || "" , this.props.value || -1)
+            this.fillSearch( this.state.searchText || "" , this.state.value || -1)
         , 1000 );
     }
 
@@ -55,7 +56,8 @@ export class Dropdown extends React.Component
         <div className="DropdownContainer">
             <input className="DropdownSearch" type="text" id={"DropdownSearch"+this.props.id}
                    placeholder={this.props.placeholder} onFocus={(t) => {this.showOptions(t)}}
-                    onBlur={()=>{this.hideOptions()}}   onChange={this.handleBuscar}/>
+                    onBlur={()=>{this.hideOptions()}}   onChange={this.handleBuscar}
+                    value={this.state.searchText}/>
             <i className="zmdi zmdi-chevron-down DropdownIcon"/>
             <div className="DropdownOptions" id={"DropdownOptions"+this.props.id}>
                 {

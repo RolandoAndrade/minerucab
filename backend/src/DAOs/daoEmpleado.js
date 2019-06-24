@@ -21,9 +21,9 @@ const daoEmpleado = {
         `)
     },
 
-    insertar({ e_cedula, e_nombre, e_segundo_nombre, e_apellido, e_segundo_apellido, e_telefono, e_fecha_nacimiento, e_fecha_ingreso, cargo_id, lugar_id, estado_id }){
+    insertar({ e_cedula, e_nombre, e_segundo_nombre, e_apellido, e_segundo_apellido, e_telefono, e_fecha_nacimiento, e_fecha_ingreso, e_genero, cargo_id, lugar_id, estado_id }){
         return psql.query(`
-            INSERT INTO EMPLEADO (e_id_empleado, e_cedula, e_nombre, e_segundo_nombre, e_apellido, e_segundo_apellido, e_telefono, e_fecha_nacimiento, e_fecha_ingreso, cargo_id, lugar_id, estado_id )
+            INSERT INTO EMPLEADO (e_id_empleado, e_cedula, e_nombre, e_segundo_nombre, e_apellido, e_segundo_apellido, e_telefono, e_fecha_nacimiento, e_fecha_ingreso, e_genero, cargo_id, lugar_id, estado_id )
             VALUES ( 
                 DEFAULT,
                 ${e_cedula ? `'${e_cedula}'` : 'NULL' },
@@ -34,6 +34,7 @@ const daoEmpleado = {
                 ${e_telefono ? `'${e_telefono}'` : 'NULL'},
                 ${e_fecha_nacimiento ? `'${e_fecha_nacimiento}'` : 'NULL' },
                 ${e_fecha_ingreso ? `'${e_fecha_ingreso}'` : 'NULL' },
+                ${e_genero ? `'${e_genero}'` : 'NULL' },
                 ${cargo_id ? cargo_id : 'NULL' },
                 ${lugar_id ? lugar_id : 'NULL' },
                 ${estado_id ? estado_id : 'NULL' }
@@ -41,7 +42,7 @@ const daoEmpleado = {
         `)
     },
 
-    modificar({ e_id_empleado, e_cedula, e_nombre, e_segundo_nombre, e_apellido, e_segundo_apellido, e_telefono, e_fecha_nacimiento, e_fecha_ingreso, cargo_id, lugar_id, estado_id }){
+    modificar({ e_id_empleado, e_cedula, e_nombre, e_segundo_nombre, e_apellido, e_segundo_apellido, e_telefono, e_fecha_nacimiento, e_fecha_ingreso, e_genero, cargo_id, lugar_id, estado_id }){
         return psql.query(`
             UPDATE EMPLEADO SET
                 e_cedula = ${e_cedula ? `'${e_cedula}'` : 'NULL' },
@@ -52,6 +53,7 @@ const daoEmpleado = {
                 e_telefono = ${e_telefono ? `'${e_telefono}'` : 'NULL'},
                 e_fecha_nacimiento = ${e_fecha_nacimiento ? `'${e_fecha_nacimiento}'` : 'NULL' },
                 e_fecha_ingreso = ${e_fecha_ingreso ? `'${e_fecha_ingreso}'` : 'NULL' },
+                e_genero = ${e_genero ? `'${e_genero}'` : 'NULL' },
                 cargo_id = ${cargo_id ? cargo_id : 'NULL' },
                 lugar_id = ${lugar_id ? lugar_id : 'NULL' },
                 estado_id = ${estado_id ? estado_id : 'NULL' }

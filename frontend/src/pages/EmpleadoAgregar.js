@@ -12,6 +12,8 @@ import {GuardarCancelar} from "../components/GuardarCancelar";
 import { DropdownArreglado } from '../components/DropdownArreglado';
 import {Dropdown} from "../components/Dropdown";
 
+import {cleanerLugar} from "../utils/cleaner"
+
 export class EmpleadoAgregar extends React.Component {
     constructor(props){
         super(props);
@@ -35,37 +37,42 @@ export class EmpleadoAgregar extends React.Component {
                 e_fecha_nacimiento : "",
                 e_fecha_ingreso : "",
                 cargo_id : 0,
-                lugar_id : 0,
-                estado_id : 0
+                estado_id : 8
             },
             lugar : {
                 estado_id : 0,
-                municipio_id : 0
-            }
+                municipio_id : 0,
+                parroquia_id : 0
+            },
+            lugares : []
         }
     }
 
     componentDidMount = () => {
-        // !!! OJO !!! FALTA QUERY PARA PEDIR LUGARES
-        /*
-        console.log(`----> localhost:4000/consultarLista/cliente`)
-        axios.get('http://127.0.0.1:4000/consultarLista/cliente')
+        /* !!! OJO !!! FALTA QUERY CARGOS */
+        /* !!! OJO 2DA ENTREGA !!! FALTA QUERY USUARIOS */        
+
+        console.log(`----> localhost:4000/consultarLista/lugar`)
+        axios.get('http://127.0.0.1:4000/consultarLista/lugar')
           .then( (res) => {
             if(res.status === 200)
-              console.log(`<---- (OK 200) localhost:4000/consultarLista/cliente`)
+              console.log(`<---- (OK 200) localhost:4000/consultarLista/lugar`)
     
             this.setState({
-                clientes : res.data.rows
+                lugares : res.data.rows
             })
     
           })
-        */
       }
 
     handleGuardar = () => {
         console.log(`----> localhost:4000/insertar/empleado`)
         return axios.post('http://127.0.0.1:4000/insertar/empleado', 
-            this.state.nuevo_empleado
+            {
+                ...this.state.nuevo_empleado,
+                lugar_id : this.state.lugar.parroquia_id,
+                e_genero : this.state.nuevo_empleado.e_genero === 1 ? "m" : "f"
+            }
         )
         .then( (res) => {
             if( res.status === 200) {
@@ -189,6 +196,13 @@ export class EmpleadoAgregar extends React.Component {
                                       {text:"Opción 3",id:3},
                                       {text:"Opción 4",id:4},
                                       {text:"Opción 5",id:5}]}/>
+                        <Dropdown id="CrearEmpleadoGenero"
+                                  name="e_genero"
+                                  retrieveData={this.handleChange}
+                                  placeholder="Género.."
+                                  options={[
+                                      {text:"Hombre",id:1},
+                                      {text:"Mujer", id:2}]}/>
                         {/*
                         Según reglas de integridad El estado por defecto es activo, no se debe establecer de inmediato
                         <DropdownArreglado
@@ -225,32 +239,32 @@ export class EmpleadoAgregar extends React.Component {
                                   name="estado_id"
                                   retrieveData={this.handleChangeLugar}
                                   placeholder="Estado donde vive..."
-                                  options={[
-                                      {text:"Opción 1",id:1},
-                                      {text:"Opción 2",id:2},
-                                      {text:"Opción 3",id:3},
-                                      {text:"Opción 4",id:4},
-                                      {text:"Opción 5",id:5}]}/>
+                                  options={
+                                      cleanerLugar.limpiarListaDropdown(
+                                          this.state.lugares.filter( l => l.l_tipo === "estado")
+                                        )
+                                    }
+                        />
                         <Dropdown id="CrearEmpleadoLugarMunicipio"
                                   name="municipio_id"
                                   retrieveData={this.handleChangeLugar}
                                   placeholder="Municipio donde vive..."
-                                  options={[
-                                      {text:"Opción 1",id:1},
-                                      {text:"Opción 2",id:2},
-                                      {text:"Opción 3",id:3},
-                                      {text:"Opción 4",id:4},
-                                      {text:"Opción 5",id:5}]}/>
+                                  options={
+                                    cleanerLugar.limpiarListaDropdown(
+                                        this.state.lugares.filter( l => l.lugar_id === this.state.lugar.estado_id)
+                                      )
+                                  }
+                        />
                         <Dropdown id="CrearEmpleadoLugarParroquia"
                                   name="parroquia_id"
                                   retrieveData={this.handleChangeLugar}
                                   placeholder="Parroquia donde vive..."
-                                  options={[
-                                      {text:"Opción 1",id:1},
-                                      {text:"Opción 2",id:2},
-                                      {text:"Opción 3",id:3},
-                                      {text:"Opción 4",id:4},
-                                      {text:"Opción 5",id:5}]}/>
+                                  options={
+                                    cleanerLugar.limpiarListaDropdown(
+                                        this.state.lugares.filter( l => l.lugar_id === this.state.lugar.municipio_id)
+                                      )
+                                  }
+                        />
                     </div>
                 </div>
                 <div className="WideContainer">

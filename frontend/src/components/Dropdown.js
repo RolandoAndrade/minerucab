@@ -14,6 +14,12 @@ export class Dropdown extends React.Component
 
     }
 
+    componentDidMount(){
+        setTimeout( () =>
+            this.fillSearch( this.props.searchText || "" , this.props.value || -1)
+        , 1000 );
+    }
+
     showOptions(target)
     {
         let options=document.getElementById("DropdownOptions"+this.props.id);

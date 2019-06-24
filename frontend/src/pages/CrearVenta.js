@@ -34,6 +34,26 @@ export class CrearVenta extends React.Component
         console.log(this.state);
     };
 
+    removeMineral = (id) =>
+    {
+        const newMinerales= this.state.minerales.splice(id,1);
+        this.setState(
+            {
+                users: newMinerales
+            }
+        )
+    }
+    handleChange = (target) => {
+        target=target.target||target;
+        console.log(`nuevo_empleado.${target.name} = ${target.value}`)
+        this.setState({
+            nuevo_empleado :{
+                ...this.state.nuevo_empleado,
+                [target.name] : target.value
+            }
+        })
+    }
+
 
     render = () => (
         <div>
@@ -69,12 +89,13 @@ export class CrearVenta extends React.Component
                         return(
                             <div className="RowContainer Container-90p" key={i}>
                                 <div className="WideContainer" style={{justifyContent: "right", width: "30%"}}>
-                                    <i className="zmdi zmdi-close-circle-o LabelIcon"></i>
+                                    <i className="zmdi zmdi-close-circle-o LabelIcon" onClick={()=>this.removeMineral(i)}></i>
                                 </div>
                                 <div className="WideContainer">
                                     <Dropdown id={"CrearSolicitudMineral"+i}
                                               name={`user_${u.u_id_usuario}`}
                                               placeholder="Mineral..."
+                                              onChange={this.handleChange}
                                               options={[
                                                   {text:"Opción 1",id:1},
                                                   {text:"Opción 2",id:2},
@@ -84,13 +105,27 @@ export class CrearVenta extends React.Component
                                     />
                                 </div>
                                 <div className="WideContainer">
-                                    <InputText styles={{width:"95%"}}  id={"CrearSolicitudCantidad"+i} label="Cantidad" type="number"/>
+                                    <InputText
+                                        styles={{width:"95%"}}
+                                        id={"CrearSolicitudCantidad"+i}
+                                        label="Cantidad"
+                                        type="number"
+                                        onChange={this.handleChange}
+                                        value={""+this.state.minerales[i].cantidad}
+                                    />
                                 </div>
                                 <div className="WideContainer" style={{width: "50%"}}>
                                     <div className="LabelSimple">Toneladas</div>
                                 </div>
                                 <div className="WideContainer">
-                                    <InputText styles={{width:"95%"}} id={"CrearSolicitudPrecio"+i} label="Precio" type="number"/>
+                                    <InputText styles={{width:"95%"}}
+                                               id={"CrearSolicitudPrecio"+i}
+                                               label="Precio"
+                                               onChange={this.handleChange}
+                                               type="number"
+                                               value={""+this.state.minerales[i].cantidad}
+                                    />
+
                                 </div>
                                 <div className="WideContainer" style={{width: "20%"}}>
                                     <div className="LabelSimple">Bs.S</div>
@@ -99,6 +134,7 @@ export class CrearVenta extends React.Component
                                     <Dropdown id={"CrearSolicitudPresentación"+i}
                                               name={`user_${u.u_id_usuario}`}
                                               placeholder="Presentación..."
+                                              onChange={this.handleChange}
                                               options={[
                                                   {text:"Opción 1",id:1},
                                                   {text:"Opción 2",id:2},
@@ -109,7 +145,7 @@ export class CrearVenta extends React.Component
                                 </div>
                             </div>
                         )
-                    })
+                    },this)
                 }
                 <div className="ButtonAddUser" onClick={this.addMineral} style={{marginLeft: "13%", width: "80%"}}>
                     Agregar mineral

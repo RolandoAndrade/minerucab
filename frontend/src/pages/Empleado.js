@@ -17,7 +17,8 @@ export class Empleado extends React.Component {
       textoBuscardor : "",
       consultarEmpleado : null,
       agregarPresionado : null,
-      lugares : []
+      lugares : [],
+      cargos : []
     }
   }
 
@@ -37,7 +38,7 @@ export class Empleado extends React.Component {
       })
       .then( empleados => {
         console.log(`----> localhost:4000/consultarLista/lugar`)
-        axios.get('http://127.0.0.1:4000/consultarLista/lugar')
+        return axios.get('http://127.0.0.1:4000/consultarLista/lugar')
           .then( res => {
             
             if(res.status === 200)
@@ -57,6 +58,34 @@ export class Empleado extends React.Component {
 
             this.setState({
               empleados : empleadosConLugares
+            })
+
+            return empleadosConLugares
+          })
+        
+      })
+      .then( empleadosConLugares => {
+        console.log(`----> localhost:4000/consultarLista/cargo`)
+        axios.get('http://127.0.0.1:4000/consultarLista/cargo')
+          .then( res => {
+            
+            if(res.status === 200)
+              console.log(`<---- (OK 200) localhost:4000/consultarLista/cargo`)
+
+            const cargos = res.data.rows
+
+            this.setState({
+                cargos : cargos 
+            })
+
+            const empleadosConCargos = empleadosConLugares.map( e => ({
+              ...e,
+              cargo : cargos.find( c => c.c_id_cargo === e.cargo_id ).c_nombre
+            }))
+
+
+            this.setState({
+              empleados : empleadosConCargos
             })
           })
       })
@@ -160,7 +189,7 @@ export class Empleado extends React.Component {
                   },
                 },
                 { 
-                    title: 'Cargo', field: 'cargo_id', type:'string', headerStyle:{ textAlign : "center"},
+                    title: 'Cargo', field: 'cargo', type:'string', headerStyle:{ textAlign : "center"},
                     cellStyle : {
                         fontSize : "large",
                         textAlign: "center"
@@ -261,7 +290,7 @@ export class Empleado extends React.Component {
               </p>
               <p>
                 <span className="mc-atributo">Cargo</span>
-                <span> : {this.state.consultarEmpleado.cargo_id}</span>
+                <span> : {this.state.consultarEmpleado.cargo}</span>
               </p>
               <p>
                 <span className="mc-atributo">Dirección</span>

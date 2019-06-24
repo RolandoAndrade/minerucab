@@ -365,7 +365,7 @@ app.post('/modificar/empleado', (req, res) => {
     })
 });
 
-/* ****************************** YACIMIENTO ****************************** */
+/* ****************************** LUGAR ****************************** */
 import {daoLugar} from './DAOs/daoLugar'
 
 app.get('/consultarLista/lugar', (req, res) => {
@@ -413,6 +413,48 @@ app.post('/consultarLista/lugar/porTipo', (req, res) => {
   console.log(`----------------------> ${getAhora()}`)
   console.log(`/consultarLista/lugar/porTipo/${req.body.l_tipo}`)
   daoLugar.consultarTodosPorTipo(req.body.l_tipo)
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+/* ****************************** CARGO ****************************** */
+import {daoCargo} from './DAOs/daoCargo'
+
+app.get('/consultarLista/cargo', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/cargo")
+
+  daoCargo.consultarTodos()
+    .then( ({rows}) => {
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/consultar/cargo', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultar/cargo/${req.body.l_id_lugar}`)
+  daoCargo.consultar(req.body.l_id_lugar)
     .then( ({rows}) => {
       console.log(`STATUS OK : 200`)      
 

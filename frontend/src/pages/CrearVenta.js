@@ -12,6 +12,7 @@ export class CrearVenta extends React.Component
     {
         super(props);
         this.state={
+            cliente_id: -1,
             minerales: [{mineral_id: -1, cantidad: 0, precio: 0, presentacion_id: -1}]
         }
     }
@@ -39,20 +40,28 @@ export class CrearVenta extends React.Component
         const newMinerales= this.state.minerales.splice(id,1);
         this.setState(
             {
-                users: newMinerales
+                minerales: newMinerales
             }
         )
-    }
+    };
+
     handleChange = (target) => {
         target=target.target||target;
-        console.log(`nuevo_empleado.${target.name} = ${target.value}`)
         this.setState({
-            nuevo_empleado :{
-                ...this.state.nuevo_empleado,
-                [target.name] : target.value
-            }
+            [target.name]:target.value
         })
-    }
+    };
+
+    handleRemovable= (target,i) => {
+        target=target.target||target;
+        let newMinerales = this.state.minerales;
+        newMinerales[i][target.name]=target.value;
+        this.setState(
+            {
+                minerales: newMinerales
+            }
+        );
+    };
 
 
     render = () => (
@@ -93,9 +102,9 @@ export class CrearVenta extends React.Component
                                 </div>
                                 <div className="WideContainer">
                                     <Dropdown id={"CrearSolicitudMineral"+i}
-                                              name={`user_${u.u_id_usuario}`}
+                                              name={"mineral_id"}
                                               placeholder="Mineral..."
-                                              onChange={this.handleChange}
+                                              retrieveData={(target)=>this.handleRemovable(target,i)}
                                               options={[
                                                   {text:"Opción 1",id:1},
                                                   {text:"Opción 2",id:2},
@@ -110,7 +119,8 @@ export class CrearVenta extends React.Component
                                         id={"CrearSolicitudCantidad"+i}
                                         label="Cantidad"
                                         type="number"
-                                        onChange={this.handleChange}
+                                        name="cantidad"
+                                        onChange={(target)=>this.handleRemovable(target,i)}
                                         value={""+this.state.minerales[i].cantidad}
                                     />
                                 </div>
@@ -121,9 +131,10 @@ export class CrearVenta extends React.Component
                                     <InputText styles={{width:"95%"}}
                                                id={"CrearSolicitudPrecio"+i}
                                                label="Precio"
-                                               onChange={this.handleChange}
+                                               name="precio"
+                                               onChange={(target)=>this.handleRemovable(target,i)}
                                                type="number"
-                                               value={""+this.state.minerales[i].cantidad}
+                                               value={""+this.state.minerales[i].precio}
                                     />
 
                                 </div>
@@ -132,9 +143,9 @@ export class CrearVenta extends React.Component
                                 </div>
                                 <div className="WideContainer">
                                     <Dropdown id={"CrearSolicitudPresentación"+i}
-                                              name={`user_${u.u_id_usuario}`}
+                                              name={"presentacion_id"}
                                               placeholder="Presentación..."
-                                              onChange={this.handleChange}
+                                              retrieveData={(target)=>this.handleRemovable(target,i)}
                                               options={[
                                                   {text:"Opción 1",id:1},
                                                   {text:"Opción 2",id:2},
@@ -147,7 +158,7 @@ export class CrearVenta extends React.Component
                         )
                     },this)
                 }
-                <div className="ButtonAddUser" onClick={this.addMineral} style={{marginLeft: "13%", width: "80%"}}>
+                <div className="ButtonAddUser" onClick={this.addMineral} style={{marginLeft: "12%", width: "81%"}}>
                     Agregar mineral
                 </div>
             </div>

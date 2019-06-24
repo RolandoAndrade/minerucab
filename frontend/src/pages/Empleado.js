@@ -16,7 +16,8 @@ export class Empleado extends React.Component {
       empleados : [],
       textoBuscardor : "",
       consultarEmpleado : null,
-      agregarPresionado : null
+      agregarPresionado : null,
+      lugares : []
     }
   }
 
@@ -32,6 +33,32 @@ export class Empleado extends React.Component {
             empleados : res.data.rows
         })
 
+        return res.data.rows
+      })
+      .then( empleados => {
+        console.log(`----> localhost:4000/consultarLista/lugar`)
+        axios.get('http://127.0.0.1:4000/consultarLista/lugar')
+          .then( res => {
+            
+            if(res.status === 200)
+              console.log(`<---- (OK 200) localhost:4000/consultarLista/lugar`)
+
+            const lugares = res.data.rows
+
+            this.setState({
+                lugares : lugares 
+            })
+
+            const empleadosConLugares = empleados.map( e => ({
+              ...e,
+              lugar : lugares.find( l => l.l_id_lugar === e.lugar_id ).l_nombre
+            }))
+
+
+            this.setState({
+              empleados : empleadosConLugares
+            })
+          })
       })
   }
 
@@ -140,7 +167,7 @@ export class Empleado extends React.Component {
                     },
                 },
                 { 
-                  title: 'Dirección', field: 'lugar_id', type:'string', headerStyle:{ textAlign : "center"},
+                  title: 'Dirección', field: 'lugar', type:'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign: "center"
@@ -238,7 +265,7 @@ export class Empleado extends React.Component {
               </p>
               <p>
                 <span className="mc-atributo">Dirección</span>
-                <span> : {this.state.consultarEmpleado.lugar_id}</span>
+                <span> : {this.state.consultarEmpleado.lugar}</span>
               </p>
               <p>
                 <span className="mc-atributo">Estado</span>

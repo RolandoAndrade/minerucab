@@ -12,7 +12,7 @@ import {GuardarCancelar} from "../components/GuardarCancelar";
 import { DropdownArreglado } from '../components/DropdownArreglado';
 import {Dropdown} from "../components/Dropdown"
 
-import {cleanerLugar} from "../utils/cleaner"
+import {cleanerLugar, cleanerCargo} from "../utils/cleaner"
 
 export class EmpleadoEditar extends React.Component {
     constructor(props){
@@ -88,7 +88,24 @@ export class EmpleadoEditar extends React.Component {
                         () => this.establecerLugar()
                     )
 
-                    
+                })
+
+            })
+            .then( () => {
+                
+                console.log(`----> localhost:4000/consultarLista/cargo`)
+                axios.get('http://127.0.0.1:4000/consultarLista/cargo')
+                .then( (res) => {
+                    if(res.status === 200)
+                        console.log(`<---- (OK 200) localhost:4000/consultarLista/cargo`)
+                    const cargos = res.data.rows
+                    this.setState({
+                        cargos : cargos,
+                        nuevo_empleado : {
+                            ...this.state.nuevo_empleado,
+                            cargo_inicial : cargos.find( c => c.c_id_cargo === this.state.nuevo_empleado.cargo_id).c_nombre
+                        }
+                    })
             
                 })
 
@@ -122,7 +139,11 @@ export class EmpleadoEditar extends React.Component {
     handleGuardar = () => {
         console.log(`----> localhost:4000/modificar/empleado`)
         return axios.post('http://127.0.0.1:4000/modificar/empleado', 
-            this.state.nuevo_empleado
+            {
+                ...this.state.nuevo_empleado,
+                lugar_id : this.state.lugar.parroquia_id,
+                e_genero : this.state.nuevo_empleado.e_genero === 1 ? "m" : "f"
+            }
         )
         .then( (res) => {
             if( res.status === 200) {
@@ -168,7 +189,8 @@ export class EmpleadoEditar extends React.Component {
         )
     }
 
-    handleChange = ({target}) => {
+    handleChange = (target) => {
+        target = target.target || target
         console.log(`nuevo_empleado.${target.name} = ${target.value}`)
         this.setState({
             nuevo_empleado :{
@@ -240,20 +262,24 @@ export class EmpleadoEditar extends React.Component {
                 </div>
                 <div className="WideContainer">
                     <div className="FormContainer">
+                        {this.state.cargos &&
                         <Dropdown id="CrearEmpleadoCargo"
-                            name="cargo_id"
-                            placeholder="Cargo ..."
-                            retrieveData={this.handleChange}
-                            options={[
-                                {text: "Cargo ...", id: 0},
-                                {text: "Opción 1", id: 1},
-                                {text: "Opción 2", id: 2},
-                                {text: "Opción 3", id: 3},
-                                {text: "Opción 4", id: 4}
-                            ]}
+                                  name="cargo_id"
+                                  defaultText={this.state.nuevo_empleado.cargo_inicial}
+                                  defaultID={this.state.nuevo_empleado.cargo_id}
+                                  retrieveData={this.handleChange}
+                                  placeholder="Cargo ..."
+                                  options={
+                                      cleanerCargo.limpiarListaDropdown(
+                                          this.state.cargos
+                                        )
+                                    }
                         />
+                        }
                         <Dropdown id="CrearEmpleadoGenero"
                                   name="e_genero"
+                                  defaultText={this.state.nuevo_empleado.e_genero === 'm' ? "Hombre" : "Mujer"}
+                                  defaultID={this.state.nuevo_empleado.e_genero === 'm' ? 1 : 2}
                                   retrieveData={this.handleChange}
                                   placeholder="Género.."
                                   options={[
@@ -284,8 +310,8 @@ export class EmpleadoEditar extends React.Component {
                         {this.state.lugar.estado &&
                         <Dropdown id="CrearEmpleadoLugarEstado"
                                   name="estado_id"
-                                  searchText={this.state.lugar.estado.l_nombre}
-                                  value={this.state.lugar.estado_id}
+                                  defaultText={this.state.lugar.estado.l_nombre}
+                                  defaultID={this.state.lugar.estado_id}
                                   retrieveData={this.handleChangeLugar}
                                   placeholder="Estado donde vive..."
                                   options={
@@ -298,8 +324,8 @@ export class EmpleadoEditar extends React.Component {
                         {this.state.lugar.municipio &&
                         <Dropdown id="CrearEmpleadoLugarMunicipio"
                                   name="municipio_id"
-                                  searchText={this.state.lugar.municipio.l_nombre}
-                                  value={this.state.lugar.municipio_id}
+                                  defaultText={this.state.lugar.municipio.l_nombre}
+                                  defaultID={this.state.lugar.municipio_id}
                                   retrieveData={this.handleChangeLugar}
                                   placeholder="Municipio donde vive..."
                                   options={
@@ -312,8 +338,8 @@ export class EmpleadoEditar extends React.Component {
                         {this.state.lugar.parroquia &&
                         <Dropdown id="CrearEmpleadoLugarParroquia"
                                   name="parroquia_id"
-                                  searchText={this.state.lugar.parroquia.l_nombre}
-                                  value={this.state.lugar.parroquia_id}
+                                  defaultText={this.state.lugar.parroquia.l_nombre}
+                                  defaultID={this.state.lugar.parroquia_id}
                                   retrieveData={this.handleChangeLugar}
                                   placeholder="Parroquia donde vive..."
                                   options={

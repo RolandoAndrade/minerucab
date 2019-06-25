@@ -13,8 +13,11 @@ const daoYacimiento = {
                 Y.unidad_id,
                 U.u_nombre unidad,
                 L.l_nombre lugar,
-                YC.y_nombre yacimiento_configuracion
-            FROM YACIMIENTO Y, LUGAR L, UNIDAD U, YACIMIENTO_CONFIGURACION YC
+                YC.y_nombre yacimiento_configuracion,
+                TY.t_nombre tipo_yacimiento
+            FROM  LUGAR L, UNIDAD U, YACIMIENTO_CONFIGURACION YC, 
+                YACIMIENTO Y FULL OUTER JOIN TIPO_YACIMIENTO TY
+                ON Y.tipo_yacimiento_id = TY.t_id_tipo_yacimiento 
             WHERE 
                 Y.lugar_id = L.l_id_lugar AND
                 Y.unidad_id = U.u_id_unidad AND

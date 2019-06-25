@@ -1,4 +1,6 @@
 /* DEPENDENCIAS */
+import {daoPedido} from "./DAOs/daoPedido";
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -434,6 +436,34 @@ app.get('/consultarLista/yacimiento', (req, res) => {
   res.send({x: "NO IMPLEMETADO"})
 });
 
+
+
+/* ****************************** PEDIDO ****************************** */
+
+app.post('/insertar/pedido', (req, res) => {
+
+  console.log("\n\n");
+  console.log(`----------------------> ${getAhora()}`);
+  console.log(`/insertar/pedido/`);
+  req.body.p_fecha_solicitud=getAhora();
+  console.log(req.body);
+
+
+  daoPedido.insertar( req.body )
+      .then( (bd_response) => {
+        console.log(`STATUS OK : 200`)
+
+        res.status(200).json({"rowCount" : bd_response.rowCount})
+
+      })
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+        res.status(500).json(bd_err)
+
+      })
+});
 
 /* ****************************** LEVANTAR API ****************************** */
 app.listen(port, () => {

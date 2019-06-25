@@ -624,6 +624,68 @@ app.post('/modificar/yacimiento', (req, res) => {
     })
 });
 
+/* ****************************** YACIMIENTO_CONFIGURACION ****************************** */
+import {daoYacimientoConfiguracion} from './DAOs/daoYacimientoConfiguracion'
+
+app.get('/consultarLista/yacimiento_configuracion', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/yacimiento_configuracion")
+
+  daoYacimientoConfiguracion.consultarTodos()
+    .then( ({rows}) => {
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/consultar/yacimiento_configuracion', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultar/yacimiento_configuracion/${req.body.y_id_yacimiento_configuracion}`)
+  daoYacimientoConfiguracion.consultar(req.body.y_id_yacimiento_configuracion)
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/eliminar/yacimiento_configuracion', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/eliminar/yacimiento_configuracion/${req.body.y_id_yacimiento_configuracion}`)
+  daoYacimientoConfiguracion.eliminar(req.body.y_id_yacimiento_configuracion)
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
 
 
 

@@ -10,19 +10,29 @@ import {MenuDashBoard} from "../components/MenuDashBoard";
 import {InputText} from "../components/InputText";
 import {InputDate} from "../components/InputDate";
 import {GuardarCancelar} from "../components/GuardarCancelar";
+import {Dropdown} from "../components/Dropdown";
+
+import {cleanerLugar, cleanerConfiguracion} from "../utils/cleaner"
 
 export class YacimientoAgregar extends React.Component {
   constructor(props){
     super(props)
     
     this.state  = {
-        nuevo_mineral: {
-            m_id_mineral: 0,
-            m_tipo : "no metal",
-            m_radioactivo : false,
-            m_fecha_nacionalizacion : "",
-            m_nombre : "",
-            m_descripcion : ""
+        nuevo_yacimiento: {
+            y_id_yacimiento : 0 ,
+            y_nombre : "" ,
+            y_extension : 0 ,
+            yacimiento_configuracion_id : 0 ,
+            tipo_yacimiento_id : 0 ,
+            lugar_id : 0 ,
+            unidad_id : 0 ,
+            lugar : "" ,
+            yacimiento_configuracion : "" 
+        },
+        lugares : [],
+        lugar : {
+
         },
         goYacimiento : false
     }
@@ -40,6 +50,19 @@ export class YacimientoAgregar extends React.Component {
         })
 
       })
+      .then( () => {
+        console.log(`----> localhost:4000/consultarLista/yacimiento_configuracion`)
+        axios.get('http://127.0.0.1:4000/consultarLista/yacimiento_configuracion')
+          .then( (res) => {
+            if(res.status === 200)
+              console.log(`<---- (OK 200) localhost:4000/consultarLista/yacimiento_configuracion`)
+    
+            this.setState({
+                configuraciones : res.data.rows
+            })
+    
+          })
+      })
   }
 
   storeData = () =>
@@ -52,15 +75,11 @@ export class YacimientoAgregar extends React.Component {
       console.log(`----> localhost:4000/insertar/yacimiento`)
       return axios.post('http://127.0.0.1:4000/insertar/yacimiento',
           {
-              "m_nombre" : nuevo_mineral.m_nombre,
-              "m_tipo" : nuevo_mineral.m_tipo,
-              "m_radioactivo" : nuevo_mineral.m_radioactivo,
-              "m_fecha_nacionalizacion" : nuevo_mineral.m_fecha_nacionalizacion,
-              "m_descripcion" : nuevo_mineral.m_descripcion
+              ...nuevo_yacimiento
           })
           .then( (res) => {
               if( res.status === 200) {
-                  console.log(`<---- (OK 200) localhost:4000/insertar/mineral`)
+                  console.log(`<---- (OK 200) localhost:4000/insertar/yacimiento`)
               }
               return res
           }).catch( err => err)
@@ -73,138 +92,112 @@ export class YacimientoAgregar extends React.Component {
       })
   };
 
-  handleChange = ({target}) => {
-    console.log(target);
+  handleChange = (target) => {
+    target = target.target || target
+    console.log(`nuevo_yacimiento.${target.name} = ${target.value}`)
     this.setState({
-        nuevo_mineral : {
-            ...this.state.nuevo_mineral,
+        nuevo_yacimiento : {
+            ...this.state.nuevo_yacimiento,
             [target.name] : target.value
         }
     })
   }
 
-  handleBool = ({target}) => {
-    if (target.name === "m_tipo")
-        this.setState({
-            nuevo_mineral : {
-                ...this.state.nuevo_mineral,
-                m_tipo : target.checked ? "metal" : "no metal"
-            }
-        })
-    else
-        this.setState({
-            nuevo_mineral : {
-                ...this.state.nuevo_mineral,
-                [target.name] : target.checked
-            }
+  handleChangeLugar = (target) => {
+    console.log(`lugar.${target.name} = ${target.value}`)
+    this.setState({
+        lugar :{
+            ...this.state.lugar,
+            [target.name] : target.value
+        }
     })
-  }
-
+}
   
   render = () => (
     <div>
         <MenuDashBoard title="Agregar Yacimiento"/>
 
-        <div>
+        <div className="RowContainer">
+                <div className="WideContainer">
+                    <div className="FormContainer">
 
-            <div className="CrearElemento">
-                <div className="firstColumn">
-                    <div className="mc-atributo">Nombre: </div>
-                </div>
-                <div className="secondColumn">
-                    <InputText
-                        id={"m_nombre"}
-                        name={"m_nombre"}
-                        label="Nombre"
-                        onChange={this.handleChange}
-                        styles={{width: "100%"}}
-                    />
-                </div>
-                <div className={"firstColumn"}>
-                    <div className="mc-atributo">¿Metal?: </div>
-                </div>
-                <div className="secondColumn">
-                    <form action="">
-                        <label className="form-switch">
-                            <input
-                                type="checkbox"
-                                name="m_tipo"
-                                onChange={this.handleBool}
-                                checked={this.state.nuevo_mineral.m_tipo === "metal" ? true : false}
-                            />
-                            <i></i>
-                        </label>
-                    </form>
-                </div>
-                <div className="firstColumn">
-                    <div className="mc-atributo">¿Radioactivo?: </div>
-                </div>
-                <div className="secondColumn">
-                    <form action="">
-                        <label className="form-switch">
-                            <input 
-                                type="checkbox"
-                                name="m_radioactivo"
-                                onChange={this.handleBool}
-                                checked={this.state.nuevo_mineral.m_radioactivo}
-                            />
-                            <i></i>
-                        </label>
-                    </form>
-                </div>
-                <div className="firstColumn">
-                    <div className="mc-atributo">Nacionalizado:</div>
-                </div>
-                <div className="secondColumn">
-                    <InputDate
-                        id="m_fecha_nacionalizacion"
-                        name={"m_fecha_nacionalizacion"}
-                        onChange={this.handleChange}
-                        styles={{width: "100%"}}
-                        style={{background: "white", color: "black"}}
-                    />
-                </div>
-                <div className="firstColumn">
-                    <div className="mc-atributo">Descripción:</div>
-                </div>
-                <div className="secondColumn">
-                    <textarea
-                        name="m_descripcion"
-                        placeholder="Descripción"
-                        onChange={this.handleChange}
-                    />
-                </div>
-                <div className="firstColumn">
-                    <span className="mc-atributo">Compuesto de</span><span> : </span>
-                    <img
-                        src="../resources/icons/Agregar.png"
-                        width="25px"
-                        onClick={this.handleOpenModal1}
-                        className="IconoAgregar"
-                    />
-                </div>
-                <div>
-                    {this.state.compuestos.map( (compuesto, i) => (
-                        <div className="compuesto" key={i}>
-                            <span>{compuesto.m_nombre}</span>
-                            <img
-                                src="../resources/icons/Eliminar.png"
-                                width="20px"
-                                onClick={() => this.handleDescomponer(compuesto.m_id_mineral)}
-                                className="IconoEliminar"
-                            />
-                        </div>
-                    ))}
-                </div>
-            </div>
+                        <InputText 
+                            id="CrearYacimientoNombre" 
+                            label="Nombre"
+                            name="y_nombre"
+                            onChange={this.handleChange}
+                        />
+                        <InputText
+                            id="CrearYacimientoExtension"
+                            label="Extensión (km2)"
+                            type="number"
+                            min="0"
+                            name="y_extension"
+                            onChange={this.handleChange}
+                        />
 
-            <GuardarCancelar
-                storeData={this.storeData}
-                success={this.goYacimiento} 
-                decline={this.goYacimiento}
-            />
+                        <Dropdown id="CrearEmpleadoLugarEstado"
+                            name="estado_id"
+                            retrieveData={this.handleChangeLugar}
+                            placeholder="Estado donde vive..."
+                            options={
+                                cleanerLugar.limpiarListaDropdown(
+                                    this.state.lugares.filter( l => l.l_tipo === "estado")
+                                )
+                            }
+                        />
+                        <Dropdown id="CrearEmpleadoLugarMunicipio"
+                            name="municipio_id"
+                            retrieveData={this.handleChangeLugar}
+                            placeholder="Municipio donde vive..."
+                            options={
+                            cleanerLugar.limpiarListaDropdown(
+                                this.state.lugares.filter( l => l.lugar_id === this.state.lugar.estado_id)
+                                )
+                            }
+                        />
+                        <Dropdown id="CrearEmpleadoLugarParroquia"
+                            name="parroquia_id"
+                            retrieveData={this.handleChangeLugar}
+                            placeholder="Parroquia donde vive..."
+                            options={
+                            cleanerLugar.limpiarListaDropdown(
+                                this.state.lugares.filter( l => l.lugar_id === this.state.lugar.municipio_id)
+                                )
+                            }
+                        />
+                        <Dropdown id="CrearYacimientoConfiguracion"
+                            name="yacimiento_configuracion_id"
+                            retrieveData={this.handleChange}
+                            placeholder="Configuración ..."
+                            options={
+                            cleanerConfiguracion.limpiarListaDropdown(
+                                    this.state.configuraciones
+                                )
+                            }
+                        />
+                    </div>
+                </div>
 
-            {this.state.goYacimiento && <Redirect to="/" /> }
+                <div className="WideContainer">
+                    <div className="FormContainer">
+                        <img 
+                            src="resources/img/Yacimiento_1.png"
+                            width="60%"
+                            style={{margin : "0 auto"}} 
+                        />
+                        <GuardarCancelar
+                            storeData={this.storeData}
+                            success={this.goYacimiento} 
+                            decline={this.goYacimiento}
+                        />
+                    </div>
+                    
+                </div>
+
+                
+
+            {this.state.goYacimiento && <Redirect to="/yacimiento" /> }
 
       </div>
     </div>  

@@ -115,6 +115,19 @@ const cleanerYacimiento = {
     }
 }
 
+const cleanerConfiguracion = {
+    limpiarListaDropdown(  yacimientosDB ) {
+        if ( yacimientosDB === undefined ||  yacimientosDB.length == 0)
+            return []
+        else 
+            return  yacimientosDB.map( cy => ({
+                ...cy,
+                "text" : cy.y_nombre,
+                "id" : cy.y_id_yacimiento_configuracion
+            }))
+    }
+}
+
 
 export {
     cleanerMineral, 
@@ -122,5 +135,6 @@ export {
     cleanerEmpleado,
     cleanerLugar,
     cleanerCargo,
-    cleanerYacimiento
+    cleanerYacimiento,
+    cleanerConfiguracion
 }

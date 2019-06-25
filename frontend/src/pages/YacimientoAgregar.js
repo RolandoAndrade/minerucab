@@ -28,7 +28,8 @@ export class YacimientoAgregar extends React.Component {
             lugar_id : 0 ,
             unidad_id : 0 ,
             lugar : "" ,
-            yacimiento_configuracion : "" 
+            yacimiento_configuracion : "",
+            unidad_id : 8 // KILOMETROS CUADRADOS
         },
         lugares : [],
         lugar : {
@@ -88,7 +89,9 @@ export class YacimientoAgregar extends React.Component {
       console.log(`----> localhost:4000/insertar/yacimiento`)
       return axios.post('http://127.0.0.1:4000/insertar/yacimiento',
           {
-              ...nuevo_yacimiento
+              ...nuevo_yacimiento,
+              lugar_id : this.state.lugar.parroquia_id,
+              y_extension : parseFloat(nuevo_yacimiento.y_extension)
           })
           .then( (res) => {
               if( res.status === 200) {

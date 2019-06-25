@@ -38,15 +38,15 @@ const daoYacimiento = {
 
     insertar({ y_nombre , y_extension , yacimiento_configuracion_id , tipo_yacimiento_id , lugar_id , unidad_id }){
         return psql.query(`
-            INSERT INTO PEDIDO (y_id_yacimiento , y_nombre , y_extension , yacimiento_configuracion_id , tipo_yacimiento_id , lugar_id , unidad_id)
+            INSERT INTO YACIMIENTO (y_id_yacimiento , y_nombre , y_extension , yacimiento_configuracion_id , tipo_yacimiento_id , lugar_id , unidad_id)
             VALUES (
                 DEFAULT,
-                y_nombre = ${y_nombre ? `'${y_nombre}'` : 'NULL' },
-                y_extension = ${y_extension ? `'${y_extension}'` : 'NULL' },
-                yacimiento_configuracion_id = ${yacimiento_configuracion_id ? yacimiento_configuracion_id : 'NULL' },
-                tipo_yacimiento_id = ${tipo_yacimiento_id ? tipo_yacimiento_id : 'NULL' },
-                lugar_id = ${lugar_id ? lugar_id : 'NULL' },
-                unidad_id = ${unidad_id ? unidad_id : 'NULL' }
+                ${y_nombre ? `'${y_nombre}'` : 'NULL' },
+                ${y_extension ? y_extension : 'NULL' },
+                ${yacimiento_configuracion_id ? yacimiento_configuracion_id : 'NULL' },
+                ${tipo_yacimiento_id ? tipo_yacimiento_id : 'NULL' },
+                ${lugar_id ? lugar_id : 'NULL' },
+                ${unidad_id ? unidad_id : 'NULL' }
             )
         `)
     },
@@ -55,7 +55,7 @@ const daoYacimiento = {
         return psql.query(`
             UPDATE PEDIDO SET 
                 y_nombre = ${y_nombre ? `'${y_nombre}'` : 'NULL' },
-                y_extension = ${y_extension ? `'${y_extension}'` : 'NULL' },
+                y_extension = ${y_extension ? y_extension : 'NULL' },
                 yacimiento_configuracion_id = ${yacimiento_configuracion_id ? yacimiento_configuracion_id : 'NULL' },
                 tipo_yacimiento_id = ${tipo_yacimiento_id ? tipo_yacimiento_id : 'NULL' },
                 lugar_id = ${lugar_id ? lugar_id : 'NULL' },

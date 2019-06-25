@@ -51,8 +51,6 @@ export class EmpleadoEditar extends React.Component {
     componentDidMount = () => {
         const id = Number.parseInt(this.props.location.pathname.split("/")[3] , 10)
 
-        // !!! OJO !!! FALTA QUERY PARA PEDIR CARGOS
-
         console.log(`----> localhost:4000/consultar/empleado`)
         axios.post('http://127.0.0.1:4000/consultar/empleado', 
             { e_id_empleado : id }

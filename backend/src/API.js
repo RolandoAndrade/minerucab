@@ -515,8 +515,24 @@ app.post('/consultar/estado', (req, res) => {
 });
 
 /* ****************************** YACIMIENTO ****************************** */
-app.get('/consultarLista/yacimiento', (req, res) => { 
-  res.send({x: "NO IMPLEMETADO"})
+import {daoYacimiento} from './DAOs/daoYacimiento'
+
+app.get('/consultarLista/yacimiento', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/yacimiento")
+
+  daoYacimiento.consultarTodos()
+    .then( ({rows}) => {
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
 });
 
 

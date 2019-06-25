@@ -4,7 +4,7 @@ const cleanerMineral = {
             return []
         else 
             return mineralesBD.map( (m) => ({
-                "m_id_mineral" : m.m_id_mineral.toString(10).padStart(4, '0'),
+                "m_id_mineral" : m.m_id_mineral && m.m_id_mineral.toString(10).padStart(4, '0'),
                 "m_nombre" : m.m_nombre,
                 "m_radioactivo" : m.m_radioactivo ? "Si" : "No" ,
                 "m_tipo" : m.m_tipo === "metal" ? "Si" : "No" ,
@@ -103,11 +103,24 @@ const cleanerCargo = {
     }
 }
 
+const cleanerYacimiento = {
+    limpiarLista(  yacimientosDB ) {
+        if ( yacimientosDB === undefined ||  yacimientosDB.length == 0)
+            return []
+        else 
+            return  yacimientosDB.map( y => ({
+                ...y,
+                "y_id_yacimiento" : y.y_id_yacimiento.toString(10).padStart(4, '0')
+            }))
+    }
+}
+
 
 export {
     cleanerMineral, 
     cleanerCliente, 
     cleanerEmpleado,
     cleanerLugar,
-    cleanerCargo
+    cleanerCargo,
+    cleanerYacimiento
 }

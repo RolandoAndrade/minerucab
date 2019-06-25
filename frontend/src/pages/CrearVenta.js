@@ -6,9 +6,11 @@ import {InputText} from "../components/InputText";
 import {Dropdown} from "../components/Dropdown";
 import {MenuDashBoard} from "../components/MenuDashBoard";
 import {GuardarCancelar} from "../components/GuardarCancelar";
-import {cleanerLugar, cleanerMineral} from "../utils/cleaner";
+import {cleanerCliente, cleanerLugar, cleanerMineral} from "../utils/cleaner";
+import {Loader} from "../components/Loader";
 
 const IVA = 1.16;
+const UNIDAD_ID=7;
 
 export class CrearVenta extends React.Component
 {
@@ -20,13 +22,21 @@ export class CrearVenta extends React.Component
             minerales: [{mineral_id: -1, cantidad: 0, precio: 0, presentacion_id: -1}],
             goSolicitud: false,
             listaMinerales: [],
+            listaClientes: [],
             total: 0,
-            subtotal: 0
+            subtotal: 0,
+            loading: false,
+            pedido_id:1
         }
+
     }
 
     componentDidMount = () => {
-
+        this.setState(
+            {
+                loading: true
+            }
+        )
         console.log(`----> localhost:4000/consultarLista/mineral`)
         axios.get('http://127.0.0.1:4000/consultarLista/mineral')
             .then( (res) => {
@@ -34,15 +44,56 @@ export class CrearVenta extends React.Component
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral`)
 
                 this.setState({
-                    listaMinerales: cleanerMineral.limpiarListaDropdown(res.data.rows)
+                    listaMinerales: cleanerMineral.limpiarListaDropdown(res.data.rows),
                 })
 
-            })
+            });
+        axios.get('http://127.0.0.1:4000/consultarLista/cliente')
+            .then( (res) => {
+                if(res.status === 200)
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/cliente`);
+
+                this.setState({
+                    listaClientes: cleanerCliente.limpiarListaDropdown(res.data.rows),
+                    loading: false
+                })
+                console.log(this.state)
+
+            });
+
     }
 
     handleGuardar = () =>
     {
-        console.log(`----> localhost:4000/insertar/empleado`)
+
+        console.log(`----> localhost:4000/insertar/pedido`);
+        return axios.post('http://127.0.0.1:4000/insertar/pedido',
+            {
+                cliente_id: this.state.cliente_id
+            }
+        ).then( (res) => {
+                if( res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/insertar/pedido`)
+                }
+                return res
+            }).catch( (err) => {
+            return err
+        })
+        /*console.log(new Date());
+        //then
+        console.log(`----> localhost:4000/insertar/pedi_prod`);
+        for (let i=0;i<this.state.minerales;i++)
+        {
+            let pedi_prod_data={
+                producto_id: this.state.minerales[i].presentacion_id,
+                pedido_id: this.state.pedido_id,
+                unidad_id: UNIDAD_ID,
+                p_cantidad: this.state.minerales[i].cantidad,
+                p_precio_unitario: this.state.minerales[i].precio
+            }
+            console.log(pedi_prod_data)
+        }
+
         /*
         return axios.post('http://127.0.0.1:4000/insertar/empleado',
             {
@@ -146,12 +197,7 @@ export class CrearVenta extends React.Component
                               retrieveData={this.handleChange}
                               styles={{width: "100%"}}
                               placeholder="Cliente..."
-                              options={[
-                                  {text:"Opción 1",id:1},
-                                  {text:"Opción 2",id:2},
-                                  {text:"Opción 3",id:3},
-                                  {text:"Opción 4",id:4},
-                                  {text:"Opción 5",id:5}]}/>
+                              options={this.state.listaClientes}/>
                     </div>
                     <div className="RowContainer Container-100p"/>
                     <div className="RowContainer Container-100p"/>
@@ -254,7 +300,7 @@ export class CrearVenta extends React.Component
                     decline={this.goSolicitud}
                 />
             </div>
-
+            {this.state.loading && <Loader/>}
         </div>
     )
 }

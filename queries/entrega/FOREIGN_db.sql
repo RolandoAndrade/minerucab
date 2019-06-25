@@ -40,12 +40,6 @@ ADD CONSTRAINT fk_etapa_configuracion_id FOREIGN KEY (etapa_configuracion_id) RE
 ALTER TABLE ETAPA_CONFIGURACION
 ADD CONSTRAINT fk_yacimiento_configuracion_id FOREIGN KEY (yacimiento_configuracion_id) REFERENCES YACIMIENTO_CONFIGURACION (y_id_yacimiento_configuracion);
 
-ALTER TABLE FACTURA_COMPRA
-ADD CONSTRAINT fk_solicitud_id FOREIGN KEY (solicitud_id) REFERENCES SOLICITUD (s_id_solicitud);
-
-ALTER TABLE FACTURA_VENTA
-ADD CONSTRAINT fk_pedido_id FOREIGN KEY (pedido_id) REFERENCES PEDIDO (p_id_pedido);
-
 ALTER TABLE FASE
 ADD CONSTRAINT fk_etapa_id FOREIGN KEY (etapa_id) REFERENCES ETAPA (e_id_etapa);
 

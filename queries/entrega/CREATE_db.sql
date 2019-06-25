@@ -1,7 +1,7 @@
 /* AQUI TODOS LOS CREATES DE LAS TABLAS EN ORDEN DE MODELO LOGICO */
 /* NO PONER LAS RESTRICCIONES DE FOREIGN AQUI, VAN EN EL ARCHIVO RELACIONES.sql */
 
-CREATE DATABASE MINERUCAB;
+CREATE DATABASE MINER_UCAB;
 
 CREATE TABLE ACCION (
     a_id_accion SERIAL,
@@ -70,6 +70,8 @@ CREATE TABLE COMPANIA (
     unidad_id INTEGER NOT NULL,
 
     CONSTRAINT check_c_capacidad_maxima_anual_positiva CHECK (c_capacidad_maxima_anual > 0),
+    CONSTRAINT check_c_fecha_apertura CHECK (c_fecha_apertura <= now()),
+    CONSTRAINT check_c_fecha_nacional CHECK ((c_fecha_nacional IS NULL) OR (c_fecha_nacional >= c_fecha_apertura) AND c_fecha_nacional <= now()),
     CONSTRAINT c_id_compania PRIMARY KEY (c_id_compania)
 );
 
@@ -108,6 +110,8 @@ CREATE TABLE EMPLEADO (
     estado_id INTEGER NOT NULL,
     
     CONSTRAINT check_e_genero CHECK (e_genero in ('m', 'f')),
+    CONSTRAINT check_e_fecha_ingreso CHECK (e_fecha_ingreso <= now()),
+    CONSTRAINT check_e_fecha_nacimiento CHECK (e_fecha_nacimiento + interval'18 years' <= e_fecha_ingreso),
     CONSTRAINT e_id_empleado PRIMARY KEY (e_id_empleado)
 );
 
@@ -133,6 +137,7 @@ CREATE TABLE ETAPA (
     proyecto_id INTEGER NOT NULL,
     etapa_configuracion_id INTEGER NOT NULL,
 
+    CONSTRAINT chec_e_fecha_inicio CHECK (e_fecha_inicio <= now()),
     CONSTRAINT e_id_etapa PRIMARY KEY (e_id_etapa)
 );
 
@@ -146,22 +151,6 @@ CREATE TABLE ETAPA_CONFIGURACION (
     CONSTRAINT check_e_tipo CHECK (e_tipo in ('explotacion', 'refinacion')),
     CONSTRAINT check_e_orden CHECK (e_orden > 0),
     CONSTRAINT e_id_etapa_configuracion PRIMARY KEY (e_id_etapa_configuracion)
-);
-
-CREATE TABLE FACTURA_COMPRA (
-    f_id_factura_compra SERIAL,
-    f_fecha_pago DATE NOT NULL,
-    solicitud_id INTEGER NOT NULL UNIQUE,
-
-    CONSTRAINT f_id_factura_compra PRIMARY KEY (f_id_factura_compra)
-);
-
-CREATE TABLE FACTURA_VENTA (
-    f_id_factura_venta SERIAL,
-    f_fecha_venta DATE NOT NULL,
-    pedido_id INTEGER NOT NULL,
-
-    CONSTRAINT f_id_factura_venta PRIMARY KEY (f_id_factura_venta)
 );
 
 CREATE TABLE FASE (
@@ -265,6 +254,7 @@ CREATE TABLE INVENTARIO (
     pedido_id INTEGER,
 
     CONSTRAINT check_i_cantidad CHECK (i_cantidad > 0),
+    CONSTRAINT check_i_fecha_modificacion CHECK (i_fecha_modificacion <= now()),
     CONSTRAINT i_id_inventario PRIMARY KEY (i_id_inventario)
 );
 
@@ -332,6 +322,7 @@ CREATE TABLE MINERAL (
     m_tipo VARCHAR(500) NOT NULL,
 
     CONSTRAINT check_m_tipo CHECK (m_tipo in ('metal', 'no metal')),
+    CONSTRAINT check_m_fecha_nacionalizacion CHECK (m_fecha_nacionalizacion <= now()),
     CONSTRAINT m_id_mineral PRIMARY KEY (m_id_mineral)
 );
 
@@ -341,6 +332,7 @@ CREATE TABLE PEDI_ESTA (
     estado_id INTEGER NOT NULL,
     pedido_id INTEGER NOT NULL,
 
+    CONSTRAINT check_p_fecha_modificacion CHECK (p_fecha_modificacion <= now()),
     CONSTRAINT p_id_pedi_esta PRIMARY KEY (p_id_pedi_esta)
 );
 
@@ -369,6 +361,7 @@ CREATE TABLE PEDI_TIPO (
     unidad_id INTEGER NOT NULL,
 
     CONSTRAINT check_p_monto CHECK (p_monto > 0),
+    CONSTRAINT check_p_fecha_pago CHECK (p_fecha_pago <= now()),
     CONSTRAINT p_id_pedi_tipo PRIMARY KEY (p_id_pedi_tipo)
 );
 
@@ -377,6 +370,7 @@ CREATE TABLE PEDIDO (
     p_fecha_solicitud DATE NOT NULL,
     cliente_id INTEGER NOT NULL,
 
+    CONSTRAINT check_p_fecha_solicitud CHECK (p_fecha_solicitud <= now()),
     CONSTRAINT p_id_pedido PRIMARY KEY (p_id_pedido)
 );
 
@@ -426,6 +420,7 @@ CREATE TABLE PROYECTO (
     yacimiento_id INTEGER NOT NULL,
     pedido_id INTEGER,
 
+    CONSTRAINT check_p_fecha_inicio CHECK (p_fecha_inicio <= now()),
     CONSTRAINT p_id_proyecto PRIMARY KEY (p_id_proyecto)
 );
 
@@ -463,9 +458,12 @@ CREATE TABLE SECTOR_USO (
 CREATE TABLE SOLICITUD(
     s_id_solicitud SERIAL,
     s_fecha_solicitud DATE NOT NULL,
+    s_fecha_pago DATE,
     proyecto_id INTEGER NOT NULL,
     estado_id INTEGER NOT NULL,
 
+    CONSTRAINT check_s_fecha_solicitud CHECK (s_fecha_solicitud <= now()),
+    CONSTRAINT check_s_fecha_pago CHECK (s_fecha_pago IS NULL OR  s_fecha_pago>= s_fecha_pago AND s_fecha_pago<= now()),
     CONSTRAINT s_id_solicitud PRIMARY KEY (s_id_solicitud)
 );
 

@@ -1547,59 +1547,59 @@ INSERT INTO SECTOR_USO (s_id_sector_uso, s_nombre, s_descripcion) VALUES (8, 'fa
 SELECT setval('sector_uso_s_id_sector_uso_seq', (SELECT MAX(s_id_sector_uso) from SECTOR_USO));
 
 /* INSERTS DE TABLA  MINERAL*/
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES (1, 'hierro', FALSE, '1975-01-04','El hierro o fierro​​ es un elemento químico de número atómico 26.',80,20,null,'metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES (2, 'bauxita', FALSE, null, 'La bauxita es una roca sedimentaria con un contenido de aluminio relativamente alto.', 40, 50, null, 'metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES (3, 'oro', FALSE, null, 'El oro es un elemento químico cuyo número atómico es 79.', 90, 70, null, 'metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES (4, 'carbón', FALSE, null, 'El carbón se origina por la descomposición de vegetales terrestres.', 30, 70, null, 'metal' );
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES (5, 'diamante', FALSE, null, ' El diamante es la segunda forma más estable de carbono, después del grafito', 100, 10, null, 'metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES (6, 'manganeso', FALSE, null, 'El manganeso es un elemento químico de número atómico 25 situado en el grupo 7.',50,40,null, 'metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES (7, 'níquel', FALSE,null,'Es un metal de transición de color blanco con un ligerísimo tono amarillo',60,60,null,'metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES (8, 'cobre', False,null,'Es un metal de transición de color rojizo y brillo metálico',55,32,null,'metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES (9, 'arena', FALSE, null, 'La arena es un conjunto de fragmentos sueltos de rocas o minerales de pequeño tamaño.',null,null,15,'no metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(10,'cal', FALSE, null, 'Se obtiene como resultado de la calcinación de las rocas calizas o dolomías.', null,null,20,'no metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(11,'caliza', FALSE, null, 'La caliza es una roca sedimentaria ', null,null,16,'no metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(12, 'granito', FALSE, null, 'El granito es una roca ígnea plutónica formada esencialmente por cuarzo', null,null,33,'no metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(13,'yeso', FALSE, null, 'También conocido como yeso cocido o yeso de París', null,null,18,'no metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(14,'arcilla', FALSE, null, 'Procedentes de la descomposición de rocas que contienen feldespato', null,null,7,'no metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(15, 'azufre', FALSE, null, 'Es un no metal abundante con un color amarillo característico', null,null,12,'no metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(16, 'baritina', FALSE, null, 'Es un mineral de la clase de los sulfatos y del tipo AXO4', null,null,25,'no metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(17,'bentonita', FALSE, null, 'La bentonita es una arcilla de grano muy fino ', null,null,32,'no metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(18, 'carbon antracita', FALSE, null, 'La antracita es el carbón mineral más metamórfico y el que presenta mayor contenido en carbono', null,null,43,'no metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(19, 'mica', FALSE, null, 'Son minerales pertenecientes a un grupo numeroso de silicatos de alúmina, hierro, calcio', null,null,20,'no metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(20, 'sal comun', FALSE, null, 'Es un compuesto químico con la fórmula NaCl', null,null,12,'no metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(21, 'talco', FALSE, null, 'Mineral de color blanco a gris azul', null,null,19,'no metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(22, 'silicio', FALSE, '1927-01-15', null, null,null,70,'no metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(23,'feldespato',FALSE,'1990-02-05','Es ua piedra de color oscuro',null,null,40,'no metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(24, 'Plomo', TRUE, null, null, 80, 80, null, 'metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(25, 'uranio', TRUE, null, null, null, null, 80, 'no metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(26, 'calcio', FALSE,null,null,null,null,25,'no metal');
-INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_decripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
+INSERT INTO MINERAL (m_id_mineral, m_nombre, m_radioactivo, m_fecha_nacionalizacion, m_descripcion, m_dureza, m_maleabilidad, m_viscosidad, m_tipo) 
 VALUES(27, 'aluminio', FALSE, '1892-11-11',null,24,15,null,'metal');
 SELECT setval('mineral_m_id_mineral_seq', (SELECT MAX(m_id_mineral) from MINERAL));
 

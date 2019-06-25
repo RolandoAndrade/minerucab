@@ -315,7 +315,7 @@ CREATE TABLE MINERAL (
     m_nombre VARCHAR(255) NOT NULL UNIQUE,
     m_radioactivo BOOLEAN NOT NULL DEFAULT FALSE,
     m_fecha_nacionalizacion DATE,
-    m_decripcion VARCHAR(255),
+    m_descripcion VARCHAR(255),
     m_dureza INTEGER,
     m_maleabilidad INTEGER,
     m_viscosidad INTEGER,

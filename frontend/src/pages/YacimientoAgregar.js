@@ -12,7 +12,7 @@ import {InputDate} from "../components/InputDate";
 import {GuardarCancelar} from "../components/GuardarCancelar";
 import {Dropdown} from "../components/Dropdown";
 
-import {cleanerLugar, cleanerConfiguracion} from "../utils/cleaner"
+import {cleanerLugar, cleanerConfiguracion, cleanerTipoYacimiento} from "../utils/cleaner"
 
 export class YacimientoAgregar extends React.Component {
   constructor(props){
@@ -59,6 +59,19 @@ export class YacimientoAgregar extends React.Component {
     
             this.setState({
                 configuraciones : res.data.rows
+            })
+    
+          })
+      })
+      .then( () => {
+        console.log(`----> localhost:4000/consultarLista/tipo_yacimiento`)
+        axios.get('http://127.0.0.1:4000/consultarLista/tipo_yacimiento')
+          .then( (res) => {
+            if(res.status === 200)
+              console.log(`<---- (OK 200) localhost:4000/consultarLista/tipo_yacimiento`)
+    
+            this.setState({
+                tipo_yacimientos : res.data.rows
             })
     
           })
@@ -164,6 +177,16 @@ export class YacimientoAgregar extends React.Component {
                             cleanerLugar.limpiarListaDropdown(
                                 this.state.lugares.filter( l => l.lugar_id === this.state.lugar.municipio_id)
                                 )
+                            }
+                        />
+                        <Dropdown id="CrearTipoYacimiento"
+                            name="tipo_yacimiento_id"
+                            retrieveData={this.handleChange}
+                            placeholder="Tipo Yacimiento ..."
+                            options={
+                                cleanerTipoYacimiento.limpiarListaDropdown(
+                                        this.state.tipo_yacimientos
+                                    )
                             }
                         />
                         <Dropdown id="CrearYacimientoConfiguracion"

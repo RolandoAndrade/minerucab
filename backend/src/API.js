@@ -687,6 +687,68 @@ app.post('/eliminar/yacimiento_configuracion', (req, res) => {
     })
 });
 
+/* ****************************** TIPO_YACIMIENTO ****************************** */
+import {daoTipoYacimiento} from './DAOs/daoTipoYacimiento'
+
+app.get('/consultarLista/tipo_yacimiento', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/tipo_yacimiento")
+
+  daoTipoYacimiento.consultarTodos()
+    .then( ({rows}) => {
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/consultar/tipo_yacimiento', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultar/tipo_yacimiento/${req.body.t_id_yacimiento}`)
+  daoTipoYacimiento.consultar(req.body.t_id_yacimiento)
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/eliminar/tipo_yacimiento', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/eliminar/tipo_yacimiento/${req.body.t_id_yacimiento}`)
+  daoTipoYacimiento.eliminar(req.body.t_id_yacimiento)
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
 
 
 /* ****************************** PEDIDO ****************************** */

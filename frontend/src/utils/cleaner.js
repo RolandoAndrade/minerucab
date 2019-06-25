@@ -116,14 +116,27 @@ const cleanerYacimiento = {
 }
 
 const cleanerConfiguracion = {
-    limpiarListaDropdown(  yacimientosDB ) {
-        if ( yacimientosDB === undefined ||  yacimientosDB.length == 0)
+    limpiarListaDropdown(  configuracioneDB ) {
+        if ( configuracioneDB === undefined ||  configuracioneDB.length == 0)
             return []
         else 
-            return  yacimientosDB.map( cy => ({
+            return  configuracioneDB.map( cy => ({
                 ...cy,
                 "text" : cy.y_nombre,
                 "id" : cy.y_id_yacimiento_configuracion
+            }))
+    }
+}
+
+const cleanerTipoYacimiento = {
+    limpiarListaDropdown(  tipoYacimientosDB ) {
+        if ( tipoYacimientosDB === undefined ||  tipoYacimientosDB.length == 0)
+            return []
+        else 
+            return  tipoYacimientosDB.map( ty => ({
+                ...ty,
+                "text" : ty.t_nombre,
+                "id" : ty.t_id_tipo_yacimiento
             }))
     }
 }
@@ -136,5 +149,6 @@ export {
     cleanerLugar,
     cleanerCargo,
     cleanerYacimiento,
-    cleanerConfiguracion
+    cleanerConfiguracion,
+    cleanerTipoYacimiento
 }

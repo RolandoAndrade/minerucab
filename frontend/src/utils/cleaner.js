@@ -4,7 +4,7 @@ const cleanerMineral = {
             return []
         else 
             return mineralesBD.map( (m) => ({
-                "m_id_mineral" : m.m_id_mineral.toString(10).padStart(4, '0'),
+                "m_id_mineral" : m.m_id_mineral && m.m_id_mineral.toString(10).padStart(4, '0'),
                 "m_nombre" : m.m_nombre,
                 "m_radioactivo" : m.m_radioactivo ? "Si" : "No" ,
                 "m_tipo" : m.m_tipo === "metal" ? "Si" : "No" ,
@@ -103,11 +103,52 @@ const cleanerCargo = {
     }
 }
 
+const cleanerYacimiento = {
+    limpiarLista(  yacimientosDB ) {
+        if ( yacimientosDB === undefined ||  yacimientosDB.length == 0)
+            return []
+        else 
+            return  yacimientosDB.map( y => ({
+                ...y,
+                "y_id_yacimiento" : y.y_id_yacimiento.toString(10).padStart(4, '0')
+            }))
+    }
+}
+
+const cleanerConfiguracion = {
+    limpiarListaDropdown(  configuracioneDB ) {
+        if ( configuracioneDB === undefined ||  configuracioneDB.length == 0)
+            return []
+        else 
+            return  configuracioneDB.map( cy => ({
+                ...cy,
+                "text" : cy.y_nombre,
+                "id" : cy.y_id_yacimiento_configuracion
+            }))
+    }
+}
+
+const cleanerTipoYacimiento = {
+    limpiarListaDropdown(  tipoYacimientosDB ) {
+        if ( tipoYacimientosDB === undefined ||  tipoYacimientosDB.length == 0)
+            return []
+        else 
+            return  tipoYacimientosDB.map( ty => ({
+                ...ty,
+                "text" : ty.t_nombre,
+                "id" : ty.t_id_tipo_yacimiento
+            }))
+    }
+}
+
 
 export {
     cleanerMineral, 
     cleanerCliente, 
     cleanerEmpleado,
     cleanerLugar,
-    cleanerCargo
+    cleanerCargo,
+    cleanerYacimiento,
+    cleanerConfiguracion,
+    cleanerTipoYacimiento
 }

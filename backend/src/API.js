@@ -1,4 +1,6 @@
 /* DEPENDENCIAS */
+import {daoPedido} from "./DAOs/daoPedido";
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -365,7 +367,7 @@ app.post('/modificar/empleado', (req, res) => {
     })
 });
 
-/* ****************************** YACIMIENTO ****************************** */
+/* ****************************** LUGAR ****************************** */
 import {daoLugar} from './DAOs/daoLugar'
 
 app.get('/consultarLista/lugar', (req, res) => {
@@ -428,12 +430,123 @@ app.post('/consultarLista/lugar/porTipo', (req, res) => {
     })
 });
 
+/* ****************************** CARGO ****************************** */
+import {daoCargo} from './DAOs/daoCargo'
+
+app.get('/consultarLista/cargo', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/cargo")
+
+  daoCargo.consultarTodos()
+    .then( ({rows}) => {
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/consultar/cargo', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultar/cargo/${req.body.c_id_cargo}`)
+  daoCargo.consultar(req.body.c_id_cargo)
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+/* ****************************** ESTADO ****************************** */
+import {daoEstado} from './DAOs/daoEstado'
+
+app.get('/consultarLista/estado', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/estado")
+
+  daoEstado.consultarTodos()
+    .then( ({rows}) => {
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/consultar/estado', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultar/estado/${req.body.e_id_estado}`)
+  daoEstado.consultar(req.body.e_id_estado)
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
 
 /* ****************************** YACIMIENTO ****************************** */
 app.get('/consultarLista/yacimiento', (req, res) => { 
   res.send({x: "NO IMPLEMETADO"})
 });
 
+
+
+/* ****************************** PEDIDO ****************************** */
+
+app.post('/insertar/pedido', (req, res) => {
+
+  console.log("\n\n");
+  console.log(`----------------------> ${getAhora()}`);
+  console.log(`/insertar/pedido/`);
+  req.body.p_fecha_solicitud=getAhora();
+  console.log(req.body);
+
+
+  daoPedido.insertar( req.body )
+      .then( (bd_response) => {
+        console.log(`STATUS OK : 200`)
+
+        res.status(200).json({"rowCount" : bd_response.rowCount})
+
+      })
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+        res.status(500).json(bd_err)
+
+      })
+});
 
 /* ****************************** LEVANTAR API ****************************** */
 app.listen(port, () => {

@@ -11,6 +11,16 @@ const cleanerMineral = {
                 "m_fecha_nacionalizacion" : m.m_fecha_nacionalizacion ? m.m_fecha_nacionalizacion.split('T')[0] : "No",
                 "m_descripcion" : m.m_descripcion
             }))
+    },
+    limpiarListaDropdown(mineralesDB)
+    {
+        if (mineralesDB === undefined || mineralesDB.length == 0)
+            return []
+        else
+            return mineralesDB.map( m => ({
+                "id" : m.m_id_mineral,
+                "text": m.m_nombre
+            }))
     }
 }
 
@@ -26,6 +36,16 @@ const cleanerCliente = {
                 "c_telefono" : c.c_telefono || "No posee",
                 "lugar_id" : c.lugar_id,
                 "lugar" : c.lugar
+            }))
+    },
+    limpiarListaDropdown(clientesBD)
+    {
+        if (clientesBD === undefined || clientesBD.length == 0)
+            return []
+        else
+            return clientesBD.map( m => ({
+                "id" : m.c_id_cliente,
+                "text": m.c_nombre
             }))
     }
 }
@@ -45,6 +65,7 @@ const cleanerEmpleado = {
                 "e_telefono" : e.e_telefono, 
                 "e_fecha_nacimiento" : e.e_fecha_nacimiento ? e.e_fecha_nacimiento.split('T')[0] : "No",
                 "e_fecha_ingreso" : e.e_fecha_ingreso ? e.e_fecha_ingreso.split('T')[0] : "No",
+                "e_genero" : e.e_genero === "m" ? "Hombre" : "Mujer",
                 "cargo_id" : e.cargo_id, 
                 "lugar_id" : e.lugar_id, 
                 "estado_id" : e.estado_id,
@@ -69,10 +90,24 @@ const cleanerLugar = {
     }
 }
 
+const cleanerCargo = {
+    limpiarListaDropdown( cargosBD ) {
+        if (cargosBD === undefined || cargosBD.length == 0)
+            return []
+        else 
+            return cargosBD.map( c => ({
+                ...c,
+                "id" : c.c_id_cargo,
+                "text": c.c_nombre
+            }))
+    }
+}
+
 
 export {
     cleanerMineral, 
     cleanerCliente, 
     cleanerEmpleado,
-    cleanerLugar
+    cleanerLugar,
+    cleanerCargo
 }

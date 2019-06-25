@@ -16,7 +16,7 @@ export class Empleado extends React.Component {
       empleados : [],
       textoBuscardor : "",
       consultarEmpleado : null,
-      agregarPresionado : null
+      agregarPresionado : null,
     }
   }
 
@@ -133,21 +133,28 @@ export class Empleado extends React.Component {
                   },
                 },
                 { 
-                    title: 'Cargo', field: 'cargo_id', type:'string', headerStyle:{ textAlign : "center"},
+                  title: 'Género', field: 'e_genero', type: 'string', headerStyle:{ textAlign : "center"},
+                  cellStyle : {
+                    fontSize : "large",
+                    textAlign : "center"
+                  },
+                },
+                { 
+                    title: 'Cargo', field: 'cargo', type:'string', headerStyle:{ textAlign : "center"},
                     cellStyle : {
                         fontSize : "large",
                         textAlign: "center"
                     },
                 },
                 { 
-                  title: 'Dirección', field: 'lugar_id', type:'string', headerStyle:{ textAlign : "center"},
+                  title: 'Dirección', field: 'lugar', type:'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign: "center"
                   },
                 },
                 { 
-                    title: 'Estado', field: 'estado_id', type:'string', headerStyle:{ textAlign : "center"},
+                    title: 'Estado Actual', field: 'estado', type:'string', headerStyle:{ textAlign : "center"},
                     cellStyle : {
                         fontSize : "large",
                         textAlign: "center"
@@ -225,6 +232,10 @@ export class Empleado extends React.Component {
                 <span> : {this.state.consultarEmpleado.e_telefono}</span>
               </p>
               <p>
+                <span className="mc-atributo">Género</span>
+                <span> : {this.state.consultarEmpleado.e_genero === "m" ? "Hombre" : "Mujer"}</span>
+              </p>
+              <p>
                 <span className="mc-atributo">Fecha Nacimiento</span>
                 <span> : {this.state.consultarEmpleado.e_fecha_nacimiento.split('T')[0]}</span>
               </p>
@@ -234,15 +245,15 @@ export class Empleado extends React.Component {
               </p>
               <p>
                 <span className="mc-atributo">Cargo</span>
-                <span> : {this.state.consultarEmpleado.cargo_id}</span>
+                <span> : {this.state.consultarEmpleado.cargo}</span>
               </p>
               <p>
                 <span className="mc-atributo">Dirección</span>
-                <span> : {this.state.consultarEmpleado.lugar_id}</span>
+                <span> : {this.state.consultarEmpleado.lugar}</span>
               </p>
               <p>
-                <span className="mc-atributo">Estado</span>
-                <span> : {this.state.consultarEmpleado.estado_id}</span>
+                <span className="mc-atributo">Estado Actual</span>
+                <span> : {this.state.consultarEmpleado.estado}</span>
               </p>
              
             </Modal.Body>

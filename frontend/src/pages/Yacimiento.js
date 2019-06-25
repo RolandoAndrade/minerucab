@@ -204,6 +204,27 @@ export class Yacimiento extends React.Component {
                 <span className="mc-atributo">ID</span>
                 <span> : {this.state.consultarYacimiento.y_id_yacimiento.toString(10).padStart(4, '0')}</span>
               </p>
+              <p>
+                <span className="mc-atributo">Nombre</span>
+                <span> : {this.state.consultarYacimiento.y_nombre}</span>
+              </p>
+              <p>
+                <span className="mc-atributo">Extensión (km2)</span>
+                <span> : {this.state.consultarYacimiento.y_extension}</span>
+              </p>
+              <p>
+                <span className="mc-atributo">Configuración</span>
+                <span> : {this.state.consultarYacimiento.yacimiento_configuracion}</span>
+              </p>
+              <p>
+                <span className="mc-atributo">Tipo de Yacimiento</span>
+                <span> : {this.state.consultarYacimiento.tipo_yacimiento || "No definido."}</span>
+              </p>
+              <p>
+                <span className="mc-atributo">Dirección</span>
+                <span> : {this.state.consultarYacimiento.lugar}</span>
+              </p>
+
             </Modal.Body>
             
             <Modal.Footer className="mc-footer">

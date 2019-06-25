@@ -2,7 +2,6 @@ import {psql} from '../postgreConnection'
 
 const daoYacimiento = {
     consultarTodos() {
-        // RETORNA UNA PROMESA
         return psql.query(`
             SELECT
                 Y.y_id_yacimiento,
@@ -37,13 +36,33 @@ const daoYacimiento = {
         `)
     },
 
-    insertar({ p_fecha_solicitud, cliente_id }){
+    insertar({ y_nombre , y_extension , yacimiento_configuracion_id , tipo_yacimiento_id , lugar_id , unidad_id }){
         return psql.query(`
-            INSERT INTO PEDIDO (p_id_pedido, p_fecha_solicitud, cliente_id)
-            VALUES (DEFAULT,
-                    ${p_fecha_solicitud ? `'${p_fecha_solicitud}'` : 'NULL'},
-                    ${cliente_id ? `'${cliente_id}'` : 'NULL'})`)
+            INSERT INTO PEDIDO (y_id_yacimiento , y_nombre , y_extension , yacimiento_configuracion_id , tipo_yacimiento_id , lugar_id , unidad_id)
+            VALUES (
+                DEFAULT,
+                y_nombre = ${y_nombre ? `'${y_nombre}'` : 'NULL' },
+                y_extension = ${y_extension ? `'${y_extension}'` : 'NULL' },
+                yacimiento_configuracion_id = ${yacimiento_configuracion_id ? yacimiento_configuracion_id : 'NULL' },
+                tipo_yacimiento_id = ${tipo_yacimiento_id ? tipo_yacimiento_id : 'NULL' },
+                lugar_id = ${lugar_id ? lugar_id : 'NULL' },
+                unidad_id = ${unidad_id ? unidad_id : 'NULL' }
+            )
+        `)
+    },
 
+    modificar({ y_id_yacimiento, y_nombre , y_extension , yacimiento_configuracion_id , tipo_yacimiento_id , lugar_id , unidad_id }){
+        return psql.query(`
+            UPDATE PEDIDO SET 
+                y_nombre = ${y_nombre ? `'${y_nombre}'` : 'NULL' },
+                y_extension = ${y_extension ? `'${y_extension}'` : 'NULL' },
+                yacimiento_configuracion_id = ${yacimiento_configuracion_id ? yacimiento_configuracion_id : 'NULL' },
+                tipo_yacimiento_id = ${tipo_yacimiento_id ? tipo_yacimiento_id : 'NULL' },
+                lugar_id = ${lugar_id ? lugar_id : 'NULL' },
+                unidad_id = ${unidad_id ? unidad_id : 'NULL' }
+                WHERE y_id_yacimiento = ${y_id_yacimiento}
+            )
+        `)
     }
 
 }

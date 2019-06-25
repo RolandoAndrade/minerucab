@@ -96,7 +96,7 @@ export class Yacimiento extends React.Component {
     
   render = () => (
     <div>
-        <MenuDashBoard title={"Yacimiento"}/>
+        <MenuDashBoard title={"Yacimientos"}/>
 
         <div className="ConsultarLista">
           { this.state.yacimientos &&

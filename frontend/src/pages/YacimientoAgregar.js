@@ -90,7 +90,8 @@ export class YacimientoAgregar extends React.Component {
           {
               ...nuevo_yacimiento,
               lugar_id : this.state.lugar.parroquia_id,
-              y_extension : parseFloat(nuevo_yacimiento.y_extension)
+              y_extension : parseFloat(nuevo_yacimiento.y_extension),
+              tipo_yacimiento_id : nuevo_yacimiento.tipo_yacimiento_id !== -1 ? nuevo_yacimiento.tipo_yacimiento_id : 0
           })
           .then( (res) => {
               if( res.status === 200) {

@@ -25,6 +25,7 @@ export class YacimientoEditar extends React.Component {
             y_extension : 0 ,
             yacimiento_configuracion_id : 0 ,
             tipo_yacimiento_id : 0 ,
+            tipo_yacimiento : "notYet",
             lugar_id : 0 ,
             lugar : "" ,
             yacimiento_configuracion : "",
@@ -135,7 +136,8 @@ export class YacimientoEditar extends React.Component {
           {
               ...nuevo_yacimiento,
               lugar_id : this.state.lugar.parroquia_id,
-              y_extension : parseFloat(nuevo_yacimiento.y_extension)
+              y_extension : parseFloat(nuevo_yacimiento.y_extension),
+              tipo_yacimiento_id : nuevo_yacimiento.tipo_yacimiento_id !== -1 ? nuevo_yacimiento.tipo_yacimiento_id : 0
           })
           .then( (res) => {
               if( res.status === 200) {
@@ -240,7 +242,7 @@ export class YacimientoEditar extends React.Component {
                             }
                             disabled={this.state.nuevo_yacimiento.no_modificable}
                         />}
-                        { this.state.nuevo_yacimiento.tipo_yacimiento &&
+                        { this.state.nuevo_yacimiento.tipo_yacimiento !== "notYet" &&
                         <Dropdown id="CrearTipoYacimiento"
                             name="tipo_yacimiento_id"
                             retrieveData={this.handleChange}

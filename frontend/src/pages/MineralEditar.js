@@ -26,6 +26,7 @@ export class MineralEditar extends React.Component {
             m_descripcion : ""
         },
         compuestos : [],
+        posiblesCompuestos : [],
         por_componer : null,
         porcentaje : "",
         openComponer : null,
@@ -65,6 +66,37 @@ export class MineralEditar extends React.Component {
                 },
                 compuestos : []
             })
+
+            return mineral
+      })
+      .then( (mineral) => {
+            console.log(`----> localhost:4000/consultarLista/mineral/hijos`)
+            axios.post('http://127.0.0.1:4000/consultarLista/mineral/hijos',
+                { m_id_mineral : mineral.m_id_mineral }
+            )
+            .then( (res) => {
+                if(res.status === 200)
+                console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral/hijos`)
+        
+                this.setState({
+                    compuestos : res.data.rows
+                })
+            })
+            return mineral
+      })
+      .then( (mineral) => {
+        console.log(`----> localhost:4000/consultarLista/mineral/posiblesHijos`)
+        axios.post('http://127.0.0.1:4000/consultarLista/mineral/posiblesHijos',
+            { m_id_mineral : mineral.m_id_mineral }
+        )
+        .then( (res) => {
+            if(res.status === 200)
+            console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral/posiblesHijos`)
+    
+            this.setState({
+                posiblesCompuestos : res.data.rows
+            })
+        })
       })
   }
 
@@ -74,78 +106,52 @@ export class MineralEditar extends React.Component {
     })
   }
 
-  handleOpenModal1 = () => {
+  handleOpenModal = () => {
     this.setState({
         openComponer : true
     })
   }
 
-  handleCloseModal1 = () => {
+  handleCloseModal = () => {
     this.setState({
         openComponer: null
     })
   }
   
-  handleOpenModal2 = (idCompuesto) => {
-    this.handleCloseModal1()
-    this.setState({
-        por_componer : this.state.minerales.find( m => m.m_id_mineral === idCompuesto)
-    })
-  }
-  
-  handleOkComponer = () => {
-    console.log(`handleOkComponer( ${this.state.por_componer.m_id_mineral} )`)
-    const porcentaje = this.state.porcentaje
+  handleOkComponer = (idCompuesto) => {
+    this.handleCloseModal()
 
-    // !!! OJO !!! REVISAR MAXIMO PORCENTAJE
-    
-    if (porcentaje > 0 && porcentaje < 100)
-        this.setState( (prev) => ({
-            compuestos : [...prev.compuestos , { ...prev.por_componer, porcentaje } ],
-            por_componer : null,
-            porcentaje : 0
-        }))
-    this.handleCloseModal2()
-  }
-
-  handlePorcentaje = ({target}) => {
-    const porcentaje = /^[0-9][0-9 , .]*/.test(target.value) ? target.value : null
-    if (porcentaje) 
-        this.setState({
-            porcentaje
-        })
-  }
-
-  handleCloseModal2 = () => {
-    this.setState({
-        por_componer: null
-    })
+    this.setState( (prev) => ({
+        compuestos : [
+            ...prev.compuestos,
+            { ...this.state.minerales.find( m => m.m_id_mineral === idCompuesto) }
+        ],
+        modificado : true
+    }))
   }
 
   handleDescomponer = (idDescomponer) => {
     const compuestosNuevo = this.state.compuestos.filter( (c) => c.m_id_mineral !== idDescomponer )
     this.setState({
-        compuestos : compuestosNuevo 
+        compuestos : compuestosNuevo,
+        modificado : true
     })
   }
 
   handleGuardar = () => {
-    const nuevo_mineral = { 
+    const nuevo_mineral = {
         ...this.state.nuevo_mineral,
-        compuestos: this.state.compuestos
-    }
-
-    // !!! OJO !!! FALTA AGREGAR MINERALES COMPUESTOS
+        compuestos: this.state.compuestos.map( c => ({
+            "m_id_mineral" : c.m_id_mineral,
+            "m_nombre" : c.m_nombre
+          })),
+        modificado : this.state.modificado
+    };
 
     console.log(`----> localhost:4000/modificar/mineral/${nuevo_mineral.m_id_mineral}`)
     return axios.post('http://127.0.0.1:4000/modificar/mineral', 
         {
-            "m_id_mineral" : nuevo_mineral.m_id_mineral,
-            "m_nombre" : nuevo_mineral.m_nombre,
-            "m_tipo" : nuevo_mineral.m_tipo,
-            "m_radioactivo" : nuevo_mineral.m_radioactivo, 
-            "m_fecha_nacionalizacion" : nuevo_mineral.m_fecha_nacionalizacion,
-            "m_descripcion" : nuevo_mineral.m_descripcion
+            ...nuevo_mineral
         })
         .then( (res) => {
             if( res.status === 200) {
@@ -268,7 +274,7 @@ export class MineralEditar extends React.Component {
                             <img 
                                 src="../resources/icons/Agregar.png"
                                 width="25px"
-                                onClick={this.handleOpenModal1}
+                                onClick={this.handleOpenModal}
                                 className="IconoAgregar"
                             />
                     </div>
@@ -283,10 +289,11 @@ export class MineralEditar extends React.Component {
 
             {this.state.goMineral && <Redirect push to="/mineral" /> }
 
+            {this.state.compuestos &&
             <Modal 
                 size="lg"
                 show={this.state.openComponer} 
-                onHide={this.handleCloseModal1}
+                onHide={this.handleCloseModal}
                 centered
                 scrollable
                 dialogClassName="ModalConsultar"
@@ -336,7 +343,11 @@ export class MineralEditar extends React.Component {
                             },
                             }
                         ]}
-                        data={ cleanerMineral.limpiarLista( this.state.minerales ) }
+                        data={cleanerMineral.limpiarLista( 
+                                this.state.posiblesCompuestos.filter( 
+                                    pc => !this.state.compuestos.find( c => c.m_id_mineral === pc.m_id_mineral)
+                                )
+                            )}
                         title={null}
                         
                         options={{
@@ -348,7 +359,7 @@ export class MineralEditar extends React.Component {
                             searchFieldAlignment: "left"
                         }}
 
-                        onRowClick={(event, rowData) => this.handleOpenModal2( Number.parseInt(rowData.m_id_mineral, 10) )}
+                        onRowClick={(event, rowData) => this.handleOkComponer( Number.parseInt(rowData.m_id_mineral, 10) )}
                         localization={{
                             toolbar : {
                                 searchPlaceholder : "Buscar ..."
@@ -363,37 +374,8 @@ export class MineralEditar extends React.Component {
                     </Button>
 
                 </Modal.Footer>
-            </Modal>
+            </Modal>}
 
-            <Modal 
-                size="lg"
-                show={!!this.state.por_componer} 
-                onHide={this.handleCloseModal2}
-                centered
-            >
-                <Modal.Header closeButton className="mc-header">
-                    <div></div>
-                    <h1 style={{textAlign:"center"}}>Porcentaje de {!!this.state.por_componer && this.state.por_componer.m_nombre}</h1>
-                </Modal.Header>
-
-                <Modal.Body className="mc-body"> 
-                    <input 
-                        type="number"
-                        value={this.state.porcentaje}
-                        onChange={this.handlePorcentaje}
-                    />
-                </Modal.Body>
-                
-                <Modal.Footer className="mc-footer">
-                    <Button variant="secondary" className="mc-boton" onClick={this.handleCloseModal2}>
-                        Cancelar
-                    </Button>
-                    <Button variant="primary" className="mc-boton" onClick={this.handleOkComponer}>
-                        Aceptar
-                    </Button>
-
-                </Modal.Footer>
-            </Modal>
         
       </div>
     </div>  

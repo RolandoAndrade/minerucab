@@ -16,7 +16,8 @@ export class Mineral extends React.Component {
       minerales : [],
       textoBuscardor : "",
       consultarMineral : null,
-      agregarPresionado : null
+      agregarPresionado : null,
+      compuestos : []
     }
   }
 
@@ -46,9 +47,22 @@ export class Mineral extends React.Component {
     console.log(`consultarMineral(${id})`)
     const consultarMineral = this.state.minerales.find( m => m.m_id_mineral == id)
 
-    this.setState({
-      consultarMineral
-    })
+
+    console.log(`----> localhost:4000/consultarLista/mineral/hijos`)
+    axios.post('http://127.0.0.1:4000/consultarLista/mineral/hijos',
+      { m_id_mineral : consultarMineral.m_id_mineral }
+    )
+      .then( (res) => {
+        if(res.status === 200)
+          console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral/hijos`)
+
+          this.setState({
+            compuestos : res.data.rows,
+            consultarMineral : consultarMineral
+          })
+
+      })
+    
   }
 
   handleModificar = () => {
@@ -91,7 +105,8 @@ export class Mineral extends React.Component {
 
   handleCloseModal = () => {
     this.setState({
-      consultarMineral: null
+      consultarMineral: null,
+      compuestos : []
     })
   }
     
@@ -231,9 +246,9 @@ export class Mineral extends React.Component {
                 <p className="mc-multivalor">El mineral no se ha registrado en ningún yacimiento.</p>
               }
               <p><span className="mc-atributo">Compuesto de</span><span> :</span></p>
-              { this.state.consultarMineral.compuestos ?
-                this.state.consultarMineral.compuestos.map( (compuesto, i) => (
-                  <p className="mc-multivalor" key={i}>- {compuesto.nombre}</p>
+              { this.state.compuestos.length !== 0 ?
+                this.state.compuestos.map( (compuesto, i) => (
+                  <p className="mc-multivalor" key={i}>- {compuesto.m_nombre}</p>
                 )) :
                 <p className="mc-multivalor">El mineral no esta compuesto de otros minerales.</p>
               }

@@ -49,10 +49,28 @@ const daoMineral = {
         `)
     },
 
+    consultarHijos({ m_id_mineral }){
+        return psql.query(`
+            SELECT M.m_nombre, M.m_id_mineral
+            FROM MINERAL M, MINE_MINE MM
+            WHERE	M.m_id_mineral = MM.mineral_id_compone AND
+                    MM.mineral_id_compuesto = ${m_id_mineral}
+        `)
+    },
 
-    // EN CASO DE HABER MAS METODOS
-    insertarCompuesto( padre, hijo ){
-        // POR EJEMPLO
+    consultarPosiblesHijos({ m_id_mineral }){
+        // TODOS LOS MINERALES MENOS EL MISMO Y SUS PADRES
+        return psql.query(`
+            SELECT M.m_nombre, M.m_id_mineral
+            FROM MINERAL M
+            WHERE M.m_id_mineral != ${m_id_mineral} AND
+                M.m_id_mineral NOT IN( 
+                    SELECT M.m_id_mineral
+                    FROM MINERAL M, MINE_MINE MM
+                    WHERE	M.m_id_mineral = MM.mineral_id_compuesto AND
+                            MM.mineral_id_compone = ${m_id_mineral}
+                )
+        `)
     }
 }
 

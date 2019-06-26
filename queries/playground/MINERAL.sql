@@ -1,13 +1,32 @@
-﻿CREATE TABLE MINERAL (
-	m_id_mineral 	SERIAL,
-	m_nombre	VARCHAR(30) NOT NULL,
-	/* !!! OJO !!! REVISAR SUPERCLASE QUE LA PROF QUERIA PARA METALICOS */
-	m_tipo	VARCHAR(15),
-	m_radioactivo	VARCHAR(5),
-	m_fecha_nacionalizacion	DATE,
-	m_descripcion	VARCHAR(255),
+﻿/* PADRES DE UN MINERAL X
+	X hijo de A
+	X hijo de B
+	quiero A y B
+*/
+SELECT M.m_nombre, M.m_id_mineral
+FROM MINERAL M, MINE_MINE MM
+WHERE	M.m_id_mineral = MM.mineral_id_compuesto AND
+		MM.mineral_id_compone = 19
 
-	CONSTRAINT m_id_mineral PRIMARY KEY (m_id_mineral)
-);
+/* TODOS LOS HIJOS DE UN MINERAL W
+	W padre de A
+	W padre de B
+	quiero A y B
+*/
+SELECT M.m_nombre, M.m_id_mineral
+FROM MINERAL M, MINE_MINE MM
+WHERE	M.m_id_mineral = MM.mineral_id_compone AND
+		MM.mineral_id_compuesto = 12
 
-SELECT * FROM MINERAL;
+/* TODOS LOS MINERALES MENOS UNO ESPECIFICO Y SUS PADRES */
+SELECT M.m_nombre, M.m_id_mineral
+FROM MINERAL M
+WHERE M.m_id_mineral != 19 AND
+	M.m_id_mineral NOT IN( 
+		SELECT M.m_id_mineral
+		FROM MINERAL M, MINE_MINE MM
+		WHERE	M.m_id_mineral = MM.mineral_id_compuesto AND
+				MM.mineral_id_compone = 19
+	)
+
+SELECT * FROM UNIDAD

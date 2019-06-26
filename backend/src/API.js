@@ -147,6 +147,54 @@ app.post('/modificar/mineral', (req, res) => {
     })
 });
 
+app.post('/consultarLista/mineral/hijos', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultarLista/mineral/hijos/${req.body.m_id_mineral}`)
+  console.log(req.body)
+
+
+  daoMineral.consultarHijos( req.body )
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/consultarLista/mineral/padres', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultarLista/mineral/padres/${req.body.m_id_mineral}`)
+  console.log(req.body)
+
+
+  daoMineral.consultarPadres( req.body )
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
 /* ****************************** CLIENTE ****************************** */
 import {daoCliente} from './DAOs/daoCliente'
 

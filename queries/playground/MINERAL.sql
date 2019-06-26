@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 ﻿select distinct e_tipo from etapa_configuracion;
-=======
 ﻿/* PADRES DE UN MINERAL X
 	X hijo de A
 	X hijo de B
@@ -33,4 +31,3 @@ WHERE M.m_id_mineral != 19 AND
 	);
 
 SELECT * FROM UNIDAD;
->>>>>>> develop

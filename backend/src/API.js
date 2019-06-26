@@ -882,6 +882,47 @@ app.post('/eliminar/tipo_yacimiento', (req, res) => {
     })
 });
 
+/* ****************************** YACIMIENTO ****************************** */
+import {daoProyecto} from './DAOs/daoProyecto'
+
+app.get('/consultarLista/proyecto', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/proyecto")
+
+  daoProyecto.consultarTodos()
+    .then( ({rows}) => {
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/consultar/proyecto', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultar/proyecto/${req.body.p_id_proyecto}`)
+  daoProyecto.consultar(req.body.p_id_proyecto)
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
 
 /* ****************************** PEDIDO ****************************** */
 

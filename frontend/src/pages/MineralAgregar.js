@@ -54,54 +54,30 @@ export class MineralAgregar extends React.Component {
     })
   }
 
-  handleOpenModal1 = () => {
+  handleOpenModal = () => {
     this.setState({
         openComponer : true
     })
   }
 
-  handleCloseModal1 = () => {
+  handleCloseModal = () => {
     this.setState({
         openComponer: null
     })
   }
   
-  handleOpenModal2 = (idCompuesto) => {
-    this.handleCloseModal1()
-    this.setState({
-        por_componer : this.state.minerales.find( m => m.m_id_mineral === idCompuesto)
-    })
+  handleComponer = (idCompuesto) => {
+    this.handleCloseModal()
+
+    this.setState( (prev) => ({
+        compuestos : [
+            ...prev.compuestos,
+            { ...this.state.minerales.find( m => m.m_id_mineral === idCompuesto) }
+        ]
+    }))
+    
   }
   
-  handleOkComponer = () => {
-    console.log(`handleOkComponer( ${this.state.por_componer.m_id_mineral} )`)
-    const porcentaje = this.state.porcentaje
-
-    // !!! OJO !!! REVISAR MAXIMO PORCENTAJE    
-    
-    if (porcentaje > 0 && porcentaje < 100)
-        this.setState( (prev) => ({
-            compuestos : [...prev.compuestos , { ...prev.por_componer, porcentaje } ],
-            por_componer : null,
-            porcentaje : 0
-        }))
-    this.handleCloseModal2()
-  }
-
-  handlePorcentaje = ({target}) => {
-    const porcentaje = /^[0-9][0-9 , .]*/.test(target.value) ? target.value : null
-    if (porcentaje) 
-        this.setState({
-            porcentaje
-        })
-  }
-
-  handleCloseModal2 = () => {
-    this.setState({
-        por_componer: null
-    })
-  }
-
   handleDescomponer = (idDescomponer) => {
     const compuestosNuevo = this.state.compuestos.filter( (c) => c.m_id_mineral !== idDescomponer )
     this.setState({
@@ -114,19 +90,16 @@ export class MineralAgregar extends React.Component {
   {
       const nuevo_mineral = {
           ...this.state.nuevo_mineral,
-          compuestos: this.state.compuestos
+          compuestos: this.state.compuestos.map( c => ({
+              "m_id_mineral" : c.m_id_mineral,
+              "m_nombre" : c.m_nombre
+            }))
       };
-
-      // !!! OJO !!! FALTA AGREGAR MINERALES COMPUESTOS
 
       console.log(`----> localhost:4000/insertar/mineral`)
       return axios.post('http://127.0.0.1:4000/insertar/mineral',
           {
-              "m_nombre" : nuevo_mineral.m_nombre,
-              "m_tipo" : nuevo_mineral.m_tipo,
-              "m_radioactivo" : nuevo_mineral.m_radioactivo,
-              "m_fecha_nacionalizacion" : nuevo_mineral.m_fecha_nacionalizacion,
-              "m_descripcion" : nuevo_mineral.m_descripcion
+              ...nuevo_mineral
           })
           .then( (res) => {
               if( res.status === 200) {
@@ -249,7 +222,7 @@ export class MineralAgregar extends React.Component {
                     <img
                         src="../resources/icons/Agregar.png"
                         width="25px"
-                        onClick={this.handleOpenModal1}
+                        onClick={this.handleOpenModal}
                         className="IconoAgregar"
                     />
                 </div>
@@ -279,7 +252,7 @@ export class MineralAgregar extends React.Component {
             <Modal 
                 size="lg"
                 show={this.state.openComponer} 
-                onHide={this.handleCloseModal1}
+                onHide={this.handleCloseModal}
                 centered
                 scrollable
                 dialogClassName="ModalConsultar"
@@ -341,7 +314,7 @@ export class MineralAgregar extends React.Component {
                             searchFieldAlignment: "left"
                         }}
 
-                        onRowClick={(event, rowData) => this.handleOpenModal2( Number.parseInt(rowData.m_id_mineral, 10))}
+                        onRowClick={(event, rowData) => this.handleComponer( Number.parseInt(rowData.m_id_mineral, 10))}
                         localization={{
                             toolbar : {
                                 searchPlaceholder : "Buscar ..."

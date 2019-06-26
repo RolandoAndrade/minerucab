@@ -2384,7 +2384,7 @@ INSERT INTO ETAPA_CONFIGURACION (e_id_etapa_configuracion,yacimiento_configuraci
 SELECT setval('etapa_configuracion_e_id_etapa_configuracion_seq', (SELECT MAX(e_id_etapa_configuracion) from ETAPA_CONFIGURACION));
 
 /* INSERTS DE TABLA  FASE_CONFIGURACION*/
-INSERT INTO FASE_CONFIGURACION (f_id_fase_configuracion,etapa_configuracion_id,f_orden,f_duracion,unidad_id,f_nombre,f_descripción) VALUES
+INSERT INTO FASE_CONFIGURACION (f_id_fase_configuracion,etapa_configuracion_id,f_orden,f_duracion,unidad_id,f_nombre,f_descripcion) VALUES
 (1,1,1,2,4,'Recopilacion y analisis de información',' Búsqueda de informes geológicos, Recopilación de planos topográfico y geológicos, Ubicación de fotografías aéreas'),
 (2,1,2,2,4,'Reconocimiento geologico preliminar','Destapes,trincheras y muestreo preliminar, evaluación e informe'),
 (3,2,1,3,4,'Restitución topográfica','Contrucción de planos topográficos'),

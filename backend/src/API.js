@@ -109,10 +109,8 @@ app.post('/insertar/mineral', (req, res) => {
 
   daoMineral.insertar( req.body )
     .then( (bd_response) => {
-      console.log(`STATUS OK : 200`)      
-      
-      res.status(200).json({"rowCount" : bd_response.rowCount})
-
+      console.log(`STATUS OK : 200`)
+      return (bd_response.rows[0].m_id_mineral)
     })
     .catch( (bd_err) => {
       console.log(`STATUS ERROR: 500`)      
@@ -121,6 +119,29 @@ app.post('/insertar/mineral', (req, res) => {
       res.status(500).json(bd_err)
 
     })
+    .then( (m_id_mineral) => {
+        if (req.body.compuestos.length !== 0 ){
+          daoMineral.insertarCompuestos( m_id_mineral , req.body.compuestos)
+            .then( (bd_response) => {
+              console.log(`STATUS OK : 200`) 
+              // CUANDO SI TIENE COMPUESTOS
+              res.status(200).json({"rowCount" : bd_response.rowCount})
+            })
+            .catch( (bd_err) => {
+              console.log(`STATUS ERROR: 500`)      
+              console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        
+              res.status(500).json(bd_err)
+        
+            })
+        } else {
+          // CUANDO NO TIENE COMPUESTOS
+          res.status(200).json({"rowCount" : bd_response.rowCount})
+        }
+
+    })
+
+
 });
 
 app.post('/modificar/mineral', (req, res) => {
@@ -135,7 +156,118 @@ app.post('/modificar/mineral', (req, res) => {
     .then( (bd_response) => {
       console.log(`STATUS OK : 200`)      
       
-      res.status(200).json({"rowCount" : bd_response.rowCount})
+      if (!req.body.modificado){
+        res.status(200).json({"rowCount" : bd_response.rowCount})
+        return "listo"
+      }
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+      return "error"
+    })
+    .then( mensaje => {
+      
+
+      if ( mensaje !== "listo" ){
+        
+        daoMineral.eliminarCompuestos( req.body.m_id_mineral )
+          .then( (bd_response) => {
+            console.log(`STATUS OK : 200`) 
+
+          })
+          .catch( (bd_err) => {
+            console.log(`STATUS ERROR: 500`)      
+            console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      
+            res.status(500).json(bd_err)
+
+          })
+        .then( () => {
+
+            daoMineral.insertarCompuestos( req.body.m_id_mineral , req.body.compuestos)
+            .then( (bd_response) => {
+              console.log(`STATUS OK : 200`) 
+              res.status(200).json({"rowCount" : bd_response.rowCount})
+            })
+            .catch( (bd_err) => {
+              console.log(`STATUS ERROR: 500`)      
+              console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        
+              res.status(500).json(bd_err)
+      
+            })
+        })
+        
+      } else {
+        res.status(200).json({"rowCount" : bd_response.rowCount})
+      }
+  })
+});
+
+app.post('/consultarLista/mineral/hijos', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultarLista/mineral/hijos/${req.body.m_id_mineral}`)
+  console.log(req.body)
+
+
+  daoMineral.consultarHijos( req.body )
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/consultarLista/mineral/padres', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultarLista/mineral/padres/${req.body.m_id_mineral}`)
+  console.log(req.body)
+
+
+  daoMineral.consultarPadres( req.body )
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/consultarLista/mineral/posiblesHijos', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultarLista/mineral/posiblesHijos/${req.body.m_id_mineral}`)
+  console.log(req.body)
+
+
+  daoMineral.consultarPosiblesHijos( req.body )
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rows" : rows})
 
     })
     .catch( (bd_err) => {
@@ -515,10 +647,240 @@ app.post('/consultar/estado', (req, res) => {
 });
 
 /* ****************************** YACIMIENTO ****************************** */
-app.get('/consultarLista/yacimiento', (req, res) => { 
-  res.send({x: "NO IMPLEMETADO"})
+import {daoYacimiento} from './DAOs/daoYacimiento'
+
+app.get('/consultarLista/yacimiento', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/yacimiento")
+
+  daoYacimiento.consultarTodos()
+    .then( ({rows}) => {
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
 });
 
+app.post('/consultar/yacimiento', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultar/yacimiento/${req.body.y_id_yacimiento}`)
+  daoYacimiento.consultar(req.body.y_id_yacimiento)
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/eliminar/yacimiento', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/eliminar/yacimiento/${req.body.y_id_yacimiento}`)
+  daoYacimiento.eliminar(req.body.y_id_yacimiento)
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/insertar/yacimiento', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/insertar/yacimiento/`)
+  console.log(req.body)
+
+  daoYacimiento.insertar( req.body )
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/modificar/yacimiento', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/modificar/yacimiento/${req.body.y_id_yacimiento}`)
+  console.log(req.body)
+
+
+  daoYacimiento.modificar( req.body )
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+/* ****************************** YACIMIENTO_CONFIGURACION ****************************** */
+import {daoYacimientoConfiguracion} from './DAOs/daoYacimientoConfiguracion'
+
+app.get('/consultarLista/yacimiento_configuracion', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/yacimiento_configuracion")
+
+  daoYacimientoConfiguracion.consultarTodos()
+    .then( ({rows}) => {
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/consultar/yacimiento_configuracion', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultar/yacimiento_configuracion/${req.body.y_id_yacimiento_configuracion}`)
+  daoYacimientoConfiguracion.consultar(req.body.y_id_yacimiento_configuracion)
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/eliminar/yacimiento_configuracion', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/eliminar/yacimiento_configuracion/${req.body.y_id_yacimiento_configuracion}`)
+  daoYacimientoConfiguracion.eliminar(req.body.y_id_yacimiento_configuracion)
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+/* ****************************** TIPO_YACIMIENTO ****************************** */
+import {daoTipoYacimiento} from './DAOs/daoTipoYacimiento'
+
+app.get('/consultarLista/tipo_yacimiento', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/tipo_yacimiento")
+
+  daoTipoYacimiento.consultarTodos()
+    .then( ({rows}) => {
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/consultar/tipo_yacimiento', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultar/tipo_yacimiento/${req.body.t_id_yacimiento}`)
+  daoTipoYacimiento.consultar(req.body.t_id_yacimiento)
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/eliminar/tipo_yacimiento', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/eliminar/tipo_yacimiento/${req.body.t_id_yacimiento}`)
+  daoTipoYacimiento.eliminar(req.body.t_id_yacimiento)
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
 
 
 /* ****************************** PEDIDO ****************************** */

@@ -5,32 +5,30 @@ import {Redirect} from 'react-router-dom';
 import {Modal, Button} from 'react-bootstrap';
 import MaterialTable from 'material-table';
 
-import {cleanerMineral} from '../utils/cleaner';
+import {cleanerYacimiento} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
 
-export class Mineral extends React.Component {
+export class Yacimiento extends React.Component {
   constructor(props){
     super(props)
     
     this.state  = {
-      minerales : [],
-      textoBuscardor : "",
-      consultarMineral : null,
-      agregarPresionado : null,
-      compuestos : []
+      yacimientos : [],
+      consultarYacimiento : null,
+      agregarPresionado : null
     }
   }
 
   componentDidMount = () => {
     // API REQUEST GET
-    console.log(`----> localhost:4000/consultarLista/mineral`)
-    axios.get('http://127.0.0.1:4000/consultarLista/mineral')
+    console.log(`----> localhost:4000/consultarLista/yacimiento`)
+    axios.get('http://127.0.0.1:4000/consultarLista/yacimiento')
       .then( (res) => {
         if(res.status === 200)
-          console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral`)
+          console.log(`<---- (OK 200) localhost:4000/consultarLista/yacimiento`)
 
         this.setState({
-            minerales : res.data.rows
+            yacimientos : res.data.rows
         })
 
       })
@@ -44,36 +42,23 @@ export class Mineral extends React.Component {
   }
 
   handleConsultar = (id) => {
-    console.log(`consultarMineral(${id})`)
-    const consultarMineral = this.state.minerales.find( m => m.m_id_mineral == id)
+    console.log(`consultarYacimiento(${id})`)
+    const consultarYacimiento = this.state.yacimientos.find( y => y.y_id_yacimiento == id)
 
-
-    console.log(`----> localhost:4000/consultarLista/mineral/hijos`)
-    axios.post('http://127.0.0.1:4000/consultarLista/mineral/hijos',
-      { m_id_mineral : consultarMineral.m_id_mineral }
-    )
-      .then( (res) => {
-        if(res.status === 200)
-          console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral/hijos`)
-
-          this.setState({
-            compuestos : res.data.rows,
-            consultarMineral : consultarMineral
-          })
-
-      })
-    
+    this.setState({
+      consultarYacimiento
+    })
   }
 
   handleModificar = () => {
-    console.log(`modificarMineral(${this.state.consultarMineral.m_id_mineral})`)
+    console.log(`modificarYacimiento(${this.state.consultarYacimiento.y_id_yacimiento})`)
     this.setState({
-      modificarMineral : this.state.consultarMineral.m_id_mineral
+      modificarYacimiento : this.state.consultarYacimiento.y_id_yacimiento
     })
   }
 
   handleEliminar = () => {
-    console.log(`eliminarMineral(${this.state.consultarMineral.m_id_mineral})`)
+    console.log(`eliminarYacimiento(${this.state.consultarYacimiento.y_id_yacimiento})`)
 
     this.setState({
       warningEliminar : true
@@ -88,14 +73,14 @@ export class Mineral extends React.Component {
   }
 
   handleEliminarSeguro = () => {
-    console.log(`----> localhost:4000/eliminar/mineral/${this.state.consultarMineral.m_id_mineral}`)
-    axios.post('http://127.0.0.1:4000/eliminar/mineral', 
+    console.log(`----> localhost:4000/eliminar/yacimiento/${this.state.consultarYacimiento.y_id_yacimiento}`)
+    axios.post('http://127.0.0.1:4000/eliminar/yacimiento', 
         {
-            "m_id_mineral" : this.state.consultarMineral.m_id_mineral,
+            "y_id_yacimiento" : this.state.consultarYacimiento.y_id_yacimiento,
         })
         .then( (res) => {
             if( res.status === 200) {
-                console.log(`<---- (OK 200) localhost:4000/eliminar/mineral`)
+                console.log(`<---- (OK 200) localhost:4000/eliminar/yacimiento`)
                 this.handleCloseModal()
                 this.handleCloseEliminar()
                 location.reload()
@@ -105,57 +90,56 @@ export class Mineral extends React.Component {
 
   handleCloseModal = () => {
     this.setState({
-      consultarMineral: null,
-      compuestos : []
+      consultarYacimiento: null
     })
   }
     
   render = () => (
     <div>
-        <MenuDashBoard title={"Minerales"}/>
+        <MenuDashBoard title={"Yacimientos"}/>
 
         <div className="ConsultarLista">
-          { this.state.minerales &&
+          { this.state.yacimientos &&
             <MaterialTable
               style={{margin: "0 5%"}}
               columns={[
                 {
-                  title: 'ID', field: 'm_id_mineral', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'desc',
+                  title: 'ID', field: 'y_id_yacimiento', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'desc',
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
                   }, 
                 },
                 {
-                  title: 'Nombre', field: 'm_nombre', type: 'string', headerStyle:{ textAlign : "center"},
+                  title: 'Nombre', field: 'y_nombre', type: 'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"                    
                   },
                 },
                 {
-                  title: '¿Metal?', field: 'm_tipo', type: 'string', headerStyle:{ textAlign : "center"},
+                  title: 'Extensión (km2)', field: 'y_extension', type: 'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
                   },
                 },
                 { 
-                  title: '¿Radioactivo?', field: 'm_radioactivo', type: 'string', headerStyle:{ textAlign : "center"},
+                  title: 'Configuración', field: 'yacimiento_configuracion', type: 'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
                   },
                 },
                 { 
-                  title: 'Nacionalizado', field: 'm_fecha_nacionalizacion', type:'string', headerStyle:{ textAlign : "center"},
+                  title: 'Lugar', field: 'lugar', type:'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign: "center"
                   },
                 }
               ]}
-              data={ cleanerMineral.limpiarLista( this.state.minerales ) }
+              data={ cleanerYacimiento.limpiarLista( this.state.yacimientos ) }
               title={null}
               
               options={{
@@ -170,7 +154,7 @@ export class Mineral extends React.Component {
 
               }}
 
-              onRowClick={(event, rowData) => this.handleConsultar(rowData.m_id_mineral)}
+              onRowClick={(event, rowData) => this.handleConsultar(rowData.y_id_yacimiento)}
               localization={
                   {
                 toolbar : {
@@ -198,15 +182,13 @@ export class Mineral extends React.Component {
                 }
               ]}
 
-
-
             />
           }
           
-          {!!this.state.consultarMineral && 
+          {!!this.state.consultarYacimiento && 
           <Modal 
             size="lg"
-            show={!!this.state.consultarMineral} 
+            show={!!this.state.consultarYacimiento} 
             onHide={this.handleCloseModal}
             centered
             scrollable
@@ -214,45 +196,35 @@ export class Mineral extends React.Component {
           >
             <Modal.Header closeButton className="mc-header">
               <div></div>
-              <h1>{this.state.consultarMineral.m_nombre.toUpperCase()}</h1>
+              <h1>{this.state.consultarYacimiento.y_nombre.toUpperCase()}</h1>
             </Modal.Header>
 
             <Modal.Body className="mc-body"> 
               <p>
                 <span className="mc-atributo">ID</span>
-                <span> : {this.state.consultarMineral.m_id_mineral.toString(10).padStart(4, '0')}</span>
+                <span> : {this.state.consultarYacimiento.y_id_yacimiento.toString(10).padStart(4, '0')}</span>
               </p>
               <p>
-                <span className="mc-atributo">¿Metal?</span>
-                <span> : {this.state.consultarMineral.m_tipo === "metal" ? "Si" : "No"}</span>
+                <span className="mc-atributo">Nombre</span>
+                <span> : {this.state.consultarYacimiento.y_nombre}</span>
               </p>
               <p>
-                <span className="mc-atributo">¿Radioactivo?</span>
-                <span> : {this.state.consultarMineral.m_radioactivo ? "Si" : "No"}</span>
+                <span className="mc-atributo">Extensión (km2)</span>
+                <span> : {this.state.consultarYacimiento.y_extension}</span>
               </p>
               <p>
-                <span className="mc-atributo">Nacionalizado</span>
-                <span> : {this.state.consultarMineral.m_fecha_nacionalizacion ? this.state.consultarMineral.m_fecha_nacionalizacion.split('T')[0] : "No"}</span>
+                <span className="mc-atributo">Configuración</span>
+                <span> : {this.state.consultarYacimiento.yacimiento_configuracion}</span>
               </p>
               <p>
-                <span className="mc-atributo">Descripción</span>
-                <span> : {this.state.consultarMineral.m_descripcion || "El mineral no posee descripción"}</span>
+                <span className="mc-atributo">Tipo de Yacimiento</span>
+                <span> : {this.state.consultarYacimiento.tipo_yacimiento || "No definido."}</span>
               </p>
-              <p><span className="mc-atributo">Yacimientos</span><span> :</span></p>
-              { this.state.consultarMineral.yacimientos ?
-                this.state.consultarMineral.yacimientos.map( (yacimiento, i) => (
-                  <p className="mc-multivalor" key={i}>- {yacimiento}</p>
-                )) :
-                <p className="mc-multivalor">El mineral no se ha registrado en ningún yacimiento.</p>
-              }
-              <p><span className="mc-atributo">Compuesto de</span><span> :</span></p>
-              { this.state.compuestos.length !== 0 ?
-                this.state.compuestos.map( (compuesto, i) => (
-                  <p className="mc-multivalor" key={i}>- {compuesto.m_nombre}</p>
-                )) :
-                <p className="mc-multivalor">El mineral no esta compuesto de otros minerales.</p>
-              }
-             
+              <p>
+                <span className="mc-atributo">Dirección</span>
+                <span> : {this.state.consultarYacimiento.lugar}</span>
+              </p>
+
             </Modal.Body>
             
             <Modal.Footer className="mc-footer">
@@ -282,7 +254,7 @@ export class Mineral extends React.Component {
 
             <Modal.Body className="mc-body"> 
               <div>
-                <p style={{textAlign: "center"}}>{`¿Estas segur@ que deseas eliminar el ${this.state.consultarMineral && this.state.consultarMineral.m_nombre}?`}</p>
+                <p style={{textAlign: "center"}}>{`¿Estas segur@ que deseas eliminar el ${this.state.consultarYacimiento && this.state.consultarYacimiento.y_nombre}?`}</p>
               </div>
              
             </Modal.Body>
@@ -299,10 +271,10 @@ export class Mineral extends React.Component {
           </Modal>
           }
 
-          {!!this.state.modificarMineral 
-            && <Redirect push to={`/editar/mineral/${this.state.modificarMineral}`} />
+          {!!this.state.modificarYacimiento 
+            && <Redirect push to={`/editar/yacimiento/${this.state.modificarYacimiento}`} />
           }
-          {this.state.agregarPresionado && <Redirect push to="/crear/mineral" />}
+          {this.state.agregarPresionado && <Redirect push to="/crear/yacimiento" />}
       </div>
     </div>  
   )

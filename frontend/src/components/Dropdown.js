@@ -57,7 +57,9 @@ export class Dropdown extends React.Component
             <input className="DropdownSearch" type="text" id={"DropdownSearch"+this.props.id}
                    placeholder={this.props.placeholder} onFocus={(t) => {this.showOptions(t)}}
                     onBlur={()=>{this.hideOptions()}}   onChange={this.handleBuscar}
-                    value={this.state.searchText}/>
+                    value={this.state.searchText}
+                    disabled={this.props.disabled}
+                    />
             <i className="zmdi zmdi-chevron-down DropdownIcon"/>
             <div className="DropdownOptions" id={"DropdownOptions"+this.props.id}>
                 {

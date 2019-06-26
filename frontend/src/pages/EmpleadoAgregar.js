@@ -150,7 +150,6 @@ export class EmpleadoAgregar extends React.Component {
                 [target.name] : target.value
             }
         })
-        console.log(this.state)
     }
 
     render = () => ( 

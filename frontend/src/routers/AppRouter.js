@@ -40,7 +40,7 @@ const AppRouter = () => (
 
         {/* PAGINAS QUE CARGAN DESLOGEADO */}
         <PublicRoute path="/" component={Home} exact={true} />
-        <PublicRoute path="/configuracion-yacimiento-agregar" component={ConfiguracionYacimientoAgregar} />
+        <PublicRoute path="/crear/configuracion-yacimiento" component={ConfiguracionYacimientoAgregar} />
         <PublicRoute path="/dashboard" component={MainPanel} />
         <PublicRoute path="/cliente" component={Cliente} />
         <PublicRoute path="/mineral" component={Mineral} />

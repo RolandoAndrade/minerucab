@@ -44,6 +44,7 @@
 .pegar-derecha{
     display: flex;
     justify-content: flex-end;
+    align-items : center;
 }
 
 .largo-input{
@@ -54,4 +55,31 @@
 .separador{
     padding-left: 5px;
     padding-right: 5px;
+}
+
+.ancho-mineral{
+    width: 30%
+}
+
+.ancho-cantidad{
+    width: 30%
+}
+
+.campo-fase{
+    width: 30%;
+}
+
+.imagen-diamante{
+    margin : 0 auto;
+}
+
+.marco-etapa-configuracion{
+    width: 80%;
+    background: $gris-claro;
+    margin : 0 auto;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
 }

@@ -180,7 +180,7 @@ CREATE TABLE FASE_CONFIGURACION (
     f_nombre VARCHAR(255) NOT NULL,
     f_orden INTEGER NOT NULL,
     f_duracion INTEGER NOT NULL,
-    f_descripción VARCHAR(255),
+    f_descripcion VARCHAR(255),
     etapa_configuracion_id INTEGER NOT NULL,
     unidad_id INTEGER NOT NULL,
 
@@ -315,7 +315,7 @@ CREATE TABLE MINERAL (
     m_nombre VARCHAR(255) NOT NULL UNIQUE,
     m_radioactivo BOOLEAN NOT NULL DEFAULT FALSE,
     m_fecha_nacionalizacion DATE,
-    m_decripcion VARCHAR(255),
+    m_descripcion VARCHAR(255),
     m_dureza INTEGER,
     m_maleabilidad INTEGER,
     m_viscosidad INTEGER,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const DropdownArreglado = ({ options , className, ...rest}) => (
+export const DropdownArreglado = ({ options , className, defaultID, ...rest}) => (
         <div>
             <select
                 className="DropdownArreglado" 
@@ -11,7 +11,8 @@ export const DropdownArreglado = ({ options , className, ...rest}) => (
                             <option 
                                 className={`DrowpdownArregladoItem ${className}`}
                                 key={i} 
-                                value={elem.value}
+                                value={elem.id}
+                                selected={elem.id === defaultID}
                             >
                                 {elem.text}
                             </option>

@@ -19,7 +19,9 @@ const cleanerMineral = {
         else
             return mineralesDB.map( m => ({
                 "id" : m.m_id_mineral,
-                "text": m.m_nombre
+                "text": m.m_nombre,
+                "value" : m.m_id_mineral,
+                "label":m.m_nombre
             }))
     }
 }

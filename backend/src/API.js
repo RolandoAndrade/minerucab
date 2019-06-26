@@ -156,16 +156,55 @@ app.post('/modificar/mineral', (req, res) => {
     .then( (bd_response) => {
       console.log(`STATUS OK : 200`)      
       
-      res.status(200).json({"rowCount" : bd_response.rowCount})
-
+      if (!req.body.modificado){
+        res.status(200).json({"rowCount" : bd_response.rowCount})
+        return "listo"
+      }
     })
     .catch( (bd_err) => {
       console.log(`STATUS ERROR: 500`)      
       console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
       res.status(500).json(bd_err)
-
+      return "error"
     })
+    .then( mensaje => {
+      
+
+      if ( mensaje !== "listo" ){
+        
+        daoMineral.eliminarCompuestos( req.body.m_id_mineral )
+          .then( (bd_response) => {
+            console.log(`STATUS OK : 200`) 
+
+          })
+          .catch( (bd_err) => {
+            console.log(`STATUS ERROR: 500`)      
+            console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      
+            res.status(500).json(bd_err)
+
+          })
+        .then( () => {
+
+            daoMineral.insertarCompuestos( req.body.m_id_mineral , req.body.compuestos)
+            .then( (bd_response) => {
+              console.log(`STATUS OK : 200`) 
+              res.status(200).json({"rowCount" : bd_response.rowCount})
+            })
+            .catch( (bd_err) => {
+              console.log(`STATUS ERROR: 500`)      
+              console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        
+              res.status(500).json(bd_err)
+      
+            })
+        })
+        
+      } else {
+        res.status(200).json({"rowCount" : bd_response.rowCount})
+      }
+  })
 });
 
 app.post('/consultarLista/mineral/hijos', (req, res) => {
@@ -201,6 +240,30 @@ app.post('/consultarLista/mineral/padres', (req, res) => {
 
 
   daoMineral.consultarPadres( req.body )
+    .then( ({rows}) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/consultarLista/mineral/posiblesHijos', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultarLista/mineral/posiblesHijos/${req.body.m_id_mineral}`)
+  console.log(req.body)
+
+
+  daoMineral.consultarPosiblesHijos( req.body )
     .then( ({rows}) => {
       console.log(`STATUS OK : 200`)      
       

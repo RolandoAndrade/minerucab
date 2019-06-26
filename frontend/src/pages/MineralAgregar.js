@@ -331,36 +331,6 @@ export class MineralAgregar extends React.Component {
                 </Modal.Footer>
             </Modal>
 
-            <Modal 
-                size="lg"
-                show={!!this.state.por_componer} 
-                onHide={this.handleCloseModal2}
-                centered
-            >
-                <Modal.Header closeButton className="mc-header">
-                    <div></div>
-                    <h1 style={{textAlign:"center"}}>Porcentaje de {!!this.state.por_componer && this.state.por_componer.m_nombre}</h1>
-                </Modal.Header>
-
-                <Modal.Body className="mc-body"> 
-                    <input 
-                        type="number"
-                        value={this.state.porcentaje}
-                        onChange={this.handlePorcentaje}
-                    />
-                </Modal.Body>
-                
-                <Modal.Footer className="mc-footer">
-                    <Button variant="secondary" className="mc-boton" onClick={this.handleCloseModal2}>
-                        Cancelar
-                    </Button>
-                    <Button variant="primary" className="mc-boton" onClick={this.handleOkComponer}>
-                        Aceptar
-                    </Button>
-
-                </Modal.Footer>
-            </Modal>
-        
       </div>
     </div>  
   )

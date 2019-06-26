@@ -48,6 +48,13 @@ const daoMineral = {
         return psql.query(query)
     },
 
+    eliminarCompuestos( m_id_mineral ){
+        return psql.query(`
+            DELETE FROM MINE_MINE 
+            WHERE mineral_id_compuesto = ${m_id_mineral}
+        `)
+    },
+
     modificar({ m_id_mineral, m_nombre, m_tipo, m_radioactivo, m_fecha_nacionalizacion, m_descripcion }){
         return psql.query(`
             UPDATE MINERAL SET

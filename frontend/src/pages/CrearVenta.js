@@ -277,7 +277,12 @@ export class CrearVenta extends React.Component
                                               name={"presentacion_id"}
                                               placeholder="Presentación..."
                                               retrieveData={(target)=>this.handleRemovable(target,i)}
-                                              options={this.state.listaProductos}
+                                              options={this.state.listaProductos.filter(
+                                                  (t) =>
+                                                  {
+                                                      return t.mineral == this.state.minerales[i].mineral_id
+                                                  }
+                                              )}
                                     />
                                 </div>
                             </div>

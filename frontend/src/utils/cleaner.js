@@ -174,7 +174,8 @@ const cleanerProducto = {
         else
             return  productoDB.map( p => ({
                 "text" : p.p_nombre,
-                "id" : p.p_id_producto
+                "id" : p.p_id_producto,
+                "mineral": p.mineral_id
             }))
     }
 }

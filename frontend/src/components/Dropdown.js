@@ -42,7 +42,8 @@ export class Dropdown extends React.Component
             searchText : value,
             value: id
         });
-        this.props.retrieveData({name: this.props.name, value: id, refIndex: this.props.refIndex});
+        if (this.props.retrieveData)
+            this.props.retrieveData({name: this.props.name, value: id, refIndex: this.props.refIndex});
     }
 
     handleBuscar  = ({target}) => {

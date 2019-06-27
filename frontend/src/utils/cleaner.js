@@ -21,7 +21,7 @@ const cleanerMineral = {
                 "id" : m.m_id_mineral,
                 "text": m.m_nombre,
                 "value" : m.m_id_mineral,
-                "label":m.m_nombre
+                "label" : m.m_nombre
             }))
     }
 }

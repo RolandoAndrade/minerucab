@@ -55,7 +55,7 @@ const AppRouter = () => (
         <PublicRoute path="/crear/mineral" component={MineralAgregar} />
         <PublicRoute path="/crear/horario" component={HorarioCrear} />
         <PublicRoute path="/crear/yacimiento" component={YacimientoAgregar} />
-        <PublicRoute path="/crear/configuracion-yacimiento" component={ConfiguracionYacimientoAgregar} />
+        <PublicRoute path="/crear/yacimiento-configuracion" component={ConfiguracionYacimientoAgregar} />
         <PublicRoute path="/editar/cliente/:id" component={ClienteEditar} />
         <PublicRoute path="/editar/mineral/:id" component={MineralEditar} />
         <PublicRoute path="/editar/empleado/:id" component={EmpleadoEditar} />

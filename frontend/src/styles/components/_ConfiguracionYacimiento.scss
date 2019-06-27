@@ -1,29 +1,25 @@
-.dropdown-minerUcab button{
-    background-color: $azul-ucab;
-    border: 1px solid black;
-    padding-right: 10px;
-    height: 30px;
-    width : 90px;
-}
-
 .horizontal {
     display: flex;
     flex-direction: row;
 }
-
-.agregar-otro {
-    background-color: $verde-ucab;
-    width: 50%;
-}
-
-.info-mineral {
+.SobreMineral {
     background: $gris-claro;
+    padding-bottom: 30px;
 }
 
-.btn-primary::after {
-    float: right;
-    margin-top: 10%; 
-
+.AgregarRequisito{
+    background: $verde-ucab;
+    color: white;
+    padding: 10px;
+    width: 59%;
+    margin-left: 175px;
+    text-align: center;
+    font-size: $m-size;
+    transition: 0.5s all;
+    cursor: pointer;
+    &:hover{
+        background: darken($verde-ucab,10%);
+    }
 }
 
 .titulo-yacimiento {
@@ -39,6 +35,7 @@
 
 .subtitulo-centrado {
     text-align: center;
+    padding: 20px;
 }
 
 .pegar-derecha{
@@ -70,7 +67,8 @@
 }
 
 .imagen-diamante{
-    margin : 0 auto;
+    margin : auto;
+    padding-bottom: 30px;
 }
 
 .marco-etapa-configuracion{

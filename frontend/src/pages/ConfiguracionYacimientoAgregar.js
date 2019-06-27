@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import {Button} from 'react-bootstrap';
 import {Dropdown} from "../components/Dropdown";
-import Select from 'react-select';
+import {DropdownV2} from "../components/DropdownV2"
 import {InputText} from "../components/InputText";
 import {GuardarCancelar} from "../components/GuardarCancelar";
 import {MenuDashBoard} from "../components/MenuDashBoard";
@@ -139,7 +139,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
              <div>
                 <div className="SobreMineral">
                     <h1 className="subtitulo-centrado">Sobre el mineral</h1>
-                    <div > 
+                    <div> 
                         <div className="horizontal">
                             <div>
                                 <div className="horizontal pegar-derecha">
@@ -160,13 +160,13 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                         <InputText 
                                             id="CantidadExplotar"
                                             type="number"
-                                            min="0" 
+                                            min="1" 
                                             label="Cantidad"
                                             name="y_capacidad_explotacion"
                                             onChange={this.changeInfo}
                                         />
                                     </div>
-                                    <p className="separador"> de toneladas</p>
+                                    <p className="separador"> toneladas</p>
                                 </div>
                                 <p className="subtitulo-centrado" > Minerales necesarios para su explotacion</p>
                                 <div> {/* MAPING DE REQUISITOS */}
@@ -181,19 +181,19 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                                         </i>
                                                     </div>
                                                     <div className="ancho-mineral">
-                                                        <Select
-                                                                placeholder="Mineral ..."
-                                                                value={
-                                                                    this.state.requisitos.find( r => r.m_id_mine_yaci === requisito.m_id_mine_yaci ).m_id_mineral
-                                                                }
-                                                                onChange={ event => 
-                                                                    this.changeRequisito(event , requisito.m_id_mine_yaci)
-                                                                }
-                                                                options={
-                                                                    cleanerMineral.limpiarListaDropdown(
-                                                                        this.state.minerales
-                                                                    )
-                                                                }
+                                                        <DropdownV2
+                                                            placeholder="Mineral ..."
+                                                            value={
+                                                                this.state.requisitos.find( r => r.m_id_mine_yaci === requisito.m_id_mine_yaci ).m_id_mineral
+                                                            }
+                                                            onChange={ event => 
+                                                                this.changeRequisito(event , requisito.m_id_mine_yaci)
+                                                            }
+                                                            options={
+                                                                cleanerMineral.limpiarListaDropdown(
+                                                                    this.state.minerales
+                                                                )
+                                                            }
                                                         />
                                                     </div>
                                                     <div className="ancho-cantidad">
@@ -211,7 +211,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                                             }
                                                         />
                                                     </div>
-                                                    <p className="separador"> de toneladas</p>
+                                                    <p className="separador"> toneladas</p>
                                                 </div>
                                             )
                                         )
@@ -245,7 +245,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                         }
                     </div>
                     <div>
-                        <div className="ButtonAddUser" onClick={this.handleAgregarEtapa} >
+                        <div className="AgregarRequisito" onClick={this.handleAgregarEtapa} >
                             Agregar Etapa
                         </div>
                     </div>

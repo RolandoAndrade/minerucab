@@ -884,6 +884,7 @@ app.post('/eliminar/tipo_yacimiento', (req, res) => {
 
 /* ****************************** YACIMIENTO ****************************** */
 import {daoProyecto} from './DAOs/daoProyecto'
+import {daoProducto} from "./DAOs/daoProducto";
 
 app.get('/consultarLista/proyecto', (req, res) => {
   
@@ -950,6 +951,27 @@ app.post('/insertar/pedido', (req, res) => {
 
       })
 });
+
+
+/* ****************************** PRODUCTO ****************************** */
+app.get('/consultarLista/producto', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/producto")
+
+  daoProducto.consultarTodos()
+      .then( ({rows}) => {
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
 
 /* ****************************** LEVANTAR API ****************************** */
 app.listen(port, () => {

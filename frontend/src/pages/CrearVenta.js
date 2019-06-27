@@ -6,7 +6,7 @@ import {InputText} from "../components/InputText";
 import {Dropdown} from "../components/Dropdown";
 import {MenuDashBoard} from "../components/MenuDashBoard";
 import {GuardarCancelar} from "../components/GuardarCancelar";
-import {cleanerCliente, cleanerLugar, cleanerMineral} from "../utils/cleaner";
+import {cleanerCliente, cleanerLugar, cleanerMineral, cleanerProducto} from "../utils/cleaner";
 import {Loader} from "../components/Loader";
 
 const IVA = 1.16;
@@ -23,6 +23,7 @@ export class CrearVenta extends React.Component
             goSolicitud: false,
             listaMinerales: [],
             listaClientes: [],
+            listaProductos: [],
             total: 0,
             subtotal: 0,
             loading: false,
@@ -46,6 +47,17 @@ export class CrearVenta extends React.Component
                 this.setState({
                     listaMinerales: cleanerMineral.limpiarListaDropdown(res.data.rows),
                 })
+
+            });
+        axios.get('http://127.0.0.1:4000/consultarLista/producto')
+            .then( (res) => {
+                if(res.status === 200)
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/producto`);
+
+                this.setState({
+                    listaProductos: cleanerProducto.limpiarListaDropdown(res.data.rows),
+                })
+                console.log(this.state)
 
             });
         axios.get('http://127.0.0.1:4000/consultarLista/cliente')
@@ -265,12 +277,7 @@ export class CrearVenta extends React.Component
                                               name={"presentacion_id"}
                                               placeholder="Presentación..."
                                               retrieveData={(target)=>this.handleRemovable(target,i)}
-                                              options={[
-                                                  {text:"Opción 1",id:1},
-                                                  {text:"Opción 2",id:2},
-                                                  {text:"Opción 3",id:3},
-                                                  {text:"Opción 4",id:4},
-                                                  {text:"Opción 5",id:5}]}
+                                              options={this.state.listaProductos}
                                     />
                                 </div>
                             </div>

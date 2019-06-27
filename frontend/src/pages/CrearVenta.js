@@ -81,7 +81,9 @@ export class CrearVenta extends React.Component
         console.log(`----> localhost:4000/insertar/pedido`);
         return axios.post('http://127.0.0.1:4000/insertar/pedido',
             {
-                cliente_id: this.state.cliente_id
+                cliente_id: this.state.cliente_id,
+                minerales: this.state.minerales,
+                total: this.state.total,
             }
         ).then( (res) => {
                 if( res.status === 200) {

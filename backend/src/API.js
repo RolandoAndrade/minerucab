@@ -925,6 +925,14 @@ app.post('/consultar/proyecto', (req, res) => {
     })
 });
 
+function error(bd_err)
+{
+  console.log(`STATUS ERROR: 500`)
+  console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+  res.status(500).json(bd_err)
+}
+
 /* ****************************** PEDIDO ****************************** */
 
 app.post('/insertar/pedido', (req, res) => {
@@ -938,17 +946,17 @@ app.post('/insertar/pedido', (req, res) => {
 
   daoPedido.insertar( req.body )
       .then( (bd_response) => {
-        console.log(`STATUS OK : 200`)
 
+        console.log(`STATUS OK : 200`)
         res.status(200).json({"rowCount" : bd_response.rowCount})
+        daoPedido.consultarIdUltimo().then((bd_response)=> {
+            req.body.pedido_id = bd_response.rows[0].max;
+
+          }).catch((bd_err)=>error(bd_err))
 
       })
       .catch( (bd_err) => {
-        console.log(`STATUS ERROR: 500`)
-        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
-
-        res.status(500).json(bd_err)
-
+        error(bd_err);
       })
 });
 

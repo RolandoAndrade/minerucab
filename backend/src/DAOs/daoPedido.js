@@ -16,6 +16,12 @@ const daoPedido = {
         `)
     },
 
+    consultarIdUltimo(){
+        return psql.query(`
+            SELECT MAX(p_id_pedido) FROM PEDIDO
+        `)
+    },
+
     eliminar( id ){
         return psql.query(`
             DELETE FROM MINERAL

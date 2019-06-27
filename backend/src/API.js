@@ -949,11 +949,19 @@ app.post('/insertar/pedido', (req, res) => {
 
         console.log(`STATUS OK : 200`)
         res.status(200).json({"rowCount" : bd_response.rowCount})
-        daoPedido.consultarIdUltimo().then((bd_response)=> {
-            req.body.pedido_id = bd_response.rows[0].max;
+        req.body.pedido_id = bd_response.rows[0].p_id_pedido;
+        for(let i=0;i<req.body.minerales.length;i++)
+        {
+          let newReq={
+            producto_id: req.body.minerales[i].presentacion_id,
+            p_precio_unitario: req.body.minerales[i].precio,
+            p_cantidad: req.body.minerales[i].cantidad,
+            unidad_id: 11,
+            pedido_id: req.body.pedido_id
+          }
 
-          }).catch((bd_err)=>error(bd_err))
 
+        }
       })
       .catch( (bd_err) => {
         error(bd_err);

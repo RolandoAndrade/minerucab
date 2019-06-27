@@ -17,7 +17,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
       
       this.state  = {
         // INFO DE CONF_YACIMIENTO 
-        nueva_configuracion_yacimiento : {
+        configuracion_yacimiento : {
             y_id_yacimiento_configuracion : 0,
             y_nombre :"",
             y_capacidad_explotacion : 0,
@@ -25,14 +25,17 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
             unidad_id : 7
         },
         requisitos : [],
-        etapas : [],
+        etapas : [{
+            e_id_etapa_configuracion : 0,
+            e_nombre: "",
+            e_orden: 0,
+            e_tipo: ""
+        }],
         // PARA DAR IDs UNICOS
         ultimoRequisitoIndex : 0,
-        ultimoFaseIndex : 0,
+        ultimaEtapaIndex : 1,
         // PARA LOS DROPDOWNS
-        minerales : [],
-        maquinas : [],
-        cargos : []
+        minerales : []
       }
     }
 
@@ -53,10 +56,10 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
 
     changeInfo = (target) => {
         target=target.target||target;
-        console.log(`nueva_configuracion_yacimiento.${target.name} = ${target.value}`)
+        console.log(`configuracion_yacimiento.${target.name} = ${target.value}`)
         this.setState({
-            nueva_configuracion_yacimiento :{
-                ...this.state.nueva_configuracion_yacimiento,
+            configuracion_yacimiento :{
+                ...this.state.configuracion_yacimiento,
                 [target.name] : target.value
             }
         })
@@ -90,7 +93,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
     }
     
     agregarRequisito = () => {
-        console.log(`new requisito = requisito[${this.state.ultimoRequisitoIndex + 1}]`)
+        console.log(`new requisito = requisito[i:${this.state.requisitos.length+1} , id:${this.state.ultimoRequisitoIndex + 1}]`)
         this.setState( (prev) => ({
             requisitos:[
                 ...prev.requisitos, 
@@ -107,22 +110,23 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
     }
 
     quitarRequisito = (id) => {
-        console.log(`delete requisito[${id}]`)
+        console.log(`delete requisito[ id:${id} ]`)
         const requisitosNuevo = this.state.requisitos.filter( (r) => r.m_id_mine_yaci !== id)
         this.setState({
             requisitos : requisitosNuevo
         })
     }
 
-    handleAgregarEtapa = () => {
+    agregarEtapa = () => {
+        console.log(`new etapa_configuracion = etapa_configuracion[ i:${this.state.etapas.length+1}, id:${this.state.ultimaEtapaIndex + 1} ]`)
         this.setState( (prev) => ({
             etapas:[...prev.etapas, {
-                e_id_etapa_configuracion : prev.ultimoFaseIndex + 1,
+                e_id_etapa_configuracion : prev.ultimaEtapaIndex + 1,
                 e_nombre: "",
-                e_orden: 0,
+                e_orden: this.state.etapas.length+1,
                 e_tipo: ""
             }],
-            ultimoFaseIndex : prev.ultimoFaseIndex + 1
+            ultimaEtapaIndex : prev.ultimaEtapaIndex + 1
         }))
     }
 
@@ -141,9 +145,16 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                     <h1 className="subtitulo-centrado">Sobre el mineral</h1>
                     <div> 
                         <div className="horizontal">
-                            <div>
+                            <div className="confYacimientoIzq">
+                                <InputText 
+                                    id={`NombreConfiguracion`}
+                                    label="Nombre de Configuración"
+                                    name="y_nombre"
+                                    onChange={this.changeInfo}
+                                />
                                 <div className="horizontal pegar-derecha">
                                     <p className="separador"> Mineral a explotar</p>
+                                    
                                     <div className="ancho-mineral">
                                         <Dropdown id="MineralExplotar"
                                                 name="mineral_id"
@@ -184,7 +195,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                                         <DropdownV2
                                                             placeholder="Mineral ..."
                                                             value={
-                                                                this.state.requisitos.find( r => r.m_id_mine_yaci === requisito.m_id_mine_yaci ).m_id_mineral
+                                                                requisito.m_id_mineral
                                                             }
                                                             onChange={ event => 
                                                                 this.changeRequisito(event , requisito.m_id_mine_yaci)
@@ -204,7 +215,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                                             min="0"
                                                             name="y_capacidad_explotacion"
                                                             value={
-                                                                this.state.requisitos.find( r => r.m_id_mine_yaci === requisito.m_id_mine_yaci ).m_cantidad
+                                                                requisito.m_cantidad
                                                             }
                                                             onChange={ event => 
                                                                 this.changeRequisito(event , requisito.m_id_mine_yaci)
@@ -216,7 +227,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                             )
                                         )
                                     }
-                                    <div className="AgregarRequisito" onClick={this.agregarRequisito} >
+                                    <div className="btnAgregarRequisito" onClick={this.agregarRequisito} >
                                         Agregar Mineral Requerido
                                     </div>
                                     
@@ -236,16 +247,23 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                 <div>
                     <h1 className="subtitulo-centrado">Etapas</h1>
                     <div>
-                        {/**Aqui van todas las etapas */}
+                        {/* ETAPA CONFIGURACION */}
                         {
                             this.state.etapas.map(
-                                (requisito, index) => (
-                                    <EtapaConfiguracion/>
+                                (etapa, index) => (
+                                    <EtapaConfiguracion
+                                        key={index}
+                                        e_id_etapa_configuracion = {etapa.e_id_etapa_configuracion}
+                                        e_nombre = {""}
+                                        e_orden={index+1}
+                                        e_tipo = {""}
+                                        yacimiento_configuracion_id = { 0}
+                                    />
                                 ))
                         }
                     </div>
                     <div>
-                        <div className="AgregarRequisito" onClick={this.handleAgregarEtapa} >
+                        <div className="btnAgregarEtapa" onClick={this.agregarEtapa} >
                             Agregar Etapa
                         </div>
                     </div>

@@ -9,113 +9,114 @@ export class EtapaConfiguracion extends React.Component
         super(props)
         
         this.state  = {
-          maquinas : [],
-          cargos : [],
-          nueva_etapa_configuracion : {
-              e_id_etapa_configuracion : 0,
-              e_nombre :"",
-              e_orden : 0,
-              e_tipo : "",
-              yacimiento_configuracion_id : 0
-          },
-          tipos : [],
-          fases : [{
-            f_id_fase_configuracion : 0,
-            f_nombre : "MiFase1",
-            f_orden : 0,
-            f_duracion : 0,
-            f_descripcion : "",
-            etapa_configuracion_id : 0,
-            unidad_id : 7
-          }]
+            ultimaFaseIndex : 1,
+            // INFO DE ETAPA_CONF
+            etapa_configuracion : {
+                e_id_etapa_configuracion : props.e_id_etapa_configuracion || 1,
+                e_nombre : props.e_nombre,
+                e_orden : props.e_orden,
+                e_tipo : ""
+            },
+            maquinas : [],
+            cargos : [],
+            tipos : [],
+            fases : [{
+                f_id_fase_configuracion : 0,
+                f_nombre : "Fase 1 (Por configurar)",
+                f_orden : 0,
+                f_duracion : 0,
+                f_descripcion : "",
+                unidad_id : 7
+            }]
         }
     }
 
-    handleChange = (target) => {
+    changeInfo = (target) => {
         target=target.target||target;
-        console.log(`nuevo_empleado.${target.name} = ${target.value}`)
+        console.log(`etapa_configuracion[ i:${this.state.etapa_configuracion.e_orden} , id:${this.state.etapa_configuracion.e_id_etapa_configuracion} ].${target.name} = ${target.value}`)
         this.setState({
-            nueva_etapa_configuracion :{
-                ...this.state.nueva_etapa_configuracion,
+            etapa_configuracion :{
+                ...this.state.etapa_configuracion,
                 [target.name] : target.value
             }
         })
     }
 
-    handleAgregarFase = () => {
+    agregarFase = () => {
+        console.log(`etapa_configuracion[ i:${this.state.etapa_configuracion.e_orden} , id:${this.state.etapa_configuracion.e_id_etapa_configuracion} ] { new fase = fase[i:${this.state.fases.length +1} id:${this.state.ultimaFaseIndex + 1}}] } `)
+        this.setState( (prev) => ({
+            fases:[...prev.fases, {
+                f_id_fase_configuracion : prev.ultimaFaseIndex + 1,
+                f_nombre : `Fase ${prev.fases.length +1} (Por configurar)`,
+                f_orden : prev.fases.length +1,
+                f_duracion : 0,
+                f_descripcion : "",
+                unidad_id : 7
+            }],
+            ultimaFaseIndex : prev.ultimaFaseIndex + 1
+        }))
+    }
+
+    quitarFase = () => {
 
     }
 
-    handleQuitarFase = () => {
+    render = () => {
+        const {
+            etapa_configuracion, maquinas, cargos, tipos, fases
+        } = this.state
 
-    }
-
-    selectInput()
-    {
-        /*let label = document.getElementById("InputTextLabel"+this.props.id);
-        label.classList.add("BeSmall");*/
-    }
-
-    outInput()
-    {
-        /*let input = document.getElementById("InputText"+this.props.id);
-        let label = document.getElementById("InputTextLabel"+this.props.id);
-        if(input.value=="")
-        {
-            label.classList.remove("BeSmall");
-        }*/
-    }
-    render = () => (
-        <div>
+        return(
             <div className="marco-etapa-configuracion">
-                <div>
-                    <div className="ancho-cantidad">
-                        <InputText 
-                            id="NombreEtapa"
-                            label="Nombre"
-                            name="e_nombre"
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div className="ancho-mineral">
-                        <Dropdown id="TipoEtapa"
-                                name="e_tipo"
-                                retrieveData={this.handleChange}
-                                placeholder="Tipo Etapa..."
-                                options={[{text: "Refinacion", id: 1},{text: "Explotacion", id: 2}]}
-                        />
-                    </div>
-                    <div>
-                        <p>Fases</p>
+                <div className="horizontal">
+                    <div className="etapa-conf-izq">
                         <div>
-                            {
-                                this.state.fases.map(
-                                    (fases, index) => (
-                                        <div className="horizontal " >
-                                            <div className="WideContainer" style={{justifyContent: "right", width: "30%"}}>
-                                                <i className="zmdi zmdi-close-circle-o LabelIcon" onClick={this.handleQuitarFase}></i>
-                                            </div>
-                                            <div className="campo-fase">
-                                                <input
-                                                    className="DropdownSearch campo-fase" type="button" 
-                                                    value={this.state.fases[index].f_nombre}
-                                                />
-                                            </div>
-                                        </div>
-                                    ))
-                            }
+                            <InputText 
+                                id={`NombreEtapa_${etapa_configuracion.e_orden}_`}
+                                label="Nombre"
+                                name="e_nombre"
+                                onChange={this.changeInfo}
+                            />
                         </div>
                         <div>
-                            <div className="ButtonAddUser" onClick={this.handleAgregarFase} >
+                            <Dropdown id={`TipoEtapa_${etapa_configuracion.e_orden}_`}
+                                    name="e_tipo"
+                                    retrieveData={this.changeInfo}
+                                    placeholder="Tipo de etapa ..."
+                                    options={[{text: "Refinación", id: 1},{text: "Explotación", id: 2}]}
+                            />
+                        </div>
+                        <div>
+                            <p className="subtitulo-centrado">Fases de la Etapa</p>
+                            <div style={{marginLeft : "20%"}}>
+                                {
+                                    this.state.fases.map(
+                                        (fase, index) => (
+                                            <div className="faseHorizontal">
+
+                                                <i  className="zmdi zmdi-close-circle-o LabelIcon" 
+                                                    onClick={this.handleQuitarFase} 
+                                                />
+                                                <div style={{width : "100%"}}>
+                                                    <input
+                                                        className="btnFase" type="button" 
+                                                        value={fase.f_nombre.slice(0, 25) + " ..."}
+                                                    />
+                                                </div>
+                                            </div>
+                                        ))
+                                }
+                            </div>
+                            <div className="btnAgregarFase" onClick={this.agregarFase} >
                                 Agregar Fase
                             </div>
                         </div>
                     </div>
-                </div>
-                <div>
-
+                    <div className="etapa-conf-der">
+                        <p>{etapa_configuracion.e_orden}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
 }

@@ -28,9 +28,10 @@ const daoPedido = {
             INSERT INTO PEDIDO (p_id_pedido, p_fecha_solicitud, cliente_id)
             VALUES (DEFAULT,
                     ${p_fecha_solicitud ? `'${p_fecha_solicitud}'` : 'NULL'},
-                    ${cliente_id ? `'${cliente_id}'` : 'NULL'})`)
-
-    },
+                    ${cliente_id ? `'${cliente_id}'` : 'NULL'}) 
+                    RETURNING (p_id_pedido)
+            `)
+    }  ,
 
 
 

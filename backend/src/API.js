@@ -884,6 +884,9 @@ app.post('/eliminar/tipo_yacimiento', (req, res) => {
 
 /* ****************************** YACIMIENTO ****************************** */
 import {daoProyecto} from './DAOs/daoProyecto'
+import {daoProducto} from "./DAOs/daoProducto";
+import {daoPediProd} from "./DAOs/daoPediProd";
+import {daoPediEsta} from "./DAOs/daoPediEsta";
 
 app.get('/consultarLista/proyecto', (req, res) => {
   
@@ -924,6 +927,14 @@ app.post('/consultar/proyecto', (req, res) => {
     })
 });
 
+function error(bd_err)
+{
+  console.log(`STATUS ERROR: 500`)
+  console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+  res.status(500).json(bd_err)
+}
+
 /* ****************************** PEDIDO ****************************** */
 
 app.post('/insertar/pedido', (req, res) => {
@@ -937,19 +948,58 @@ app.post('/insertar/pedido', (req, res) => {
 
   daoPedido.insertar( req.body )
       .then( (bd_response) => {
+
         console.log(`STATUS OK : 200`)
-
         res.status(200).json({"rowCount" : bd_response.rowCount})
+        req.body.pedido_id = bd_response.rows[0].p_id_pedido;
+        let r = {
+          p_fecha_modificacion: getAhora(),
+          estado_id: 15,
+          pedido_id: req.body.pedido_id}
 
+        daoPediEsta.insertar(r).then((ans)=>{
+          for(let i=0;i<req.body.minerales.length;i++)
+          {
+            let newReq={
+              producto_id: req.body.minerales[i].presentacion_id,
+              p_precio_unitario: req.body.minerales[i].precio,
+              p_cantidad: req.body.minerales[i].cantidad,
+              unidad_id: 11,
+              pedido_id: req.body.pedido_id
+            }
+            daoPediProd.insertar(newReq).then((bd_response) => {
+                  console.log(`STATUS OK : 200`)
+                }
+            ).catch((e)=>error(e))
+
+          }
+        }).catch((e)=>{error(e)})
       })
       .catch( (bd_err) => {
-        console.log(`STATUS ERROR: 500`)
-        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        error(bd_err);
+      })
+});
 
+
+/* ****************************** PRODUCTO ****************************** */
+app.get('/consultarLista/producto', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/producto")
+
+  daoProducto.consultarTodos()
+      .then( ({rows}) => {
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
         res.status(500).json(bd_err)
 
       })
 });
+
 
 /* ****************************** LEVANTAR API ****************************** */
 app.listen(port, () => {

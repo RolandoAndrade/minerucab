@@ -167,6 +167,19 @@ const cleanerProyecto = {
     }
 }
 
+const cleanerProducto = {
+    limpiarListaDropdown(  productoDB ) {
+        if ( productoDB === undefined ||  productoDB.length == 0)
+            return []
+        else
+            return  productoDB.map( p => ({
+                "text" : p.p_nombre,
+                "id" : p.p_id_producto,
+                "mineral": p.mineral_id
+            }))
+    }
+}
+
 
 export {
     cleanerMineral, 
@@ -177,5 +190,6 @@ export {
     cleanerYacimiento,
     cleanerConfiguracion,
     cleanerTipoYacimiento,
-    cleanerProyecto
+    cleanerProyecto,
+    cleanerProducto
 }

@@ -26,10 +26,19 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
         },
         requisitos : [],
         etapas : [{
-            e_id_etapa_configuracion : 0,
+            e_id_etapa_configuracion : 1,
             e_nombre: "",
             e_orden: 0,
-            e_tipo: ""
+            e_tipo: "",
+            ultimaFaseIndex : 1,
+            fases : [{
+                f_id_fase_configuracion : 0,
+                f_nombre : "Fase 1 (Por configurar)",
+                f_orden : 1,
+                f_duracion : 0,
+                f_descripcion : "",
+                unidad_id : 7
+            }]
         }],
         // PARA DAR IDs UNICOS
         ultimoRequisitoIndex : 0,
@@ -118,25 +127,95 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
     }
 
     agregarEtapa = () => {
-        console.log(`new etapa_configuracion = etapa_configuracion[ i:${this.state.etapas.length+1}, id:${this.state.ultimaEtapaIndex + 1} ]`)
+        console.log(`new etapa = etapa[${this.state.ultimaEtapaIndex + 1}]`)
         this.setState( (prev) => ({
             etapas:[...prev.etapas, {
                 e_id_etapa_configuracion : prev.ultimaEtapaIndex + 1,
                 e_nombre: "",
-                e_orden: this.state.etapas.length+1,
-                e_tipo: ""
+                e_orden: 0,
+                e_tipo: 0,
+                ultimaFaseIndex : 1,
+                fases : [{
+                    f_id_fase_configuracion : 0,
+                    f_nombre : "Fase 1 (Por configurar)",
+                    f_orden : 1,
+                    f_duracion : 0,
+                    f_descripcion : "",
+                    unidad_id : 7
+                }]
             }],
             ultimaEtapaIndex : prev.ultimaEtapaIndex + 1
         }))
     }
 
-    buscarNombreMineral = (idMineral) => {
-        let mineral = this.state.minerales.find( m => m.m_id_mineral === idMineral)
-        console.log(mineral)
-        return mineral? mineral.m_nombre : ""
+    quitarEtapa = (id) => {
+        console.log(`delete etapa[ id:${id} ]`)
+        const etapasNuevo = this.state.etapas.filter( e => e.e_id_etapa_configuracion !== id)
+        this.setState({
+            etapas : etapasNuevo
+        })
     }
 
-    render = () => (
+    /* DENTRO DE ETAPA */
+    changeInfoEtapa = (opcion , id) => {
+
+        if (opcion.label) {
+            console.log(`etapa[${id}].e_tipo <-- ${opcion.value} (${opcion.label})`)
+            const nuevaEtapas = this.state.etapas.map( e => {
+                if (e.e_id_etapa_configuracion === id){
+                    e.e_tipo = opcion.value
+                }
+                return e
+            })
+
+            this.setState({
+                etapas : nuevaEtapas
+            })
+        } else {
+            console.log(`etapa[${id}].e_nombre <-- ${opcion.target.value}`)
+            const nuevaEtapas = this.state.etapas.map( e => {
+                if (e.e_id_etapa_configuracion === id){
+                    e.e_nombre = opcion.target.value
+                }
+                return e
+            })
+            this.setState({
+                etapas : nuevaEtapas
+            })
+        }
+    }
+
+
+    /* DENTRO DE FASE 
+    agregarFase = () => {
+        console.log(`etapa_configuracion[ i:${this.state.etapa_configuracion.e_orden} , id:${this.state.etapa_configuracion.e_id_etapa_configuracion} ] { new fase = fase[i:${this.state.fases.length +1} id:${this.state.ultimaFaseIndex + 1}}] } `)
+        this.setState( (prev) => ({
+            fases:[...prev.fases, {
+                f_id_fase_configuracion : prev.ultimaFaseIndex + 1,
+                f_nombre : `Fase ${prev.fases.length +1} (Por configurar)`,
+                f_orden : prev.fases.length +1,
+                f_duracion : 0,
+                f_descripcion : "",
+                unidad_id : 7
+            }],
+            ultimaFaseIndex : prev.ultimaFaseIndex + 1
+        }))
+    }
+
+    quitarFase = () => {
+
+    }
+    */
+
+
+    render = () => {
+        // PARA NO ESCRIBIR THIS.STATE MUCHAS VECES
+        const {
+            configuracion_yacimiento , requisitos, etapas, fases, minerales, maquinas, cargos
+        } = this.state
+    
+    
+        return (
         <div>   
              <MenuDashBoard title={"Crear Configuración de Yacimiento"}/>
 
@@ -162,7 +241,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                                 placeholder="Mineral..."
                                                 options={
                                                     cleanerMineral.limpiarListaDropdown(
-                                                        this.state.minerales
+                                                        minerales
                                                     )
                                                 }
                                         />
@@ -182,7 +261,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                 <p className="subtitulo-centrado" > Minerales necesarios para su explotacion</p>
                                 <div> {/* MAPING DE REQUISITOS */}
                                     {
-                                        this.state.requisitos.map(
+                                        requisitos.map(
                                             (requisito) => (
                                                 <div key={requisito.m_id_mine_yaci} className="horizontal pegar-derecha"> {/* primera linea */}
                                                     <div className="ancho-cantidad">
@@ -202,7 +281,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                                             }
                                                             options={
                                                                 cleanerMineral.limpiarListaDropdown(
-                                                                    this.state.minerales
+                                                                    minerales
                                                                 )
                                                             }
                                                         />
@@ -249,15 +328,24 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                     <div>
                         {/* ETAPA CONFIGURACION */}
                         {
-                            this.state.etapas.map(
+                            etapas.map(
                                 (etapa, index) => (
                                     <EtapaConfiguracion
+
+                                        /* INFO */
                                         key={index}
-                                        e_id_etapa_configuracion = {etapa.e_id_etapa_configuracion}
-                                        e_nombre = {""}
-                                        e_orden={index+1}
-                                        e_tipo = {""}
-                                        yacimiento_configuracion_id = { 0}
+                                        etapa_configuracion = {{
+                                            ...etapa,
+                                            e_orden : index+1
+                                        }}
+
+                                        /* DROPDOWNs */
+                                        maquinas={maquinas}
+                                        cargos={cargos}
+
+                                        /* METODOS */
+                                        changeInfo={this.changeInfoEtapa}
+                                        quitarEtapa={this.quitarEtapa}
                                     />
                                 ))
                         }
@@ -279,5 +367,5 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
 
              </div>
         </div>
-    )
+    )}
 }

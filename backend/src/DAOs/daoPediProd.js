@@ -2,7 +2,7 @@ import {psql} from '../postgreConnection'
 
 const daoPediProd= {
 
-    insertar({p_id_pedi_prod, p_cantidad, p_precio_unitario, unidad_id, producto_id, pedido_id}){
+    insertar({p_cantidad, p_precio_unitario, unidad_id, producto_id, pedido_id}){
         return psql.query(`
             INSERT INTO PEDI_PROD (p_id_pedi_prod, p_cantidad, p_precio_unitario, unidad_id, producto_id, pedido_id) 
             VALUES ( 

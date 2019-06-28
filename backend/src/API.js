@@ -885,6 +885,7 @@ app.post('/eliminar/tipo_yacimiento', (req, res) => {
 /* ****************************** YACIMIENTO ****************************** */
 import {daoProyecto} from './DAOs/daoProyecto'
 import {daoProducto} from "./DAOs/daoProducto";
+import {daoPediProd} from "./DAOs/daoPediProd";
 
 app.get('/consultarLista/proyecto', (req, res) => {
   
@@ -959,7 +960,10 @@ app.post('/insertar/pedido', (req, res) => {
             unidad_id: 11,
             pedido_id: req.body.pedido_id
           }
-
+          daoPediProd.insertar(newReq).then((bd_response) => {
+                console.log(`STATUS OK : 200`)
+          }
+          ).catch((e)=>error(e))
 
         }
       })

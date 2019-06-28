@@ -29,7 +29,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
             e_id_etapa_configuracion : 1,
             e_nombre: "",
             e_orden: 0,
-            e_tipo: "",
+            e_tipo: 0,
             ultimaFaseIndex : 1,
             fases : [{
                 f_id_fase_configuracion : 0,
@@ -187,6 +187,8 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
 
 
     /* DENTRO DE FASE 
+    changeInfoFase () => {}
+
     agregarFase = () => {
         console.log(`etapa_configuracion[ i:${this.state.etapa_configuracion.e_orden} , id:${this.state.etapa_configuracion.e_id_etapa_configuracion} ] { new fase = fase[i:${this.state.fases.length +1} id:${this.state.ultimaFaseIndex + 1}}] } `)
         this.setState( (prev) => ({

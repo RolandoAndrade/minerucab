@@ -9,6 +9,8 @@ export class EtapaConfiguracion extends React.Component {
             etapa_configuracion, maquinas, cargos, tipos, quitarEtapa, changeInfo
         } = this.props
 
+        console.log(etapa_configuracion.e_tipo)
+
         
         const id = etapa_configuracion.e_id_etapa_configuracion
 
@@ -29,7 +31,7 @@ export class EtapaConfiguracion extends React.Component {
                             <DropdownV2
                                     placeholder="Tipo de etapa ..."
                                     value={etapa_configuracion.e_tipo}
-                                    onChange={(opcion) => {this.forceUpdate(); changeInfo(opcion, id)}}
+                                    onChange={(opcion) => changeInfo(opcion, id)}
                                     options={[
                                         {label: "Refinación", value: 1},
                                         {label: "Explotación", value: 2}

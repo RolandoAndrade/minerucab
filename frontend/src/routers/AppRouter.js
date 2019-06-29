@@ -32,6 +32,7 @@ import {YacimientoEditar} from "../pages/YacimientoEditar";
 
 import {EmpleadosCrear} from "../pages/EmpleadosCrearRolando";
 import {CrearVenta} from "../pages/CrearVenta";
+import {Pedido} from "../pages/Pedido";
 
 
 export const history = createHistory(); // PARA LLEVAR EL CONTROL DE PAGINAS VISITADAS POR USER
@@ -61,6 +62,7 @@ const AppRouter = () => (
         <PublicRoute path="/editar/empleado/:id" component={EmpleadoEditar} />
         <PublicRoute path="/editar/yacimiento/:id" component={YacimientoEditar} />
         <PublicRoute path="/crear/pedido" component={CrearVenta} />
+        <PublicRoute path="/pedido" component={Pedido} />
 
         <PublicRoute path="/crear/empleadoRolando" component={EmpleadosCrear} />
 

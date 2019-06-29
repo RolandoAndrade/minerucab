@@ -49,7 +49,34 @@ export class Scheduler extends React.Component
             if(t.target.classList.contains("clicked"))
             {
                 t.target.classList.remove("clicked");
-
+                let jor = this.state.jornadas[days[day]];
+                for(let i=0;i<jor.length;i++)
+                {
+                    if(jor[i].hora_entrada==hour&&jor[i].hora_salida==hour+1)
+                    {
+                        jor.splice(i,1);
+                        break;
+                    }
+                    else if(jor[i].hora_entrada==hour)
+                    {
+                        jor[i].hora_entrada++;
+                        break;
+                    }
+                    else if(jor[i].hora_entrada<=hour&&hour<jor[i].hora_salida)
+                    {
+                        let ax=jor[i].hora_salida;
+                        jor[i].hora_salida=hour;
+                        if(hour+1!=ax)
+                        {
+                            jor.push({hora_entrada: hour+1, hora_salida: ax})
+                        }
+                    }
+                }
+                this.setState(
+                    {
+                        [days[day]]: jor
+                    }
+                )
             }
             else
             {
@@ -71,15 +98,16 @@ export class Scheduler extends React.Component
                         jor[i].hora_entrada--;
                         c=false;
                         this.setState({
-                            [days[day]]: jor
+                            [days[day]]: this.join(jor)
                         })
                     }
                 }
                 if(c)
                 {
-                    jor.push({hora_entrada: hour, hora_salida: hour+1});
+                    let v={hora_entrada: hour, hora_salida: hour+1};
+                    jor.push(v);
                     this.setState({
-                        [days[day]]: jor
+                        [days[day]]: this.join(jor)
                     })
                 }
             }

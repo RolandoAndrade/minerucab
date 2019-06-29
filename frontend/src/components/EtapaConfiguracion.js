@@ -66,7 +66,12 @@ export class EtapaConfiguracion extends React.Component {
                             onClick={() => quitarEtapa(id)}>
                         </i>
                         <div className="numero">
-                            <p>{etapa_configuracion.e_orden}</p>
+                            <input
+                                className="inputOrden"
+                                name={"e_orden"}
+                                value={etapa_configuracion.e_orden}
+                                onChange={(event) => changeInfo(event, id)}
+                            />
                         </div>
                         <p style={{height:"10px"}}>&nbsp;</p>
                     </div>

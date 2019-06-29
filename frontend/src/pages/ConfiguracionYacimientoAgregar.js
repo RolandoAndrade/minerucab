@@ -28,7 +28,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
         etapas : [{
             e_id_etapa_configuracion : 1,
             e_nombre: "",
-            e_orden: 0,
+            e_orden: 1,
             e_tipo: 0,
             ultimaFaseIndex : 1,
             fases : [{
@@ -134,7 +134,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
             etapas:[...prev.etapas, {
                 e_id_etapa_configuracion : prev.ultimaEtapaIndex + 1,
                 e_nombre: "",
-                e_orden: 0,
+                e_orden: prev.etapas.length +1,
                 e_tipo: 0,
                 ultimaFaseIndex : 1,
                 fases : [{
@@ -172,10 +172,10 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                 etapas : nuevaEtapas
             })
         } else {
-            console.log(`etapa[${id}].e_nombre <-- ${opcion.target.value}`)
+            console.log(`etapa[${id}].${opcion.target.name} <-- ${opcion.target.value}`)
             const nuevaEtapas = this.state.etapas.map( e => {
                 if (e.e_id_etapa_configuracion === id){
-                    e.e_nombre = opcion.target.value
+                    e[opcion.target.name] = opcion.target.value
                 }
                 return e
             })
@@ -364,7 +364,6 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                         key={etapa.e_id_etapa_configuracion}
                                         etapa_configuracion = {{
                                             ...this.state.etapas.find(e => e.e_id_etapa_configuracion === etapa.e_id_etapa_configuracion ),
-                                            e_orden : index+1
                                         }}
 
                                         /* DROPDOWNs */

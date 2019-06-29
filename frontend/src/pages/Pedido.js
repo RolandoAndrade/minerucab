@@ -158,7 +158,7 @@ export class Pedido extends React.Component {
                         },
                         searchFieldAlignment: "left",
                         exportButton: true,
-                        exportFileName: "Minerales",
+                        exportFileName: "Pedidos",
 
                     }}
 
@@ -280,9 +280,9 @@ export class Pedido extends React.Component {
                 }
 
                 {!!this.state.modificarYacimiento
-                && <Redirect push to={`/editar/yacimiento/${this.state.modificarYacimiento}`} />
+                && <Redirect push to={`/editar/pedido/${this.state.modificarYacimiento}`} />
                 }
-                {this.state.agregarPresionado && <Redirect push to="/crear/yacimiento" />}
+                {this.state.agregarPresionado && <Redirect push to="/crear/pedido" />}
             </div>
         </div>
     )

@@ -7,12 +7,10 @@ export class EtapaConfiguracion extends React.Component {
 
     render = () => {
         let {
-            etapa_configuracion, maquinas, cargos, tipos, quitarEtapa, changeInfo, agregarFase
+            etapa_configuracion, maquinas, cargos, tipos, quitarEtapa, changeInfo, agregarFase, quitarFase
         } = this.props
 
         let id = etapa_configuracion.e_id_etapa_configuracion
-
-        const quitarFase = () => {}
 
         return(
             <div className="marco-etapa-configuracion">
@@ -46,7 +44,7 @@ export class EtapaConfiguracion extends React.Component {
                                             <div key={fase.f_id_fase_configuracion} className="faseHorizontal">
 
                                                 <i  className="zmdi zmdi-close-circle-o LabelIcon" 
-                                                    onClick={quitarFase} 
+                                                    onClick={ () => quitarFase(id, fase.f_id_fase_configuracion) } 
                                                 />
                                                 <div style={{width : "100%"}}>
                                                     <input

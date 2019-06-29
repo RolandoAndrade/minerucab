@@ -33,6 +33,10 @@ import {YacimientoEditar} from "../pages/YacimientoEditar";
 import {EmpleadosCrear} from "../pages/EmpleadosCrearRolando";
 import {CrearVenta} from "../pages/CrearVenta";
 import {Pedido} from "../pages/Pedido";
+import {Scheduler} from "../components/Scheduler";
+import {AgregarHorario} from "../pages/AgregarHorario";
+import {Horario} from "../pages/Horario";
+import {EditarHorario} from "../pages/EditarHorario";
 
 
 export const history = createHistory(); // PARA LLEVAR EL CONTROL DE PAGINAS VISITADAS POR USER
@@ -64,8 +68,9 @@ const AppRouter = () => (
         <PublicRoute path="/crear/pedido" component={CrearVenta} />
         <PublicRoute path="/pedido" component={Pedido} />
 
-        <PublicRoute path="/crear/empleadoRolando" component={EmpleadosCrear} />
-
+        <PublicRoute path="/horario" component={Horario} />
+        <PublicRoute path="/crear/horario" component={AgregarHorario} />
+        <PublicRoute path="/editar/horario" component={EditarHorario} />
         {/* 
           PAGINAS QUE CARGAN LOGEADOS 
           <PrivateRoute path="/dashboard" component={Dashboard} />

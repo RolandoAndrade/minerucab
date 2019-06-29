@@ -7,7 +7,7 @@ export class EtapaConfiguracion extends React.Component {
 
     render = () => {
         let {
-            etapa_configuracion, maquinas, cargos, tipos, quitarEtapa, changeInfo, agregarFase, quitarFase
+            etapa_configuracion, maquinas, cargos, tipos, quitarEtapa, changeInfo, agregarFase, quitarFase, abrirFase
         } = this.props
 
         let id = etapa_configuracion.e_id_etapa_configuracion
@@ -50,6 +50,7 @@ export class EtapaConfiguracion extends React.Component {
                                                     <input
                                                         className="btnFase" type="button" 
                                                         value={fase.f_nombre.slice(0, 25) + " ..."}
+                                                        onClick={() => abrirFase(id, fase.f_id_fase_configuracion) }
                                                     />
                                                 </div>
                                             </div>

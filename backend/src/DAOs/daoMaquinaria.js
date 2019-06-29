@@ -10,7 +10,7 @@ const daoMaquinaria = {
     consultar( id ){
         return psql.query(`
             SELECT * FROM MAQUINARIA
-            WHERE c_id_cargo = ${id}
+            WHERE m_id_maquinaria = ${id}
         `)
     }
 }

@@ -36,6 +36,112 @@ app.get('/prueba', (req, res) => {
 
   res.status(200).json(respuesta);
 });
+/* ****************************** FASE CONFIGURACION ****************************** */
+import {daoFaseConfiguracion} from './DAOs/daoFaseConfiguracion'
+
+app.post('/consultar/fase_configuracion', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultar/fase_configuracion")
+
+  let f = req.body.f_id_fase_configuracion
+
+  daoFaseConfiguracion.consultar(f)
+    .then( ({rows}) => {
+      let fase = rows[0]
+      daoFaseConfiguracion.consultarCargos(f)
+        .then(({rows}) => {
+          fase["cargos"] = rows
+          daoFaseConfiguracion.consultarMaquinarias(f)
+            .then(({rows}) => {
+              fase["maquinaria"] = rows
+              res.status(200).json({"fase" : fase})
+            })
+            .catch( (bd_err)=> {
+              console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+              res.status(500).json(bd_err)
+        
+            })
+        })
+        .catch( (bd_err)=> {
+          console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+          res.status(500).json(bd_err)
+    
+        })
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+
+})
+
+app.post('/insertar/fase_configuracion', (req,res) =>{
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/insertar/fase_configuracion")
+
+  etapa = req.body.etapa_configuracion_id
+  fases = req.body.fases
+  fases.forEach((f) => {
+    daoFaseConfiguracion.insertar(f.f_nombre,f.f_orden,f.f_duracion,f.f_descripcion,etapa,f.unidad_id)
+      .then(({rows}) => {
+        let fase_id = rows[0]
+        cargos = f.cargos
+        daoFaseConfiguracion.asignarVariosCargo(fase_id,cargos)
+        .then()
+          .catch((bd_err) => {
+            console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+            res.status(500).json(bd_err)
+          })
+        
+        maquinarias = f.maquinarias
+        daoFaseConfiguracion.asignarVariosMaquinaria(fase_id,maquinarias)
+        .then()
+          .catch((bd_err) => {
+            console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+            res.status(500).json(bd_err)
+          })
+      })
+  })
+})
+
+/* ****************************** MAQUINARIA ****************************** */
+import {daoMaquinaria} from './DAOs/daoMaquinaria'
+
+app.get('/consultarLista/maquinaria', (req,res) =>{
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/maquinaria")
+
+  daoMaquinaria.consultarTodos()
+    .then(({rows}) => {
+      res.status(200).json({"rows" : rows})
+    })
+    .catch((bd_err) => {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+    })
+})
+
+app.post('/consultar/maquinaria', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultar/maquinaria")
+
+  daoMaquinaria.consultar(req.body.m_id_maquinaria)
+    .then( ({rows}) => {
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+})
 
 /* ****************************** MINERAL ****************************** */
 import {daoMineral} from './DAOs/daoMineral'

@@ -157,8 +157,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
     }
 
     /* DENTRO DE ETAPA */
-    changeInfoEtapa = (opcion , id) => {
-
+    changeInfoEtapa = (opcion , id ) => {
         if (opcion.label) {
             console.log(`etapa[${id}].e_tipo <-- ${opcion.value} (${opcion.label})`)
             const nuevaEtapas = this.state.etapas.map( e => {
@@ -190,7 +189,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
     changeInfoFase () => {}
 
     agregarFase = () => {
-        console.log(`etapa_configuracion[ i:${this.state.etapa_configuracion.e_orden} , id:${this.state.etapa_configuracion.e_id_etapa_configuracion} ] { new fase = fase[i:${this.state.fases.length +1} id:${this.state.ultimaFaseIndex + 1}}] } `)
+        console.log(`etapa_configuracionagregarFase[ i:${this.state.etapa_configuracion.e_orden} , id:${this.state.etapa_configuracion.e_id_etapa_configuracion} ] { new fase = fase[i:${this.state.fases.length +1} id:${this.state.ultimaFaseIndex + 1}}] } `)
         this.setState( (prev) => ({
             fases:[...prev.fases, {
                 f_id_fase_configuracion : prev.ultimaFaseIndex + 1,
@@ -243,7 +242,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                                 placeholder="Mineral..."
                                                 options={
                                                     cleanerMineral.limpiarListaDropdown(
-                                                        minerales
+                                                        this.state.minerales
                                                     )
                                                 }
                                         />
@@ -263,7 +262,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                 <p className="subtitulo-centrado" > Minerales necesarios para su explotacion</p>
                                 <div> {/* MAPING DE REQUISITOS */}
                                     {
-                                        requisitos.map(
+                                        this.state.requisitos.map(
                                             (requisito) => (
                                                 <div key={requisito.m_id_mine_yaci} className="horizontal pegar-derecha"> {/* primera linea */}
                                                     <div className="ancho-cantidad">
@@ -330,14 +329,14 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                     <div>
                         {/* ETAPA CONFIGURACION */}
                         {
-                            etapas.map(
+                            this.state.etapas.map(
                                 (etapa, index) => (
                                     <EtapaConfiguracion
 
                                         /* INFO */
-                                        key={index}
+                                        key={etapa.e_id_etapa_configuracion}
                                         etapa_configuracion = {{
-                                            ...etapa,
+                                            ...this.state.etapas.find(e => e.e_id_etapa_configuracion === etapa.e_id_etapa_configuracion ),
                                             e_orden : index+1
                                         }}
 
@@ -346,6 +345,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                         cargos={cargos}
 
                                         /* METODOS */
+                                        minerales={this.state.minerales}
                                         changeInfo={this.changeInfoEtapa}
                                         quitarEtapa={this.quitarEtapa}
                                     />

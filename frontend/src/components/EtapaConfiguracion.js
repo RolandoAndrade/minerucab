@@ -4,15 +4,16 @@ import {DropdownV2} from "../components/DropdownV2"
 import {InputText} from "../components/InputText";
 
 export class EtapaConfiguracion extends React.Component {
+
     render = () => {
-        const {
+        let {
             etapa_configuracion, maquinas, cargos, tipos, quitarEtapa, changeInfo
         } = this.props
 
-        console.log(etapa_configuracion.e_tipo)
+        let id = etapa_configuracion.e_id_etapa_configuracion
 
-        
-        const id = etapa_configuracion.e_id_etapa_configuracion
+        const quitarFase = () => {}
+        const agregarFase = () => {}
 
         return(
             <div className="marco-etapa-configuracion">
@@ -24,20 +25,19 @@ export class EtapaConfiguracion extends React.Component {
                                 label="Nombre"
                                 name="e_nombre"
                                 value={etapa_configuracion.e_nombre}
-                                onChange={(event) => { changeInfo(event, id)}}
+                                onChange={(event) => changeInfo(event, id)}
                             />
                         </div>
-                        <div>
-                            <DropdownV2
-                                    placeholder="Tipo de etapa ..."
-                                    value={etapa_configuracion.e_tipo}
-                                    onChange={(opcion) => changeInfo(opcion, id)}
-                                    options={[
-                                        {label: "Refinación", value: 1},
-                                        {label: "Explotación", value: 2}
-                                    ]}
-                            />
-                        </div>
+                        <DropdownV2
+                            className="tipoEtapa"
+                            placeholder="Tipo ..."
+                            options={[
+                                { label: 'Explotación', value: 1 },
+                                { label: 'Refinación', value: 2 }
+                            ]}
+                            onChange={(event) => changeInfo(event, id)}
+                            
+                        />
                         <div>
                             <p className="subtitulo-centrado">Fases de la Etapa</p>
                             <div style={{marginLeft : "20%"}}>
@@ -47,7 +47,7 @@ export class EtapaConfiguracion extends React.Component {
                                             <div key={index} className="faseHorizontal">
 
                                                 <i  className="zmdi zmdi-close-circle-o LabelIcon" 
-                                                    onClick={this.handleQuitarFase} 
+                                                    onClick={quitarFase} 
                                                 />
                                                 <div style={{width : "100%"}}>
                                                     <input
@@ -59,7 +59,7 @@ export class EtapaConfiguracion extends React.Component {
                                         ))
                                 }
                             </div>
-                            <div className="btnAgregarFase" onClick={this.agregarFase} >
+                            <div className="btnAgregarFase" onClick={agregarFase} >
                                 Agregar Fase
                             </div>
                         </div>

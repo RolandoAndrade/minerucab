@@ -117,6 +117,20 @@ const cleanerYacimiento = {
     }
 }
 
+const cleanerPedido = {
+    limpiarLista(  pedidoDB ) {
+        if ( pedidoDB === undefined ||  pedidoDB.length == 0)
+            return []
+        else
+            return  pedidoDB.map( y => ({
+                ...y,
+                "p_id_pedido" : y.p_id_pedido.toString(10).padStart(4, '0'),
+                "p_fecha_solicitud": y.p_fecha_solicitud.substring(0,10)
+            }))
+    }
+}
+
+
 const cleanerConfiguracion = {
     limpiarListaDropdown(  configuracioneDB ) {
         if ( configuracioneDB === undefined ||  configuracioneDB.length == 0)
@@ -191,5 +205,6 @@ export {
     cleanerConfiguracion,
     cleanerTipoYacimiento,
     cleanerProyecto,
-    cleanerProducto
+    cleanerProducto,
+    cleanerPedido
 }

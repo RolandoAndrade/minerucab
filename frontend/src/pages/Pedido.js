@@ -5,7 +5,7 @@ import {Redirect} from 'react-router-dom';
 import {Modal, Button} from 'react-bootstrap';
 import MaterialTable from 'material-table';
 
-import {cleanerYacimiento} from '../utils/cleaner';
+import {cleanerPedido, cleanerYacimiento} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
 
 export class Pedido extends React.Component {
@@ -14,7 +14,8 @@ export class Pedido extends React.Component {
 
         this.state  = {
             pedidos : [],
-            agregarPresionado : null
+            agregarPresionado : null,
+            consultarPedido: null
         }
     }
 
@@ -29,8 +30,9 @@ export class Pedido extends React.Component {
                 this.setState({
                     pedidos : res.data.rows
                 })
-
+                console.log(this.state)
             })
+
     }
 
     handleAgregar = () => {
@@ -42,10 +44,10 @@ export class Pedido extends React.Component {
 
     handleConsultar = (id) => {
         console.log(`consultarYacimiento(${id})`)
-        const consultarYacimiento = this.state.yacimientos.find( y => y.y_id_yacimiento == id)
+        const consultarPedido= this.state.pedidos.find( y => y.p_id_pedido == id)
 
         this.setState({
-            consultarYacimiento
+            consultarPedido
         })
     }
 
@@ -89,16 +91,16 @@ export class Pedido extends React.Component {
 
     handleCloseModal = () => {
         this.setState({
-            consultarYacimiento: null
+            consultarPedido: null
         })
     }
 
     render = () => (
         <div>
-            <MenuDashBoard title={"Yacimientos"}/>
+            <MenuDashBoard title={"Pedidos"}/>
 
             <div className="ConsultarLista">
-                { this.state.yacimientos &&
+                { this.state.pedidos &&
                 <MaterialTable
                     style={{margin: "0 5%"}}
                     columns={[
@@ -145,7 +147,7 @@ export class Pedido extends React.Component {
                             },
                         }
                     ]}
-                    data={ cleanerYacimiento.limpiarLista( this.state.yacimientos ) }
+                    data={ cleanerPedido.limpiarLista( this.state.pedidos ) }
                     title={null}
 
                     options={{
@@ -191,10 +193,10 @@ export class Pedido extends React.Component {
                 />
                 }
 
-                {!!this.state.consultarYacimiento &&
+                {!!this.state.consultarPedido &&
                 <Modal
                     size="lg"
-                    show={!!this.state.consultarYacimiento}
+                    show={!!this.state.consultarPedido}
                     onHide={this.handleCloseModal}
                     centered
                     scrollable
@@ -202,7 +204,7 @@ export class Pedido extends React.Component {
                 >
                     <Modal.Header closeButton className="mc-header">
                         <div></div>
-                        <h1>{this.state.consultarYacimiento.y_nombre.toUpperCase()}</h1>
+                        <h1>{this.state.consultarPedido.p_id_pedido.toUpperCase()}</h1>
                     </Modal.Header>
 
                     <Modal.Body className="mc-body">

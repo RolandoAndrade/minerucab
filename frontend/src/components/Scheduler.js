@@ -18,7 +18,28 @@ export class Scheduler extends React.Component
         }
     }
 
-
+    join(jornada)
+    {
+        let i=0;
+        while(i<jornada.length-1)
+        {
+            if(jornada[i].hora_salida==jornada[i+1].hora_entrada)
+            {
+                jornada[i].hora_salida=jornada[i+1].hora_salida;
+                jornada.splice(i+1,1);
+            }
+            else if(jornada[i].hora_entrada==jornada[i+1].hora_salida)
+            {
+                jornada[i].hora_entrada=jornada[i+1].hora_entrada;
+                jornada.splice(i+1,1);
+            }
+            else
+            {
+                i++;
+            }
+        }
+        return jornada;
+    }
 
     saveHours(hour,day,t)
     {
@@ -28,6 +49,7 @@ export class Scheduler extends React.Component
             if(t.target.classList.contains("clicked"))
             {
                 t.target.classList.remove("clicked");
+
             }
             else
             {
@@ -41,7 +63,7 @@ export class Scheduler extends React.Component
                         jor[i].hora_salida++;
                         c=false;
                         this.setState({
-                            [days[day]]: jor
+                            [days[day]]: this.join(jor)
                         })
                     }
                     else if(jor[i].hora_entrada==hour+1)

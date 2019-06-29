@@ -887,6 +887,7 @@ import {daoProyecto} from './DAOs/daoProyecto'
 import {daoProducto} from "./DAOs/daoProducto";
 import {daoPediProd} from "./DAOs/daoPediProd";
 import {daoPediEsta} from "./DAOs/daoPediEsta";
+import {daoInventario} from "./DAOs/daoInventario";
 
 app.get('/consultarLista/proyecto', (req, res) => {
   
@@ -1008,6 +1009,44 @@ app.get('/consultarLista/producto', (req, res) => {
   console.log("/consultarLista/producto")
 
   daoProducto.consultarTodos()
+      .then( ({rows}) => {
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
+
+/* ****************************** INVENTARIO ****************************** */
+app.get('/consultarLista/inventario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/inventario")
+
+  daoInventario.consultarTodos()
+      .then( ({rows}) => {
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.get('/consultarCantidad/inventario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarCantidad/inventario"+req.body.mineral_id)
+
+  daoInventario.cantidadMineralGuardado(req.body.mineral_id)
       .then( ({rows}) => {
         res.status(200).json({"rows" : rows})
 

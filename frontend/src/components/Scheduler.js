@@ -5,19 +5,64 @@ export class Scheduler extends React.Component
     constructor(props)
     {
         super(props);
+        this.state = {
+            jornadas: {
+                l:[],
+                m:[],
+                x:[],
+                j:[],
+                v:[],
+                s:[],
+                d:[]
+            }
+        }
     }
+
+
 
     saveHours(hour,day,t)
     {
-        if(t.target.classList.contains("clicked"))
+        if(this.props.editable)
         {
-            t.target.classList.remove("clicked");
+            let days=["l","m","x","j","v","s","d"];
+            if(t.target.classList.contains("clicked"))
+            {
+                t.target.classList.remove("clicked");
+            }
+            else
+            {
+                t.target.classList.add("clicked");
+                let jor = this.state.jornadas[days[day]];
+                let c = true;
+                for(let i=0;i<jor.length&&c;i++)
+                {
+                    if(jor[i].hora_salida==hour)
+                    {
+                        jor[i].hora_salida++;
+                        c=false;
+                        this.setState({
+                            [days[day]]: jor
+                        })
+                    }
+                    else if(jor[i].hora_entrada==hour+1)
+                    {
+                        jor[i].hora_entrada--;
+                        c=false;
+                        this.setState({
+                            [days[day]]: jor
+                        })
+                    }
+                }
+                if(c)
+                {
+                    jor.push({hora_entrada: hour, hora_salida: hour+1});
+                    this.setState({
+                        [days[day]]: jor
+                    })
+                }
+            }
         }
-        else
-        {
-            t.target.classList.add("clicked");
-        }
-
+        console.log(this.state)
     }
 
     render = () => (

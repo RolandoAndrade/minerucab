@@ -136,7 +136,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                 e_tipo: 0,
                 ultimaFaseIndex : 1,
                 fases : [{
-                    f_id_fase_configuracion : 0,
+                    f_id_fase_configuracion : 1,
                     f_nombre : "Fase 1 (Por configurar)",
                     f_orden : 1,
                     f_duracion : 0,
@@ -185,28 +185,43 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
     }
 
 
-    /* DENTRO DE FASE 
-    changeInfoFase () => {}
+    /* DENTRO DE FASE */
+    changeInfoFase = () => {
 
-    agregarFase = () => {
-        console.log(`etapa_configuracionagregarFase[ i:${this.state.etapa_configuracion.e_orden} , id:${this.state.etapa_configuracion.e_id_etapa_configuracion} ] { new fase = fase[i:${this.state.fases.length +1} id:${this.state.ultimaFaseIndex + 1}}] } `)
+    }
+
+    agregarFase = (idEtapa) => {
+        const etapa = this.state.etapas.find( e => e.e_id_etapa_configuracion === idEtapa )
+        console.log(`etapa[ ${idEtapa} ] { new fase = fase[${etapa.ultimaFaseIndex + 1}] } `)
+        
+        const nuevaEtapas = this.state.etapas.map( e => {
+            if (e.e_id_etapa_configuracion === idEtapa) {
+                e.fases = [
+                    ...e.fases,
+                    {
+                        f_id_fase_configuracion : e.ultimaFaseIndex +1,
+                        f_nombre : `Fase ${e.fases.length+1} (Por configurar)`,
+                        f_orden : 1,
+                        f_duracion : 0,
+                        f_descripcion : "",
+                        unidad_id : 7
+                    }
+                ]
+
+                e.ultimaFaseIndex = e.ultimaFaseIndex +1
+            }
+                return e
+            
+        })
         this.setState( (prev) => ({
-            fases:[...prev.fases, {
-                f_id_fase_configuracion : prev.ultimaFaseIndex + 1,
-                f_nombre : `Fase ${prev.fases.length +1} (Por configurar)`,
-                f_orden : prev.fases.length +1,
-                f_duracion : 0,
-                f_descripcion : "",
-                unidad_id : 7
-            }],
-            ultimaFaseIndex : prev.ultimaFaseIndex + 1
+            ...prev,
+            etapas : nuevaEtapas
         }))
     }
 
-    quitarFase = () => {
+    quitarFase = (idEtapa, idFase) => {
 
     }
-    */
 
 
     render = () => {
@@ -348,6 +363,8 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                         minerales={this.state.minerales}
                                         changeInfo={this.changeInfoEtapa}
                                         quitarEtapa={this.quitarEtapa}
+
+                                        agregarFase={this.agregarFase}
                                     />
                                 ))
                         }

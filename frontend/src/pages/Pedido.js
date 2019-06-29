@@ -20,14 +20,14 @@ export class Pedido extends React.Component {
 
     componentDidMount = () => {
         // API REQUEST GET
-        console.log(`----> localhost:4000/consultarLista/pedido`)
+        console.log(`----> localhost:4000/consultarLista/pedido`);
         axios.get('http://127.0.0.1:4000/consultarLista/pedido')
             .then( (res) => {
                 if(res.status === 200)
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/pedido`)
 
                 this.setState({
-                    yacimientos : res.data.rows
+                    pedidos : res.data.rows
                 })
 
             })
@@ -103,35 +103,42 @@ export class Pedido extends React.Component {
                     style={{margin: "0 5%"}}
                     columns={[
                         {
-                            title: 'ID', field: 'y_id_yacimiento', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'desc',
+                            title: 'ID', field: 'p_id_pedido', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'desc',
                             cellStyle : {
                                 fontSize : "large",
                                 textAlign : "center"
                             },
                         },
                         {
-                            title: 'Nombre', field: 'y_nombre', type: 'string', headerStyle:{ textAlign : "center"},
+                            title: 'Fecha de solicitud', field: 'p_fecha_solicitud', type: 'date', headerStyle:{ textAlign : "center"},
                             cellStyle : {
                                 fontSize : "large",
                                 textAlign : "center"
                             },
                         },
                         {
-                            title: 'Extensión (km2)', field: 'y_extension', type: 'string', headerStyle:{ textAlign : "center"},
+                            title: 'Cliente', field: 'c_nombre', type: 'string', headerStyle:{ textAlign : "center"},
                             cellStyle : {
                                 fontSize : "large",
                                 textAlign : "center"
                             },
                         },
                         {
-                            title: 'Configuración', field: 'yacimiento_configuracion', type: 'string', headerStyle:{ textAlign : "center"},
+                            title: 'Producto', field: 'p_nombre', type: 'string', headerStyle:{ textAlign : "center"},
                             cellStyle : {
                                 fontSize : "large",
                                 textAlign : "center"
                             },
                         },
                         {
-                            title: 'Lugar', field: 'lugar', type:'string', headerStyle:{ textAlign : "center"},
+                            title: 'Total a pagar', field: 'total', type:'string', headerStyle:{ textAlign : "center"},
+                            cellStyle : {
+                                fontSize : "large",
+                                textAlign: "center"
+                            },
+                        },
+                        {
+                            title: 'Estado', field: 'e_nombre', type:'string', headerStyle:{ textAlign : "center"},
                             cellStyle : {
                                 fontSize : "large",
                                 textAlign: "center"
@@ -153,7 +160,7 @@ export class Pedido extends React.Component {
 
                     }}
 
-                    onRowClick={(event, rowData) => this.handleConsultar(rowData.y_id_yacimiento)}
+                    onRowClick={(event, rowData) => this.handleConsultar(rowData.p_id_pedido)}
                     localization={
                         {
                             toolbar : {

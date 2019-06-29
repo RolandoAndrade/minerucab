@@ -6,7 +6,8 @@ const daoPedido = {
         // RETORNA UNA PROMESA
         return psql.query(`
             SELECT PE.p_id_pedido, PE.p_fecha_solicitud, C.c_nombre , PO.p_nombre,
-                   PEPO.p_cantidad, PEPO.p_precio_unitario, EN.e_nombre
+                   PEPO.p_cantidad, PEPO.p_precio_unitario, 
+                   (PEPO.p_cantidad*PEPO.p_precio_unitario*1.16) total, EN.e_nombre
             FROM PEDIDO PE, PEDI_PROD PEPO, PRODUCTO PO, CLIENTE C, (SELECT e_nombre, M.pedido_id
                                                                      FROM ESTADO, PEDI_ESTA, (SELECT MAX(p_id_pedi_esta) q, pedido_id
                                                                                               FROM PEDI_ESTA, ESTADO

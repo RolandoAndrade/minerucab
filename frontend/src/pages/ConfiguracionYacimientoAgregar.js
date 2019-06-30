@@ -383,8 +383,16 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
         })
     }
 
-    quitarCargo = (idEtapa, idFase, idCargo) => {
-
+    quitarCargo = (idCargo) => {
+        console.log(`faseModal.cargos { delete cargo[ ${idCargo} ] }`)
+        const cargosNuevo = this.state.faseModal.cargos.filter( f => f.f_id_fase_cargo !== idCargo)
+        const faseModal = this.state.faseModal
+        this.setState({
+            faseModal : {
+                ...faseModal,
+                cargos : cargosNuevo
+            }
+        })
     }
 
 
@@ -601,8 +609,6 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                                         <i 
                                                             className="zmdi zmdi-close-circle-o LabelIcon pegar-derecha"
                                                             onClick={() => this.quitarCargo(
-                                                                faseModal.etapa_configuracion_id,
-                                                                faseModal.f_duracion, 
                                                                 cargo.f_id_fase_cargo
                                                             )}
                                                         >

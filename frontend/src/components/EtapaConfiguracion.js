@@ -7,7 +7,7 @@ export class EtapaConfiguracion extends React.Component {
 
     render = () => {
         let {
-            etapa_configuracion, maquinas, cargos, tipos, quitarEtapa, changeInfo, agregarFase, quitarFase, abrirFase
+            etapa_configuracion, maquinarias, cargos, tipos, quitarEtapa, changeInfo, agregarFase, quitarFase, abrirFase
         } = this.props
 
         let id = etapa_configuracion.e_id_etapa_configuracion

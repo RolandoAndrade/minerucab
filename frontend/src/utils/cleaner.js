@@ -240,7 +240,7 @@ export {
     cleanerTipoYacimiento,
     cleanerProyecto,
     cleanerProducto,
-    cleanerCompania
+    cleanerCompania,
     cleanerProducto,
     cleanerPedido,
     cleanerHorario

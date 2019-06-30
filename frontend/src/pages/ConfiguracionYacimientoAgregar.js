@@ -39,6 +39,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                 f_duracion : null,
                 f_descripcion : "",
                 unidad_id : 7,
+                ultimoCargoIndex : 1,
                 cargos : [{
                     f_id_fase_cargo : 1,
                     c_id_cargo : 0,
@@ -169,6 +170,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                     f_duracion : null,
                     f_descripcion : "",
                     unidad_id : 7,
+                    ultimoCargoIndex : 1,
                     cargos : [{
                         f_id_fase_cargo : 1,
                         c_id_cargo : 0,
@@ -361,6 +363,24 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
             })
         }
         
+    }
+
+    agregarCargo = () => {
+        this.setState({
+            faseModal : {
+                ...this.state.faseModal,
+                ultimoCargoIndex : this.state.faseModal.ultimoCargoIndex +1,
+                cargos : [
+                    ...this.state.faseModal.cargos,
+                    {
+                        f_id_fase_cargo : this.state.faseModal.ultimoCargoIndex +1,
+                        c_id_cargo : 0,
+                        f_cantidad : null,
+                        f_salario : null 
+                    }
+                ]
+            }
+        })
     }
 
     quitarCargo = (idEtapa, idFase, idCargo) => {
@@ -622,7 +642,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                             )
                                         )
                                     }
-                                    <div className="btnAgregarRequisito" onClick={this.agregarRequisito} >
+                                    <div className="btnAgregarRequisito" onClick={this.agregarCargo} >
                                         Agregar cargo
                                     </div>
                                     

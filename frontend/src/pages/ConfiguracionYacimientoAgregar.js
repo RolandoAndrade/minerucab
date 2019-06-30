@@ -85,7 +85,11 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                     })
             })
 
-        this.abrirFase(1,1)
+        /*
+            PARA MOSTRAR AUTOMATICAMENTE MODAL FASE
+            ME SIRVE PARA DESARROLLAR MAS RAPIDO FASE
+            this.abrirFase(1,1)
+        */
         
     }
 

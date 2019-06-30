@@ -217,6 +217,21 @@ const cleanerProducto = {
     }
 }
 
+const cleanerMaquinaria = {
+    limpiarListaDropdown(  maquinariasDB ) {
+        if ( maquinariasDB === undefined ||  maquinariasDB.length == 0)
+            return []
+        else
+            return  maquinariasDB.map( m => ({
+                ...m,
+                "text" : m.m_nombre,
+                "label" : m.m_nombre,
+                "id" : m.m_id_maquinaria ,
+                "value" : m.m_id_maquinaria
+            }))
+    }
+}
+
 const cleanerHorario = {
     limpiarLista(  hor ) {
         if ( hor === undefined ||  hor.length == 0)
@@ -240,6 +255,7 @@ export {
     cleanerTipoYacimiento,
     cleanerProyecto,
     cleanerProducto,
+    cleanerMaquinaria,
     cleanerCompania,
     cleanerPedido,
     cleanerHorario

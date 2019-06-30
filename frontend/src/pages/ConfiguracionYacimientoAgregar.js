@@ -10,7 +10,7 @@ import {GuardarCancelar} from "../components/GuardarCancelar";
 import {MenuDashBoard} from "../components/MenuDashBoard";
 import {EtapaConfiguracion} from "../components/EtapaConfiguracion";
 
-import {cleanerMineral, cleanerCargo} from "../utils/cleaner"
+import {cleanerMineral, cleanerCargo, cleanerMaquinaria} from "../utils/cleaner"
 
 export class ConfiguracionYacimientoAgregar extends React.Component {
     constructor(props){
@@ -40,13 +40,13 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                 f_descripcion : "",
                 unidad_id : 7,
                 ultimoCargoIndex : 1,
+                ultimaMaquinariaIndex :0,
                 cargos : [{
                     f_id_fase_cargo : 1,
                     c_id_cargo : 0,
                     f_cantidad : null,
-                    f_salario : null 
                 }],
-                maquinarias : [{}]
+                maquinarias : []
             }]
         }],
         // PARA DAR IDs UNICOS
@@ -84,24 +84,42 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                         }
                     })
             })
-
-        /*
-            PARA MOSTRAR AUTOMATICAMENTE MODAL FASE
-            ME SIRVE PARA DESARROLLAR MAS RAPIDO FASE
-            this.abrirFase(1,1)
-        */
-        
+            .then( () => {
+                console.log(`----> localhost:4000/consultarLista/maquinaria `)
+                axios.get('http://127.0.0.1:4000/consultarLista/maquinaria')
+                    .then( res => {
+                        if(res.status === 200) {
+                            console.log(`<---- (OK 200) localhost:4000/consultarLista/maquinaria`)
+                            this.setState({
+                                maquinarias : res.data.rows
+                            })
+                        } else {
+                            console.log(`<---- (ERROR 500) localhost:4000/consultarLista/maquinaria`)
+                        }
+                    })
+            })
     }
 
+
     changeInfo = (target) => {
-        target=target.target||target;
-        console.log(`configuracion_yacimiento.${target.name} = ${target.value}`)
-        this.setState({
-            configuracion_yacimiento :{
-                ...this.state.configuracion_yacimiento,
-                [target.name] : target.value
-            }
-        })
+        if (target.label) {
+            console.log(`configuracion_yacimiento.mineral_id <-- ${target.value} (${target.label})`)
+            this.setState({
+                configuracion_yacimiento : {
+                    ...this.state.configuracion_yacimiento,
+                    mineral_id : target.value
+                }
+            })
+        } else {
+            target=target.target||target;
+            console.log(`configuracion_yacimiento.${target.name} = ${target.value}`)
+            this.setState({
+                configuracion_yacimiento :{
+                    ...this.state.configuracion_yacimiento,
+                    [target.name] : target.value
+                }
+            })
+        }
     }
 
     changeRequisito = (opcion , id) => {
@@ -167,6 +185,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                 e_orden: prev.etapas.length +1,
                 e_tipo: 0,
                 ultimaFaseIndex : 1,
+                ultimaMaquinariaIndex : 0,
                 fases : [{
                     f_id_fase_configuracion : 1,
                     f_nombre : "Fase por configurar",
@@ -175,13 +194,13 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                     f_descripcion : "",
                     unidad_id : 7,
                     ultimoCargoIndex : 1,
+                    ultimaMaquinariaIndex :0,
                     cargos : [{
                         f_id_fase_cargo : 1,
                         c_id_cargo : 0,
                         f_cantidad : null,
-                        f_salario : null 
                     }],
-                    maquinarias : [{}]
+                    maquinarias : []
                 }]
             }],
             ultimaEtapaIndex : prev.ultimaEtapaIndex + 1
@@ -240,13 +259,14 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                         f_duracion : null,
                         f_descripcion : "",
                         unidad_id : 7,
+                        ultimaMaquinariaIndex :0,
+                        ultimoCargoIndex : 1,
                         cargos : [{
                             f_id_fase_cargo : 1,
                             c_id_cargo : 0,
                             f_cantidad : null,
-                            f_salario : null 
                         }],
-                        maquinarias : [{}]
+                        maquinarias : []
                     }
                 ]
 
@@ -380,7 +400,6 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                         f_id_fase_cargo : this.state.faseModal.ultimoCargoIndex +1,
                         c_id_cargo : 0,
                         f_cantidad : null,
-                        f_salario : null 
                     }
                 ]
             }
@@ -399,11 +418,108 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
         })
     }
 
+    /* MANEJAR MAQUINARIA DENTRO DEL MODAL DE FASE */
+
+    changeMaquinaria = (opcion , idMaquinaria) => {
+        if (opcion.label) {
+            console.log(`faseModal.maquinaria[ ${idMaquinaria} ].m_id_maquinaria <-- ${opcion.value} (${opcion.label})`)
+            const nuevasMaquinarias = this.state.faseModal.maquinarias.map( m => {
+                    if (m.f_id_fase_maqu === idMaquinaria){
+                        m.m_id_maquinaria = opcion.value
+                    }
+                    return m
+                })
+
+            this.setState({
+                faseModal : {
+                    ...this.state.faseModal,
+                    maquinarias : nuevasMaquinarias
+                }
+            })
+
+        } else {
+            console.log(`faseModal.${opcion.target.name}[ ${idMaquinaria} ].f_cantidad <-- ${opcion.target.value}`)
+            const nuevasMaquinarias = this.state.faseModal.maquinarias.map( m => {
+                if (m.f_id_fase_maqu === idMaquinaria){
+                    m[opcion.target.name] = opcion.target.value
+                }
+                return m
+            })
+            
+            this.setState({
+                faseModal : {
+                    ...this.state.faseModal,
+                    maquinarias : nuevasMaquinarias
+                }
+            })
+        }
+        
+    }
+
+    agregarMaquinaria = () => {
+        this.setState({
+            faseModal : {
+                ...this.state.faseModal,
+                ultimaMaquinariaIndex : this.state.faseModal.ultimaMaquinariaIndex +1,
+                maquinarias : [
+                    ...this.state.faseModal.maquinarias,
+                    {
+                        f_id_fase_maqu : this.state.faseModal.ultimaMaquinariaIndex +1,
+                        f_cantidad : null,
+                        m_id_maquinaria :0
+                    }
+                ]
+            }
+        })
+    }
+
+    quitarMaquinaria = (idMaquinaria) => {
+        console.log(`faseModal.maquinarias { delete maquinaria[ ${idMaquinaria} ] }`)
+        const maquinariasNuevo = this.state.faseModal.maquinarias.filter( m => m.f_id_fase_maqu !== idMaquinaria)
+        const faseModal = this.state.faseModal
+        this.setState({
+            faseModal : {
+                ...faseModal,
+                maquinarias : maquinariasNuevo
+            }
+        })
+    }
+
+    /* MANEJAR EL GUARDADO EN LA BD */
+    goConfiguracionYacimiento = () => {
+        this.setState({
+            goConfiguracionYacimiento : true
+        })
+    }
+
+    guardarBD = () => {
+        const nuevaEtapas = this.state.etapas.map( e => {
+            e.e_tipo = e.e_tipo !== 1 && e.e_tipo !==2 ? 0 :
+                        e.e_tipo === 1 ? 'explotacion' : 'refinacion'
+
+            return e
+        })
+
+
+        console.log(`----> localhost:4000/insertar/yacimiento_configuracion`)
+        return axios.post('http://127.0.0.1:4000/insertar/yacimiento_configuracion',
+            {
+                ...this.state.configuracion_yacimiento,
+                etapas : nuevaEtapas,
+                requisitos : this.state.requisitos
+            })
+            .then( (res) => {
+                if( res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/insertar/yacimiento_configuracion`)
+                }
+                return res
+            }).catch( err => err)
+    }
 
     render = () => {
         // PARA NO ESCRIBIR THIS.STATE MUCHAS VECES
         const {
-            configuracion_yacimiento , requisitos, etapas, fases, minerales, maquinas, cargos, faseModal
+            configuracion_yacimiento , requisitos, etapas, fases, minerales, maquinarias, cargos, faseModal
         } = this.state
     
     
@@ -421,16 +537,21 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                     id={`NombreConfiguracion`}
                                     label="Nombre de Configuración"
                                     name="y_nombre"
+                                    vale={configuracion_yacimiento.y_nombre}
                                     onChange={this.changeInfo}
                                 />
                                 <div className="horizontal pegar-derecha">
                                     <p className="separador"> Mineral a explotar</p>
                                     
                                     <div className="ancho-mineral">
-                                        <Dropdown id="MineralExplotar"
+                                        <DropdownV2
                                                 name="mineral_id"
-                                                retrieveData={this.changeInfo}
+                                                onChange={this.changeInfo}
                                                 placeholder="Mineral..."
+                                                value={{
+                                                    value: configuracion_yacimiento.mineral_id,
+                                                    label: !!configuracion_yacimiento.mineral_id ? minerales.find( m => m.m_id_mineral === configuracion_yacimiento.mineral_id).m_nombre : "Mineral ..."
+                                                }}
                                                 options={
                                                     cleanerMineral.limpiarListaDropdown(
                                                         minerales.filter( m => 
@@ -533,7 +654,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                         }}
 
                                         /* DROPDOWNs */
-                                        maquinas={maquinas}
+                                        maquinarias={maquinarias}
                                         cargos={cargos}
 
                                         /* METODOS */
@@ -558,12 +679,14 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                 <div>
                     <GuardarCancelar
                         position="center"
-                        storeData={this.handleGuardar}
-                        success={this.goSolicitud}
-                        decline={this.goSolicitud}
+                        storeData={this.guardarBD}
+                        success={this.goConfiguracionYacimiento}
+                        decline={this.goConfiguracionYacimiento}
                     />
                 </div> 
 
+                {this.state.goConfiguracionYacimiento && <Redirect to="/yacimiento-configuracion" /> }
+                
 
                 {!!this.state.faseModal && 
                 <Modal 
@@ -593,7 +716,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                     id={`DuracionFase`}
                                     type="number"
                                     min={1}
-                                    label="Duracion en días"
+                                    label="Duracion en meses"
                                     name="f_duracion"
                                     value={faseModal.f_duracion}
                                     onChange={this.changeInfoFase}
@@ -656,6 +779,60 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                     }
                                     <div className="btnAgregarRequisito" onClick={this.agregarCargo} >
                                         Agregar cargo
+                                    </div>
+                                    
+                                </div>
+                                <p className="subtitulo-centrado">Maquinarias</p>
+                                <div> {/* MAPING DE MAQUINARIAS */}
+                                    { this.state.maquinarias &&
+                                        faseModal.maquinarias.map(
+                                            (maquinaria) => (
+                                                <div key={maquinaria.f_id_fase_maqu} className="cargoHorizontal">
+                                                    <div>
+                                                        <i 
+                                                            className="zmdi zmdi-close-circle-o LabelIcon pegar-derecha"
+                                                            onClick={() => this.quitarMaquinaria(
+                                                                maquinaria.f_id_fase_maqu
+                                                            )}
+                                                        >
+                                                        </i>
+                                                    </div>
+                                                    <div style={{width : "30%" }}>
+                                                        <DropdownV2
+                                                            placeholder="Maquinaria ..."
+                                                            value={{
+                                                                value: maquinaria.m_id_maquinaria,
+                                                                label: !!maquinaria.m_id_maquinaria ? maquinarias.find( m => m.m_id_maquinaria === maquinaria.m_id_maquinaria).m_nombre : "Maquinaria ..."
+                                                            }}
+                                                            options={
+                                                                cleanerMaquinaria.limpiarListaDropdown(
+                                                                    maquinarias
+                                                                )
+                                                            }
+                                                            onChange={ (event) =>
+                                                                this.changeMaquinaria(event, maquinaria.f_id_fase_maqu)
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="ancho-cantidad">
+                                                        <InputText 
+                                                            id={`CantidadMaquinaria_${maquinaria.f_id_fase_maqu}_`}
+                                                            label="Cantidad"
+                                                            type="number"
+                                                            min="0"
+                                                            name="f_cantidad"
+                                                            value={maquinaria.f_cantidad}
+                                                            onChange= { (event) =>
+                                                                this.changeMaquinaria(event, maquinaria.f_id_fase_maqu)
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            )
+                                        )
+                                    }
+                                    <div className="btnAgregarRequisito" onClick={this.agregarMaquinaria} >
+                                        Agregar maquinaria
                                     </div>
                                     
                                 </div>

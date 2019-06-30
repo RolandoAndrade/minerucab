@@ -15,11 +15,13 @@ const daoYacimientoConfiguracion = {
     },
 
     insertar (y_nombre,y_capacidad_explotacion,mineral_id,unidad_id){
-        return psql.query(`
+        const qry = `
             INSERT INTO YACIMIENTO_CONFIGURACION 
-            (y_id_yacimiento_configuracion,y_nombre,y_capacidad_explotacion,mineral_id,unidad_id) VALUES 
+                (y_id_yacimiento_configuracion,y_nombre,y_capacidad_explotacion,mineral_id,unidad_id) VALUES 
             (DEFAULT,'${y_nombre}',${y_capacidad_explotacion},${mineral_id},${unidad_id}) RETURNING (y_id_yacimiento_configuracion);
-        `)
+        `
+        console.log(qry)
+        return psql.query(qry)
     },
 
     eliminar( id ){
@@ -27,6 +29,16 @@ const daoYacimientoConfiguracion = {
             DELETE FROM YACIMIENTO_CONFIGURACION
             WHERE y_id_yacimiento_configuracion = ${id}
         `)
+    },
+
+    agregarRequisitos ( yac_id, requisitos ) {
+        let query = `INSERT INTO MINE_YACI (m_id_mine_yaci,yacimiento_configuracion_id,mineral_id,m_cantidad,unidad_id) VALUES `
+        let i = 0
+        requisitos.forEach((r) => {
+            i++
+            query = query + `(DEFAULT,${yac_id},${r.m_id_mineral},${r.m_cantidad},7)${i < requisitos.length ? ',' : ';' }`
+        })
+        return psql.query(query)
     },
 
     BorrarRequisitos( id ) {

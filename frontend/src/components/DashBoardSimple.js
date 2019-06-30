@@ -19,6 +19,7 @@ export class DashBoardSimple extends React.Component {
                                      {text: "Plantas", url: "planta"},
                                      {text: "Procesos", url: "proceso"},
                                      {text: "Productos", url: "producto"},
+                                     {text: "Horarios", url: "horario"},
                                      {text: "Maquinaria", url: "maquinaria"}]}/>
                 <DashBoardColumn main={this.props.main} image="resources/img/Dashboard_2.png" color="b"
                                  title="Ventas" sections={

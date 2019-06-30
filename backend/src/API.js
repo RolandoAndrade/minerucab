@@ -1171,31 +1171,30 @@ app.post('/editar/horario', (req, res) => {
       .then( (bd_response) => {
         console.log(`STATUS OK : 200`)
         daoHorario.modificar(req.body).then((bd_response)=>{
-          res.status(200).json({"rows" : bd_response.rows});
-          let h=req.body.horario_id;
-
-          let jor=req.body.jornadas;
-          try
-          {
-            for (let i in jor)
-            {
-              for(let j=0;j<jor[i].length;j++)
-              {
-                let data={j_dia: i, j_hora_entrada: jor[i][j].hora_entrada, j_hora_salida: jor[i][j].hora_salida, horario_id: h};
-                console.log(data);
-
-                daoHorario.insertarJornada(data).then(
-                    (bd_response) => {
-                    console.log(`STATUS OK : 200`)}).catch((e)=>error(e));
-              }
-            }
-          }
-          catch (e)
-          {
-
-          }
-        })
+          res.status(200).json({"rowCount" : bd_response.rowCount})
+          })
       })
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/eliminar/horario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(req.body)
+  daoHorario.eliminarJornadas(req.body.horario_id)
+      .then( (bd_response) => {
+        console.log(`STATUS OK : 200`)
+        daoHorario.eliminar(req.body.horario_id).then((bd_response)=>{
+          console.log(`STATUS OK : 200`)
+          res.status(200).json({"rows" : bd_response.rows});
+      }).catch((e)=>error(e))})
       .catch( (bd_err) => {
         console.log(`STATUS ERROR: 500`)
         console.error(`bd_err : ${JSON.stringify(bd_err)}`)

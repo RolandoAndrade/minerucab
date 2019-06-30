@@ -79,14 +79,14 @@ export class Horario extends React.Component {
     }
 
     handleModificar = () => {
-        console.log(`modificarYacimiento(${this.state.consultarYacimiento.y_id_yacimiento})`)
+        console.log(`modificarHorario(${this.state.consultarHorario.horario_id})`)
         this.setState({
-            modificarYacimiento : this.state.consultarYacimiento.y_id_yacimiento
+            modificarHorario : this.state.consultarHorario.horario_id
         })
     }
 
     handleEliminar = () => {
-        console.log(`eliminarYacimiento(${this.state.consultarYacimiento.y_id_yacimiento})`)
+        console.log(`eliminarHorario(${this.state.consultarHorario.horario_id})`)
 
         this.setState({
             warningEliminar : true
@@ -101,14 +101,14 @@ export class Horario extends React.Component {
     }
 
     handleEliminarSeguro = () => {
-        console.log(`----> localhost:4000/eliminar/yacimiento/${this.state.consultarYacimiento.y_id_yacimiento}`)
-        axios.post('http://127.0.0.1:4000/eliminar/yacimiento',
+        console.log(`----> localhost:4000/eliminar/horario/${this.state.consultarHorario.horario_id}`)
+        axios.post('http://127.0.0.1:4000/eliminar/horario',
             {
-                "y_id_yacimiento" : this.state.consultarYacimiento.y_id_yacimiento,
+                "horario_id" : this.state.consultarHorario.horario_id
             })
             .then( (res) => {
                 if( res.status === 200) {
-                    console.log(`<---- (OK 200) localhost:4000/eliminar/yacimiento`)
+                    console.log(`<---- (OK 200) localhost:4000/eliminar/horario`)
                     this.handleCloseModal()
                     this.handleCloseEliminar()
                     location.reload()
@@ -254,10 +254,10 @@ export class Horario extends React.Component {
                 </Modal>
                 }
 
-                {!!this.state.modificarYacimiento
-                && <Redirect push to={`/editar/pedido/${this.state.modificarYacimiento}`} />
+                {!!this.state.modificarHorario
+                && <Redirect push to={`/editar/horario/${this.state.modificarHorario}`} />
                 }
-                {this.state.agregarPresionado && <Redirect push to="/crear/pedido" />}
+                {this.state.agregarPresionado && <Redirect push to="/crear/horario" />}
             </div>
         </div>
     )

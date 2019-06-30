@@ -54,6 +54,14 @@ const daoHorario = {
                 WHERE h_id_horario = ${horario_id}
         `)
     },
+
+    eliminar(id)
+    {
+        return psql.query(`
+            DELETE FROM HORARIO
+            WHERE h_id_horario=${id}
+            `)
+    }
 }
 
 export {daoHorario}

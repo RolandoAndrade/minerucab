@@ -32,8 +32,8 @@ const daoPedido = {
 
     eliminar( id ){
         return psql.query(`
-            DELETE FROM MINERAL
-            WHERE m_id_mineral = ${id}
+            DELETE FROM PEDI_PROD
+            WHERE pedido_id = ${id}
         `)
     },
 

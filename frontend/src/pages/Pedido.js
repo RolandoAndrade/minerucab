@@ -72,14 +72,14 @@ export class Pedido extends React.Component {
     }
 
     handleModificar = () => {
-        console.log(`modificarYacimiento(${this.state.consultarYacimiento.y_id_yacimiento})`)
+        console.log(`modificarYacimiento(${this.state.consultarYacimiento.p_id_pedido})`)
         this.setState({
-            modificarYacimiento : this.state.consultarYacimiento.y_id_yacimiento
+            modificarYacimiento : this.state.consultarPedido.p_id_pedido
         })
     }
 
     handleEliminar = () => {
-        console.log(`eliminarYacimiento(${this.state.consultarYacimiento.y_id_yacimiento})`)
+        console.log(`eliminarYacimiento(${this.state.consultarPedido.p_id_pedido})`)
 
         this.setState({
             warningEliminar : true
@@ -94,10 +94,10 @@ export class Pedido extends React.Component {
     }
 
     handleEliminarSeguro = () => {
-        console.log(`----> localhost:4000/eliminar/pedido/${this.state.cleanerPedido.y_id_yacimiento}`)
+        console.log(`----> localhost:4000/eliminar/pedido/${this.state.consultarPedido.p_id_pedido}`)
         axios.post('http://127.0.0.1:4000/eliminar/pedido',
             {
-                "p_id_pedido" : this.state.consultarPedido.p_id_pedido,
+                "p_id_pedido" : parseInt(this.state.consultarPedido.p_id_pedido),
             })
             .then( (res) => {
                 if( res.status === 200) {
@@ -284,7 +284,7 @@ export class Pedido extends React.Component {
 
                     <Modal.Body className="mc-body">
                         <div>
-                            <p style={{textAlign: "center"}}>{`¿Estas segur@ que deseas eliminar el peido ${this.state.consultarPedido && this.state.consultarPedido.p_id_pedido}?`}</p>
+                            <p style={{textAlign: "center"}}>{`¿Estas segur@ que deseas eliminar el pedido ${this.state.consultarPedido && this.state.consultarPedido.p_id_pedido}?`}</p>
                         </div>
 
                     </Modal.Body>

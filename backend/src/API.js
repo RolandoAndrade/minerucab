@@ -1004,11 +1004,11 @@ app.post('/insertar/yacimiento_configuracion', (req,res) => {
   daoYacimientoConfiguracion.insertar(y.y_nombre,y.y_capacidad_explotacion,y.mineral_id,7)  
   .then((resp_bd) => {
     yac_id = resp_bd.rows[0].y_id_yacimiento_configuracion
-    daoYacimientoConfiguracion.agregarRequisitos(yac_id,y["requisitos"])
+    return daoYacimientoConfiguracion.agregarRequisitos(yac_id,y["requisitos"])
   })
   .then((resp_bd) => {
     return new Promise((resolve,reject) => {
-      y["etapas"].map((e,i) => { 
+      y["etapas"].map((e,i) => {
         daoEtapaConfiguracion.insertar(e.e_nombre,e.e_orden,e.e_tipo,yac_id)
         .then((resp_bd) => {
           let e_id = resp_bd.rows[0].e_id_etapa_configuracion

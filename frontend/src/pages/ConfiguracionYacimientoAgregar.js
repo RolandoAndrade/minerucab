@@ -98,23 +98,28 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                         }
                     })
             })
-        /*
-            PARA MOSTRAR AUTOMATICAMENTE MODAL FASE
-            ME SIRVE PARA DESARROLLAR MAS RAPIDO FASE
-            */
-           this.abrirFase(1,1)
-        
     }
 
+
     changeInfo = (target) => {
-        target=target.target||target;
-        console.log(`configuracion_yacimiento.${target.name} = ${target.value}`)
-        this.setState({
-            configuracion_yacimiento :{
-                ...this.state.configuracion_yacimiento,
-                [target.name] : target.value
-            }
-        })
+        if (target.label) {
+            console.log(`configuracion_yacimiento.mineral_id <-- ${target.value} (${target.label})`)
+            this.setState({
+                configuracion_yacimiento : {
+                    ...this.state.configuracion_yacimiento,
+                    mineral_id : target.value
+                }
+            })
+        } else {
+            target=target.target||target;
+            console.log(`configuracion_yacimiento.${target.name} = ${target.value}`)
+            this.setState({
+                configuracion_yacimiento :{
+                    ...this.state.configuracion_yacimiento,
+                    [target.name] : target.value
+                }
+            })
+        }
     }
 
     changeRequisito = (opcion , id) => {
@@ -479,7 +484,37 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
             }
         })
     }
-    
+
+    /* MANEJAR EL GUARDADO EN LA BD */
+    goConfiguracionYacimiento = () => {
+        this.setState({
+            goConfiguracionYacimiento : true
+        })
+    }
+
+    guardarBD = () => {
+        const nuevaEtapas = this.state.etapas.map( e => {
+            e.e_tipo = e.e_tipo !== 1 && e.e_tipo !==2 ? 0 :
+                        e.e_tipo === 1 ? 'explotacion' : 'refinacion'
+
+            return e
+        })
+
+
+        console.log(`----> localhost:4000/insertar/yacimiento_configuracion`)
+        return axios.post('http://127.0.0.1:4000/insertar/yacimiento_configuracion',
+            {
+                ...this.state.configuracion_yacimiento,
+                etapas : nuevaEtapas,
+                requisitos : this.state.requisitos
+            })
+            .then( (res) => {
+                if( res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/insertar/yacimiento_configuracion`)
+                }
+                return res
+            }).catch( err => err)
+    }
 
     render = () => {
         // PARA NO ESCRIBIR THIS.STATE MUCHAS VECES
@@ -502,16 +537,21 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                     id={`NombreConfiguracion`}
                                     label="Nombre de Configuración"
                                     name="y_nombre"
+                                    vale={configuracion_yacimiento.y_nombre}
                                     onChange={this.changeInfo}
                                 />
                                 <div className="horizontal pegar-derecha">
                                     <p className="separador"> Mineral a explotar</p>
                                     
                                     <div className="ancho-mineral">
-                                        <Dropdown id="MineralExplotar"
+                                        <DropdownV2
                                                 name="mineral_id"
-                                                retrieveData={this.changeInfo}
+                                                onChange={this.changeInfo}
                                                 placeholder="Mineral..."
+                                                value={{
+                                                    value: configuracion_yacimiento.mineral_id,
+                                                    label: !!configuracion_yacimiento.mineral_id ? minerales.find( m => m.m_id_mineral === configuracion_yacimiento.mineral_id).m_nombre : "Mineral ..."
+                                                }}
                                                 options={
                                                     cleanerMineral.limpiarListaDropdown(
                                                         minerales.filter( m => 
@@ -639,12 +679,14 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                 <div>
                     <GuardarCancelar
                         position="center"
-                        storeData={this.handleGuardar}
-                        success={this.goSolicitud}
-                        decline={this.goSolicitud}
+                        storeData={this.guardarBD}
+                        success={this.goConfiguracionYacimiento}
+                        decline={this.goConfiguracionYacimiento}
                     />
                 </div> 
 
+                {this.state.goConfiguracionYacimiento && <Redirect to="/yacimiento-configuracion" /> }
+                
 
                 {!!this.state.faseModal && 
                 <Modal 

@@ -18,7 +18,7 @@ const daoFaseConfiguracion = {
     insertar(f_nombre,f_orden,f_duracion,f_descripcion,etapa_configuracion_id,unidad_id) {
         return psql.query(`
         INSERT INTO FASE_CONFIGURACION (f_id_fase_configuracion,f_nombre,f_orden,f_duracion,f_descripcion,etapa_configuracion_id,unidad_id) VALUES 
-        (DEFAULT,${f_nombre},${f_orden},${f_duracion},${f_descripcion},${etapa_configuracion_id},${unidad_id}) RETURNING id;
+        (DEFAULT,'${f_nombre}',${f_orden},${f_duracion},'${f_descripcion}',${etapa_configuracion_id},${unidad_id}) RETURNING (f_id_fase_configuracion);
         `)
     },
 
@@ -45,7 +45,7 @@ const daoFaseConfiguracion = {
         let i = 0
         cargos.forEach( c => {
             i++;
-            query = query + `(DEFAULT, ${fase_configuracion_id}, ${c.f_cantidad},${c.cargo_id})${i < compuestos.length ? ',' : ';' } `
+            query = query + `(DEFAULT, ${fase_configuracion_id}, ${c.f_cantidad},${c.cargo_id})${i < cargos.length ? ',' : ';' } `
         })
         return psql.query(query)
     },
@@ -62,7 +62,7 @@ const daoFaseConfiguracion = {
         let i = 0;
         maquinarias.forEach( m => {
             i++;
-            query =  query + `(DEFAULT,${fase_configuracion_id},${m.maquinaria_id},${m.f_cantidad})${i < compuestos.length ? ',' : ';' }`
+            query =  query + `(DEFAULT,${fase_configuracion_id},${m.maquinaria_id},${m.f_cantidad})${i < maquinarias.length ? ',' : ';' }`
         })
         return psql.query(query)
     },

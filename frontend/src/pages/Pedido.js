@@ -239,7 +239,7 @@ export class Pedido extends React.Component {
                             }
                         <p>
                             <span className="mc-atributo">Costo total </span>
-                            <span> : {this.state.consultarPedido.total}</span>
+                            <span> : {this.state.consultarPedido.total} BsS</span>
                         </p>
 
 

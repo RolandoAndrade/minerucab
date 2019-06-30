@@ -39,6 +39,21 @@ const daoHorario = {
                     RETURNING (j_id_jornada)
             `)
     },
+
+    eliminarJornadas(id)
+    {
+        return psql.query(`
+            DELETE FROM JORNADA
+            WHERE horario_id=${id}
+            `)
+    },
+    modificar({ horario_id, h_nombre }){
+        return psql.query(`
+            UPDATE HORARIO SET
+                h_nombre = ${h_nombre ? `'${h_nombre}'` : 'NULL' }
+                WHERE h_id_horario = ${horario_id}
+        `)
+    },
 }
 
 export {daoHorario}

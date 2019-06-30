@@ -15,6 +15,7 @@ export class EditarHorario extends React.Component {
         this.state  = {
             h_nombre: "",
             goBack : false,
+            horario_id: 1
         }
     }
 
@@ -56,6 +57,7 @@ export class EditarHorario extends React.Component {
 
                 this.setState({
                     h_nombre: nuevoHorario[0].h_nombre,
+                    horario_id: id,
                     jornadas: jor
                 })
 
@@ -88,11 +90,11 @@ export class EditarHorario extends React.Component {
     }
 
     handleGuardar = () => {
-        console.log(`----> localhost:4000/insertar/horario`)
-        return axios.post('http://127.0.0.1:4000/insertar/horario', this.state)
+        console.log(`----> localhost:4000/editar/horario`)
+        return axios.post('http://127.0.0.1:4000/editar/horario', this.state)
             .then( (res) => {
                 if( res.status === 200) {
-                    console.log(`<---- (OK 200) localhost:4000/insertar/horario`)
+                    console.log(`<---- (OK 200) localhost:4000/editar/horario`)
                 }
                 return res
             })

@@ -1059,7 +1059,7 @@ app.get('/consultarCantidad/inventario', (req, res) => {
       })
 });
 /* ****************************** HORARIO ****************************** */
-app.get('/consultarLista/orario', (req, res) => {
+app.get('/consultarLista/horario', (req, res) => {
 
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
@@ -1073,6 +1073,27 @@ app.get('/consultarLista/orario', (req, res) => {
       })
       .catch( (bd_err)=> {
         console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/consultar/horario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultar/horario/${req.body.h_id_horario}`)
+  daoHorario.consultar(req.body.h_id_horario)
+      .then( ({rows}) => {
+        console.log(`STATUS OK : 200`)
+
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
         res.status(500).json(bd_err)
 
       })

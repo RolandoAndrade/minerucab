@@ -68,7 +68,7 @@ const AppRouter = () => (
 
         <PublicRoute path="/horario" component={Horario} />
         <PublicRoute path="/crear/horario" component={AgregarHorario} />
-        <PublicRoute path="/editar/horario" component={EditarHorario} />
+        <PublicRoute path="/editar/horario/:id" component={EditarHorario} />
         {/* 
           PAGINAS QUE CARGAN LOGEADOS 
           <PrivateRoute path="/dashboard" component={Dashboard} />

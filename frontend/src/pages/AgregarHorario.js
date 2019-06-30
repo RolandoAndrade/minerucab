@@ -35,6 +35,13 @@ export class AgregarHorario extends React.Component {
         );
     };
 
+    goHorario = () =>
+    {
+        this.setState(
+            {goBack: true}
+        )
+    }
+
     handleGuardar = () => {
         console.log(`----> localhost:4000/insertar/horario`)
         return axios.post('http://127.0.0.1:4000/insertar/horario', this.state)
@@ -60,10 +67,10 @@ export class AgregarHorario extends React.Component {
             <GuardarCancelar
                 position="center"
                 storeData={this.handleGuardar}
-                success={this.goEmpleado}
-                decline={this.goEmpleado}
+                success={this.goHorario}
+                decline={this.goHorario}
             />
-                {this.state.goBack && <Redirect to="/dashboard" /> }
+                {this.state.goBack && <Redirect to="../..//horario" /> }
 
         </div>
     )

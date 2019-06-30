@@ -27,6 +27,23 @@ const daoYacimientoConfiguracion = {
             DELETE FROM YACIMIENTO_CONFIGURACION
             WHERE y_id_yacimiento_configuracion = ${id}
         `)
+    },
+
+    consultarRequisitos( id ) {
+        return psql.query(`
+            SELECT * 
+            FROM MINE_YACI
+            WHERE yacimiento_configuracion_id = ${id}
+        `)
+    },
+
+    proyectosAsociados( id ) {
+        return psql.query(`
+        SELECT P.p_id_proyecto 
+        FROM PROYECTO P, YACIMIENTO Y
+        WHERE Y.y_id_yacimiento = P.yacimiento_id
+        AND Y.yacimiento_configuracion_id = ${id}
+        `)
     }
 
 }

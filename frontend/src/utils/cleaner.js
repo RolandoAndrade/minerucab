@@ -100,7 +100,9 @@ const cleanerCargo = {
             return cargosBD.map( c => ({
                 ...c,
                 "id" : c.c_id_cargo,
-                "text": c.c_nombre
+                "text": c.c_nombre,
+                "value": c.c_id_cargo,
+                "label": c.c_nombre
             }))
     }
 }

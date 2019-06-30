@@ -28,6 +28,12 @@ export class EtapaConfiguracion extends React.Component {
                         <DropdownV2
                             className="tipoEtapa"
                             placeholder="Tipo ..."
+                            value={{
+                                value : etapa_configuracion.e_tipo,
+                                label : etapa_configuracion.e_tipo === 1 ? "Explotación" : 
+                                        etapa_configuracion.e_tipo === 2 ? "Refinación" :
+                                        "Tipo ..."
+                            }}
                             options={[
                                 { label: 'Explotación', value: 1 },
                                 { label: 'Refinación', value: 2 }
@@ -49,7 +55,7 @@ export class EtapaConfiguracion extends React.Component {
                                                 <div style={{width : "100%"}}>
                                                     <input
                                                         className="btnFase" type="button" 
-                                                        value={fase.f_nombre.slice(0, 25) + " ..."}
+                                                        value={`(${fase.f_orden}) - ${fase.f_nombre.slice(0, 25)} ...`}
                                                         onClick={() => abrirFase(id, fase.f_id_fase_configuracion) }
                                                     />
                                                 </div>

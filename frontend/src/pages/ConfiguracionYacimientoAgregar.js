@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
-import {Button} from 'react-bootstrap';
+import {Button, Modal} from 'react-bootstrap';
+
 import {Dropdown} from "../components/Dropdown";
 import {DropdownV2} from "../components/DropdownV2"
 import {InputText} from "../components/InputText";
@@ -9,7 +10,7 @@ import {GuardarCancelar} from "../components/GuardarCancelar";
 import {MenuDashBoard} from "../components/MenuDashBoard";
 import {EtapaConfiguracion} from "../components/EtapaConfiguracion";
 
-import {cleanerMineral} from "../utils/cleaner"
+import {cleanerMineral, cleanerCargo} from "../utils/cleaner"
 
 export class ConfiguracionYacimientoAgregar extends React.Component {
     constructor(props){
@@ -35,9 +36,16 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                 f_id_fase_configuracion : 1,
                 f_nombre : "Fase por configurar",
                 f_orden : 1,
-                f_duracion : 0,
+                f_duracion : null,
                 f_descripcion : "",
-                unidad_id : 7
+                unidad_id : 7,
+                cargos : [{
+                    f_id_fase_cargo : 1,
+                    c_id_cargo : 0,
+                    f_cantidad : null,
+                    f_salario : null 
+                }],
+                maquinarias : [{}]
             }]
         }],
         // PARA DAR IDs UNICOS
@@ -61,6 +69,23 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                     console.log(`<---- (ERROR 500) localhost:4000/consultarLista/mineral`)
                 }
             })
+            .then( () => {
+                console.log(`----> localhost:4000/consultarLista/cargo `)
+                axios.get('http://127.0.0.1:4000/consultarLista/cargo')
+                    .then( res => {
+                        if(res.status === 200) {
+                            console.log(`<---- (OK 200) localhost:4000/consultarLista/cargo`)
+                            this.setState({
+                                cargos : res.data.rows
+                            })
+                        } else {
+                            console.log(`<---- (ERROR 500) localhost:4000/consultarLista/cargo`)
+                        }
+                    })
+            })
+
+        this.abrirFase(1,1)
+        
     }
 
     changeInfo = (target) => {
@@ -141,9 +166,16 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                     f_id_fase_configuracion : 1,
                     f_nombre : "Fase por configurar",
                     f_orden : 1,
-                    f_duracion : 0,
+                    f_duracion : null,
                     f_descripcion : "",
-                    unidad_id : 7
+                    unidad_id : 7,
+                    cargos : [{
+                        f_id_fase_cargo : 1,
+                        c_id_cargo : 0,
+                        f_cantidad : null,
+                        f_salario : null 
+                    }],
+                    maquinarias : [{}]
                 }]
             }],
             ultimaEtapaIndex : prev.ultimaEtapaIndex + 1
@@ -187,10 +219,6 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
 
 
     /* FASES DE LAS ETAPAS */
-    changeInfoFase = () => {
-
-    }
-
     agregarFase = (idEtapa) => {
         const etapa = this.state.etapas.find( e => e.e_id_etapa_configuracion === idEtapa )
         console.log(`etapa[ ${idEtapa} ] { new fase = fase[ ${etapa.ultimaFaseIndex + 1} ] } `)
@@ -202,10 +230,17 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                     {
                         f_id_fase_configuracion : e.ultimaFaseIndex +1,
                         f_nombre : `Fase por configurar`,
-                        f_orden : 1,
-                        f_duracion : 0,
+                        f_orden : e.fases.length +1,
+                        f_duracion : null,
                         f_descripcion : "",
-                        unidad_id : 7
+                        unidad_id : 7,
+                        cargos : [{
+                            f_id_fase_cargo : 1,
+                            c_id_cargo : 0,
+                            f_cantidad : null,
+                            f_salario : null 
+                        }],
+                        maquinarias : [{}]
                     }
                 ]
 
@@ -241,21 +276,102 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
         const etapa = this.state.etapas.find( e => e.e_id_etapa_configuracion === idEtapa )
         const fase = etapa.fases.find( f => f.f_id_fase_configuracion === idFase )
         this.setState({
-            faseModal : fase
+            faseModal : {
+                ...fase,
+                etapa_configuracion_id : etapa.e_id_etapa_configuracion
+            }
         })
     }
 
-    cerrarFase = () => {
+    changeInfoFase = (target) => {
+        target=target.target||target;
+        console.log(`faseModal.${target.name} = ${target.value}`)
+        this.setState({
+            faseModal :{
+                ...this.state.faseModal,
+                [target.name] : target.value
+            }
+        })
+    }
+
+    guardarFase = () => {
+        const faseModal = this.state.faseModal
+        console.log(`etapa[ ${faseModal.etapa_configuracion_id} ] { fase[ ${faseModal.f_id_fase_configuracion} ] = faseModal }`)
+
+        const etapasNuevo = this.state.etapas.map( e => {
+            if (e.e_id_etapa_configuracion === faseModal.etapa_configuracion_id )
+                return ({
+                    ...e,
+                    fases : e.fases.map( f => {
+                        if (f.f_id_fase_configuracion === faseModal.f_id_fase_configuracion)
+                            return faseModal
+                        else 
+                            return f
+                    })
+                })
+            else 
+                return e
+        })
+
+        this.setState({
+            etapas : etapasNuevo
+        })
+
+        this.cancelarFase();
+    }
+
+    cancelarFase = () => {
         this.setState({
             faseModal : null
         })
+    }
+
+    /* MANEJAR CARGOS DENTRO DEL MODAL DE FASE DE UNA ETAPA */
+    changeCargo = (opcion , idCargo) => {
+        if (opcion.label) {
+            console.log(`faseModal.cargo[ ${idCargo} ].c_id_cargo <-- ${opcion.value} (${opcion.label})`)
+            const nuevosCargos = this.state.faseModal.cargos.map( c => {
+                    if (c.f_id_fase_cargo === idCargo){
+                        c.c_id_cargo = opcion.value
+                    }
+                    return c
+                })
+
+            this.setState({
+                faseModal : {
+                    ...this.state.faseModal,
+                    cargos : nuevosCargos
+                }
+            })
+
+        } else {
+            console.log(`faseModal.${opcion.target.name}[ ${idCargo} ].f_cantidad <-- ${opcion.target.value}`)
+            const nuevosCargos = this.state.faseModal.cargos.map( c => {
+                if (c.f_id_fase_cargo === idCargo){
+                    c[opcion.target.name] = opcion.target.value
+                }
+                return c
+            })
+            
+            this.setState({
+                faseModal : {
+                    ...this.state.faseModal,
+                    cargos : nuevosCargos
+                }
+            })
+        }
+        
+    }
+
+    quitarCargo = (idEtapa, idFase, idCargo) => {
+
     }
 
 
     render = () => {
         // PARA NO ESCRIBIR THIS.STATE MUCHAS VECES
         const {
-            configuracion_yacimiento , requisitos, etapas, fases, minerales, maquinas, cargos
+            configuracion_yacimiento , requisitos, etapas, fases, minerales, maquinas, cargos, faseModal
         } = this.state
     
     
@@ -412,7 +528,136 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                         success={this.goSolicitud}
                         decline={this.goSolicitud}
                     />
-                </div>
+                </div> 
+
+
+                {!!this.state.faseModal && 
+                <Modal 
+                    size="lg"
+                    show={!!this.state.faseModal} 
+                    onHide={this.cancelarFase}
+                    centered
+                    scrollable
+                    dialogClassName="ModalConsultar"
+                >
+                    <Modal.Header closeButton className="mc-header">
+                        <div></div>
+                        <h1>FASE</h1>
+                    </Modal.Header>
+
+                    <Modal.Body> 
+                        <div className="faseModal">
+                            <div className="fase-conf-izq">
+                                <InputText 
+                                    id={`NombreFase`}
+                                    label="Nombre"
+                                    name="f_nombre"
+                                    value={faseModal.f_nombre}
+                                    onChange={this.changeInfoFase}
+                                />
+                                <InputText 
+                                    id={`DuracionFase`}
+                                    type="number"
+                                    min={1}
+                                    label="Duracion en días"
+                                    name="f_duracion"
+                                    value={faseModal.f_duracion}
+                                    onChange={this.changeInfoFase}
+                                />
+                                <InputText 
+                                    id={`DescripcionFase`}
+                                    label="Descripción"
+                                    name="f_descripcion"
+                                    value={faseModal.f_descripcion}
+                                    onChange={this.changeInfoFase}
+                                />
+                                <p className="subtitulo-centrado">Cargos</p>
+                                <div> {/* MAPING DE CARGOS */}
+                                    { this.state.cargos &&
+                                        faseModal.cargos.map(
+                                            (cargo) => (
+                                                <div key={cargo.f_id_fase_cargo} className="cargoHorizontal">
+                                                    <div>
+                                                        <i 
+                                                            className="zmdi zmdi-close-circle-o LabelIcon pegar-derecha"
+                                                            onClick={() => this.quitarCargo(
+                                                                faseModal.etapa_configuracion_id,
+                                                                faseModal.f_duracion, 
+                                                                cargo.f_id_fase_cargo
+                                                            )}
+                                                        >
+                                                        </i>
+                                                    </div>
+                                                    <div style={{width : "30%" }}>
+                                                        <DropdownV2
+                                                            placeholder="Cargo ..."
+                                                            value={{
+                                                                value: cargo.c_id_cargo,
+                                                                label: !!cargo.c_id_cargo ? this.state.cargos.find( c => c.c_id_cargo === cargo.c_id_cargo).c_nombre : "Cargo ..."
+                                                            }}
+                                                            options={
+                                                                cleanerCargo.limpiarListaDropdown(
+                                                                    cargos
+                                                                )
+                                                            }
+                                                            onChange={ (event) =>
+                                                                this.changeCargo(event, cargo.f_id_fase_cargo)
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="ancho-cantidad">
+                                                        <InputText 
+                                                            id={`CantidadRequesito_${cargo.f_id_fase_cargo}_`}
+                                                            label="Cantidad"
+                                                            type="number"
+                                                            min="0"
+                                                            name="f_cantidad"
+                                                            value={cargo.f_cantidad}
+                                                            onChange= { (event) =>
+                                                                this.changeCargo(event, cargo.f_id_fase_cargo)
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            )
+                                        )
+                                    }
+                                    <div className="btnAgregarRequisito" onClick={this.agregarRequisito} >
+                                        Agregar cargo
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div className="fase-conf-der">
+                                <input
+                                    className="inputOrdenFase"
+                                    name={"f_orden"}
+                                    value={faseModal.f_orden}
+                                    style={{fontSize : "100px"}}
+                                    onChange={this.changeInfoFase}
+                                />
+                            </div>
+                        </div>  
+                            
+                    </Modal.Body>
+                    
+                    <Modal.Footer className="mc-footer">
+                    <Button variant="primary" className="mc-boton mc-boton-guardar" 
+                        onClick={() => this.guardarFase(
+                            faseModal.etapa_configuracion_id,
+                            faseModal.f_id_fase_configuracion
+                        )}
+                    >
+                        Modificar
+                    </Button>
+
+                    <Button variant="secondary" className="mc-boton" 
+                        onClick={this.cancelarFase}
+                    >
+                        Cancelar
+                    </Button>
+                    </Modal.Footer>
+                </Modal>}
 
              </div>
         </div>

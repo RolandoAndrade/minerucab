@@ -15,7 +15,8 @@ export class AgregarHorario extends React.Component {
 
         this.state  = {
             h_nombre: "",
-            goBack : false
+            goBack : false,
+            jornadas: {}
         }
     }
     handleChange = (target) => {

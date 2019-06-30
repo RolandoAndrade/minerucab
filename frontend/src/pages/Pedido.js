@@ -78,6 +78,13 @@ export class Pedido extends React.Component {
         })
     }
 
+    handlePagar= () => {
+        console.log(`pagar(${this.state.consultarPedido.p_id_pedido})`)
+        this.setState({
+            pagar : this.state.consultarPedido.p_id_pedido
+        })
+    }
+
     handleEliminar = () => {
         console.log(`eliminarYacimiento(${this.state.consultarPedido.p_id_pedido})`)
 
@@ -266,12 +273,12 @@ export class Pedido extends React.Component {
 
                     <Modal.Footer className="mc-footer">
                         {this.state.consultarPedido.e_nombre=="no pagado"?
-                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleModificar}>
+                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handlePagar}>
                             Pagar
                         </Button>
                         :""}
                         {this.state.consultarPedido.e_nombre=="iniciado"?
-                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleModificar}>
+                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handlePagar}>
                             Dar recursos
                         </Button>
                         :""}
@@ -319,8 +326,8 @@ export class Pedido extends React.Component {
                 </Modal>
                 }
 
-                {!!this.state.modificarYacimiento
-                && <Redirect push to={`/editar/pedido/${this.state.modificarYacimiento}`} />
+                {!!this.state.pagar
+                && <Redirect push to={`/pago/${this.state.pagar}`} />
                 }
                 {this.state.agregarPresionado && <Redirect push to="/crear/pedido" />}
             </div>

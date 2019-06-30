@@ -494,17 +494,37 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
 
     guardarBD = () => {
         const nuevaEtapas = this.state.etapas.map( e => {
+            // ETAPA
             e.e_tipo = e.e_tipo !== 1 && e.e_tipo !==2 ? 0 :
                         e.e_tipo === 1 ? 'explotacion' : 'refinacion'
+            e.e_orden = parseInt( e.e_orden )
+            e.fases = e.fases.map( f => {
+                // FASE
+                f.f_orden = parseInt( f.f_orden )
+                f.f_duracion = parseInt( f.f_duracion )
+                f.cargos = f.cargos.map( c => {
+                    // CARGO
+                    f.f_cantidad = parseInt( f.f_cantidad )
+                    return c
+                })  
 
+                f.maquinarias = f.maquinarias.map( m => {
+                    // MAQUINARIA
+                    m.f_cantidad = parseInt( m.f_cantidad )
+                    return m
+                })  
+                return f
+            })
             return e
         })
 
+        const conf = this.state.configuracion_yacimiento
 
         console.log(`----> localhost:4000/insertar/yacimiento_configuracion`)
         return axios.post('http://127.0.0.1:4000/insertar/yacimiento_configuracion',
             {
                 ...this.state.configuracion_yacimiento,
+                y_capacidad_explotacion : parseFloat( conf.y_capacidad_explotacion ),
                 etapas : nuevaEtapas,
                 requisitos : this.state.requisitos
             })

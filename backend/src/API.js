@@ -1082,12 +1082,13 @@ app.post('/insertar/horario', (req, res) => {
 
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
-
-  daoHorario.insertar(req.body.h_nombre)
+  console.log(req.body)
+  daoHorario.insertar(req.body)
       .then( (bd_response) => {
         console.log(`STATUS OK : 200`)
         res.status(200).json({"rows" : bd_response.rows})
         let h=bd_response.rows[0].h_id_horario;
+
         let jor=req.body.jornadas;
         try
         {
@@ -1095,12 +1096,12 @@ app.post('/insertar/horario', (req, res) => {
           {
             for(let j=0;j<jor[i].length;j++)
             {
-              let data={j_dia: i, j_hora_entrada: jor[i][j].hora_entrada, j_hora_salida: jor[i][j].hora_salida, horario_id: h}
+              let data={j_dia: i, j_hora_entrada: jor[i][j].hora_entrada, j_hora_salida: jor[i][j].hora_salida, horario_id: h};
+              console.log(data);
+
               daoHorario.insertarJornada(data).then(
                   (bd_response) => {
-                  console.log(`STATUS OK : 200`);
-                  res.status(200).json({"rows" : bd_response.rows})
-                  }).catch((e)=>error(e));
+                  console.log(`STATUS OK : 200`)}).catch((e)=>error(e));
             }
           }
         }

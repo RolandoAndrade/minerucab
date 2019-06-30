@@ -125,9 +125,10 @@ const cleanerPedido = {
             return []
         else
             return  pedidoDB.map( y => ({
-                ...y,
                 "p_id_pedido" : y.p_id_pedido.toString(10).padStart(4, '0'),
-                "p_fecha_solicitud": y.p_fecha_solicitud.substring(0,10)
+                "p_fecha_solicitud": y.p_fecha_solicitud.substring(0,10),
+                "c_nombre": y.c_nombre,
+                "e_nombre": y.e_nombre
             }))
     }
 }

@@ -15,7 +15,8 @@ export class Pedido extends React.Component {
         this.state  = {
             pedidos : [],
             agregarPresionado : null,
-            consultarPedido: null
+            consultarPedido: null,
+            ped: {}
         }
     }
 
@@ -26,9 +27,25 @@ export class Pedido extends React.Component {
             .then( (res) => {
                 if(res.status === 200)
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/pedido`)
-
+                let q = res.data.rows;
+                let ax={};
+                console.log(q);
+                for(let i=0;i<q.length;i++)
+                {
+                    if(ax[q[i].p_id_pedido])
+                    {
+                        ax[q[i].p_id_pedido].productos.push({cantidad: q[i].p_cantidad, nombre: q[i].p_nombre, precio: (Math.floor(q[i].total*100)/100).toFixed(2)})
+                    }
+                    else
+                    {
+                        ax[q[i].p_id_pedido]={p_id_pedido: q[i].p_id_pedido, c_nombre: q[i].c_nombre, p_fecha_solicitud: q[i].p_fecha_solicitud, 
+                            e_nombre: q[i].e_nombre, productos:[{cantidad: q[i].p_cantidad, nombre: q[i].p_nombre, precio: (Math.floor(q[i].total*100)/100).toFixed(2)}]}
+                    }
+                }
+                console.log(Object.values(ax));
                 this.setState({
-                    pedidos : res.data.rows
+                    pedidos : Object.values(ax),
+                    ped: ax
                 })
                 console.log(this.state)
             })
@@ -43,9 +60,9 @@ export class Pedido extends React.Component {
     }
 
     handleConsultar = (id) => {
-        console.log(`consultarYacimiento(${id})`)
+        console.log(`consultarPedido(${id})`)
         const consultarPedido= this.state.pedidos.find( y => y.p_id_pedido == id)
-
+        console.log(consultarPedido)
         this.setState({
             consultarPedido
         })
@@ -74,14 +91,14 @@ export class Pedido extends React.Component {
     }
 
     handleEliminarSeguro = () => {
-        console.log(`----> localhost:4000/eliminar/yacimiento/${this.state.consultarYacimiento.y_id_yacimiento}`)
-        axios.post('http://127.0.0.1:4000/eliminar/yacimiento',
+        console.log(`----> localhost:4000/eliminar/pedido/${this.state.cleanerPedido.y_id_yacimiento}`)
+        axios.post('http://127.0.0.1:4000/eliminar/pedido',
             {
-                "y_id_yacimiento" : this.state.consultarYacimiento.y_id_yacimiento,
+                "p_id_pedido" : this.state.consultarPedido.p_id_pedido,
             })
             .then( (res) => {
                 if( res.status === 200) {
-                    console.log(`<---- (OK 200) localhost:4000/eliminar/yacimiento`)
+                    console.log(`<---- (OK 200) localhost:4000/eliminar/pedido`)
                     this.handleCloseModal()
                     this.handleCloseEliminar()
                     location.reload()
@@ -126,20 +143,6 @@ export class Pedido extends React.Component {
                             },
                         },
                         {
-                            title: 'Producto', field: 'p_nombre', type: 'string', headerStyle:{ textAlign : "center"},
-                            cellStyle : {
-                                fontSize : "large",
-                                textAlign : "center"
-                            },
-                        },
-                        {
-                            title: 'Total a pagar', field: 'total', type:'string', headerStyle:{ textAlign : "center"},
-                            cellStyle : {
-                                fontSize : "large",
-                                textAlign: "center"
-                            },
-                        },
-                        {
                             title: 'Estado', field: 'e_nombre', type:'string', headerStyle:{ textAlign : "center"},
                             cellStyle : {
                                 fontSize : "large",
@@ -147,7 +150,7 @@ export class Pedido extends React.Component {
                             },
                         }
                     ]}
-                    data={ cleanerPedido.limpiarLista( this.state.pedidos ) }
+                    data={ cleanerPedido.limpiarLista(this.state.pedidos) }
                     title={null}
 
                     options={{
@@ -204,34 +207,29 @@ export class Pedido extends React.Component {
                 >
                     <Modal.Header closeButton className="mc-header">
                         <div></div>
-                        <h1>{this.state.consultarPedido.p_id_pedido.toUpperCase()}</h1>
+                        <h1>{this.state.consultarPedido.c_nombre.toUpperCase()}</h1>
                     </Modal.Header>
 
                     <Modal.Body className="mc-body">
                         <p>
                             <span className="mc-atributo">ID</span>
-                            <span> : {this.state.consultarYacimiento.y_id_yacimiento.toString(10).padStart(4, '0')}</span>
+                            <span> : {this.state.consultarPedido.p_id_pedido.toString(10).padStart(4, '0')}</span>
                         </p>
                         <p>
-                            <span className="mc-atributo">Nombre</span>
-                            <span> : {this.state.consultarYacimiento.y_nombre}</span>
+                            <span className="mc-atributo">Fecha de solicitud: </span>
+                            <span> : {this.state.consultarPedido.p_fecha_solicitud.substring(0,10)}</span>
                         </p>
                         <p>
-                            <span className="mc-atributo">Extensión (km2)</span>
-                            <span> : {this.state.consultarYacimiento.y_extension}</span>
+                            <span className="mc-atributo">Estado: </span>
+                            <span> : {this.state.consultarPedido.e_nombre}</span>
                         </p>
-                        <p>
-                            <span className="mc-atributo">Configuración</span>
-                            <span> : {this.state.consultarYacimiento.yacimiento_configuracion}</span>
-                        </p>
-                        <p>
-                            <span className="mc-atributo">Tipo de Yacimiento</span>
-                            <span> : {this.state.consultarYacimiento.tipo_yacimiento || "No definido."}</span>
-                        </p>
-                        <p>
-                            <span className="mc-atributo">Dirección</span>
-                            <span> : {this.state.consultarYacimiento.lugar}</span>
-                        </p>
+                        <p><span className="mc-atributo">Productos comprados</span><span> :</span></p>
+                            { this.state.consultarPedido.productos.map( (pedido, i) => (
+                            <p className="mc-multivalor" key={i}>- {pedido.cantidad} toneladas de {pedido.nombre} a {pedido.precio} BsS</p>)) 
+                            }
+
+
+
 
                     </Modal.Body>
 
@@ -262,7 +260,7 @@ export class Pedido extends React.Component {
 
                     <Modal.Body className="mc-body">
                         <div>
-                            <p style={{textAlign: "center"}}>{`¿Estas segur@ que deseas eliminar el ${this.state.consultarYacimiento && this.state.consultarYacimiento.y_nombre}?`}</p>
+                            <p style={{textAlign: "center"}}>{`¿Estas segur@ que deseas eliminar el peido ${this.state.consultarPedido && this.state.consultarPedido.p_id_pedido}?`}</p>
                         </div>
 
                     </Modal.Body>

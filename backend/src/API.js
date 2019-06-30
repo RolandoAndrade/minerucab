@@ -1385,6 +1385,24 @@ app.post('/editarEstado/pedido', (req, res) => {
 });
 
 
+app.post('/consultar/pedido', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultar/pedido")
+
+  daoPedido.consultar(req.body.p_id_pedido)
+      .then( ({rows}) => {
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
 
 /* ****************************** PRODUCTO ****************************** */
 app.get('/consultarLista/producto', (req, res) => {

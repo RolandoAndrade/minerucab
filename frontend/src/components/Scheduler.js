@@ -18,6 +18,36 @@ export class Scheduler extends React.Component
         }
     }
 
+    componentDidMount = () => 
+    {
+        console.log("entr", this.props.setData)
+        if(this.props.setData)
+        {
+            this.setState({jornadas: this.props.setData})
+        }
+        this.fill(this.props.setData);
+
+    }
+
+
+    fill(data)
+    {
+        let as = {l: 0, m: 1, x: 2, j: 3, v: 4, s: 5, d:6}
+        for(let i in data)
+        {
+            for(let j=0;j<data[i].length;j++)
+            {
+                let h=data[i][j].hora_entrada;
+                while(h<data[i][j].hora_salida)
+                {
+                    let t = document.getElementById(h+""+as[i]);
+                    t.classList.add("clicked");
+                    h++;
+                }
+            }
+        }
+    }
+
     join(jornada)
     {
         let i=0;

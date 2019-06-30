@@ -41,8 +41,10 @@ export class EditarHorario extends React.Component {
                     s:[],
                     d:[]
                 };
-                for(let i=0;i<nuevoHorario.length;i++)
+                console.log(nuevoHorario)
+                for(let i in nuevoHorario)
                 {
+                    console.log(nuevoHorario[i].j_dia)
                     jor[nuevoHorario[i].j_dia].push(
                         {
                             hora_entrada: nuevoHorario[i].j_hora_entrada,
@@ -51,7 +53,7 @@ export class EditarHorario extends React.Component {
                 }
 
                 this.setState({
-                    nuevo_horario: jor
+                    jornadas: jor
                 })
 
                 console.log(this.state);
@@ -59,10 +61,20 @@ export class EditarHorario extends React.Component {
             })
     }
 
+        changesOnScheduler = (e) =>
+    {
+        this.setState(
+            {
+                jornadas: e
+            }
+        );
+    };
+
+
     render = () => (
         <div>
             <MenuDashBoard title="Agregar horario"/>
-            {this.state.nuevo_horario&&<Scheduler fillWith={this.state.nuevo_horario}/>}
+            {this.state.jornadas&&<Scheduler editable={true} onChange={this.changesOnScheduler} setData={this.state.jornadas}/>}
             {this.state.goBack && <Redirect to="/dashboard" /> }
 
         </div>

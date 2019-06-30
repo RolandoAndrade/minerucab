@@ -429,7 +429,9 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                                 placeholder="Mineral..."
                                                 options={
                                                     cleanerMineral.limpiarListaDropdown(
-                                                        this.state.minerales
+                                                        minerales.filter( m => 
+                                                            !requisitos.find( r => r.mineral_id === m.m_id_mineral )
+                                                        )
                                                     )
                                                 }
                                         />
@@ -461,15 +463,15 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                                     <div className="ancho-mineral">
                                                         <DropdownV2
                                                             placeholder="Mineral ..."
-                                                            value={
-                                                                requisito.m_id_mineral
-                                                            }
                                                             onChange={ event => 
                                                                 this.changeRequisito(event , requisito.m_id_mine_yaci)
                                                             }
                                                             options={
                                                                 cleanerMineral.limpiarListaDropdown(
-                                                                    minerales
+                                                                    minerales.filter( m => 
+                                                                        !requisitos.find( r => r.mineral_id === m.m_id_mineral ) &&
+                                                                        m.m_id_mineral !== configuracion_yacimiento.mineral_id
+                                                                    )
                                                                 )
                                                             }
                                                         />

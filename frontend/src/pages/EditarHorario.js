@@ -29,7 +29,7 @@ export class EditarHorario extends React.Component {
         )
             .then( (res) => {
                 if(res.status === 200)
-                    console.log(`<---- (OK 200) localhost:4000/consultar/yacimiento`)
+                    console.log(`<---- (OK 200) localhost:4000/consultar/horario`)
 
                 const nuevoHorario = {
                     ...res.data.rows

@@ -198,6 +198,17 @@ const cleanerProducto = {
     }
 }
 
+const cleanerHorario = {
+    limpiarLista(  hor ) {
+        if ( hor === undefined ||  hor.length == 0)
+            return []
+        else
+            return  hor.map( p => ({
+                "h_id_horario" : p.horario_id,
+                "h_nombre" : p.h_nombre
+            }))
+    }
+}
 
 export {
     cleanerMineral, 
@@ -210,5 +221,6 @@ export {
     cleanerTipoYacimiento,
     cleanerProyecto,
     cleanerProducto,
-    cleanerPedido
+    cleanerPedido,
+    cleanerHorario
 }

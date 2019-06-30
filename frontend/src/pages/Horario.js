@@ -5,30 +5,57 @@ import {Redirect} from 'react-router-dom';
 import {Modal, Button} from 'react-bootstrap';
 import MaterialTable from 'material-table';
 
-import {cleanerPedido, cleanerYacimiento} from '../utils/cleaner';
+import {cleanerHorario} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
+import {Scheduler} from "../components/Scheduler";
 
-export class Pedido extends React.Component {
+export class Horario extends React.Component {
     constructor(props){
         super(props)
 
         this.state  = {
             horarios : [],
             agregarPresionado : null,
-            consultarPedido: null
+            consultarHorario: null
         }
     }
 
     componentDidMount = () => {
         // API REQUEST GET
-        console.log(`----> localhost:4000/consultarLista/pedido`);
-        axios.get('http://127.0.0.1:4000/consultarLista/pedido')
+        console.log(`----> localhost:4000/consultarLista/horario`);
+        axios.get('http://127.0.0.1:4000/consultarLista/horario')
             .then( (res) => {
                 if(res.status === 200)
-                    console.log(`<---- (OK 200) localhost:4000/consultarLista/pedido`)
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/horario`)
 
+                let q = res.data.rows;
+                let ax={};
+                for(let i=0;i<q.length;i++)
+                {
+                    if(ax[q[i].horario_id])
+                    {
+                        ax[q[i].horario_id].jornadas[q[i].j_dia].push({hora_entrada: q[i].j_hora_entrada, hora_salida: q[i].j_hora_salida})
+                    }
+                    else
+                    {
+                        ax[q[i].horario_id]={
+                            horario_id: q[i].horario_id, 
+                            h_nombre: q[i].h_nombre, 
+                            jornadas:{
+                                l:[],
+                                m:[],
+                                x:[],
+                                j:[],
+                                v:[],
+                                s:[],
+                                d:[]
+                            }
+                        }
+                        ax[q[i].horario_id].jornadas[q[i].j_dia].push({hora_entrada: q[i].j_hora_entrada, hora_salida: q[i].j_hora_salida})
+                    }
+                }
                 this.setState({
-                    pedidos : res.data.rows
+                    horarios : Object.values(ax)
                 })
                 console.log(this.state)
             })
@@ -43,11 +70,11 @@ export class Pedido extends React.Component {
     }
 
     handleConsultar = (id) => {
-        console.log(`consultarYacimiento(${id})`)
-        const consultarPedido= this.state.pedidos.find( y => y.p_id_pedido == id)
-
+        console.log(`consultarHorario(${id})`)
+        const consultarHorario= this.state.horarios.find( y => y.horario_id == id)
+        console.log(consultarHorario);
         this.setState({
-            consultarPedido
+            consultarHorario
         })
     }
 
@@ -91,63 +118,35 @@ export class Pedido extends React.Component {
 
     handleCloseModal = () => {
         this.setState({
-            consultarPedido: null
+            consultarHorario: null
         })
     }
 
     render = () => (
         <div>
-            <MenuDashBoard title={"Pedidos"}/>
+            <MenuDashBoard title={"Horarios"}/>
 
             <div className="ConsultarLista">
-                { this.state.pedidos &&
+                { this.state.horarios &&
                 <MaterialTable
                     style={{margin: "0 5%"}}
                     columns={[
                         {
-                            title: 'ID', field: 'p_id_pedido', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'desc',
+                            title: 'ID', field: 'h_id_horario', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'desc',
                             cellStyle : {
                                 fontSize : "large",
                                 textAlign : "center"
                             },
                         },
                         {
-                            title: 'Fecha de solicitud', field: 'p_fecha_solicitud', type: 'date', headerStyle:{ textAlign : "center"},
+                            title: 'Nombre', field: 'h_nombre', type: 'date', headerStyle:{ textAlign : "center"},
                             cellStyle : {
                                 fontSize : "large",
                                 textAlign : "center"
                             },
                         },
-                        {
-                            title: 'Cliente', field: 'c_nombre', type: 'string', headerStyle:{ textAlign : "center"},
-                            cellStyle : {
-                                fontSize : "large",
-                                textAlign : "center"
-                            },
-                        },
-                        {
-                            title: 'Producto', field: 'p_nombre', type: 'string', headerStyle:{ textAlign : "center"},
-                            cellStyle : {
-                                fontSize : "large",
-                                textAlign : "center"
-                            },
-                        },
-                        {
-                            title: 'Total a pagar', field: 'total', type:'string', headerStyle:{ textAlign : "center"},
-                            cellStyle : {
-                                fontSize : "large",
-                                textAlign: "center"
-                            },
-                        },
-                        {
-                            title: 'Estado', field: 'e_nombre', type:'string', headerStyle:{ textAlign : "center"},
-                            cellStyle : {
-                                fontSize : "large",
-                                textAlign: "center"
-                            },
-                        }
                     ]}
-                    data={ cleanerPedido.limpiarLista( this.state.pedidos ) }
+                    data={ cleanerHorario.limpiarLista( this.state.horarios ) }
                     title={null}
 
                     options={{
@@ -162,7 +161,7 @@ export class Pedido extends React.Component {
 
                     }}
 
-                    onRowClick={(event, rowData) => this.handleConsultar(rowData.p_id_pedido)}
+                    onRowClick={(event, rowData) => this.handleConsultar(rowData.h_id_horario)}
                     localization={
                         {
                             toolbar : {
@@ -193,10 +192,10 @@ export class Pedido extends React.Component {
                 />
                 }
 
-                {!!this.state.consultarPedido &&
+                {!!this.state.consultarHorario &&
                 <Modal
                     size="lg"
-                    show={!!this.state.consultarPedido}
+                    show={!!this.state.consultarHorario}
                     onHide={this.handleCloseModal}
                     centered
                     scrollable
@@ -204,35 +203,11 @@ export class Pedido extends React.Component {
                 >
                     <Modal.Header closeButton className="mc-header">
                         <div></div>
-                        <h1>{this.state.consultarPedido.p_id_pedido.toUpperCase()}</h1>
+                        <h1>{this.state.consultarHorario.h_nombre}</h1>
                     </Modal.Header>
 
                     <Modal.Body className="mc-body">
-                        <p>
-                            <span className="mc-atributo">ID</span>
-                            <span> : {this.state.consultarYacimiento.y_id_yacimiento.toString(10).padStart(4, '0')}</span>
-                        </p>
-                        <p>
-                            <span className="mc-atributo">Nombre</span>
-                            <span> : {this.state.consultarYacimiento.y_nombre}</span>
-                        </p>
-                        <p>
-                            <span className="mc-atributo">Extensión (km2)</span>
-                            <span> : {this.state.consultarYacimiento.y_extension}</span>
-                        </p>
-                        <p>
-                            <span className="mc-atributo">Configuración</span>
-                            <span> : {this.state.consultarYacimiento.yacimiento_configuracion}</span>
-                        </p>
-                        <p>
-                            <span className="mc-atributo">Tipo de Yacimiento</span>
-                            <span> : {this.state.consultarYacimiento.tipo_yacimiento || "No definido."}</span>
-                        </p>
-                        <p>
-                            <span className="mc-atributo">Dirección</span>
-                            <span> : {this.state.consultarYacimiento.lugar}</span>
-                        </p>
-
+                        <Scheduler editable={false} setData={this.state.consultarHorario.jornadas}/>
                     </Modal.Body>
 
                     <Modal.Footer className="mc-footer">

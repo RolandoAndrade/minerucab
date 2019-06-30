@@ -7,13 +7,10 @@ export class EtapaConfiguracion extends React.Component {
 
     render = () => {
         let {
-            etapa_configuracion, maquinas, cargos, tipos, quitarEtapa, changeInfo
+            etapa_configuracion, maquinas, cargos, tipos, quitarEtapa, changeInfo, agregarFase, quitarFase, abrirFase
         } = this.props
 
         let id = etapa_configuracion.e_id_etapa_configuracion
-
-        const quitarFase = () => {}
-        const agregarFase = () => {}
 
         return(
             <div className="marco-etapa-configuracion">
@@ -31,6 +28,12 @@ export class EtapaConfiguracion extends React.Component {
                         <DropdownV2
                             className="tipoEtapa"
                             placeholder="Tipo ..."
+                            value={{
+                                value : etapa_configuracion.e_tipo,
+                                label : etapa_configuracion.e_tipo === 1 ? "Explotación" : 
+                                        etapa_configuracion.e_tipo === 2 ? "Refinación" :
+                                        "Tipo ..."
+                            }}
                             options={[
                                 { label: 'Explotación', value: 1 },
                                 { label: 'Refinación', value: 2 }
@@ -44,22 +47,23 @@ export class EtapaConfiguracion extends React.Component {
                                 {
                                     etapa_configuracion.fases.map(
                                         (fase, index) => (
-                                            <div key={index} className="faseHorizontal">
+                                            <div key={fase.f_id_fase_configuracion} className="faseHorizontal">
 
                                                 <i  className="zmdi zmdi-close-circle-o LabelIcon" 
-                                                    onClick={quitarFase} 
+                                                    onClick={ () => quitarFase(id, fase.f_id_fase_configuracion) } 
                                                 />
                                                 <div style={{width : "100%"}}>
                                                     <input
                                                         className="btnFase" type="button" 
-                                                        value={fase.f_nombre.slice(0, 25) + " ..."}
+                                                        value={`(${fase.f_orden}) - ${fase.f_nombre.slice(0, 25)} ...`}
+                                                        onClick={() => abrirFase(id, fase.f_id_fase_configuracion) }
                                                     />
                                                 </div>
                                             </div>
                                         ))
                                 }
                             </div>
-                            <div className="btnAgregarFase" onClick={agregarFase} >
+                            <div className="btnAgregarFase" onClick={() => agregarFase(id)} >
                                 Agregar Fase
                             </div>
                         </div>
@@ -69,7 +73,12 @@ export class EtapaConfiguracion extends React.Component {
                             onClick={() => quitarEtapa(id)}>
                         </i>
                         <div className="numero">
-                            <p>{etapa_configuracion.e_orden}</p>
+                            <input
+                                className="inputOrden"
+                                name={"e_orden"}
+                                value={etapa_configuracion.e_orden}
+                                onChange={(event) => changeInfo(event, id)}
+                            />
                         </div>
                         <p style={{height:"10px"}}>&nbsp;</p>
                     </div>

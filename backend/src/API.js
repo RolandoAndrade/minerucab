@@ -216,7 +216,7 @@ app.post('/insertar/mineral', (req, res) => {
   daoMineral.insertar( req.body )
     .then( (bd_response) => {
       console.log(`STATUS OK : 200`)
-      return (bd_response.rows[0].m_id_mineral)
+      return (bd_response)
     })
     .catch( (bd_err) => {
       console.log(`STATUS ERROR: 500`)      
@@ -225,9 +225,9 @@ app.post('/insertar/mineral', (req, res) => {
       res.status(500).json(bd_err)
 
     })
-    .then( (m_id_mineral) => {
+    .then( (bd_response) => {
         if (req.body.compuestos.length !== 0 ){
-          daoMineral.insertarCompuestos( m_id_mineral , req.body.compuestos)
+          daoMineral.insertarCompuestos( bd_response.rows[0].m_id_mineral , req.body.compuestos)
             .then( (bd_response) => {
               console.log(`STATUS OK : 200`) 
               // CUANDO SI TIENE COMPUESTOS

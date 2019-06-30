@@ -36,6 +36,61 @@ app.get('/prueba', (req, res) => {
 
   res.status(200).json(respuesta);
 });
+/* ****************************** COMPANIA ****************************** */
+import {daoCompania} from './DAOs/daoCompania'
+
+app.get('/consultarLista/compania', (req,res) =>{
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/compania")
+
+  daoCompania.consultarTodos()
+    .then(({rows}) => {
+      res.status(200).json({"rows" : rows})
+    })
+    .catch((bd_err) => {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+    })
+})
+
+app.post('/consultar/compania', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultar/compania")
+
+  daoCompania.consultar(req.body.c_id_compania)
+    .then( ({rows}) => {
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+})
+
+app.post('/eliminar/compania', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/eliminar/compania/${req.body.c_id_compania}`)
+  daoCompania.eliminar(req.body.c_id_compania)
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
 /* ****************************** FASE CONFIGURACION ****************************** */
 import {daoFaseConfiguracion} from './DAOs/daoFaseConfiguracion'
 
@@ -945,45 +1000,40 @@ app.post('/insertar/yacimiento_configuracion', (req,res) => {
   console.log(`/insertar/yacimiento_configuracion `)
 
   let y = req.body
-  daoYacimientoConfiguracion.insertar(y.y_nombre,y.y_capacidad_explotacion,y.mineral_id,7)
+  let yac_id =  null
+  daoYacimientoConfiguracion.insertar(y.y_nombre,y.y_capacidad_explotacion,y.mineral_id,7)  
   .then((resp_bd) => {
-    console.log(`\n\ninsetado yamiento_config id ${resp_bd.rows[0].y_id_yacimiento_configuracion}`)
-    return resp_bd.rows[0].y_id_yacimiento_configuracion
+    yac_id = resp_bd.rows[0].y_id_yacimiento_configuracion
+    return daoYacimientoConfiguracion.agregarRequisitos(yac_id,y["requisitos"])
   })
-  .then((yac_id) => {
+  .then((resp_bd) => {
     return new Promise((resolve,reject) => {
-      y["etapas"].map((e,i) => { 
+      y["etapas"].map((e,i) => {
         daoEtapaConfiguracion.insertar(e.e_nombre,e.e_orden,e.e_tipo,yac_id)
         .then((resp_bd) => {
           let e_id = resp_bd.rows[0].e_id_etapa_configuracion
-          console.log(`\n\nInsertada etapa ${e_id} en el yac_config ${yac_id}`)
           y["etapas"][i]["fases"].map((f,j) => {
             daoFaseConfiguracion.insertar(f.f_nombre,f.f_orden,f.f_duracion,f.f_descripcion,e_id,f.unidad_id)
             .then((resp_bd) => {
               let f_id = resp_bd.rows[0].f_id_fase_configuracion
-              console.log(`\n\nInsertada fase ${f_id} en la etapa ${e_id} en el yac_config ${yac_id}`)
               if (f["cargos"].length > 0) {
                 daoFaseConfiguracion.asignarVariosCargo(f_id,f["cargos"])
                 .then((resp_bd) => {
-                  console.log(`\n\n cargos insertads en la fase_id : ${f_id}`)
                   if (f["maquinarias"].length > 0) {
                     daoFaseConfiguracion.asignarVariosMaquinaria(f_id,f["maquinarias"])
                     .then((resp_bd) => {
-                      console.log(`\n\n maquinarias insertads en la fase_id : ${f_id}`)
                       if( (i === (y["etapas"].length - 1)) && (j === (y["etapas"][i]["fases"].length - 1)))
                       resolve("bien!")
                     })
                   }else{
                     if( (i === (y["etapas"].length - 1)) && (j === (y["etapas"][i]["fases"].length - 1)))
                     resolve("bien!")
-                  }
-                  
+                  }                  
                 })
               }else{
                 if( (i === (y["etapas"].length - 1)) && (j === (y["etapas"][i]["fases"].length - 1)))
                 resolve("bien!") 
-              }
-                           
+              }                           
             })
           }) 
         })
@@ -999,7 +1049,6 @@ app.post('/insertar/yacimiento_configuracion', (req,res) => {
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
     res.status(500).json(bd_err)
-
   }) 
 })
 
@@ -1178,6 +1227,8 @@ import {daoProyecto} from './DAOs/daoProyecto'
 import {daoProducto} from "./DAOs/daoProducto";
 import {daoPediProd} from "./DAOs/daoPediProd";
 import {daoPediEsta} from "./DAOs/daoPediEsta";
+import {daoInventario} from "./DAOs/daoInventario";
+import {daoHorario} from "./DAOs/daoHorario";
 
 app.get('/consultarLista/proyecto', (req, res) => {
   
@@ -1271,6 +1322,46 @@ app.post('/insertar/pedido', (req, res) => {
       })
 });
 
+app.get('/consultarLista/pedido', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/pedido")
+
+  daoPedido.consultarTodos()
+      .then( ({rows}) => {
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/eliminar/pedido', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/eliminar/pedido/${req.body.p_id_pedido}`)
+  daoPedido.eliminar(req.body.p_id_pedido)
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+
 
 /* ****************************** PRODUCTO ****************************** */
 app.get('/consultarLista/producto', (req, res) => {
@@ -1286,6 +1377,168 @@ app.get('/consultarLista/producto', (req, res) => {
       })
       .catch( (bd_err)=> {
         console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
+
+/* ****************************** INVENTARIO ****************************** */
+app.get('/consultarLista/inventario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/inventario")
+
+  daoInventario.consultarTodos()
+      .then( ({rows}) => {
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.get('/consultarCantidad/inventario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarCantidad/inventario"+req.body.mineral_id)
+
+  daoInventario.cantidadMineralGuardado(req.body.mineral_id)
+      .then( ({rows}) => {
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+/* ****************************** HORARIO ****************************** */
+app.get('/consultarLista/horario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/horario")
+
+  daoHorario.consultarTodos()
+      .then( ({rows}) => {
+        console.log(rows);
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/consultar/horario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultar/horario/${req.body.h_id_horario}`)
+  daoHorario.consultar(req.body.h_id_horario)
+      .then( ({rows}) => {
+        console.log(`STATUS OK : 200`)
+
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/insertar/horario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(req.body)
+  daoHorario.insertar(req.body)
+      .then( (bd_response) => {
+        console.log(`STATUS OK : 200`)
+        res.status(200).json({"rows" : bd_response.rows})
+        let h=bd_response.rows[0].h_id_horario;
+
+        let jor=req.body.jornadas;
+        try
+        {
+          for (let i in jor)
+          {
+            for(let j=0;j<jor[i].length;j++)
+            {
+              let data={j_dia: i, j_hora_entrada: jor[i][j].hora_entrada, j_hora_salida: jor[i][j].hora_salida, horario_id: h};
+              console.log(data);
+
+              daoHorario.insertarJornada(data).then(
+                  (bd_response) => {
+                  console.log(`STATUS OK : 200`)}).catch((e)=>error(e));
+            }
+          }
+        }
+        catch (e)
+        {
+
+        }
+      })
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+        res.status(500).json(bd_err)
+
+      })
+});
+
+
+app.post('/editar/horario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(req.body)
+  daoHorario.eliminarJornadas(req.body.horario_id)
+      .then( (bd_response) => {
+        console.log(`STATUS OK : 200`)
+        daoHorario.modificar(req.body).then((bd_response)=>{
+          res.status(200).json({"rowCount" : bd_response.rowCount})
+          })
+      })
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/eliminar/horario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(req.body)
+  daoHorario.eliminarJornadas(req.body.horario_id)
+      .then( (bd_response) => {
+        console.log(`STATUS OK : 200`)
+        daoHorario.eliminar(req.body.horario_id).then((bd_response)=>{
+          console.log(`STATUS OK : 200`)
+          res.status(200).json({"rows" : bd_response.rows});
+      }).catch((e)=>error(e))})
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
         res.status(500).json(bd_err)
 
       })

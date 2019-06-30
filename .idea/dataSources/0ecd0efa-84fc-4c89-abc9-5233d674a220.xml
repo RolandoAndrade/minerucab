@@ -1,0 +1,4462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="PostgreSQL - miner_ucab@localhost">
+  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.15">
+    <root id="1">
+      <ServerVersion>10.9</ServerVersion>
+    </root>
+    <database id="2" parent="1" name="miner_ucab">
+      <ObjectId>16385</ObjectId>
+      <StateNumber>557</StateNumber>
+      <Owner>tato</Owner>
+      <IntrospectionStateNumber>1418</IntrospectionStateNumber>
+      <Current>1</Current>
+      <Visible>1</Visible>
+      <Relations>sequence|table|18363|18365|1
+sequence|table|18375|18377|1
+sequence|table|18383|18385|1
+sequence|table|18394|18396|1
+sequence|table|18408|18410|1
+sequence|table|18421|18423|1
+sequence|table|18434|18436|1
+sequence|table|18451|18453|1
+sequence|table|18465|18467|1
+sequence|table|18478|18480|1
+sequence|table|18494|18496|1
+sequence|table|18507|18509|1
+sequence|table|18515|18517|1
+sequence|table|18524|18526|1
+sequence|table|18537|18539|1
+sequence|table|18546|18548|1
+sequence|table|18555|18557|1
+sequence|table|18568|18570|1
+sequence|table|18579|18581|1
+sequence|table|18588|18590|1
+sequence|table|18597|18599|1
+sequence|table|18605|18607|1
+sequence|table|18613|18615|1
+sequence|table|18624|18626|1
+sequence|table|18635|18637|1
+sequence|table|18647|18649|1
+sequence|table|18658|18660|1
+sequence|table|18667|18669|1
+sequence|table|18676|18678|1
+sequence|table|18692|18694|1
+sequence|table|18701|18703|1
+sequence|table|18711|18713|1
+sequence|table|18721|18723|1
+sequence|table|18730|18732|1
+sequence|table|18739|18741|1
+sequence|table|18752|18754|1
+sequence|table|18763|18765|1
+sequence|table|18772|18774|1
+sequence|table|18782|18784|1
+sequence|table|18790|18792|1
+sequence|table|18798|18800|1
+sequence|table|18811|18813|1
+sequence|table|18821|18823|1
+sequence|table|18831|18833|1
+sequence|table|18844|18846|1
+sequence|table|18860|18862|1
+sequence|table|18873|18875|1
+sequence|table|18882|18884|1
+</Relations>
+    </database>
+    <database id="3" parent="1" name="minerucab">
+      <ObjectId>16386</ObjectId>
+      <StateNumber>560</StateNumber>
+      <Owner>tato</Owner>
+    </database>
+    <database id="4" parent="1" name="postgres">
+      <ObjectId>13133</ObjectId>
+      <Comment>default administrative connection database</Comment>
+      <StateNumber>553</StateNumber>
+      <Owner>postgres</Owner>
+    </database>
+    <role id="5" parent="1" name="pg_monitor">
+      <ObjectId>3373</ObjectId>
+      <Inherit>1</Inherit>
+      <ConnectionLimit>-1</ConnectionLimit>
+    </role>
+    <role id="6" parent="1" name="pg_read_all_settings">
+      <ObjectId>3374</ObjectId>
+      <Inherit>1</Inherit>
+      <ConnectionLimit>-1</ConnectionLimit>
+    </role>
+    <role id="7" parent="1" name="pg_read_all_stats">
+      <ObjectId>3375</ObjectId>
+      <Inherit>1</Inherit>
+      <ConnectionLimit>-1</ConnectionLimit>
+    </role>
+    <role id="8" parent="1" name="pg_signal_backend">
+      <ObjectId>4200</ObjectId>
+      <Inherit>1</Inherit>
+      <ConnectionLimit>-1</ConnectionLimit>
+    </role>
+    <role id="9" parent="1" name="pg_stat_scan_tables">
+      <ObjectId>3377</ObjectId>
+      <Inherit>1</Inherit>
+      <ConnectionLimit>-1</ConnectionLimit>
+    </role>
+    <role id="10" parent="1" name="postgres">
+      <ObjectId>10</ObjectId>
+      <SuperRole>1</SuperRole>
+      <Inherit>1</Inherit>
+      <CreateRole>1</CreateRole>
+      <CreateDb>1</CreateDb>
+      <CanLogin>1</CanLogin>
+      <ConnectionLimit>-1</ConnectionLimit>
+      <Replication>1</Replication>
+      <BypassRls>1</BypassRls>
+    </role>
+    <role id="11" parent="1" name="tato">
+      <ObjectId>16384</ObjectId>
+      <Inherit>1</Inherit>
+      <CreateDb>1</CreateDb>
+      <CanLogin>1</CanLogin>
+      <ConnectionLimit>-1</ConnectionLimit>
+    </role>
+    <schema id="12" parent="2" name="information_schema">
+      <ObjectId>12844</ObjectId>
+      <StateNumber>353</StateNumber>
+      <Owner>postgres</Owner>
+    </schema>
+    <schema id="13" parent="2" name="pg_catalog">
+      <ObjectId>11</ObjectId>
+      <Comment>system catalog schema</Comment>
+      <StateNumber>350</StateNumber>
+      <Owner>postgres</Owner>
+    </schema>
+    <schema id="14" parent="2" name="pg_temp_1">
+      <ObjectId>11736</ObjectId>
+      <StateNumber>113</StateNumber>
+      <Owner>postgres</Owner>
+    </schema>
+    <schema id="15" parent="2" name="pg_toast">
+      <ObjectId>99</ObjectId>
+      <Comment>reserved schema for TOAST tables</Comment>
+      <StateNumber>1</StateNumber>
+      <Owner>postgres</Owner>
+    </schema>
+    <schema id="16" parent="2" name="pg_toast_temp_1">
+      <ObjectId>11737</ObjectId>
+      <StateNumber>113</StateNumber>
+      <Owner>postgres</Owner>
+    </schema>
+    <schema id="17" parent="2" name="public">
+      <ObjectId>2200</ObjectId>
+      <Comment>standard public schema</Comment>
+      <StateNumber>922</StateNumber>
+      <Owner>postgres</Owner>
+      <IntrospectionStateNumber>1419</IntrospectionStateNumber>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <access-method id="18" parent="2" name="btree">
+      <ObjectId>403</ObjectId>
+      <Comment>b-tree index access method</Comment>
+      <StateNumber>1</StateNumber>
+      <Handler>pg_catalog.bthandler</Handler>
+      <HandlerId>330</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="19" parent="2" name="hash">
+      <ObjectId>405</ObjectId>
+      <Comment>hash index access method</Comment>
+      <StateNumber>1</StateNumber>
+      <Handler>pg_catalog.hashhandler</Handler>
+      <HandlerId>331</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="20" parent="2" name="gist">
+      <ObjectId>783</ObjectId>
+      <Comment>GiST index access method</Comment>
+      <StateNumber>1</StateNumber>
+      <Handler>pg_catalog.gisthandler</Handler>
+      <HandlerId>332</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="21" parent="2" name="gin">
+      <ObjectId>2742</ObjectId>
+      <Comment>GIN index access method</Comment>
+      <StateNumber>1</StateNumber>
+      <Handler>pg_catalog.ginhandler</Handler>
+      <HandlerId>333</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="22" parent="2" name="spgist">
+      <ObjectId>4000</ObjectId>
+      <Comment>SP-GiST index access method</Comment>
+      <StateNumber>1</StateNumber>
+      <Handler>pg_catalog.spghandler</Handler>
+      <HandlerId>334</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="23" parent="2" name="brin">
+      <ObjectId>3580</ObjectId>
+      <Comment>block range index (BRIN) access method</Comment>
+      <StateNumber>1</StateNumber>
+      <Handler>pg_catalog.brinhandler</Handler>
+      <HandlerId>335</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <extension id="24" parent="2" name="plpgsql">
+      <ObjectId>13119</ObjectId>
+      <Comment>PL/pgSQL procedural language</Comment>
+      <StateNumber>505</StateNumber>
+      <Version>1.0</Version>
+      <SchemaName>pg_catalog</SchemaName>
+      <SchemaId>11</SchemaId>
+    </extension>
+    <sequence id="25" parent="17" name="accion_a_id_accion_seq">
+      <ObjectId>18363</ObjectId>
+      <StateNumber>1285</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="26" parent="17" name="cara_tipo_c_id_cara_tipo_seq">
+      <ObjectId>18375</ObjectId>
+      <StateNumber>1286</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="27" parent="17" name="caracteristica_c_id_caracteristica_seq">
+      <ObjectId>18383</ObjectId>
+      <StateNumber>1287</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="28" parent="17" name="cargo_c_id_cargo_seq">
+      <ObjectId>18394</ObjectId>
+      <StateNumber>1288</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="29" parent="17" name="cheque_c_id_cheque_seq">
+      <ObjectId>18408</ObjectId>
+      <StateNumber>1289</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="30" parent="17" name="cliente_c_id_cliente_seq">
+      <ObjectId>18421</ObjectId>
+      <StateNumber>1290</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="31" parent="17" name="compania_c_id_compania_seq">
+      <ObjectId>18434</ObjectId>
+      <StateNumber>1291</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="32" parent="17" name="credito_c_id_credito_seq">
+      <ObjectId>18451</ObjectId>
+      <StateNumber>1292</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="33" parent="17" name="debito_d_id_debito_seq">
+      <ObjectId>18465</ObjectId>
+      <StateNumber>1293</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="34" parent="17" name="empleado_e_id_empleado_seq">
+      <ObjectId>18478</ObjectId>
+      <StateNumber>1294</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="35" parent="17" name="equipo_e_id_equipo_seq">
+      <ObjectId>18494</ObjectId>
+      <StateNumber>1295</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="36" parent="17" name="estado_e_id_estado_seq">
+      <ObjectId>18507</ObjectId>
+      <StateNumber>1296</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="37" parent="17" name="etapa_configuracion_e_id_etapa_configuracion_seq">
+      <ObjectId>18524</ObjectId>
+      <StateNumber>1298</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="38" parent="17" name="etapa_e_id_etapa_seq">
+      <ObjectId>18515</ObjectId>
+      <StateNumber>1297</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="39" parent="17" name="fase_carg_f_id_fase_cargo_seq">
+      <ObjectId>18546</ObjectId>
+      <StateNumber>1300</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="40" parent="17" name="fase_configuracion_f_id_fase_configuracion_seq">
+      <ObjectId>18555</ObjectId>
+      <StateNumber>1301</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="41" parent="17" name="fase_empl_f_id_fase_empl_seq">
+      <ObjectId>18568</ObjectId>
+      <StateNumber>1302</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="42" parent="17" name="fase_equi_f_id_fase_equi_seq">
+      <ObjectId>18579</ObjectId>
+      <StateNumber>1303</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="43" parent="17" name="fase_f_id_fase_seq">
+      <ObjectId>18537</ObjectId>
+      <StateNumber>1299</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="44" parent="17" name="fase_maqu_f_id_fase_maqu_seq">
+      <ObjectId>18588</ObjectId>
+      <StateNumber>1304</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="45" parent="17" name="gasto_adicional_g_id_gasto_adicional_seq">
+      <ObjectId>18597</ObjectId>
+      <StateNumber>1305</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="46" parent="17" name="horario_h_id_horario_seq">
+      <ObjectId>18605</ObjectId>
+      <StateNumber>1306</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="47" parent="17" name="inventario_i_id_inventario_seq">
+      <ObjectId>18613</ObjectId>
+      <StateNumber>1307</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="48" parent="17" name="jornada_j_id_jornada_seq">
+      <ObjectId>18624</ObjectId>
+      <StateNumber>1308</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="49" parent="17" name="lugar_l_id_lugar_seq">
+      <ObjectId>18635</ObjectId>
+      <StateNumber>1309</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="50" parent="17" name="maquinaria_m_id_maquinaria_seq">
+      <ObjectId>18647</ObjectId>
+      <StateNumber>1310</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="51" parent="17" name="mine_mine_m_id_mine_mine_seq">
+      <ObjectId>18658</ObjectId>
+      <StateNumber>1311</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="52" parent="17" name="mine_yaci_m_id_mine_yaci_seq">
+      <ObjectId>18667</ObjectId>
+      <StateNumber>1312</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="53" parent="17" name="mineral_m_id_mineral_seq">
+      <ObjectId>18676</ObjectId>
+      <StateNumber>1313</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="54" parent="17" name="pedi_esta_p_id_pedi_esta_seq">
+      <ObjectId>18692</ObjectId>
+      <StateNumber>1314</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="55" parent="17" name="pedi_prod_p_id_pedi_prod_seq">
+      <ObjectId>18701</ObjectId>
+      <StateNumber>1315</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="56" parent="17" name="pedi_tipo_p_id_pedi_tipo_seq">
+      <ObjectId>18711</ObjectId>
+      <StateNumber>1316</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="57" parent="17" name="pedido_p_id_pedido_seq">
+      <ObjectId>18721</ObjectId>
+      <StateNumber>1317</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="58" parent="17" name="prod_comp_p_id_prod_comp_seq">
+      <ObjectId>18730</ObjectId>
+      <StateNumber>1318</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="59" parent="17" name="prod_soli_p_id_prod_soli_seq">
+      <ObjectId>18739</ObjectId>
+      <StateNumber>1319</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="60" parent="17" name="producto_p_id_producto_seq">
+      <ObjectId>18752</ObjectId>
+      <StateNumber>1320</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="61" parent="17" name="proyecto_p_id_proyecto_seq">
+      <ObjectId>18763</ObjectId>
+      <StateNumber>1321</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="62" parent="17" name="rol_acci_r_id_rol_acci_seq">
+      <ObjectId>18782</ObjectId>
+      <StateNumber>1323</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="63" parent="17" name="rol_r_id_rol_seq">
+      <ObjectId>18772</ObjectId>
+      <StateNumber>1322</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="64" parent="17" name="sect_mine_s_id_sect_mine_seq">
+      <ObjectId>18790</ObjectId>
+      <StateNumber>1324</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="65" parent="17" name="sector_uso_s_id_sector_uso_seq">
+      <ObjectId>18798</ObjectId>
+      <StateNumber>1325</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="66" parent="17" name="solicitud_s_id_solicitud_seq">
+      <ObjectId>18811</ObjectId>
+      <StateNumber>1326</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="67" parent="17" name="tipo_yacimiento_t_id_tipo_yacimiento_seq">
+      <ObjectId>18821</ObjectId>
+      <StateNumber>1327</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="68" parent="17" name="transferencia_t_id_transferencia_seq">
+      <ObjectId>18831</ObjectId>
+      <StateNumber>1328</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="69" parent="17" name="unidad_u_id_unidad_seq">
+      <ObjectId>18844</ObjectId>
+      <StateNumber>1329</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="70" parent="17" name="usuario_u_id_usuario_seq">
+      <ObjectId>18860</ObjectId>
+      <StateNumber>1330</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="71" parent="17" name="yacimiento_configuracion_y_id_yacimiento_configuracion_seq">
+      <ObjectId>18882</ObjectId>
+      <StateNumber>1334</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <sequence id="72" parent="17" name="yacimiento_y_id_yacimiento_seq">
+      <ObjectId>18873</ObjectId>
+      <StateNumber>1331</StateNumber>
+      <Owner>tato</Owner>
+      <SequenceIdentity>1..2147483647</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>integer</DataType>
+    </sequence>
+    <table id="73" parent="17" name="accion">
+      <ObjectId>18365</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1405</StateNumber>
+    </table>
+    <table id="74" parent="17" name="cara_tipo">
+      <ObjectId>18377</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1339</StateNumber>
+    </table>
+    <table id="75" parent="17" name="caracteristica">
+      <ObjectId>18385</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1338</StateNumber>
+    </table>
+    <table id="76" parent="17" name="cargo">
+      <ObjectId>18396</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1355</StateNumber>
+    </table>
+    <table id="77" parent="17" name="cheque">
+      <ObjectId>18410</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1389</StateNumber>
+    </table>
+    <table id="78" parent="17" name="cliente">
+      <ObjectId>18423</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1392</StateNumber>
+    </table>
+    <table id="79" parent="17" name="compania">
+      <ObjectId>18436</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1393</StateNumber>
+    </table>
+    <table id="80" parent="17" name="credito">
+      <ObjectId>18453</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1386</StateNumber>
+    </table>
+    <table id="81" parent="17" name="debito">
+      <ObjectId>18467</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1387</StateNumber>
+    </table>
+    <table id="82" parent="17" name="empleado">
+      <ObjectId>18480</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1410</StateNumber>
+    </table>
+    <table id="83" parent="17" name="equipo">
+      <ObjectId>18496</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1362</StateNumber>
+    </table>
+    <table id="84" parent="17" name="estado">
+      <ObjectId>18509</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1409</StateNumber>
+    </table>
+    <table id="85" parent="17" name="etapa">
+      <ObjectId>18517</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1351</StateNumber>
+    </table>
+    <table id="86" parent="17" name="etapa_configuracion">
+      <ObjectId>18526</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1356</StateNumber>
+    </table>
+    <table id="87" parent="17" name="fase">
+      <ObjectId>18539</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1368</StateNumber>
+    </table>
+    <table id="88" parent="17" name="fase_carg">
+      <ObjectId>18548</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1355</StateNumber>
+    </table>
+    <table id="89" parent="17" name="fase_configuracion">
+      <ObjectId>18557</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1365</StateNumber>
+    </table>
+    <table id="90" parent="17" name="fase_empl">
+      <ObjectId>18570</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1361</StateNumber>
+    </table>
+    <table id="91" parent="17" name="fase_equi">
+      <ObjectId>18581</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1364</StateNumber>
+    </table>
+    <table id="92" parent="17" name="fase_maqu">
+      <ObjectId>18590</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1366</StateNumber>
+    </table>
+    <table id="93" parent="17" name="gasto_adicional">
+      <ObjectId>18599</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1368</StateNumber>
+    </table>
+    <table id="94" parent="17" name="horario">
+      <ObjectId>18607</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1374</StateNumber>
+    </table>
+    <table id="95" parent="17" name="inventario">
+      <ObjectId>18615</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1373</StateNumber>
+    </table>
+    <table id="96" parent="17" name="jornada">
+      <ObjectId>18626</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1374</StateNumber>
+    </table>
+    <table id="97" parent="17" name="lugar">
+      <ObjectId>18637</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1414</StateNumber>
+    </table>
+    <table id="98" parent="17" name="maquinaria">
+      <ObjectId>18649</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1366</StateNumber>
+    </table>
+    <table id="99" parent="17" name="mine_mine">
+      <ObjectId>18660</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1377</StateNumber>
+    </table>
+    <table id="100" parent="17" name="mine_yaci">
+      <ObjectId>18669</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1380</StateNumber>
+    </table>
+    <table id="101" parent="17" name="mineral">
+      <ObjectId>18678</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1416</StateNumber>
+    </table>
+    <table id="102" parent="17" name="pedi_esta">
+      <ObjectId>18694</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1382</StateNumber>
+    </table>
+    <table id="103" parent="17" name="pedi_prod">
+      <ObjectId>18703</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1385</StateNumber>
+    </table>
+    <table id="104" parent="17" name="pedi_tipo">
+      <ObjectId>18713</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1391</StateNumber>
+    </table>
+    <table id="105" parent="17" name="pedido">
+      <ObjectId>18723</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1403</StateNumber>
+    </table>
+    <table id="106" parent="17" name="prod_comp">
+      <ObjectId>18732</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1397</StateNumber>
+    </table>
+    <table id="107" parent="17" name="prod_soli">
+      <ObjectId>18741</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1398</StateNumber>
+    </table>
+    <table id="108" parent="17" name="producto">
+      <ObjectId>18754</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1400</StateNumber>
+    </table>
+    <table id="109" parent="17" name="proyecto">
+      <ObjectId>18765</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1408</StateNumber>
+    </table>
+    <table id="110" parent="17" name="rol">
+      <ObjectId>18774</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1411</StateNumber>
+    </table>
+    <table id="111" parent="17" name="rol_acci">
+      <ObjectId>18784</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1405</StateNumber>
+    </table>
+    <table id="112" parent="17" name="sect_mine">
+      <ObjectId>18792</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1407</StateNumber>
+    </table>
+    <table id="113" parent="17" name="sector_uso">
+      <ObjectId>18800</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1407</StateNumber>
+    </table>
+    <table id="114" parent="17" name="solicitud">
+      <ObjectId>18813</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1409</StateNumber>
+    </table>
+    <table id="115" parent="17" name="tipo_yacimiento">
+      <ObjectId>18823</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1413</StateNumber>
+    </table>
+    <table id="116" parent="17" name="transferencia">
+      <ObjectId>18833</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1388</StateNumber>
+    </table>
+    <table id="117" parent="17" name="unidad">
+      <ObjectId>18846</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1417</StateNumber>
+    </table>
+    <table id="118" parent="17" name="usuario">
+      <ObjectId>18862</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1411</StateNumber>
+    </table>
+    <table id="119" parent="17" name="yacimiento">
+      <ObjectId>18875</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1415</StateNumber>
+    </table>
+    <table id="120" parent="17" name="yacimiento_configuracion">
+      <ObjectId>18884</ObjectId>
+      <Owner>tato</Owner>
+      <StateNumber>1417</StateNumber>
+    </table>
+    <column id="121" parent="73" name="a_id_accion">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1285</StateNumber>
+      <DefaultExpression>nextval(&apos;accion_a_id_accion_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="122" parent="73" name="a_descripcion">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1285</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="123" parent="73" name="a_tipo">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1285</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="124" parent="73" name="a_tabla">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1285</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="125" parent="73" name="a_id_accion">
+      <ObjectId>18373</ObjectId>
+      <StateNumber>1285</StateNumber>
+      <ColNames>a_id_accion</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="126" parent="73" name="a_id_accion">
+      <ObjectId>18374</ObjectId>
+      <StateNumber>1285</StateNumber>
+      <ColNames>a_id_accion</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>a_id_accion</UnderlyingIndexName>
+    </key>
+    <check id="127" parent="73" name="check_a_tipo">
+      <ObjectId>18369</ObjectId>
+      <StateNumber>1285</StateNumber>
+      <ColNames>a_tipo</ColNames>
+      <Predicate>(a_tipo)::text = ANY ((ARRAY[&apos;c&apos;::character varying, &apos;r&apos;::character varying, &apos;u&apos;::character varying, &apos;d&apos;::character varying, &apos;rr&apos;::character varying])::text[])</Predicate>
+    </check>
+    <column id="128" parent="74" name="c_id_cara_tipo">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1286</StateNumber>
+      <DefaultExpression>nextval(&apos;cara_tipo_c_id_cara_tipo_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="129" parent="74" name="caracteritica_id">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1286</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="130" parent="74" name="tipo_yacimiento_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1286</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="131" parent="74" name="c_id_cara_tipo">
+      <ObjectId>18381</ObjectId>
+      <StateNumber>1286</StateNumber>
+      <ColNames>c_id_cara_tipo</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="132" parent="74" name="c_id_cara_tipo">
+      <ObjectId>18382</ObjectId>
+      <StateNumber>1286</StateNumber>
+      <ColNames>c_id_cara_tipo</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>c_id_cara_tipo</UnderlyingIndexName>
+    </key>
+    <foreign-key id="133" parent="74" name="fk_caracteritica_id">
+      <ObjectId>18891</ObjectId>
+      <StateNumber>1338</StateNumber>
+      <ColNames>caracteritica_id</ColNames>
+      <RefTableId>18385</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>caracteristica</RefTableName>
+      <RefKeyName>c_id_caracteristica</RefKeyName>
+      <RefColNames>c_id_caracteristica</RefColNames>
+    </foreign-key>
+    <foreign-key id="134" parent="74" name="fk_tipo_yacimiento_id">
+      <ObjectId>18896</ObjectId>
+      <StateNumber>1339</StateNumber>
+      <ColNames>tipo_yacimiento_id</ColNames>
+      <RefTableId>18823</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>tipo_yacimiento</RefTableName>
+      <RefKeyName>t_id_tipo_yacimiento</RefKeyName>
+      <RefColNames>t_id_tipo_yacimiento</RefColNames>
+    </foreign-key>
+    <column id="135" parent="75" name="c_id_caracteristica">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1287</StateNumber>
+      <DefaultExpression>nextval(&apos;caracteristica_c_id_caracteristica_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="136" parent="75" name="c_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1287</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="137" parent="75" name="c_descripcion">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1287</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="138" parent="75" name="c_id_caracteristica">
+      <ObjectId>18392</ObjectId>
+      <StateNumber>1287</StateNumber>
+      <ColNames>c_id_caracteristica</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="139" parent="75" name="c_id_caracteristica">
+      <ObjectId>18393</ObjectId>
+      <StateNumber>1287</StateNumber>
+      <ColNames>c_id_caracteristica</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>c_id_caracteristica</UnderlyingIndexName>
+    </key>
+    <column id="140" parent="76" name="c_id_cargo">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1288</StateNumber>
+      <DefaultExpression>nextval(&apos;cargo_c_id_cargo_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="141" parent="76" name="c_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1288</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="142" parent="76" name="c_tipo_labor">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1288</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="143" parent="76" name="c_profesional">
+      <Position>4</Position>
+      <DataType>boolean|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1288</StateNumber>
+      <DefaultExpression>false</DefaultExpression>
+      <TypeId>16</TypeId>
+    </column>
+    <column id="144" parent="76" name="c_descripcion">
+      <Position>5</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1288</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="145" parent="76" name="c_id_cargo">
+      <ObjectId>18404</ObjectId>
+      <StateNumber>1288</StateNumber>
+      <ColNames>c_id_cargo</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <index id="146" parent="76" name="cargo_c_nombre_key">
+      <ObjectId>18406</ObjectId>
+      <StateNumber>1288</StateNumber>
+      <ColNames>c_nombre</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="147" parent="76" name="c_id_cargo">
+      <ObjectId>18405</ObjectId>
+      <StateNumber>1288</StateNumber>
+      <ColNames>c_id_cargo</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>c_id_cargo</UnderlyingIndexName>
+    </key>
+    <key id="148" parent="76" name="cargo_c_nombre_key">
+      <ObjectId>18407</ObjectId>
+      <StateNumber>1288</StateNumber>
+      <ColNames>c_nombre</ColNames>
+      <UnderlyingIndexName>cargo_c_nombre_key</UnderlyingIndexName>
+    </key>
+    <column id="149" parent="77" name="c_id_cheque">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1289</StateNumber>
+      <DefaultExpression>nextval(&apos;cheque_c_id_cheque_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="150" parent="77" name="c_banco">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1289</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="151" parent="77" name="c_numero_cuenta">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1289</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="152" parent="77" name="c_numero_cheque">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1289</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="153" parent="77" name="c_id_cheque">
+      <ObjectId>18417</ObjectId>
+      <StateNumber>1289</StateNumber>
+      <ColNames>c_id_cheque</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <index id="154" parent="77" name="cheque_c_numero_cheque_key">
+      <ObjectId>18419</ObjectId>
+      <StateNumber>1289</StateNumber>
+      <ColNames>c_numero_cheque</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="155" parent="77" name="c_id_cheque">
+      <ObjectId>18418</ObjectId>
+      <StateNumber>1289</StateNumber>
+      <ColNames>c_id_cheque</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>c_id_cheque</UnderlyingIndexName>
+    </key>
+    <key id="156" parent="77" name="cheque_c_numero_cheque_key">
+      <ObjectId>18420</ObjectId>
+      <StateNumber>1289</StateNumber>
+      <ColNames>c_numero_cheque</ColNames>
+      <UnderlyingIndexName>cheque_c_numero_cheque_key</UnderlyingIndexName>
+    </key>
+    <column id="157" parent="78" name="c_id_cliente">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1290</StateNumber>
+      <DefaultExpression>nextval(&apos;cliente_c_id_cliente_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="158" parent="78" name="c_rif">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1290</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="159" parent="78" name="c_nombre">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1290</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="160" parent="78" name="c_telefono">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1290</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="161" parent="78" name="lugar_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1290</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="162" parent="78" name="c_id_cliente">
+      <ObjectId>18430</ObjectId>
+      <StateNumber>1290</StateNumber>
+      <ColNames>c_id_cliente</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <index id="163" parent="78" name="cliente_c_rif_key">
+      <ObjectId>18432</ObjectId>
+      <StateNumber>1290</StateNumber>
+      <ColNames>c_rif</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="164" parent="78" name="c_id_cliente">
+      <ObjectId>18431</ObjectId>
+      <StateNumber>1290</StateNumber>
+      <ColNames>c_id_cliente</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>c_id_cliente</UnderlyingIndexName>
+    </key>
+    <key id="165" parent="78" name="cliente_c_rif_key">
+      <ObjectId>18433</ObjectId>
+      <StateNumber>1290</StateNumber>
+      <ColNames>c_rif</ColNames>
+      <UnderlyingIndexName>cliente_c_rif_key</UnderlyingIndexName>
+    </key>
+    <foreign-key id="166" parent="78" name="fk_lugar_id">
+      <ObjectId>18901</ObjectId>
+      <StateNumber>1340</StateNumber>
+      <ColNames>lugar_id</ColNames>
+      <RefTableId>18637</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>lugar</RefTableName>
+      <RefKeyName>l_id_lugar</RefKeyName>
+      <RefColNames>l_id_lugar</RefColNames>
+    </foreign-key>
+    <column id="167" parent="79" name="c_id_compania">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1291</StateNumber>
+      <DefaultExpression>nextval(&apos;compania_c_id_compania_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="168" parent="79" name="c_rif">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1291</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="169" parent="79" name="c_nombre">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1291</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="170" parent="79" name="c_nacionalizado">
+      <Position>4</Position>
+      <DataType>boolean|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1291</StateNumber>
+      <DefaultExpression>false</DefaultExpression>
+      <TypeId>16</TypeId>
+    </column>
+    <column id="171" parent="79" name="c_fecha_nacional">
+      <Position>5</Position>
+      <DataType>date|0s</DataType>
+      <StateNumber>1291</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="172" parent="79" name="c_fecha_apertura">
+      <Position>6</Position>
+      <DataType>date|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1291</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="173" parent="79" name="c_capacidad_maxima_anual">
+      <Position>7</Position>
+      <DataType>numeric(10,2 digit)|0s</DataType>
+      <StateNumber>1291</StateNumber>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="174" parent="79" name="lugar_id">
+      <Position>8</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1291</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="175" parent="79" name="unidad_id">
+      <Position>9</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1291</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="176" parent="79" name="c_id_compania">
+      <ObjectId>18447</ObjectId>
+      <StateNumber>1291</StateNumber>
+      <ColNames>c_id_compania</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <index id="177" parent="79" name="compania_c_rif_key">
+      <ObjectId>18449</ObjectId>
+      <StateNumber>1291</StateNumber>
+      <ColNames>c_rif</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="178" parent="79" name="c_id_compania">
+      <ObjectId>18448</ObjectId>
+      <StateNumber>1291</StateNumber>
+      <ColNames>c_id_compania</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>c_id_compania</UnderlyingIndexName>
+    </key>
+    <key id="179" parent="79" name="compania_c_rif_key">
+      <ObjectId>18450</ObjectId>
+      <StateNumber>1291</StateNumber>
+      <ColNames>c_rif</ColNames>
+      <UnderlyingIndexName>compania_c_rif_key</UnderlyingIndexName>
+    </key>
+    <foreign-key id="180" parent="79" name="fk_lugar_id">
+      <ObjectId>18906</ObjectId>
+      <StateNumber>1341</StateNumber>
+      <ColNames>lugar_id</ColNames>
+      <RefTableId>18637</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>lugar</RefTableName>
+      <RefKeyName>l_id_lugar</RefKeyName>
+      <RefColNames>l_id_lugar</RefColNames>
+    </foreign-key>
+    <foreign-key id="181" parent="79" name="fk_unidad_id">
+      <ObjectId>18911</ObjectId>
+      <StateNumber>1342</StateNumber>
+      <ColNames>unidad_id</ColNames>
+      <RefTableId>18846</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>unidad</RefTableName>
+      <RefKeyName>u_id_unidad</RefKeyName>
+      <RefColNames>u_id_unidad</RefColNames>
+    </foreign-key>
+    <check id="182" parent="79" name="check_c_fecha_nacional">
+      <ObjectId>18443</ObjectId>
+      <StateNumber>1291</StateNumber>
+      <ColNames>c_fecha_nacional
+c_fecha_apertura</ColNames>
+      <Predicate>(c_fecha_nacional IS NULL) OR ((c_fecha_nacional &gt;= c_fecha_apertura) AND (c_fecha_nacional &lt;= now()))</Predicate>
+    </check>
+    <check id="183" parent="79" name="check_c_capacidad_maxima_anual_positiva">
+      <ObjectId>18441</ObjectId>
+      <StateNumber>1291</StateNumber>
+      <ColNames>c_capacidad_maxima_anual</ColNames>
+      <Predicate>c_capacidad_maxima_anual &gt; (0)::numeric</Predicate>
+    </check>
+    <check id="184" parent="79" name="check_c_fecha_apertura">
+      <ObjectId>18442</ObjectId>
+      <StateNumber>1291</StateNumber>
+      <ColNames>c_fecha_apertura</ColNames>
+      <Predicate>c_fecha_apertura &lt;= now()</Predicate>
+    </check>
+    <column id="185" parent="80" name="c_id_credito">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1292</StateNumber>
+      <DefaultExpression>nextval(&apos;credito_c_id_credito_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="186" parent="80" name="c_banco">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1292</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="187" parent="80" name="c_tipo">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1292</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="188" parent="80" name="c_numero_tarjeta">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1292</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="189" parent="80" name="c_fecha_vencimiento">
+      <Position>5</Position>
+      <DataType>date|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1292</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <index id="190" parent="80" name="c_id_credito">
+      <ObjectId>18461</ObjectId>
+      <StateNumber>1292</StateNumber>
+      <ColNames>c_id_credito</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <index id="191" parent="80" name="credito_c_numero_tarjeta_key">
+      <ObjectId>18463</ObjectId>
+      <StateNumber>1292</StateNumber>
+      <ColNames>c_numero_tarjeta</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="192" parent="80" name="c_id_credito">
+      <ObjectId>18462</ObjectId>
+      <StateNumber>1292</StateNumber>
+      <ColNames>c_id_credito</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>c_id_credito</UnderlyingIndexName>
+    </key>
+    <key id="193" parent="80" name="credito_c_numero_tarjeta_key">
+      <ObjectId>18464</ObjectId>
+      <StateNumber>1292</StateNumber>
+      <ColNames>c_numero_tarjeta</ColNames>
+      <UnderlyingIndexName>credito_c_numero_tarjeta_key</UnderlyingIndexName>
+    </key>
+    <check id="194" parent="80" name="check_c_tipo">
+      <ObjectId>18457</ObjectId>
+      <StateNumber>1292</StateNumber>
+      <ColNames>c_tipo</ColNames>
+      <Predicate>(c_tipo)::text = ANY ((ARRAY[&apos;mastercard&apos;::character varying, &apos;visa&apos;::character varying, &apos;american express&apos;::character varying])::text[])</Predicate>
+    </check>
+    <column id="195" parent="81" name="d_id_debito">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1293</StateNumber>
+      <DefaultExpression>nextval(&apos;debito_d_id_debito_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="196" parent="81" name="d_banco">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1293</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="197" parent="81" name="d_numero_tarjeta">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1293</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="198" parent="81" name="d_id_debito">
+      <ObjectId>18474</ObjectId>
+      <StateNumber>1293</StateNumber>
+      <ColNames>d_id_debito</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <index id="199" parent="81" name="debito_d_numero_tarjeta_key">
+      <ObjectId>18476</ObjectId>
+      <StateNumber>1293</StateNumber>
+      <ColNames>d_numero_tarjeta</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="200" parent="81" name="d_id_debito">
+      <ObjectId>18475</ObjectId>
+      <StateNumber>1293</StateNumber>
+      <ColNames>d_id_debito</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>d_id_debito</UnderlyingIndexName>
+    </key>
+    <key id="201" parent="81" name="debito_d_numero_tarjeta_key">
+      <ObjectId>18477</ObjectId>
+      <StateNumber>1293</StateNumber>
+      <ColNames>d_numero_tarjeta</ColNames>
+      <UnderlyingIndexName>debito_d_numero_tarjeta_key</UnderlyingIndexName>
+    </key>
+    <column id="202" parent="82" name="e_id_empleado">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1294</StateNumber>
+      <DefaultExpression>nextval(&apos;empleado_e_id_empleado_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="203" parent="82" name="e_cedula">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1294</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="204" parent="82" name="e_genero">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1294</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="205" parent="82" name="e_nombre">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1294</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="206" parent="82" name="e_segundo_nombre">
+      <Position>5</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1294</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="207" parent="82" name="e_apellido">
+      <Position>6</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1294</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="208" parent="82" name="e_segundo_apellido">
+      <Position>7</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1294</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="209" parent="82" name="e_telefono">
+      <Position>8</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1294</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="210" parent="82" name="e_fecha_nacimiento">
+      <Position>9</Position>
+      <DataType>date|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1294</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="211" parent="82" name="e_fecha_ingreso">
+      <Position>10</Position>
+      <DataType>date|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1294</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="212" parent="82" name="cargo_id">
+      <Position>11</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1294</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="213" parent="82" name="lugar_id">
+      <Position>12</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1294</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="214" parent="82" name="estado_id">
+      <Position>13</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1294</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="215" parent="82" name="e_id_empleado">
+      <ObjectId>18490</ObjectId>
+      <StateNumber>1294</StateNumber>
+      <ColNames>e_id_empleado</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <index id="216" parent="82" name="empleado_e_cedula_key">
+      <ObjectId>18492</ObjectId>
+      <StateNumber>1294</StateNumber>
+      <ColNames>e_cedula</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="217" parent="82" name="e_id_empleado">
+      <ObjectId>18491</ObjectId>
+      <StateNumber>1294</StateNumber>
+      <ColNames>e_id_empleado</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>e_id_empleado</UnderlyingIndexName>
+    </key>
+    <key id="218" parent="82" name="empleado_e_cedula_key">
+      <ObjectId>18493</ObjectId>
+      <StateNumber>1294</StateNumber>
+      <ColNames>e_cedula</ColNames>
+      <UnderlyingIndexName>empleado_e_cedula_key</UnderlyingIndexName>
+    </key>
+    <foreign-key id="219" parent="82" name="fk_cargo_id">
+      <ObjectId>18916</ObjectId>
+      <StateNumber>1343</StateNumber>
+      <ColNames>cargo_id</ColNames>
+      <RefTableId>18396</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>cargo</RefTableName>
+      <RefKeyName>c_id_cargo</RefKeyName>
+      <RefColNames>c_id_cargo</RefColNames>
+    </foreign-key>
+    <foreign-key id="220" parent="82" name="fk_lugar_id">
+      <ObjectId>18921</ObjectId>
+      <StateNumber>1344</StateNumber>
+      <ColNames>lugar_id</ColNames>
+      <RefTableId>18637</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>lugar</RefTableName>
+      <RefKeyName>l_id_lugar</RefKeyName>
+      <RefColNames>l_id_lugar</RefColNames>
+    </foreign-key>
+    <foreign-key id="221" parent="82" name="estado_id">
+      <ObjectId>18926</ObjectId>
+      <StateNumber>1345</StateNumber>
+      <ColNames>estado_id</ColNames>
+      <RefTableId>18509</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>estado</RefTableName>
+      <RefKeyName>e_id_estado</RefKeyName>
+      <RefColNames>e_id_estado</RefColNames>
+    </foreign-key>
+    <check id="222" parent="82" name="check_e_fecha_nacimiento">
+      <ObjectId>18486</ObjectId>
+      <StateNumber>1294</StateNumber>
+      <ColNames>e_fecha_nacimiento
+e_fecha_ingreso</ColNames>
+      <Predicate>(e_fecha_nacimiento + &apos;18 years&apos;::interval) &lt;= e_fecha_ingreso</Predicate>
+    </check>
+    <check id="223" parent="82" name="check_e_genero">
+      <ObjectId>18484</ObjectId>
+      <StateNumber>1294</StateNumber>
+      <ColNames>e_genero</ColNames>
+      <Predicate>(e_genero)::text = ANY ((ARRAY[&apos;m&apos;::character varying, &apos;f&apos;::character varying])::text[])</Predicate>
+    </check>
+    <check id="224" parent="82" name="check_e_fecha_ingreso">
+      <ObjectId>18485</ObjectId>
+      <StateNumber>1294</StateNumber>
+      <ColNames>e_fecha_ingreso</ColNames>
+      <Predicate>e_fecha_ingreso &lt;= now()</Predicate>
+    </check>
+    <column id="225" parent="83" name="e_id_equipo">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1295</StateNumber>
+      <DefaultExpression>nextval(&apos;equipo_e_id_equipo_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="226" parent="83" name="e_marca">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1295</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="227" parent="83" name="e_modelo">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1295</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="228" parent="83" name="e_serial">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1295</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="229" parent="83" name="maquinaria_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1295</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="230" parent="83" name="e_id_equipo">
+      <ObjectId>18503</ObjectId>
+      <StateNumber>1295</StateNumber>
+      <ColNames>e_id_equipo</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <index id="231" parent="83" name="equipo_e_serial_key">
+      <ObjectId>18505</ObjectId>
+      <StateNumber>1295</StateNumber>
+      <ColNames>e_serial</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="232" parent="83" name="e_id_equipo">
+      <ObjectId>18504</ObjectId>
+      <StateNumber>1295</StateNumber>
+      <ColNames>e_id_equipo</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>e_id_equipo</UnderlyingIndexName>
+    </key>
+    <key id="233" parent="83" name="equipo_e_serial_key">
+      <ObjectId>18506</ObjectId>
+      <StateNumber>1295</StateNumber>
+      <ColNames>e_serial</ColNames>
+      <UnderlyingIndexName>equipo_e_serial_key</UnderlyingIndexName>
+    </key>
+    <foreign-key id="234" parent="83" name="fk_maquinaria_id">
+      <ObjectId>18931</ObjectId>
+      <StateNumber>1346</StateNumber>
+      <ColNames>maquinaria_id</ColNames>
+      <RefTableId>18649</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>maquinaria</RefTableName>
+      <RefKeyName>m_id_maquinaria</RefKeyName>
+      <RefColNames>m_id_maquinaria</RefColNames>
+    </foreign-key>
+    <column id="235" parent="84" name="e_id_estado">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1296</StateNumber>
+      <DefaultExpression>nextval(&apos;estado_e_id_estado_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="236" parent="84" name="e_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1296</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="237" parent="84" name="e_id_estado">
+      <ObjectId>18513</ObjectId>
+      <StateNumber>1296</StateNumber>
+      <ColNames>e_id_estado</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="238" parent="84" name="e_id_estado">
+      <ObjectId>18514</ObjectId>
+      <StateNumber>1296</StateNumber>
+      <ColNames>e_id_estado</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>e_id_estado</UnderlyingIndexName>
+    </key>
+    <column id="239" parent="85" name="e_id_etapa">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1297</StateNumber>
+      <DefaultExpression>nextval(&apos;etapa_e_id_etapa_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="240" parent="85" name="e_fecha_inicio">
+      <Position>2</Position>
+      <DataType>date|0s</DataType>
+      <StateNumber>1297</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="241" parent="85" name="estado_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1297</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="242" parent="85" name="proyecto_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1297</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="243" parent="85" name="etapa_configuracion_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1297</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="244" parent="85" name="e_id_etapa">
+      <ObjectId>18522</ObjectId>
+      <StateNumber>1297</StateNumber>
+      <ColNames>e_id_etapa</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="245" parent="85" name="e_id_etapa">
+      <ObjectId>18523</ObjectId>
+      <StateNumber>1297</StateNumber>
+      <ColNames>e_id_etapa</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>e_id_etapa</UnderlyingIndexName>
+    </key>
+    <foreign-key id="246" parent="85" name="fk_estado_id">
+      <ObjectId>18936</ObjectId>
+      <StateNumber>1347</StateNumber>
+      <ColNames>estado_id</ColNames>
+      <RefTableId>18509</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>estado</RefTableName>
+      <RefKeyName>e_id_estado</RefKeyName>
+      <RefColNames>e_id_estado</RefColNames>
+    </foreign-key>
+    <foreign-key id="247" parent="85" name="fk_proyecto_id">
+      <ObjectId>18941</ObjectId>
+      <StateNumber>1348</StateNumber>
+      <ColNames>proyecto_id</ColNames>
+      <RefTableId>18765</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>proyecto</RefTableName>
+      <RefKeyName>p_id_proyecto</RefKeyName>
+      <RefColNames>p_id_proyecto</RefColNames>
+    </foreign-key>
+    <foreign-key id="248" parent="85" name="fk_etapa_configuracion_id">
+      <ObjectId>18946</ObjectId>
+      <StateNumber>1349</StateNumber>
+      <ColNames>etapa_configuracion_id</ColNames>
+      <RefTableId>18526</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>etapa_configuracion</RefTableName>
+      <RefKeyName>e_id_etapa_configuracion</RefKeyName>
+      <RefColNames>e_id_etapa_configuracion</RefColNames>
+    </foreign-key>
+    <check id="249" parent="85" name="chec_e_fecha_inicio">
+      <ObjectId>18521</ObjectId>
+      <StateNumber>1297</StateNumber>
+      <ColNames>e_fecha_inicio</ColNames>
+      <Predicate>e_fecha_inicio &lt;= now()</Predicate>
+    </check>
+    <column id="250" parent="86" name="e_id_etapa_configuracion">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1298</StateNumber>
+      <DefaultExpression>nextval(&apos;etapa_configuracion_e_id_etapa_configuracion_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="251" parent="86" name="e_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1298</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="252" parent="86" name="e_orden">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1298</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="253" parent="86" name="e_tipo">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1298</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="254" parent="86" name="yacimiento_configuracion_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1298</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="255" parent="86" name="e_id_etapa_configuracion">
+      <ObjectId>18535</ObjectId>
+      <StateNumber>1298</StateNumber>
+      <ColNames>e_id_etapa_configuracion</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="256" parent="86" name="e_id_etapa_configuracion">
+      <ObjectId>18536</ObjectId>
+      <StateNumber>1298</StateNumber>
+      <ColNames>e_id_etapa_configuracion</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>e_id_etapa_configuracion</UnderlyingIndexName>
+    </key>
+    <foreign-key id="257" parent="86" name="fk_yacimiento_configuracion_id">
+      <ObjectId>18951</ObjectId>
+      <StateNumber>1350</StateNumber>
+      <ColNames>yacimiento_configuracion_id</ColNames>
+      <RefTableId>18884</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>yacimiento_configuracion</RefTableName>
+      <RefKeyName>y_id_yacimiento_configuracion</RefKeyName>
+      <RefColNames>y_id_yacimiento_configuracion</RefColNames>
+    </foreign-key>
+    <check id="258" parent="86" name="check_e_tipo">
+      <ObjectId>18530</ObjectId>
+      <StateNumber>1298</StateNumber>
+      <ColNames>e_tipo</ColNames>
+      <Predicate>(e_tipo)::text = ANY ((ARRAY[&apos;explotacion&apos;::character varying, &apos;refinacion&apos;::character varying])::text[])</Predicate>
+    </check>
+    <check id="259" parent="86" name="check_e_orden">
+      <ObjectId>18531</ObjectId>
+      <StateNumber>1298</StateNumber>
+      <ColNames>e_orden</ColNames>
+      <Predicate>e_orden &gt; 0</Predicate>
+    </check>
+    <column id="260" parent="87" name="f_id_fase">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1299</StateNumber>
+      <DefaultExpression>nextval(&apos;fase_f_id_fase_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="261" parent="87" name="f_fecha_inicio">
+      <Position>2</Position>
+      <DataType>date|0s</DataType>
+      <StateNumber>1299</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="262" parent="87" name="f_fecha_fin">
+      <Position>3</Position>
+      <DataType>date|0s</DataType>
+      <StateNumber>1299</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="263" parent="87" name="etapa_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1299</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="264" parent="87" name="fase_configuracion_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1299</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="265" parent="87" name="estado_id">
+      <Position>6</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1299</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="266" parent="87" name="f_id_fase">
+      <ObjectId>18544</ObjectId>
+      <StateNumber>1299</StateNumber>
+      <ColNames>f_id_fase</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="267" parent="87" name="f_id_fase">
+      <ObjectId>18545</ObjectId>
+      <StateNumber>1299</StateNumber>
+      <ColNames>f_id_fase</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>f_id_fase</UnderlyingIndexName>
+    </key>
+    <foreign-key id="268" parent="87" name="fk_etapa_id">
+      <ObjectId>18956</ObjectId>
+      <StateNumber>1351</StateNumber>
+      <ColNames>etapa_id</ColNames>
+      <RefTableId>18517</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>etapa</RefTableName>
+      <RefKeyName>e_id_etapa</RefKeyName>
+      <RefColNames>e_id_etapa</RefColNames>
+    </foreign-key>
+    <foreign-key id="269" parent="87" name="fk_fase_configuracion_id">
+      <ObjectId>18961</ObjectId>
+      <StateNumber>1352</StateNumber>
+      <ColNames>fase_configuracion_id</ColNames>
+      <RefTableId>18557</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>fase_configuracion</RefTableName>
+      <RefKeyName>f_id_fase_configuracion</RefKeyName>
+      <RefColNames>f_id_fase_configuracion</RefColNames>
+    </foreign-key>
+    <foreign-key id="270" parent="87" name="fk_estado_id">
+      <ObjectId>18966</ObjectId>
+      <StateNumber>1353</StateNumber>
+      <ColNames>estado_id</ColNames>
+      <RefTableId>18509</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>estado</RefTableName>
+      <RefKeyName>e_id_estado</RefKeyName>
+      <RefColNames>e_id_estado</RefColNames>
+    </foreign-key>
+    <check id="271" parent="87" name="check_f_fecha_fin">
+      <ObjectId>18543</ObjectId>
+      <StateNumber>1299</StateNumber>
+      <ColNames>f_fecha_fin
+f_fecha_inicio</ColNames>
+      <Predicate>(f_fecha_fin IS NULL) OR (f_fecha_fin &gt; f_fecha_inicio)</Predicate>
+    </check>
+    <column id="272" parent="88" name="f_id_fase_cargo">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1300</StateNumber>
+      <DefaultExpression>nextval(&apos;fase_carg_f_id_fase_cargo_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="273" parent="88" name="f_cantidad">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1300</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="274" parent="88" name="fase_configuracion_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1300</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="275" parent="88" name="cargo_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1300</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="276" parent="88" name="f_id_fase_cargo">
+      <ObjectId>18553</ObjectId>
+      <StateNumber>1300</StateNumber>
+      <ColNames>f_id_fase_cargo</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="277" parent="88" name="f_id_fase_cargo">
+      <ObjectId>18554</ObjectId>
+      <StateNumber>1300</StateNumber>
+      <ColNames>f_id_fase_cargo</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>f_id_fase_cargo</UnderlyingIndexName>
+    </key>
+    <foreign-key id="278" parent="88" name="fk_fase_configuracion_id">
+      <ObjectId>18971</ObjectId>
+      <StateNumber>1354</StateNumber>
+      <ColNames>fase_configuracion_id</ColNames>
+      <RefTableId>18557</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>fase_configuracion</RefTableName>
+      <RefKeyName>f_id_fase_configuracion</RefKeyName>
+      <RefColNames>f_id_fase_configuracion</RefColNames>
+    </foreign-key>
+    <foreign-key id="279" parent="88" name="fk_cargo_id">
+      <ObjectId>18976</ObjectId>
+      <StateNumber>1355</StateNumber>
+      <ColNames>cargo_id</ColNames>
+      <RefTableId>18396</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>cargo</RefTableName>
+      <RefKeyName>c_id_cargo</RefKeyName>
+      <RefColNames>c_id_cargo</RefColNames>
+    </foreign-key>
+    <check id="280" parent="88" name="check_f_cantidad">
+      <ObjectId>18552</ObjectId>
+      <StateNumber>1300</StateNumber>
+      <ColNames>f_cantidad</ColNames>
+      <Predicate>f_cantidad &gt; 0</Predicate>
+    </check>
+    <column id="281" parent="89" name="f_id_fase_configuracion">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1301</StateNumber>
+      <DefaultExpression>nextval(&apos;fase_configuracion_f_id_fase_configuracion_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="282" parent="89" name="f_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1301</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="283" parent="89" name="f_orden">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1301</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="284" parent="89" name="f_duracion">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1301</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="285" parent="89" name="f_descripcion">
+      <Position>5</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1301</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="286" parent="89" name="etapa_configuracion_id">
+      <Position>6</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1301</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="287" parent="89" name="unidad_id">
+      <Position>7</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1301</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="288" parent="89" name="f_id_fase_configuracion">
+      <ObjectId>18566</ObjectId>
+      <StateNumber>1301</StateNumber>
+      <ColNames>f_id_fase_configuracion</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="289" parent="89" name="f_id_fase_configuracion">
+      <ObjectId>18567</ObjectId>
+      <StateNumber>1301</StateNumber>
+      <ColNames>f_id_fase_configuracion</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>f_id_fase_configuracion</UnderlyingIndexName>
+    </key>
+    <foreign-key id="290" parent="89" name="fk_etapa_configuracion_id">
+      <ObjectId>18981</ObjectId>
+      <StateNumber>1356</StateNumber>
+      <ColNames>etapa_configuracion_id</ColNames>
+      <RefTableId>18526</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>etapa_configuracion</RefTableName>
+      <RefKeyName>e_id_etapa_configuracion</RefKeyName>
+      <RefColNames>e_id_etapa_configuracion</RefColNames>
+    </foreign-key>
+    <foreign-key id="291" parent="89" name="fk_unidad_id">
+      <ObjectId>18986</ObjectId>
+      <StateNumber>1357</StateNumber>
+      <ColNames>unidad_id</ColNames>
+      <RefTableId>18846</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>unidad</RefTableName>
+      <RefKeyName>u_id_unidad</RefKeyName>
+      <RefColNames>u_id_unidad</RefColNames>
+    </foreign-key>
+    <check id="292" parent="89" name="check_f_duracion">
+      <ObjectId>18562</ObjectId>
+      <StateNumber>1301</StateNumber>
+      <ColNames>f_duracion</ColNames>
+      <Predicate>f_duracion &gt; 0</Predicate>
+    </check>
+    <check id="293" parent="89" name="check_f_orden">
+      <ObjectId>18561</ObjectId>
+      <StateNumber>1301</StateNumber>
+      <ColNames>f_orden</ColNames>
+      <Predicate>f_orden &gt; 0</Predicate>
+    </check>
+    <column id="294" parent="90" name="f_id_fase_empl">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1302</StateNumber>
+      <DefaultExpression>nextval(&apos;fase_empl_f_id_fase_empl_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="295" parent="90" name="f_viatico">
+      <Position>2</Position>
+      <DataType>numeric(10,2 digit)|0s</DataType>
+      <StateNumber>1302</StateNumber>
+      <DefaultExpression>0</DefaultExpression>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="296" parent="90" name="f_salario">
+      <Position>3</Position>
+      <DataType>numeric(10,2 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1302</StateNumber>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="297" parent="90" name="empleado_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1302</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="298" parent="90" name="fase_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1302</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="299" parent="90" name="horario_id">
+      <Position>6</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1302</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="300" parent="90" name="unidad_id">
+      <Position>7</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>1302</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="301" parent="90" name="f_id_fase_empl">
+      <ObjectId>18577</ObjectId>
+      <StateNumber>1302</StateNumber>
+      <ColNames>f_id_fase_empl</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="302" parent="90" name="f_id_fase_empl">
+      <ObjectId>18578</ObjectId>
+      <StateNumber>1302</StateNumber>
+      <ColNames>f_id_fase_empl</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>f_id_fase_empl</UnderlyingIndexName>
+    </key>
+    <foreign-key id="303" parent="90" name="fk_empleado_id">
+      <ObjectId>18991</ObjectId>
+      <StateNumber>1358</StateNumber>
+      <ColNames>empleado_id</ColNames>
+      <RefTableId>18480</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>empleado</RefTableName>
+      <RefKeyName>e_id_empleado</RefKeyName>
+      <RefColNames>e_id_empleado</RefColNames>
+    </foreign-key>
+    <foreign-key id="304" parent="90" name="fk_fase_id">
+      <ObjectId>18996</ObjectId>
+      <StateNumber>1359</StateNumber>
+      <ColNames>fase_id</ColNames>
+      <RefTableId>18539</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>fase</RefTableName>
+      <RefKeyName>f_id_fase</RefKeyName>
+      <RefColNames>f_id_fase</RefColNames>
+    </foreign-key>
+    <foreign-key id="305" parent="90" name="fk_horario_id">
+      <ObjectId>19001</ObjectId>
+      <StateNumber>1360</StateNumber>
+      <ColNames>horario_id</ColNames>
+      <RefTableId>18607</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>horario</RefTableName>
+      <RefKeyName>h_id_horario</RefKeyName>
+      <RefColNames>h_id_horario</RefColNames>
+    </foreign-key>
+    <foreign-key id="306" parent="90" name="fk_unidad_id">
+      <ObjectId>19006</ObjectId>
+      <StateNumber>1361</StateNumber>
+      <ColNames>unidad_id</ColNames>
+      <RefTableId>18846</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>unidad</RefTableName>
+      <RefKeyName>u_id_unidad</RefKeyName>
+      <RefColNames>u_id_unidad</RefColNames>
+    </foreign-key>
+    <check id="307" parent="90" name="check_f_salario">
+      <ObjectId>18575</ObjectId>
+      <StateNumber>1302</StateNumber>
+      <ColNames>f_salario</ColNames>
+      <Predicate>f_salario &gt;= (0)::numeric</Predicate>
+    </check>
+    <check id="308" parent="90" name="check_f_viatico">
+      <ObjectId>18576</ObjectId>
+      <StateNumber>1302</StateNumber>
+      <ColNames>f_viatico</ColNames>
+      <Predicate>f_viatico &gt;= (0)::numeric</Predicate>
+    </check>
+    <column id="309" parent="91" name="f_id_fase_equi">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1303</StateNumber>
+      <DefaultExpression>nextval(&apos;fase_equi_f_id_fase_equi_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="310" parent="91" name="f_costo_alquiler">
+      <Position>2</Position>
+      <DataType>numeric(10,2 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1303</StateNumber>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="311" parent="91" name="unidad_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1303</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="312" parent="91" name="equipo_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1303</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="313" parent="91" name="fase_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1303</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="314" parent="91" name="f_id_fase_equi">
+      <ObjectId>18586</ObjectId>
+      <StateNumber>1303</StateNumber>
+      <ColNames>f_id_fase_equi</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="315" parent="91" name="f_id_fase_equi">
+      <ObjectId>18587</ObjectId>
+      <StateNumber>1303</StateNumber>
+      <ColNames>f_id_fase_equi</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>f_id_fase_equi</UnderlyingIndexName>
+    </key>
+    <foreign-key id="316" parent="91" name="fk_unidad_id">
+      <ObjectId>19021</ObjectId>
+      <StateNumber>1364</StateNumber>
+      <ColNames>unidad_id</ColNames>
+      <RefTableId>18846</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>unidad</RefTableName>
+      <RefKeyName>u_id_unidad</RefKeyName>
+      <RefColNames>u_id_unidad</RefColNames>
+    </foreign-key>
+    <foreign-key id="317" parent="91" name="fk_equipo_id">
+      <ObjectId>19011</ObjectId>
+      <StateNumber>1362</StateNumber>
+      <ColNames>equipo_id</ColNames>
+      <RefTableId>18496</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>equipo</RefTableName>
+      <RefKeyName>e_id_equipo</RefKeyName>
+      <RefColNames>e_id_equipo</RefColNames>
+    </foreign-key>
+    <foreign-key id="318" parent="91" name="fk_fase_id">
+      <ObjectId>19016</ObjectId>
+      <StateNumber>1363</StateNumber>
+      <ColNames>fase_id</ColNames>
+      <RefTableId>18539</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>fase</RefTableName>
+      <RefKeyName>f_id_fase</RefKeyName>
+      <RefColNames>f_id_fase</RefColNames>
+    </foreign-key>
+    <check id="319" parent="91" name="check_f_costo_alquiler">
+      <ObjectId>18585</ObjectId>
+      <StateNumber>1303</StateNumber>
+      <ColNames>f_costo_alquiler</ColNames>
+      <Predicate>f_costo_alquiler &gt;= (0)::numeric</Predicate>
+    </check>
+    <column id="320" parent="92" name="f_id_fase_maqu">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1304</StateNumber>
+      <DefaultExpression>nextval(&apos;fase_maqu_f_id_fase_maqu_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="321" parent="92" name="f_cantidad">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1304</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="322" parent="92" name="fase_configuracion_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1304</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="323" parent="92" name="maquinaria_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1304</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="324" parent="92" name="f_id_fase_maqu">
+      <ObjectId>18595</ObjectId>
+      <StateNumber>1304</StateNumber>
+      <ColNames>f_id_fase_maqu</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="325" parent="92" name="f_id_fase_maqu">
+      <ObjectId>18596</ObjectId>
+      <StateNumber>1304</StateNumber>
+      <ColNames>f_id_fase_maqu</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>f_id_fase_maqu</UnderlyingIndexName>
+    </key>
+    <foreign-key id="326" parent="92" name="fk_fase_configuracion_id">
+      <ObjectId>19026</ObjectId>
+      <StateNumber>1365</StateNumber>
+      <ColNames>fase_configuracion_id</ColNames>
+      <RefTableId>18557</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>fase_configuracion</RefTableName>
+      <RefKeyName>f_id_fase_configuracion</RefKeyName>
+      <RefColNames>f_id_fase_configuracion</RefColNames>
+    </foreign-key>
+    <foreign-key id="327" parent="92" name="fk_maquinaria_id">
+      <ObjectId>19031</ObjectId>
+      <StateNumber>1366</StateNumber>
+      <ColNames>maquinaria_id</ColNames>
+      <RefTableId>18649</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>maquinaria</RefTableName>
+      <RefKeyName>m_id_maquinaria</RefKeyName>
+      <RefColNames>m_id_maquinaria</RefColNames>
+    </foreign-key>
+    <check id="328" parent="92" name="check_f_cantidad">
+      <ObjectId>18594</ObjectId>
+      <StateNumber>1304</StateNumber>
+      <ColNames>f_cantidad</ColNames>
+      <Predicate>f_cantidad &gt; 0</Predicate>
+    </check>
+    <column id="329" parent="93" name="g_id_gasto_adicional">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1305</StateNumber>
+      <DefaultExpression>nextval(&apos;gasto_adicional_g_id_gasto_adicional_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="330" parent="93" name="g_monto">
+      <Position>2</Position>
+      <DataType>numeric(10,2 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1305</StateNumber>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="331" parent="93" name="g_concepto">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1305</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="332" parent="93" name="unidad_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1305</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="333" parent="93" name="fase_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1305</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="334" parent="93" name="g_id_gasto_adicional">
+      <ObjectId>18603</ObjectId>
+      <StateNumber>1305</StateNumber>
+      <ColNames>g_id_gasto_adicional</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="335" parent="93" name="g_id_gasto_adicional">
+      <ObjectId>18604</ObjectId>
+      <StateNumber>1305</StateNumber>
+      <ColNames>g_id_gasto_adicional</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>g_id_gasto_adicional</UnderlyingIndexName>
+    </key>
+    <foreign-key id="336" parent="93" name="fk_unidad_id">
+      <ObjectId>19036</ObjectId>
+      <StateNumber>1367</StateNumber>
+      <ColNames>unidad_id</ColNames>
+      <RefTableId>18846</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>unidad</RefTableName>
+      <RefKeyName>u_id_unidad</RefKeyName>
+      <RefColNames>u_id_unidad</RefColNames>
+    </foreign-key>
+    <foreign-key id="337" parent="93" name="fk_fase_id">
+      <ObjectId>19041</ObjectId>
+      <StateNumber>1368</StateNumber>
+      <ColNames>fase_id</ColNames>
+      <RefTableId>18539</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>fase</RefTableName>
+      <RefKeyName>f_id_fase</RefKeyName>
+      <RefColNames>f_id_fase</RefColNames>
+    </foreign-key>
+    <column id="338" parent="94" name="h_id_horario">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1306</StateNumber>
+      <DefaultExpression>nextval(&apos;horario_h_id_horario_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="339" parent="94" name="h_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1306</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="340" parent="94" name="h_id_horario">
+      <ObjectId>18611</ObjectId>
+      <StateNumber>1306</StateNumber>
+      <ColNames>h_id_horario</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="341" parent="94" name="h_id_horario">
+      <ObjectId>18612</ObjectId>
+      <StateNumber>1306</StateNumber>
+      <ColNames>h_id_horario</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>h_id_horario</UnderlyingIndexName>
+    </key>
+    <column id="342" parent="95" name="i_id_inventario">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1307</StateNumber>
+      <DefaultExpression>nextval(&apos;inventario_i_id_inventario_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="343" parent="95" name="i_cantidad">
+      <Position>2</Position>
+      <DataType>numeric(10,2 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1307</StateNumber>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="344" parent="95" name="i_ingresado">
+      <Position>3</Position>
+      <DataType>boolean|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1307</StateNumber>
+      <DefaultExpression>false</DefaultExpression>
+      <TypeId>16</TypeId>
+    </column>
+    <column id="345" parent="95" name="i_fecha_modificacion">
+      <Position>4</Position>
+      <DataType>date|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1307</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="346" parent="95" name="mineral_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1307</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="347" parent="95" name="unidad_id">
+      <Position>6</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1307</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="348" parent="95" name="proyecto_id">
+      <Position>7</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>1307</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="349" parent="95" name="solicitud_id">
+      <Position>8</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>1307</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="350" parent="95" name="pedido_id">
+      <Position>9</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>1307</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="351" parent="95" name="i_id_inventario">
+      <ObjectId>18622</ObjectId>
+      <StateNumber>1307</StateNumber>
+      <ColNames>i_id_inventario</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="352" parent="95" name="i_id_inventario">
+      <ObjectId>18623</ObjectId>
+      <StateNumber>1307</StateNumber>
+      <ColNames>i_id_inventario</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>i_id_inventario</UnderlyingIndexName>
+    </key>
+    <foreign-key id="353" parent="95" name="fk_mineral_id">
+      <ObjectId>19046</ObjectId>
+      <StateNumber>1369</StateNumber>
+      <ColNames>mineral_id</ColNames>
+      <RefTableId>18678</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>mineral</RefTableName>
+      <RefKeyName>m_id_mineral</RefKeyName>
+      <RefColNames>m_id_mineral</RefColNames>
+    </foreign-key>
+    <foreign-key id="354" parent="95" name="fk_unidad_id">
+      <ObjectId>19051</ObjectId>
+      <StateNumber>1370</StateNumber>
+      <ColNames>unidad_id</ColNames>
+      <RefTableId>18846</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>unidad</RefTableName>
+      <RefKeyName>u_id_unidad</RefKeyName>
+      <RefColNames>u_id_unidad</RefColNames>
+    </foreign-key>
+    <foreign-key id="355" parent="95" name="fk_proyecto_id">
+      <ObjectId>19056</ObjectId>
+      <StateNumber>1371</StateNumber>
+      <ColNames>proyecto_id</ColNames>
+      <RefTableId>18765</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>proyecto</RefTableName>
+      <RefKeyName>p_id_proyecto</RefKeyName>
+      <RefColNames>p_id_proyecto</RefColNames>
+    </foreign-key>
+    <foreign-key id="356" parent="95" name="fk_solicitud_id">
+      <ObjectId>19061</ObjectId>
+      <StateNumber>1372</StateNumber>
+      <ColNames>solicitud_id</ColNames>
+      <RefTableId>18813</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>solicitud</RefTableName>
+      <RefKeyName>s_id_solicitud</RefKeyName>
+      <RefColNames>s_id_solicitud</RefColNames>
+    </foreign-key>
+    <foreign-key id="357" parent="95" name="fk_pedido_id">
+      <ObjectId>19066</ObjectId>
+      <StateNumber>1373</StateNumber>
+      <ColNames>pedido_id</ColNames>
+      <RefTableId>18723</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>pedido</RefTableName>
+      <RefKeyName>p_id_pedido</RefKeyName>
+      <RefColNames>p_id_pedido</RefColNames>
+    </foreign-key>
+    <check id="358" parent="95" name="check_i_cantidad">
+      <ObjectId>18620</ObjectId>
+      <StateNumber>1307</StateNumber>
+      <ColNames>i_cantidad</ColNames>
+      <Predicate>i_cantidad &gt; (0)::numeric</Predicate>
+    </check>
+    <check id="359" parent="95" name="check_i_fecha_modificacion">
+      <ObjectId>18621</ObjectId>
+      <StateNumber>1307</StateNumber>
+      <ColNames>i_fecha_modificacion</ColNames>
+      <Predicate>i_fecha_modificacion &lt;= now()</Predicate>
+    </check>
+    <column id="360" parent="96" name="j_id_jornada">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1308</StateNumber>
+      <DefaultExpression>nextval(&apos;jornada_j_id_jornada_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="361" parent="96" name="j_dia">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1308</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="362" parent="96" name="j_hora_entrada">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1308</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="363" parent="96" name="j_hora_salida">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1308</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="364" parent="96" name="horario_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1308</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="365" parent="96" name="j_id_jornada">
+      <ObjectId>18633</ObjectId>
+      <StateNumber>1308</StateNumber>
+      <ColNames>j_id_jornada</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="366" parent="96" name="j_id_jornada">
+      <ObjectId>18634</ObjectId>
+      <StateNumber>1308</StateNumber>
+      <ColNames>j_id_jornada</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>j_id_jornada</UnderlyingIndexName>
+    </key>
+    <foreign-key id="367" parent="96" name="fk_horario_id">
+      <ObjectId>19071</ObjectId>
+      <StateNumber>1374</StateNumber>
+      <ColNames>horario_id</ColNames>
+      <RefTableId>18607</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>horario</RefTableName>
+      <RefKeyName>h_id_horario</RefKeyName>
+      <RefColNames>h_id_horario</RefColNames>
+    </foreign-key>
+    <check id="368" parent="96" name="check_j_dia">
+      <ObjectId>18632</ObjectId>
+      <StateNumber>1308</StateNumber>
+      <ColNames>j_dia</ColNames>
+      <Predicate>(j_dia)::text = ANY ((ARRAY[&apos;l&apos;::character varying, &apos;m&apos;::character varying, &apos;x&apos;::character varying, &apos;j&apos;::character varying, &apos;v&apos;::character varying, &apos;s&apos;::character varying, &apos;d&apos;::character varying])::text[])</Predicate>
+    </check>
+    <check id="369" parent="96" name="check_j_hora_entrada">
+      <ObjectId>18631</ObjectId>
+      <StateNumber>1308</StateNumber>
+      <ColNames>j_hora_entrada</ColNames>
+      <Predicate>(j_hora_entrada &gt;= 0) AND (j_hora_entrada &lt; 24)</Predicate>
+    </check>
+    <check id="370" parent="96" name="check_j_hora_salida">
+      <ObjectId>18630</ObjectId>
+      <StateNumber>1308</StateNumber>
+      <ColNames>j_hora_salida
+j_hora_entrada</ColNames>
+      <Predicate>(j_hora_salida &gt; j_hora_entrada) AND (j_hora_salida &lt; 24)</Predicate>
+    </check>
+    <column id="371" parent="97" name="l_id_lugar">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1309</StateNumber>
+      <DefaultExpression>nextval(&apos;lugar_l_id_lugar_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="372" parent="97" name="l_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1309</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="373" parent="97" name="l_tipo">
+      <Position>3</Position>
+      <DataType>varchar|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1309</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="374" parent="97" name="lugar_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>1309</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="375" parent="97" name="l_id_lugar">
+      <ObjectId>18645</ObjectId>
+      <StateNumber>1309</StateNumber>
+      <ColNames>l_id_lugar</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="376" parent="97" name="l_id_lugar">
+      <ObjectId>18646</ObjectId>
+      <StateNumber>1309</StateNumber>
+      <ColNames>l_id_lugar</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>l_id_lugar</UnderlyingIndexName>
+    </key>
+    <foreign-key id="377" parent="97" name="fk_lugar_id">
+      <ObjectId>19076</ObjectId>
+      <StateNumber>1375</StateNumber>
+      <ColNames>lugar_id</ColNames>
+      <RefTableId>18637</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>lugar</RefTableName>
+      <RefKeyName>l_id_lugar</RefKeyName>
+      <RefColNames>l_id_lugar</RefColNames>
+    </foreign-key>
+    <check id="378" parent="97" name="check_l_tipo">
+      <ObjectId>18641</ObjectId>
+      <StateNumber>1309</StateNumber>
+      <ColNames>l_tipo</ColNames>
+      <Predicate>(l_tipo)::text = ANY ((ARRAY[&apos;pais&apos;::character varying, &apos;estado&apos;::character varying, &apos;municipio&apos;::character varying, &apos;parroquia&apos;::character varying])::text[])</Predicate>
+    </check>
+    <column id="379" parent="98" name="m_id_maquinaria">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1310</StateNumber>
+      <DefaultExpression>nextval(&apos;maquinaria_m_id_maquinaria_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="380" parent="98" name="m_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1310</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="381" parent="98" name="m_descripcion">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1310</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="382" parent="98" name="m_id_maquinaria">
+      <ObjectId>18656</ObjectId>
+      <StateNumber>1310</StateNumber>
+      <ColNames>m_id_maquinaria</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="383" parent="98" name="m_id_maquinaria">
+      <ObjectId>18657</ObjectId>
+      <StateNumber>1310</StateNumber>
+      <ColNames>m_id_maquinaria</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>m_id_maquinaria</UnderlyingIndexName>
+    </key>
+    <column id="384" parent="99" name="m_id_mine_mine">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1311</StateNumber>
+      <DefaultExpression>nextval(&apos;mine_mine_m_id_mine_mine_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="385" parent="99" name="mineral_id_compone">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1311</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="386" parent="99" name="mineral_id_compuesto">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1311</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="387" parent="99" name="m_id_mine_mine">
+      <ObjectId>18665</ObjectId>
+      <StateNumber>1311</StateNumber>
+      <ColNames>m_id_mine_mine</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="388" parent="99" name="m_id_mine_mine">
+      <ObjectId>18666</ObjectId>
+      <StateNumber>1311</StateNumber>
+      <ColNames>m_id_mine_mine</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>m_id_mine_mine</UnderlyingIndexName>
+    </key>
+    <foreign-key id="389" parent="99" name="fk_mineral_id_compone">
+      <ObjectId>19081</ObjectId>
+      <StateNumber>1376</StateNumber>
+      <ColNames>mineral_id_compone</ColNames>
+      <RefTableId>18678</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>mineral</RefTableName>
+      <RefKeyName>m_id_mineral</RefKeyName>
+      <RefColNames>m_id_mineral</RefColNames>
+    </foreign-key>
+    <foreign-key id="390" parent="99" name="fk_mineral_id_compuesto">
+      <ObjectId>19086</ObjectId>
+      <StateNumber>1377</StateNumber>
+      <ColNames>mineral_id_compuesto</ColNames>
+      <RefTableId>18678</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>mineral</RefTableName>
+      <RefKeyName>m_id_mineral</RefKeyName>
+      <RefColNames>m_id_mineral</RefColNames>
+    </foreign-key>
+    <check id="391" parent="99" name="check_compone_compuesto">
+      <ObjectId>18664</ObjectId>
+      <StateNumber>1311</StateNumber>
+      <ColNames>mineral_id_compuesto
+mineral_id_compone</ColNames>
+      <Predicate>mineral_id_compuesto &lt;&gt; mineral_id_compone</Predicate>
+    </check>
+    <column id="392" parent="100" name="m_id_mine_yaci">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1312</StateNumber>
+      <DefaultExpression>nextval(&apos;mine_yaci_m_id_mine_yaci_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="393" parent="100" name="m_cantidad">
+      <Position>2</Position>
+      <DataType>numeric(10,2 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1312</StateNumber>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="394" parent="100" name="yacimiento_configuracion_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1312</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="395" parent="100" name="mineral_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1312</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="396" parent="100" name="unidad_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1312</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="397" parent="100" name="m_id_mine_yaci">
+      <ObjectId>18674</ObjectId>
+      <StateNumber>1312</StateNumber>
+      <ColNames>m_id_mine_yaci</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="398" parent="100" name="m_id_mine_yaci">
+      <ObjectId>18675</ObjectId>
+      <StateNumber>1312</StateNumber>
+      <ColNames>m_id_mine_yaci</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>m_id_mine_yaci</UnderlyingIndexName>
+    </key>
+    <foreign-key id="399" parent="100" name="fk_yacimiento_configuracion_id">
+      <ObjectId>19091</ObjectId>
+      <StateNumber>1378</StateNumber>
+      <ColNames>yacimiento_configuracion_id</ColNames>
+      <RefTableId>18884</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>yacimiento_configuracion</RefTableName>
+      <RefKeyName>y_id_yacimiento_configuracion</RefKeyName>
+      <RefColNames>y_id_yacimiento_configuracion</RefColNames>
+    </foreign-key>
+    <foreign-key id="400" parent="100" name="fk_mineral_id">
+      <ObjectId>19096</ObjectId>
+      <StateNumber>1379</StateNumber>
+      <ColNames>mineral_id</ColNames>
+      <RefTableId>18678</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>mineral</RefTableName>
+      <RefKeyName>m_id_mineral</RefKeyName>
+      <RefColNames>m_id_mineral</RefColNames>
+    </foreign-key>
+    <foreign-key id="401" parent="100" name="fk_unidad_id">
+      <ObjectId>19101</ObjectId>
+      <StateNumber>1380</StateNumber>
+      <ColNames>unidad_id</ColNames>
+      <RefTableId>18846</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>unidad</RefTableName>
+      <RefKeyName>u_id_unidad</RefKeyName>
+      <RefColNames>u_id_unidad</RefColNames>
+    </foreign-key>
+    <check id="402" parent="100" name="check_m_cantidad">
+      <ObjectId>18673</ObjectId>
+      <StateNumber>1312</StateNumber>
+      <ColNames>m_cantidad</ColNames>
+      <Predicate>m_cantidad &gt; (0)::numeric</Predicate>
+    </check>
+    <column id="403" parent="101" name="m_id_mineral">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1313</StateNumber>
+      <DefaultExpression>nextval(&apos;mineral_m_id_mineral_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="404" parent="101" name="m_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1313</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="405" parent="101" name="m_radioactivo">
+      <Position>3</Position>
+      <DataType>boolean|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1313</StateNumber>
+      <DefaultExpression>false</DefaultExpression>
+      <TypeId>16</TypeId>
+    </column>
+    <column id="406" parent="101" name="m_fecha_nacionalizacion">
+      <Position>4</Position>
+      <DataType>date|0s</DataType>
+      <StateNumber>1313</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="407" parent="101" name="m_descripcion">
+      <Position>5</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1313</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="408" parent="101" name="m_dureza">
+      <Position>6</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>1313</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="409" parent="101" name="m_maleabilidad">
+      <Position>7</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>1313</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="410" parent="101" name="m_viscosidad">
+      <Position>8</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>1313</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="411" parent="101" name="m_tipo">
+      <Position>9</Position>
+      <DataType>varchar(500)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1313</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="412" parent="101" name="m_id_mineral">
+      <ObjectId>18688</ObjectId>
+      <StateNumber>1313</StateNumber>
+      <ColNames>m_id_mineral</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <index id="413" parent="101" name="mineral_m_nombre_key">
+      <ObjectId>18690</ObjectId>
+      <StateNumber>1313</StateNumber>
+      <ColNames>m_nombre</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="414" parent="101" name="m_id_mineral">
+      <ObjectId>18689</ObjectId>
+      <StateNumber>1313</StateNumber>
+      <ColNames>m_id_mineral</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>m_id_mineral</UnderlyingIndexName>
+    </key>
+    <key id="415" parent="101" name="mineral_m_nombre_key">
+      <ObjectId>18691</ObjectId>
+      <StateNumber>1313</StateNumber>
+      <ColNames>m_nombre</ColNames>
+      <UnderlyingIndexName>mineral_m_nombre_key</UnderlyingIndexName>
+    </key>
+    <check id="416" parent="101" name="check_m_tipo">
+      <ObjectId>18683</ObjectId>
+      <StateNumber>1313</StateNumber>
+      <ColNames>m_tipo</ColNames>
+      <Predicate>(m_tipo)::text = ANY ((ARRAY[&apos;metal&apos;::character varying, &apos;no metal&apos;::character varying])::text[])</Predicate>
+    </check>
+    <check id="417" parent="101" name="check_m_fecha_nacionalizacion">
+      <ObjectId>18684</ObjectId>
+      <StateNumber>1313</StateNumber>
+      <ColNames>m_fecha_nacionalizacion</ColNames>
+      <Predicate>m_fecha_nacionalizacion &lt;= now()</Predicate>
+    </check>
+    <column id="418" parent="102" name="p_id_pedi_esta">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1314</StateNumber>
+      <DefaultExpression>nextval(&apos;pedi_esta_p_id_pedi_esta_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="419" parent="102" name="p_fecha_modificacion">
+      <Position>2</Position>
+      <DataType>date|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1314</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="420" parent="102" name="estado_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1314</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="421" parent="102" name="pedido_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1314</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="422" parent="102" name="p_id_pedi_esta">
+      <ObjectId>18699</ObjectId>
+      <StateNumber>1314</StateNumber>
+      <ColNames>p_id_pedi_esta</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="423" parent="102" name="p_id_pedi_esta">
+      <ObjectId>18700</ObjectId>
+      <StateNumber>1314</StateNumber>
+      <ColNames>p_id_pedi_esta</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>p_id_pedi_esta</UnderlyingIndexName>
+    </key>
+    <foreign-key id="424" parent="102" name="fk_estado_id">
+      <ObjectId>19106</ObjectId>
+      <StateNumber>1381</StateNumber>
+      <ColNames>estado_id</ColNames>
+      <RefTableId>18509</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>estado</RefTableName>
+      <RefKeyName>e_id_estado</RefKeyName>
+      <RefColNames>e_id_estado</RefColNames>
+    </foreign-key>
+    <foreign-key id="425" parent="102" name="fk_pedido_id">
+      <ObjectId>19111</ObjectId>
+      <StateNumber>1382</StateNumber>
+      <ColNames>pedido_id</ColNames>
+      <RefTableId>18723</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>pedido</RefTableName>
+      <RefKeyName>p_id_pedido</RefKeyName>
+      <RefColNames>p_id_pedido</RefColNames>
+    </foreign-key>
+    <check id="426" parent="102" name="check_p_fecha_modificacion">
+      <ObjectId>18698</ObjectId>
+      <StateNumber>1314</StateNumber>
+      <ColNames>p_fecha_modificacion</ColNames>
+      <Predicate>p_fecha_modificacion &lt;= now()</Predicate>
+    </check>
+    <column id="427" parent="103" name="p_id_pedi_prod">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1315</StateNumber>
+      <DefaultExpression>nextval(&apos;pedi_prod_p_id_pedi_prod_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="428" parent="103" name="p_cantidad">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1315</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="429" parent="103" name="p_precio_unitario">
+      <Position>3</Position>
+      <DataType>numeric(10,2 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1315</StateNumber>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="430" parent="103" name="unidad_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1315</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="431" parent="103" name="producto_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1315</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="432" parent="103" name="pedido_id">
+      <Position>6</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1315</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="433" parent="103" name="p_id_pedi_prod">
+      <ObjectId>18709</ObjectId>
+      <StateNumber>1315</StateNumber>
+      <ColNames>p_id_pedi_prod</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="434" parent="103" name="p_id_pedi_prod">
+      <ObjectId>18710</ObjectId>
+      <StateNumber>1315</StateNumber>
+      <ColNames>p_id_pedi_prod</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>p_id_pedi_prod</UnderlyingIndexName>
+    </key>
+    <foreign-key id="435" parent="103" name="fk_unidad_id">
+      <ObjectId>19116</ObjectId>
+      <StateNumber>1383</StateNumber>
+      <ColNames>unidad_id</ColNames>
+      <RefTableId>18846</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>unidad</RefTableName>
+      <RefKeyName>u_id_unidad</RefKeyName>
+      <RefColNames>u_id_unidad</RefColNames>
+    </foreign-key>
+    <foreign-key id="436" parent="103" name="fk_producto_id">
+      <ObjectId>19121</ObjectId>
+      <StateNumber>1384</StateNumber>
+      <ColNames>producto_id</ColNames>
+      <RefTableId>18754</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>producto</RefTableName>
+      <RefKeyName>p_id_producto</RefKeyName>
+      <RefColNames>p_id_producto</RefColNames>
+    </foreign-key>
+    <foreign-key id="437" parent="103" name="fk_pedido_id">
+      <ObjectId>19126</ObjectId>
+      <StateNumber>1385</StateNumber>
+      <ColNames>pedido_id</ColNames>
+      <RefTableId>18723</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>pedido</RefTableName>
+      <RefKeyName>p_id_pedido</RefKeyName>
+      <RefColNames>p_id_pedido</RefColNames>
+    </foreign-key>
+    <check id="438" parent="103" name="check_p_cantidad">
+      <ObjectId>18708</ObjectId>
+      <StateNumber>1315</StateNumber>
+      <ColNames>p_cantidad</ColNames>
+      <Predicate>p_cantidad &gt; 0</Predicate>
+    </check>
+    <check id="439" parent="103" name="check_p_precio_unitario">
+      <ObjectId>18707</ObjectId>
+      <StateNumber>1315</StateNumber>
+      <ColNames>p_precio_unitario</ColNames>
+      <Predicate>p_precio_unitario &gt; (0)::numeric</Predicate>
+    </check>
+    <column id="440" parent="104" name="p_id_pedi_tipo">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1316</StateNumber>
+      <DefaultExpression>nextval(&apos;pedi_tipo_p_id_pedi_tipo_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="441" parent="104" name="p_monto">
+      <Position>2</Position>
+      <DataType>numeric(10,2 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1316</StateNumber>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="442" parent="104" name="p_fecha_pago">
+      <Position>3</Position>
+      <DataType>date|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1316</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="443" parent="104" name="credito_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>1316</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="444" parent="104" name="debito_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>1316</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="445" parent="104" name="transferencia_id">
+      <Position>6</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>1316</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="446" parent="104" name="cheque_id">
+      <Position>7</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>1316</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="447" parent="104" name="pedido_id">
+      <Position>8</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1316</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="448" parent="104" name="unidad_id">
+      <Position>9</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1316</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="449" parent="104" name="p_id_pedi_tipo">
+      <ObjectId>18719</ObjectId>
+      <StateNumber>1316</StateNumber>
+      <ColNames>p_id_pedi_tipo</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="450" parent="104" name="p_id_pedi_tipo">
+      <ObjectId>18720</ObjectId>
+      <StateNumber>1316</StateNumber>
+      <ColNames>p_id_pedi_tipo</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>p_id_pedi_tipo</UnderlyingIndexName>
+    </key>
+    <foreign-key id="451" parent="104" name="fk_credito_id">
+      <ObjectId>19131</ObjectId>
+      <StateNumber>1386</StateNumber>
+      <ColNames>credito_id</ColNames>
+      <RefTableId>18453</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>credito</RefTableName>
+      <RefKeyName>c_id_credito</RefKeyName>
+      <RefColNames>c_id_credito</RefColNames>
+    </foreign-key>
+    <foreign-key id="452" parent="104" name="fk_debito_id">
+      <ObjectId>19136</ObjectId>
+      <StateNumber>1387</StateNumber>
+      <ColNames>debito_id</ColNames>
+      <RefTableId>18467</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>debito</RefTableName>
+      <RefKeyName>d_id_debito</RefKeyName>
+      <RefColNames>d_id_debito</RefColNames>
+    </foreign-key>
+    <foreign-key id="453" parent="104" name="fk_transferencia_id">
+      <ObjectId>19141</ObjectId>
+      <StateNumber>1388</StateNumber>
+      <ColNames>transferencia_id</ColNames>
+      <RefTableId>18833</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>transferencia</RefTableName>
+      <RefKeyName>t_id_transferencia</RefKeyName>
+      <RefColNames>t_id_transferencia</RefColNames>
+    </foreign-key>
+    <foreign-key id="454" parent="104" name="fk_cheque_id">
+      <ObjectId>19146</ObjectId>
+      <StateNumber>1389</StateNumber>
+      <ColNames>cheque_id</ColNames>
+      <RefTableId>18410</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>cheque</RefTableName>
+      <RefKeyName>c_id_cheque</RefKeyName>
+      <RefColNames>c_id_cheque</RefColNames>
+    </foreign-key>
+    <foreign-key id="455" parent="104" name="fk_pedido_id">
+      <ObjectId>19151</ObjectId>
+      <StateNumber>1390</StateNumber>
+      <ColNames>pedido_id</ColNames>
+      <RefTableId>18723</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>pedido</RefTableName>
+      <RefKeyName>p_id_pedido</RefKeyName>
+      <RefColNames>p_id_pedido</RefColNames>
+    </foreign-key>
+    <foreign-key id="456" parent="104" name="fk_unidad_id">
+      <ObjectId>19156</ObjectId>
+      <StateNumber>1391</StateNumber>
+      <ColNames>unidad_id</ColNames>
+      <RefTableId>18846</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>unidad</RefTableName>
+      <RefKeyName>u_id_unidad</RefKeyName>
+      <RefColNames>u_id_unidad</RefColNames>
+    </foreign-key>
+    <check id="457" parent="104" name="check_p_fecha_pago">
+      <ObjectId>18718</ObjectId>
+      <StateNumber>1316</StateNumber>
+      <ColNames>p_fecha_pago</ColNames>
+      <Predicate>p_fecha_pago &lt;= now()</Predicate>
+    </check>
+    <check id="458" parent="104" name="check_p_monto">
+      <ObjectId>18717</ObjectId>
+      <StateNumber>1316</StateNumber>
+      <ColNames>p_monto</ColNames>
+      <Predicate>p_monto &gt; (0)::numeric</Predicate>
+    </check>
+    <column id="459" parent="105" name="p_id_pedido">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1317</StateNumber>
+      <DefaultExpression>nextval(&apos;pedido_p_id_pedido_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="460" parent="105" name="p_fecha_solicitud">
+      <Position>2</Position>
+      <DataType>date|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1317</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="461" parent="105" name="cliente_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1317</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="462" parent="105" name="p_id_pedido">
+      <ObjectId>18728</ObjectId>
+      <StateNumber>1317</StateNumber>
+      <ColNames>p_id_pedido</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="463" parent="105" name="p_id_pedido">
+      <ObjectId>18729</ObjectId>
+      <StateNumber>1317</StateNumber>
+      <ColNames>p_id_pedido</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>p_id_pedido</UnderlyingIndexName>
+    </key>
+    <foreign-key id="464" parent="105" name="fk_cliente_id">
+      <ObjectId>19161</ObjectId>
+      <StateNumber>1392</StateNumber>
+      <ColNames>cliente_id</ColNames>
+      <RefTableId>18423</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>cliente</RefTableName>
+      <RefKeyName>c_id_cliente</RefKeyName>
+      <RefColNames>c_id_cliente</RefColNames>
+    </foreign-key>
+    <check id="465" parent="105" name="check_p_fecha_solicitud">
+      <ObjectId>18727</ObjectId>
+      <StateNumber>1317</StateNumber>
+      <ColNames>p_fecha_solicitud</ColNames>
+      <Predicate>p_fecha_solicitud &lt;= now()</Predicate>
+    </check>
+    <column id="466" parent="106" name="p_id_prod_comp">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1318</StateNumber>
+      <DefaultExpression>nextval(&apos;prod_comp_p_id_prod_comp_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="467" parent="106" name="p_precio_estimado">
+      <Position>2</Position>
+      <DataType>numeric(10,2 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1318</StateNumber>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="468" parent="106" name="compania_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1318</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="469" parent="106" name="producto_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1318</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="470" parent="106" name="unidad_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1318</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="471" parent="106" name="p_id_prod_comp">
+      <ObjectId>18737</ObjectId>
+      <StateNumber>1318</StateNumber>
+      <ColNames>p_id_prod_comp</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="472" parent="106" name="p_id_prod_comp">
+      <ObjectId>18738</ObjectId>
+      <StateNumber>1318</StateNumber>
+      <ColNames>p_id_prod_comp</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>p_id_prod_comp</UnderlyingIndexName>
+    </key>
+    <foreign-key id="473" parent="106" name="fk_compania_id">
+      <ObjectId>19166</ObjectId>
+      <StateNumber>1393</StateNumber>
+      <ColNames>compania_id</ColNames>
+      <RefTableId>18436</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>compania</RefTableName>
+      <RefKeyName>c_id_compania</RefKeyName>
+      <RefColNames>c_id_compania</RefColNames>
+    </foreign-key>
+    <foreign-key id="474" parent="106" name="fk_producto_id">
+      <ObjectId>19171</ObjectId>
+      <StateNumber>1394</StateNumber>
+      <ColNames>producto_id</ColNames>
+      <RefTableId>18754</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>producto</RefTableName>
+      <RefKeyName>p_id_producto</RefKeyName>
+      <RefColNames>p_id_producto</RefColNames>
+    </foreign-key>
+    <foreign-key id="475" parent="106" name="fk_unidad_id">
+      <ObjectId>19176</ObjectId>
+      <StateNumber>1395</StateNumber>
+      <ColNames>unidad_id</ColNames>
+      <RefTableId>18846</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>unidad</RefTableName>
+      <RefKeyName>u_id_unidad</RefKeyName>
+      <RefColNames>u_id_unidad</RefColNames>
+    </foreign-key>
+    <check id="476" parent="106" name="check_p_precio_estimado">
+      <ObjectId>18736</ObjectId>
+      <StateNumber>1318</StateNumber>
+      <ColNames>p_precio_estimado</ColNames>
+      <Predicate>p_precio_estimado &gt; (0)::numeric</Predicate>
+    </check>
+    <column id="477" parent="107" name="p_id_prod_soli">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1319</StateNumber>
+      <DefaultExpression>nextval(&apos;prod_soli_p_id_prod_soli_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="478" parent="107" name="p_cantidad">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1319</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="479" parent="107" name="p_precio_compra">
+      <Position>3</Position>
+      <DataType>numeric|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1319</StateNumber>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="480" parent="107" name="solicitud_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1319</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="481" parent="107" name="prod_comp_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1319</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="482" parent="107" name="unidad_id">
+      <Position>6</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1319</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="483" parent="107" name="p_id_prod_soli">
+      <ObjectId>18750</ObjectId>
+      <StateNumber>1319</StateNumber>
+      <ColNames>p_id_prod_soli</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="484" parent="107" name="p_id_prod_soli">
+      <ObjectId>18751</ObjectId>
+      <StateNumber>1319</StateNumber>
+      <ColNames>p_id_prod_soli</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>p_id_prod_soli</UnderlyingIndexName>
+    </key>
+    <foreign-key id="485" parent="107" name="fk_solicitud_id">
+      <ObjectId>19181</ObjectId>
+      <StateNumber>1396</StateNumber>
+      <ColNames>solicitud_id</ColNames>
+      <RefTableId>18813</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>solicitud</RefTableName>
+      <RefKeyName>s_id_solicitud</RefKeyName>
+      <RefColNames>s_id_solicitud</RefColNames>
+    </foreign-key>
+    <foreign-key id="486" parent="107" name="fk_prod_comp_id">
+      <ObjectId>19186</ObjectId>
+      <StateNumber>1397</StateNumber>
+      <ColNames>prod_comp_id</ColNames>
+      <RefTableId>18732</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>prod_comp</RefTableName>
+      <RefKeyName>p_id_prod_comp</RefKeyName>
+      <RefColNames>p_id_prod_comp</RefColNames>
+    </foreign-key>
+    <foreign-key id="487" parent="107" name="fk_unidad_id">
+      <ObjectId>19191</ObjectId>
+      <StateNumber>1398</StateNumber>
+      <ColNames>unidad_id</ColNames>
+      <RefTableId>18846</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>unidad</RefTableName>
+      <RefKeyName>u_id_unidad</RefKeyName>
+      <RefColNames>u_id_unidad</RefColNames>
+    </foreign-key>
+    <check id="488" parent="107" name="check_p_cantidad">
+      <ObjectId>18746</ObjectId>
+      <StateNumber>1319</StateNumber>
+      <ColNames>p_cantidad</ColNames>
+      <Predicate>p_cantidad &gt; 0</Predicate>
+    </check>
+    <check id="489" parent="107" name="check_p_precio_compra">
+      <ObjectId>18745</ObjectId>
+      <StateNumber>1319</StateNumber>
+      <ColNames>p_precio_compra</ColNames>
+      <Predicate>p_precio_compra &gt; (0)::numeric</Predicate>
+    </check>
+    <column id="490" parent="108" name="p_id_producto">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1320</StateNumber>
+      <DefaultExpression>nextval(&apos;producto_p_id_producto_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="491" parent="108" name="p_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1320</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="492" parent="108" name="p_porcentaje_pureza">
+      <Position>3</Position>
+      <DataType>numeric(10,2 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1320</StateNumber>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="493" parent="108" name="p_peso">
+      <Position>4</Position>
+      <DataType>numeric(10,2 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1320</StateNumber>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="494" parent="108" name="p_fabricado">
+      <Position>5</Position>
+      <DataType>boolean|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1320</StateNumber>
+      <DefaultExpression>false</DefaultExpression>
+      <TypeId>16</TypeId>
+    </column>
+    <column id="495" parent="108" name="unidad_id">
+      <Position>6</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1320</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="496" parent="108" name="mineral_id">
+      <Position>7</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1320</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="497" parent="108" name="p_id_producto">
+      <ObjectId>18761</ObjectId>
+      <StateNumber>1320</StateNumber>
+      <ColNames>p_id_producto</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="498" parent="108" name="p_id_producto">
+      <ObjectId>18762</ObjectId>
+      <StateNumber>1320</StateNumber>
+      <ColNames>p_id_producto</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>p_id_producto</UnderlyingIndexName>
+    </key>
+    <foreign-key id="499" parent="108" name="fk_unidad_id">
+      <ObjectId>19196</ObjectId>
+      <StateNumber>1399</StateNumber>
+      <ColNames>unidad_id</ColNames>
+      <RefTableId>18846</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>unidad</RefTableName>
+      <RefKeyName>u_id_unidad</RefKeyName>
+      <RefColNames>u_id_unidad</RefColNames>
+    </foreign-key>
+    <foreign-key id="500" parent="108" name="fk_mineral_id">
+      <ObjectId>19201</ObjectId>
+      <StateNumber>1400</StateNumber>
+      <ColNames>mineral_id</ColNames>
+      <RefTableId>18678</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>mineral</RefTableName>
+      <RefKeyName>m_id_mineral</RefKeyName>
+      <RefColNames>m_id_mineral</RefColNames>
+    </foreign-key>
+    <check id="501" parent="108" name="check_p_porcentaje_pureza">
+      <ObjectId>18760</ObjectId>
+      <StateNumber>1320</StateNumber>
+      <ColNames>p_porcentaje_pureza</ColNames>
+      <Predicate>(p_porcentaje_pureza &gt;= (0)::numeric) AND (p_porcentaje_pureza &lt;= (100)::numeric)</Predicate>
+    </check>
+    <check id="502" parent="108" name="check_p_peso">
+      <ObjectId>18759</ObjectId>
+      <StateNumber>1320</StateNumber>
+      <ColNames>p_peso</ColNames>
+      <Predicate>p_peso &gt; (0)::numeric</Predicate>
+    </check>
+    <column id="503" parent="109" name="p_id_proyecto">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1321</StateNumber>
+      <DefaultExpression>nextval(&apos;proyecto_p_id_proyecto_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="504" parent="109" name="p_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1321</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="505" parent="109" name="p_fecha_inicio">
+      <Position>3</Position>
+      <DataType>date|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1321</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="506" parent="109" name="estado_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1321</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="507" parent="109" name="yacimiento_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1321</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="508" parent="109" name="pedido_id">
+      <Position>6</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>1321</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="509" parent="109" name="p_id_proyecto">
+      <ObjectId>18770</ObjectId>
+      <StateNumber>1321</StateNumber>
+      <ColNames>p_id_proyecto</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="510" parent="109" name="p_id_proyecto">
+      <ObjectId>18771</ObjectId>
+      <StateNumber>1321</StateNumber>
+      <ColNames>p_id_proyecto</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>p_id_proyecto</UnderlyingIndexName>
+    </key>
+    <foreign-key id="511" parent="109" name="fk_estado_id">
+      <ObjectId>19206</ObjectId>
+      <StateNumber>1401</StateNumber>
+      <ColNames>estado_id</ColNames>
+      <RefTableId>18509</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>estado</RefTableName>
+      <RefKeyName>e_id_estado</RefKeyName>
+      <RefColNames>e_id_estado</RefColNames>
+    </foreign-key>
+    <foreign-key id="512" parent="109" name="fk_yacimiento_id">
+      <ObjectId>19211</ObjectId>
+      <StateNumber>1402</StateNumber>
+      <ColNames>yacimiento_id</ColNames>
+      <RefTableId>18875</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>yacimiento</RefTableName>
+      <RefKeyName>y_id_yacimiento</RefKeyName>
+      <RefColNames>y_id_yacimiento</RefColNames>
+    </foreign-key>
+    <foreign-key id="513" parent="109" name="fk_pedido_id">
+      <ObjectId>19216</ObjectId>
+      <StateNumber>1403</StateNumber>
+      <ColNames>pedido_id</ColNames>
+      <RefTableId>18723</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>pedido</RefTableName>
+      <RefKeyName>p_id_pedido</RefKeyName>
+      <RefColNames>p_id_pedido</RefColNames>
+    </foreign-key>
+    <check id="514" parent="109" name="check_p_fecha_inicio">
+      <ObjectId>18769</ObjectId>
+      <StateNumber>1321</StateNumber>
+      <ColNames>p_fecha_inicio</ColNames>
+      <Predicate>p_fecha_inicio &lt;= now()</Predicate>
+    </check>
+    <column id="515" parent="110" name="r_id_rol">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1322</StateNumber>
+      <DefaultExpression>nextval(&apos;rol_r_id_rol_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="516" parent="110" name="r_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1322</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="517" parent="110" name="r_id_rol">
+      <ObjectId>18778</ObjectId>
+      <StateNumber>1322</StateNumber>
+      <ColNames>r_id_rol</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <index id="518" parent="110" name="rol_r_nombre_key">
+      <ObjectId>18780</ObjectId>
+      <StateNumber>1322</StateNumber>
+      <ColNames>r_nombre</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="519" parent="110" name="r_id_rol">
+      <ObjectId>18779</ObjectId>
+      <StateNumber>1322</StateNumber>
+      <ColNames>r_id_rol</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>r_id_rol</UnderlyingIndexName>
+    </key>
+    <key id="520" parent="110" name="rol_r_nombre_key">
+      <ObjectId>18781</ObjectId>
+      <StateNumber>1322</StateNumber>
+      <ColNames>r_nombre</ColNames>
+      <UnderlyingIndexName>rol_r_nombre_key</UnderlyingIndexName>
+    </key>
+    <column id="521" parent="111" name="r_id_rol_acci">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1323</StateNumber>
+      <DefaultExpression>nextval(&apos;rol_acci_r_id_rol_acci_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="522" parent="111" name="rol_id">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1323</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="523" parent="111" name="accion_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1323</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="524" parent="111" name="r_id_rol_acci">
+      <ObjectId>18788</ObjectId>
+      <StateNumber>1323</StateNumber>
+      <ColNames>r_id_rol_acci</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="525" parent="111" name="r_id_rol_acci">
+      <ObjectId>18789</ObjectId>
+      <StateNumber>1323</StateNumber>
+      <ColNames>r_id_rol_acci</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>r_id_rol_acci</UnderlyingIndexName>
+    </key>
+    <foreign-key id="526" parent="111" name="fk_rol_id">
+      <ObjectId>19221</ObjectId>
+      <StateNumber>1404</StateNumber>
+      <ColNames>rol_id</ColNames>
+      <RefTableId>18774</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>rol</RefTableName>
+      <RefKeyName>r_id_rol</RefKeyName>
+      <RefColNames>r_id_rol</RefColNames>
+    </foreign-key>
+    <foreign-key id="527" parent="111" name="fk_accion_id">
+      <ObjectId>19226</ObjectId>
+      <StateNumber>1405</StateNumber>
+      <ColNames>accion_id</ColNames>
+      <RefTableId>18365</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>accion</RefTableName>
+      <RefKeyName>a_id_accion</RefKeyName>
+      <RefColNames>a_id_accion</RefColNames>
+    </foreign-key>
+    <column id="528" parent="112" name="s_id_sect_mine">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1324</StateNumber>
+      <DefaultExpression>nextval(&apos;sect_mine_s_id_sect_mine_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="529" parent="112" name="mineral_id">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1324</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="530" parent="112" name="sector_uso_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1324</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="531" parent="112" name="s_id_sect_mine">
+      <ObjectId>18796</ObjectId>
+      <StateNumber>1324</StateNumber>
+      <ColNames>s_id_sect_mine</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="532" parent="112" name="s_id_sect_mine">
+      <ObjectId>18797</ObjectId>
+      <StateNumber>1324</StateNumber>
+      <ColNames>s_id_sect_mine</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>s_id_sect_mine</UnderlyingIndexName>
+    </key>
+    <foreign-key id="533" parent="112" name="fk_mineral_id">
+      <ObjectId>19231</ObjectId>
+      <StateNumber>1406</StateNumber>
+      <ColNames>mineral_id</ColNames>
+      <RefTableId>18678</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>mineral</RefTableName>
+      <RefKeyName>m_id_mineral</RefKeyName>
+      <RefColNames>m_id_mineral</RefColNames>
+    </foreign-key>
+    <foreign-key id="534" parent="112" name="fk_sector_uso_id">
+      <ObjectId>19236</ObjectId>
+      <StateNumber>1407</StateNumber>
+      <ColNames>sector_uso_id</ColNames>
+      <RefTableId>18800</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>sector_uso</RefTableName>
+      <RefKeyName>s_id_sector_uso</RefKeyName>
+      <RefColNames>s_id_sector_uso</RefColNames>
+    </foreign-key>
+    <column id="535" parent="113" name="s_id_sector_uso">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1325</StateNumber>
+      <DefaultExpression>nextval(&apos;sector_uso_s_id_sector_uso_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="536" parent="113" name="s_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1325</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="537" parent="113" name="s_descripcion">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>1325</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="538" parent="113" name="s_id_sector_uso">
+      <ObjectId>18807</ObjectId>
+      <StateNumber>1325</StateNumber>
+      <ColNames>s_id_sector_uso</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <index id="539" parent="113" name="sector_uso_s_nombre_key">
+      <ObjectId>18809</ObjectId>
+      <StateNumber>1325</StateNumber>
+      <ColNames>s_nombre</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="540" parent="113" name="s_id_sector_uso">
+      <ObjectId>18808</ObjectId>
+      <StateNumber>1325</StateNumber>
+      <ColNames>s_id_sector_uso</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>s_id_sector_uso</UnderlyingIndexName>
+    </key>
+    <key id="541" parent="113" name="sector_uso_s_nombre_key">
+      <ObjectId>18810</ObjectId>
+      <StateNumber>1325</StateNumber>
+      <ColNames>s_nombre</ColNames>
+      <UnderlyingIndexName>sector_uso_s_nombre_key</UnderlyingIndexName>
+    </key>
+    <column id="542" parent="114" name="s_id_solicitud">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1326</StateNumber>
+      <DefaultExpression>nextval(&apos;solicitud_s_id_solicitud_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="543" parent="114" name="s_fecha_solicitud">
+      <Position>2</Position>
+      <DataType>date|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1326</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="544" parent="114" name="s_fecha_pago">
+      <Position>3</Position>
+      <DataType>date|0s</DataType>
+      <StateNumber>1326</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="545" parent="114" name="proyecto_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1326</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="546" parent="114" name="estado_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1326</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="547" parent="114" name="s_id_solicitud">
+      <ObjectId>18819</ObjectId>
+      <StateNumber>1326</StateNumber>
+      <ColNames>s_id_solicitud</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="548" parent="114" name="s_id_solicitud">
+      <ObjectId>18820</ObjectId>
+      <StateNumber>1326</StateNumber>
+      <ColNames>s_id_solicitud</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>s_id_solicitud</UnderlyingIndexName>
+    </key>
+    <foreign-key id="549" parent="114" name="fk_proyecto_id">
+      <ObjectId>19241</ObjectId>
+      <StateNumber>1408</StateNumber>
+      <ColNames>proyecto_id</ColNames>
+      <RefTableId>18765</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>proyecto</RefTableName>
+      <RefKeyName>p_id_proyecto</RefKeyName>
+      <RefColNames>p_id_proyecto</RefColNames>
+    </foreign-key>
+    <foreign-key id="550" parent="114" name="fk_estado_id">
+      <ObjectId>19246</ObjectId>
+      <StateNumber>1409</StateNumber>
+      <ColNames>estado_id</ColNames>
+      <RefTableId>18509</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>estado</RefTableName>
+      <RefKeyName>e_id_estado</RefKeyName>
+      <RefColNames>e_id_estado</RefColNames>
+    </foreign-key>
+    <check id="551" parent="114" name="check_s_fecha_pago">
+      <ObjectId>18818</ObjectId>
+      <StateNumber>1326</StateNumber>
+      <ColNames>s_fecha_pago</ColNames>
+      <Predicate>(s_fecha_pago IS NULL) OR ((s_fecha_pago &gt;= s_fecha_pago) AND (s_fecha_pago &lt;= now()))</Predicate>
+    </check>
+    <check id="552" parent="114" name="check_s_fecha_solicitud">
+      <ObjectId>18817</ObjectId>
+      <StateNumber>1326</StateNumber>
+      <ColNames>s_fecha_solicitud</ColNames>
+      <Predicate>s_fecha_solicitud &lt;= now()</Predicate>
+    </check>
+    <column id="553" parent="115" name="t_id_tipo_yacimiento">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1327</StateNumber>
+      <DefaultExpression>nextval(&apos;tipo_yacimiento_t_id_tipo_yacimiento_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="554" parent="115" name="t_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1327</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="555" parent="115" name="t_id_tipo_yacimiento">
+      <ObjectId>18827</ObjectId>
+      <StateNumber>1327</StateNumber>
+      <ColNames>t_id_tipo_yacimiento</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <index id="556" parent="115" name="tipo_yacimiento_t_nombre_key">
+      <ObjectId>18829</ObjectId>
+      <StateNumber>1327</StateNumber>
+      <ColNames>t_nombre</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="557" parent="115" name="t_id_tipo_yacimiento">
+      <ObjectId>18828</ObjectId>
+      <StateNumber>1327</StateNumber>
+      <ColNames>t_id_tipo_yacimiento</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>t_id_tipo_yacimiento</UnderlyingIndexName>
+    </key>
+    <key id="558" parent="115" name="tipo_yacimiento_t_nombre_key">
+      <ObjectId>18830</ObjectId>
+      <StateNumber>1327</StateNumber>
+      <ColNames>t_nombre</ColNames>
+      <UnderlyingIndexName>tipo_yacimiento_t_nombre_key</UnderlyingIndexName>
+    </key>
+    <column id="559" parent="116" name="t_id_transferencia">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1328</StateNumber>
+      <DefaultExpression>nextval(&apos;transferencia_t_id_transferencia_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="560" parent="116" name="t_banco">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1328</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="561" parent="116" name="t_numero_transferencia">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1328</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="562" parent="116" name="t_id_transferencia">
+      <ObjectId>18840</ObjectId>
+      <StateNumber>1328</StateNumber>
+      <ColNames>t_id_transferencia</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <index id="563" parent="116" name="transferencia_t_numero_transferencia_key">
+      <ObjectId>18842</ObjectId>
+      <StateNumber>1328</StateNumber>
+      <ColNames>t_numero_transferencia</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="564" parent="116" name="t_id_transferencia">
+      <ObjectId>18841</ObjectId>
+      <StateNumber>1328</StateNumber>
+      <ColNames>t_id_transferencia</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>t_id_transferencia</UnderlyingIndexName>
+    </key>
+    <key id="565" parent="116" name="transferencia_t_numero_transferencia_key">
+      <ObjectId>18843</ObjectId>
+      <StateNumber>1328</StateNumber>
+      <ColNames>t_numero_transferencia</ColNames>
+      <UnderlyingIndexName>transferencia_t_numero_transferencia_key</UnderlyingIndexName>
+    </key>
+    <column id="566" parent="117" name="u_id_unidad">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1329</StateNumber>
+      <DefaultExpression>nextval(&apos;unidad_u_id_unidad_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="567" parent="117" name="u_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1329</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="568" parent="117" name="u_tipo">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1329</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="569" parent="117" name="u_abreviatura">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1329</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="570" parent="117" name="u_id_unidad">
+      <ObjectId>18854</ObjectId>
+      <StateNumber>1329</StateNumber>
+      <ColNames>u_id_unidad</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <index id="571" parent="117" name="unidad_u_nombre_key">
+      <ObjectId>18856</ObjectId>
+      <StateNumber>1329</StateNumber>
+      <ColNames>u_nombre</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="572" parent="117" name="unidad_u_abreviatura_key">
+      <ObjectId>18858</ObjectId>
+      <StateNumber>1329</StateNumber>
+      <ColNames>u_abreviatura</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="573" parent="117" name="u_id_unidad">
+      <ObjectId>18855</ObjectId>
+      <StateNumber>1329</StateNumber>
+      <ColNames>u_id_unidad</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>u_id_unidad</UnderlyingIndexName>
+    </key>
+    <key id="574" parent="117" name="unidad_u_nombre_key">
+      <ObjectId>18857</ObjectId>
+      <StateNumber>1329</StateNumber>
+      <ColNames>u_nombre</ColNames>
+      <UnderlyingIndexName>unidad_u_nombre_key</UnderlyingIndexName>
+    </key>
+    <key id="575" parent="117" name="unidad_u_abreviatura_key">
+      <ObjectId>18859</ObjectId>
+      <StateNumber>1329</StateNumber>
+      <ColNames>u_abreviatura</ColNames>
+      <UnderlyingIndexName>unidad_u_abreviatura_key</UnderlyingIndexName>
+    </key>
+    <check id="576" parent="117" name="check_u_tipo">
+      <ObjectId>18850</ObjectId>
+      <StateNumber>1329</StateNumber>
+      <ColNames>u_tipo</ColNames>
+      <Predicate>(u_tipo)::text = ANY ((ARRAY[&apos;temporal&apos;::character varying, &apos;masa&apos;::character varying, &apos;area&apos;::character varying, &apos;monetaria&apos;::character varying])::text[])</Predicate>
+    </check>
+    <column id="577" parent="118" name="u_id_usuario">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1330</StateNumber>
+      <DefaultExpression>nextval(&apos;usuario_u_id_usuario_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="578" parent="118" name="u_correo">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1330</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="579" parent="118" name="u_clave">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1330</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="580" parent="118" name="empleado_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1330</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="581" parent="118" name="rol_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1330</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="582" parent="118" name="u_id_usuario">
+      <ObjectId>18869</ObjectId>
+      <StateNumber>1330</StateNumber>
+      <ColNames>u_id_usuario</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <index id="583" parent="118" name="usuario_u_correo_key">
+      <ObjectId>18871</ObjectId>
+      <StateNumber>1330</StateNumber>
+      <ColNames>u_correo</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="584" parent="118" name="u_id_usuario">
+      <ObjectId>18870</ObjectId>
+      <StateNumber>1330</StateNumber>
+      <ColNames>u_id_usuario</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>u_id_usuario</UnderlyingIndexName>
+    </key>
+    <key id="585" parent="118" name="usuario_u_correo_key">
+      <ObjectId>18872</ObjectId>
+      <StateNumber>1330</StateNumber>
+      <ColNames>u_correo</ColNames>
+      <UnderlyingIndexName>usuario_u_correo_key</UnderlyingIndexName>
+    </key>
+    <foreign-key id="586" parent="118" name="fk_empleado_id">
+      <ObjectId>19251</ObjectId>
+      <StateNumber>1410</StateNumber>
+      <ColNames>empleado_id</ColNames>
+      <RefTableId>18480</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>empleado</RefTableName>
+      <RefKeyName>e_id_empleado</RefKeyName>
+      <RefColNames>e_id_empleado</RefColNames>
+    </foreign-key>
+    <foreign-key id="587" parent="118" name="fk_rol_id">
+      <ObjectId>19256</ObjectId>
+      <StateNumber>1411</StateNumber>
+      <ColNames>rol_id</ColNames>
+      <RefTableId>18774</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>rol</RefTableName>
+      <RefKeyName>r_id_rol</RefKeyName>
+      <RefColNames>r_id_rol</RefColNames>
+    </foreign-key>
+    <column id="588" parent="119" name="y_id_yacimiento">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1331</StateNumber>
+      <DefaultExpression>nextval(&apos;yacimiento_y_id_yacimiento_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="589" parent="119" name="y_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1331</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="590" parent="119" name="y_extension">
+      <Position>3</Position>
+      <DataType>numeric(10,2 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1331</StateNumber>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="591" parent="119" name="yacimiento_configuracion_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1331</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="592" parent="119" name="tipo_yacimiento_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>1331</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="593" parent="119" name="lugar_id">
+      <Position>6</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1331</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="594" parent="119" name="unidad_id">
+      <Position>7</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1331</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="595" parent="119" name="y_id_yacimiento">
+      <ObjectId>18880</ObjectId>
+      <StateNumber>1331</StateNumber>
+      <ColNames>y_id_yacimiento</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="596" parent="119" name="y_id_yacimiento">
+      <ObjectId>18881</ObjectId>
+      <StateNumber>1331</StateNumber>
+      <ColNames>y_id_yacimiento</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>y_id_yacimiento</UnderlyingIndexName>
+    </key>
+    <foreign-key id="597" parent="119" name="fk_yacimiento_configuracion_id">
+      <ObjectId>19261</ObjectId>
+      <StateNumber>1412</StateNumber>
+      <ColNames>yacimiento_configuracion_id</ColNames>
+      <RefTableId>18884</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>yacimiento_configuracion</RefTableName>
+      <RefKeyName>y_id_yacimiento_configuracion</RefKeyName>
+      <RefColNames>y_id_yacimiento_configuracion</RefColNames>
+    </foreign-key>
+    <foreign-key id="598" parent="119" name="fk_tipo_yacimiento_id">
+      <ObjectId>19266</ObjectId>
+      <StateNumber>1413</StateNumber>
+      <ColNames>tipo_yacimiento_id</ColNames>
+      <RefTableId>18823</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>tipo_yacimiento</RefTableName>
+      <RefKeyName>t_id_tipo_yacimiento</RefKeyName>
+      <RefColNames>t_id_tipo_yacimiento</RefColNames>
+    </foreign-key>
+    <foreign-key id="599" parent="119" name="fk_lugar_id">
+      <ObjectId>19271</ObjectId>
+      <StateNumber>1414</StateNumber>
+      <ColNames>lugar_id</ColNames>
+      <RefTableId>18637</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>lugar</RefTableName>
+      <RefKeyName>l_id_lugar</RefKeyName>
+      <RefColNames>l_id_lugar</RefColNames>
+    </foreign-key>
+    <foreign-key id="600" parent="119" name="fk_unidad_id">
+      <ObjectId>19276</ObjectId>
+      <StateNumber>1415</StateNumber>
+      <ColNames>unidad_id</ColNames>
+      <RefTableId>18846</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>unidad</RefTableName>
+      <RefKeyName>u_id_unidad</RefKeyName>
+      <RefColNames>u_id_unidad</RefColNames>
+    </foreign-key>
+    <check id="601" parent="119" name="check_y_extension">
+      <ObjectId>18879</ObjectId>
+      <StateNumber>1331</StateNumber>
+      <ColNames>y_extension</ColNames>
+      <Predicate>y_extension &gt; (0)::numeric</Predicate>
+    </check>
+    <column id="602" parent="120" name="y_id_yacimiento_configuracion">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1334</StateNumber>
+      <DefaultExpression>nextval(&apos;yacimiento_configuracion_y_id_yacimiento_configuracion_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="603" parent="120" name="y_nombre">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1334</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="604" parent="120" name="y_capacidad_explotacion">
+      <Position>3</Position>
+      <DataType>numeric(10,2 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1334</StateNumber>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="605" parent="120" name="mineral_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1334</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="606" parent="120" name="unidad_id">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1334</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="607" parent="120" name="y_id_yacimiento_configuracion">
+      <ObjectId>18889</ObjectId>
+      <StateNumber>1334</StateNumber>
+      <ColNames>y_id_yacimiento_configuracion</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="608" parent="120" name="y_id_yacimiento_configuracion">
+      <ObjectId>18890</ObjectId>
+      <StateNumber>1334</StateNumber>
+      <ColNames>y_id_yacimiento_configuracion</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>y_id_yacimiento_configuracion</UnderlyingIndexName>
+    </key>
+    <foreign-key id="609" parent="120" name="fk_mineral_id">
+      <ObjectId>19281</ObjectId>
+      <StateNumber>1416</StateNumber>
+      <ColNames>mineral_id</ColNames>
+      <RefTableId>18678</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>mineral</RefTableName>
+      <RefKeyName>m_id_mineral</RefKeyName>
+      <RefColNames>m_id_mineral</RefColNames>
+    </foreign-key>
+    <foreign-key id="610" parent="120" name="fk_unidad_id">
+      <ObjectId>19286</ObjectId>
+      <StateNumber>1417</StateNumber>
+      <ColNames>unidad_id</ColNames>
+      <RefTableId>18846</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>unidad</RefTableName>
+      <RefKeyName>u_id_unidad</RefKeyName>
+      <RefColNames>u_id_unidad</RefColNames>
+    </foreign-key>
+    <check id="611" parent="120" name="check_y_capacidad_explotacion">
+      <ObjectId>18888</ObjectId>
+      <StateNumber>1334</StateNumber>
+      <ColNames>y_capacidad_explotacion</ColNames>
+      <Predicate>y_capacidad_explotacion &gt; (0)::numeric</Predicate>
+    </check>
+  </database-model>
+</dataSource>

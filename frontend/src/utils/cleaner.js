@@ -52,6 +52,25 @@ const cleanerCliente = {
     }
 }
 
+const cleanerCompania = {
+    limpiarLista ( companiasDB ) {
+        if (companiasDB === undefined || companiasDB.length == 0)
+            return []
+        else
+            return companiasDB.map ((c) => ({
+                "c_id_compania" : c.c_id_compania.toString(10).padStart(4, '0'),
+                "c_nacionalizado" : c.c_nacionalizado ? "Si" : "No",
+                "c_nombre" : c.c_nombre,
+                "c_rif" : c.c_rif || "No posee" ,
+                "c_fecha_nacional" : c.c_fecha_nacional ? c.c_fecha_nacional.split('T')[0] : "No",
+                "c_fecha_apertura" : c.c_fecha_apertura.split('T')[0],
+                "c_capacidad_maxima_anual" : c.c_capacidad_maxima_anual,
+                "lugar_id" : c.lugar_id,
+                "l_nombre" : c.l_nombre
+            }))
+    }
+}
+
 const cleanerEmpleado = {
     limpiarLista( empleadosDB ) {
         if (empleadosDB === undefined || empleadosDB.length == 0)
@@ -118,6 +137,22 @@ const cleanerYacimiento = {
             }))
     }
 }
+
+const cleanerPedido = {
+    limpiarLista(  pedidoDB ) {
+        if ( pedidoDB === undefined ||  pedidoDB.length == 0)
+            return []
+        else
+            return  pedidoDB.map( y => ({
+                "p_id_pedido" : y.p_id_pedido.toString(10).padStart(4, '0'),
+                "p_fecha_solicitud": y.p_fecha_solicitud.substring(0,10),
+                "c_nombre": y.c_nombre,
+                "e_nombre": y.e_nombre,
+                "total": y.total
+            }))
+    }
+}
+
 
 const cleanerConfiguracion = {
     limpiarListaDropdown(  configuracioneDB ) {
@@ -197,6 +232,17 @@ const cleanerMaquinaria = {
     }
 }
 
+const cleanerHorario = {
+    limpiarLista(  hor ) {
+        if ( hor === undefined ||  hor.length == 0)
+            return []
+        else
+            return  hor.map( p => ({
+                "h_id_horario" : p.horario_id,
+                "h_nombre" : p.h_nombre
+            }))
+    }
+}
 
 export {
     cleanerMineral, 
@@ -209,5 +255,8 @@ export {
     cleanerTipoYacimiento,
     cleanerProyecto,
     cleanerProducto,
-    cleanerMaquinaria
+    cleanerMaquinaria,
+    cleanerCompania,
+    cleanerPedido,
+    cleanerHorario
 }

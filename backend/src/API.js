@@ -36,6 +36,41 @@ app.get('/prueba', (req, res) => {
 
   res.status(200).json(respuesta);
 });
+/* ****************************** COMPANIA ****************************** */
+import {daoCompania} from './DAOs/daoCompania'
+
+app.get('/consultarLista/compania', (req,res) =>{
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/compania")
+
+  daoCompania.consultarTodos()
+    .then(({rows}) => {
+      res.status(200).json({"rows" : rows})
+    })
+    .catch((bd_err) => {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+    })
+})
+
+app.post('/consultar/compania', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultar/compania")
+
+  daoCompania.consultar(req.body.c_id_compania)
+    .then( ({rows}) => {
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+})
+
 /* ****************************** FASE CONFIGURACION ****************************** */
 import {daoFaseConfiguracion} from './DAOs/daoFaseConfiguracion'
 

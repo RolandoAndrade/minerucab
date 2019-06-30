@@ -129,7 +129,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
 
     /* MINERALES REQUISITOS */
     agregarRequisito = () => {
-        console.log(`new requisito = requisito[i:${this.state.requisitos.length+1} , id:${this.state.ultimoRequisitoIndex + 1}]`)
+        console.log(`new requisito = requisito[ ${this.state.ultimoRequisitoIndex + 1} ]`)
         this.setState( (prev) => ({
             requisitos:[
                 ...prev.requisitos, 
@@ -146,7 +146,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
     }
 
     quitarRequisito = (id) => {
-        console.log(`delete requisito[ id:${id} ]`)
+        console.log(`delete requisito[ ${id} ]`)
         const requisitosNuevo = this.state.requisitos.filter( (r) => r.m_id_mine_yaci !== id)
         this.setState({
             requisitos : requisitosNuevo

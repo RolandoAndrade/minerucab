@@ -5,7 +5,7 @@ import {Redirect} from 'react-router-dom';
 import {Modal, Button} from 'react-bootstrap';
 import MaterialTable from 'material-table';
 
-import {cleanerCliente} from '../utils/cleaner';
+import {cleanerCliente, cleanerCompania} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
 
 export class Aliado extends React.Component {
@@ -13,23 +13,23 @@ export class Aliado extends React.Component {
     super(props)
     
     this.state  = {
-      clientes : [],
+      companias : [],
       textoBuscardor : "",
-      consultarCliente : null,
+      consultarCompania : null,
       agregarPresionado : null
     }
   }
 
   componentDidMount = () => {
     // API REQUEST GET
-    console.log(`----> localhost:4000/consultarLista/cliente`)
-    axios.get('http://127.0.0.1:4000/consultarLista/cliente')
+    console.log(`----> localhost:4000/consultarLista/compania`)
+    axios.get('http://127.0.0.1:4000/consultarLista/compania')
       .then( (res) => {
         if(res.status === 200)
-          console.log(`<---- (OK 200) localhost:4000/consultarLista/cliente`)
+          console.log(`<---- (OK 200) localhost:4000/consultarLista/compania`)
 
         this.setState({
-            clientes : res.data.rows
+            companias : res.data.rows
         })
 
       })
@@ -43,23 +43,23 @@ export class Aliado extends React.Component {
   }
 
   handleConsultar = (id) => {
-    console.log(`consultarCliente(${id})`)
-    const consultarCliente = this.state.clientes.find( c => c.c_id_cliente == id)
+    console.log(`consultarCompania(${id})`)
+    const consultarCompania = this.state.companias.find( c => c.c_id_compania == id)
 
     this.setState({
-      consultarCliente
+      consultarCompania
     })
   }
 
   handleModificar = () => {
-    console.log(`modificarCliente(${this.state.consultarCliente.c_id_cliente})`)
+    console.log(`modificarCompania(${this.state.consultarCompania.c_id_compania})`)
     this.setState({
-      modificarMineral : this.state.consultarCliente.c_id_cliente
+      modificarCompania : this.state.consultarCompania.c_id_compania
     })
   }
 
   handleEliminar = () => {
-    console.log(`eliminarCliente(${this.state.consultarCliente.c_id_cliente})`)
+    console.log(`eliminarCompania(${this.state.consultarCompania.c_id_compania})`)
 
     this.setState({
       warningEliminar : true
@@ -74,14 +74,14 @@ export class Aliado extends React.Component {
   }
 
   handleEliminarSeguro = () => {
-    console.log(`----> localhost:4000/eliminar/cliente/${this.state.consultarCliente.c_id_cliente}`)
+    console.log(`----> localhost:4000/eliminar/compania/${this.state.consultarCompania.c_id_compania}`)
     axios.post('http://127.0.0.1:4000/eliminar/cliente', 
         {
-            "c_id_cliente" : this.state.consultarCliente.c_id_cliente,
+            "c_id_compania" : this.state.consultarCompania.c_id_compania,
         })
         .then( (res) => {
             if( res.status === 200) {
-                console.log(`<---- (OK 200) localhost:4000/eliminar/cliente`)
+                console.log(`<---- (OK 200) localhost:4000/eliminar/compania`)
                 this.handleCloseModal()
                 this.handleCloseEliminar()
                 location.reload()
@@ -97,15 +97,15 @@ export class Aliado extends React.Component {
     
   render = () => (
     <div>
-        <MenuDashBoard title={"Clientes"}/>
+        <MenuDashBoard title={"Aliados Comerciales"}/>
 
         <div className="ConsultarLista">
-          { this.state.clientes &&
+          { this.state.companias &&
             <MaterialTable
               style={{margin: "0 5%"}}
               columns={[
                 {
-                  title: 'ID', field: 'c_id_cliente', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'desc',
+                  title: 'ID', field: 'c_id_compania', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'desc',
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
@@ -126,21 +126,21 @@ export class Aliado extends React.Component {
                   },
                 },
                 { 
-                  title: 'Teléfono', field: 'c_telefono', type: 'string', headerStyle:{ textAlign : "center"},
+                  title: 'F. Apertura', field: 'c_fecha_apertura', type: 'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
                   },
                 },
                 { 
-                  title: 'Ubicación', field: 'lugar_id', type:'string', headerStyle:{ textAlign : "center"},
+                  title: 'Ubicación', field: 'l_nombre', type:'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign: "center"
                   },
                 }
               ]}
-              data={ cleanerCliente.limpiarLista( this.state.clientes ) }
+              data={ cleanerCompania.limpiarLista( this.state.companias ) }
               title={null}
               
               options={{
@@ -154,7 +154,7 @@ export class Aliado extends React.Component {
                 exportFileName: "clientes"
               }}
 
-              onRowClick={(event, rowData) => this.handleConsultar(rowData.c_id_cliente)}
+              onRowClick={(event, rowData) => this.handleConsultar(rowData.c_id_compania)}
               localization={{
                 toolbar : {
                   searchPlaceholder : "Buscar ..."
@@ -177,10 +177,10 @@ export class Aliado extends React.Component {
             />
           }
           
-          {!!this.state.consultarCliente && 
+          {!!this.state.consultarCompania && 
           <Modal 
             size="lg"
-            show={!!this.state.consultarCliente} 
+            show={!!this.state.consultarCompania} 
             onHide={this.handleCloseModal}
             centered
             scrollable
@@ -188,27 +188,27 @@ export class Aliado extends React.Component {
           >
             <Modal.Header closeButton className="mc-header">
               <div></div>
-              <h1>{this.state.consultarCliente.c_nombre.toUpperCase()}</h1>
+              <h1>{this.state.consultarCompania.c_nombre.toUpperCase()}</h1>
             </Modal.Header>
 
             <Modal.Body className="mc-body"> 
               <p>
                 <span className="mc-atributo">ID</span>
-                <span> : {this.state.consultarCliente.c_id_cliente.toString(10).padStart(4, '0')}</span>
+                <span> : {this.state.consultarCompania.c_id_compania.toString(10).padStart(4, '0')}</span>
               </p>
               <p>
                 <span className="mc-atributo">RIF</span>
                 {/* !!! OJO !!! CLIENTE PUEDE NO TENER RIF?? QUE SIGFNIFICA ESO??*/}
-                <span> : {this.state.consultarCliente.c_rif || "No posee RIF"}</span>
+                <span> : {this.state.consultarCompania.c_rif || "No posee RIF"}</span>
               </p>
               <p>
-                <span className="mc-atributo">Teléfono</span>
-                <span> : {this.state.consultarCliente.c_telefono}</span>
+                <span className="mc-atributo">Fecha de apertura</span>
+                <span> : {this.state.consultarCompania.c_telefono}</span>
               </p>
               <p>
                 <span className="mc-atributo">Lugar</span>
                 {/* !!! OJO !!! AGREGAR EL NOMBRE DE LUGAR CON QUERY */}
-                <span> : {this.state.consultarCliente.lugar_id}</span>
+                <span> : {this.state.consultarCompania.l_nombre}</span>
               </p>
              
             </Modal.Body>
@@ -240,7 +240,7 @@ export class Aliado extends React.Component {
 
             <Modal.Body className="mc-body"> 
               <div>
-                <p style={{textAlign: "center"}}>{`¿Estas segur@ que deseas eliminar a ${this.state.consultarCliente && this.state.consultarCliente.c_nombre}?`}</p>
+                <p style={{textAlign: "center"}}>{`¿Estas segur@ que deseas eliminar a ${this.state.consultarCompania && this.state.consultarCompania.c_nombre}?`}</p>
               </div>
              
             </Modal.Body>
@@ -257,8 +257,8 @@ export class Aliado extends React.Component {
           </Modal>
           }
 
-          {!!this.state.modificarMineral 
-            && <Redirect push to={`/editar/cliente/${this.state.modificarMineral}`} />
+          {!!this.state.modificarCompania 
+            && <Redirect push to={`/editar/cliente/${this.state.modificarCompania}`} />
           }
           {this.state.agregarPresionado && <Redirect push to="/crear/cliente" />}
       </div>

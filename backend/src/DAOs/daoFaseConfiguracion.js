@@ -45,7 +45,7 @@ const daoFaseConfiguracion = {
         let i = 0
         cargos.forEach( c => {
             i++;
-            query = query + `(DEFAULT, ${fase_configuracion_id}, ${c.f_cantidad},${c.cargo_id})${i < cargos.length ? ',' : ';' } `
+            query = query + `(DEFAULT, ${fase_configuracion_id}, ${c.f_cantidad},${c.c_id_cargo})${i < cargos.length ? ',' : ';' } `
         })
         return psql.query(query)
     },
@@ -62,7 +62,7 @@ const daoFaseConfiguracion = {
         let i = 0;
         maquinarias.forEach( m => {
             i++;
-            query =  query + `(DEFAULT,${fase_configuracion_id},${m.maquinaria_id},${m.f_cantidad})${i < maquinarias.length ? ',' : ';' }`
+            query =  query + `(DEFAULT,${fase_configuracion_id},${m.m_id_maquinaria},${m.f_cantidad})${i < maquinarias.length ? ',' : ';' }`
         })
         return psql.query(query)
     },

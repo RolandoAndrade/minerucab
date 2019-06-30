@@ -71,6 +71,26 @@ app.post('/consultar/compania', (req,res) => {
     })
 })
 
+app.post('/eliminar/compania', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/eliminar/compania/${req.body.c_id_compania}`)
+  daoCompania.eliminar(req.body.c_id_compania)
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
 /* ****************************** FASE CONFIGURACION ****************************** */
 import {daoFaseConfiguracion} from './DAOs/daoFaseConfiguracion'
 

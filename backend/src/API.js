@@ -36,6 +36,167 @@ app.get('/prueba', (req, res) => {
 
   res.status(200).json(respuesta);
 });
+/* ****************************** COMPANIA ****************************** */
+import {daoCompania} from './DAOs/daoCompania'
+
+app.get('/consultarLista/compania', (req,res) =>{
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/compania")
+
+  daoCompania.consultarTodos()
+    .then(({rows}) => {
+      res.status(200).json({"rows" : rows})
+    })
+    .catch((bd_err) => {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+    })
+})
+
+app.post('/consultar/compania', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultar/compania")
+
+  daoCompania.consultar(req.body.c_id_compania)
+    .then( ({rows}) => {
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+})
+
+app.post('/eliminar/compania', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/eliminar/compania/${req.body.c_id_compania}`)
+  daoCompania.eliminar(req.body.c_id_compania)
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+/* ****************************** FASE CONFIGURACION ****************************** */
+import {daoFaseConfiguracion} from './DAOs/daoFaseConfiguracion'
+
+app.post('/consultar/fase_configuracion', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultar/fase_configuracion")
+
+  let f = req.body.f_id_fase_configuracion
+
+  daoFaseConfiguracion.consultar(f)
+    .then( ({rows}) => {
+      let fase = rows[0]
+      daoFaseConfiguracion.consultarCargos(f)
+        .then(({rows}) => {
+          fase["cargos"] = rows
+          daoFaseConfiguracion.consultarMaquinarias(f)
+            .then(({rows}) => {
+              fase["maquinarias"] = rows
+              res.status(200).json({"fase" : fase})
+            })
+            .catch( (bd_err)=> {
+              console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+              res.status(500).json(bd_err)
+        
+            })
+        })
+        .catch( (bd_err)=> {
+          console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+          res.status(500).json(bd_err)
+    
+        })
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+
+})
+
+app.post('/insertar/fase_configuracion', (req,res) =>{
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/insertar/fase_configuracion")
+
+  etapa = req.body.etapa_configuracion_id
+  fases = req.body.fases
+  fases.forEach((f) => {
+    daoFaseConfiguracion.insertar(f.f_nombre,f.f_orden,f.f_duracion,f.f_descripcion,etapa,f.unidad_id)
+      .then(({rows}) => {
+        let fase_id = rows[0]
+        cargos = f.cargos
+        daoFaseConfiguracion.asignarVariosCargo(fase_id,cargos)
+        .then()
+          .catch((bd_err) => {
+            console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+            res.status(500).json(bd_err)
+          })
+        
+        maquinarias = f.maquinarias
+        daoFaseConfiguracion.asignarVariosMaquinaria(fase_id,maquinarias)
+        .then()
+          .catch((bd_err) => {
+            console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+            res.status(500).json(bd_err)
+          })
+      })
+  })
+})
+
+/* ****************************** MAQUINARIA ****************************** */
+import {daoMaquinaria} from './DAOs/daoMaquinaria'
+
+app.get('/consultarLista/maquinaria', (req,res) =>{
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/maquinaria")
+
+  daoMaquinaria.consultarTodos()
+    .then(({rows}) => {
+      res.status(200).json({"rows" : rows})
+    })
+    .catch((bd_err) => {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+    })
+})
+
+app.post('/consultar/maquinaria', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultar/maquinaria")
+
+  daoMaquinaria.consultar(req.body.m_id_maquinaria)
+    .then( ({rows}) => {
+      res.status(200).json({"rows" : rows})
+
+    })
+    .catch( (bd_err)=> {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+
+    })
+})
 
 /* ****************************** MINERAL ****************************** */
 import {daoMineral} from './DAOs/daoMineral'
@@ -658,12 +819,10 @@ app.get('/consultarLista/yacimiento', (req, res) => {
   daoYacimiento.consultarTodos()
     .then( ({rows}) => {
       res.status(200).json({"rows" : rows})
-
     })
     .catch( (bd_err)=> {
       console.error(`bd_err : ${JSON.stringify(bd_err)}`)
       res.status(500).json(bd_err)
-
     })
 });
 
@@ -777,6 +936,192 @@ app.get('/consultarLista/yacimiento_configuracion', (req, res) => {
     })
 });
 
+app.post('/consultar/detalle_yacimiento_configuracion', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultar/detalle_yacimiento_configuracion")
+
+  let yac_id = req.body.y_id_yacimiento_configuracion
+  let yacimiento_configuracion = null
+
+  daoYacimientoConfiguracion.consultar(yac_id)
+  .then(({rows}) => {
+    yacimiento_configuracion = rows[0]
+    return daoEtapaConfiguracion.consultarTodosYacimiento(yac_id)
+  })
+  .then((resp_bd) => {
+    yacimiento_configuracion["etapas"]=resp_bd.rows
+  })
+  .then(() => {
+    return new Promise((resolve,reject) => {
+      yacimiento_configuracion["etapas"].map((e,i) => { 
+        daoFaseConfiguracion.consultarTodosEtapa(e.e_id_etapa_configuracion)
+        .then((resp_bd) => {
+          yacimiento_configuracion["etapas"][i]["fases"] = resp_bd.rows
+          yacimiento_configuracion["etapas"][i]["fases"].map((f,j) => {
+            daoFaseConfiguracion.consultarCargos(f.f_id_fase_configuracion)
+            .then((resp_bd) => {
+              yacimiento_configuracion["etapas"][i]["fases"][j]["cargos"] = resp_bd.rows
+              daoFaseConfiguracion.consultarMaquinarias(f.f_id_fase_configuracion)
+              .then((resp_bd) => {
+                yacimiento_configuracion["etapas"][i]["fases"][j]["maquinarias"] = resp_bd.rows ? resp_bd.rows : []
+                if( (i === (yacimiento_configuracion["etapas"].length - 1)) && (j === (yacimiento_configuracion["etapas"][i]["fases"].length - 1)))
+                resolve("bien!")    
+              })
+            })
+          })   
+        })
+      })
+    })    
+  })
+  .then((DATA_RESPUESTA) => {
+    return daoYacimientoConfiguracion.consultarRequisitos(yac_id) 
+  })
+  .then((resp_bd) => {
+    yacimiento_configuracion["requisitos"] = resp_bd.rows
+    return daoYacimientoConfiguracion.proyectosAsociados(yac_id)
+  })
+  .then((resp_bd) => {
+    yacimiento_configuracion["no_modificable"] = resp_bd.rowCount > 0 ? true : false
+    console.log(`STATUS OK : 200`)      
+    res.status(200).json({"yacimiento_configuracion" : yacimiento_configuracion})
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+    res.status(500).json(bd_err)
+  }) 
+});
+
+app.post('/insertar/yacimiento_configuracion', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/insertar/yacimiento_configuracion `)
+
+  let y = req.body
+  daoYacimientoConfiguracion.insertar(y.y_nombre,y.y_capacidad_explotacion,y.mineral_id,7)
+  .then((resp_bd) => {
+    console.log(`\n\ninsetado yamiento_config id ${resp_bd.rows[0].y_id_yacimiento_configuracion}`)
+    return resp_bd.rows[0].y_id_yacimiento_configuracion
+  })
+  .then((yac_id) => {
+    return new Promise((resolve,reject) => {
+      y["etapas"].map((e,i) => { 
+        daoEtapaConfiguracion.insertar(e.e_nombre,e.e_orden,e.e_tipo,yac_id)
+        .then((resp_bd) => {
+          let e_id = resp_bd.rows[0].e_id_etapa_configuracion
+          console.log(`\n\nInsertada etapa ${e_id} en el yac_config ${yac_id}`)
+          y["etapas"][i]["fases"].map((f,j) => {
+            daoFaseConfiguracion.insertar(f.f_nombre,f.f_orden,f.f_duracion,f.f_descripcion,e_id,f.unidad_id)
+            .then((resp_bd) => {
+              let f_id = resp_bd.rows[0].f_id_fase_configuracion
+              console.log(`\n\nInsertada fase ${f_id} en la etapa ${e_id} en el yac_config ${yac_id}`)
+              if (f["cargos"].length > 0) {
+                daoFaseConfiguracion.asignarVariosCargo(f_id,f["cargos"])
+                .then((resp_bd) => {
+                  console.log(`\n\n cargos insertads en la fase_id : ${f_id}`)
+                  if (f["maquinarias"].length > 0) {
+                    daoFaseConfiguracion.asignarVariosMaquinaria(f_id,f["maquinarias"])
+                    .then((resp_bd) => {
+                      console.log(`\n\n maquinarias insertads en la fase_id : ${f_id}`)
+                      if( (i === (y["etapas"].length - 1)) && (j === (y["etapas"][i]["fases"].length - 1)))
+                      resolve("bien!")
+                    })
+                  }else{
+                    if( (i === (y["etapas"].length - 1)) && (j === (y["etapas"][i]["fases"].length - 1)))
+                    resolve("bien!")
+                  }
+                  
+                })
+              }else{
+                if( (i === (y["etapas"].length - 1)) && (j === (y["etapas"][i]["fases"].length - 1)))
+                resolve("bien!") 
+              }
+                           
+            })
+          }) 
+        })
+      })
+    })    
+  })
+  .then((DATA_RESPUESTA) => {
+    console.log(`STATUS OK : 200`)      
+    res.status(200).json({"message" : "exito!"})
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+    res.status(500).json(bd_err)
+
+  }) 
+})
+
+app.post('/modificar/yacimiento_configuracion', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/modificar/yacimiento_configuracion/${req.body.y_id_yacimiento_configuracion}`)
+
+  let y = req.body
+  daoYacimientoConfiguracion.BorrarRequisitos(y.y_id_yacimiento_configuracion)
+  .then((resp_bd) => {
+    return daoYacimientoConfiguracion.BorrarEtapas(y.y_id_yacimiento_configuracion)
+  })
+  .then((resp_bd) => {
+    return daoYacimientoConfiguracion.modificar(y.y_id_yacimiento_configuracion,y.y_nombre,y.y_capacidad_explotacion,y.mineral_id,y.unidad_id)
+  })
+  .then((resp_bd) => {
+    return new Promise((resolve,reject) => {
+      y["etapas"].map((e,i) => { 
+        daoEtapaConfiguracion.insertar(e.e_nombre,e.e_orden,e.e_tipo,y.y_id_yacimiento_configuracion)
+        .then((resp_bd) => {
+          let e_id = resp_bd.rows[0].e_id_etapa_configuracion
+          y["etapas"][i]["fases"].map((f,j) => {
+            daoFaseConfiguracion.insertar(f.f_nombre,f.f_orden,f.f_duracion,f.f_descripcion,e_id,f.unidad_id)
+            .then((resp_bd) => {
+              let f_id = resp_bd.rows[0].f_id_fase_configuracion
+              console.log(`\n\n fase insertada, id : ${f_id}`)
+              if (f["cargos"].length > 0) {
+                daoFaseConfiguracion.asignarVariosCargo(f_id,f["cargos"])
+                .then((resp_bd) => {
+                  console.log(`\n\n cargos insertads en la fase_id : ${f_id}`)
+                  if (f["maquinarias"].length > 0) {
+                    daoFaseConfiguracion.asignarVariosMaquinaria(f_id,f["maquinarias"])
+                    .then((resp_bd) => {
+                      if( (i === (y["etapas"].length - 1)) && (j === (y["etapas"][i]["fases"].length - 1)))
+                      resolve("bien!")
+                    })
+                  }else{
+                    if( (i === (y["etapas"].length - 1)) && (j === (y["etapas"][i]["fases"].length - 1)))
+                    resolve("bien!")
+                  }
+                  
+                })
+              }else{
+                if( (i === (y["etapas"].length - 1)) && (j === (y["etapas"][i]["fases"].length - 1)))
+                resolve("bien!") 
+              }
+                           
+            })
+          }) 
+        })
+      })
+    })    
+  })
+  .then((DATA_RESPUESTA) => {
+    console.log(`STATUS OK : 200`)      
+    res.status(200).json({"message" : "exito! configuracion de yacimiento modificada"})
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+    res.status(500).json(bd_err)
+
+  }) 
+})
+
 app.post('/consultar/yacimiento_configuracion', (req, res) => {
   
   console.log("\n\n")
@@ -821,6 +1166,7 @@ app.post('/eliminar/yacimiento_configuracion', (req, res) => {
 
 /* ****************************** TIPO_YACIMIENTO ****************************** */
 import {daoTipoYacimiento} from './DAOs/daoTipoYacimiento'
+import { daoEtapaConfiguracion } from "./DAOs/daoEtapaConfiguracion";
 
 app.get('/consultarLista/tipo_yacimiento', (req, res) => {
   

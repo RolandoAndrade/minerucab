@@ -52,6 +52,25 @@ const cleanerCliente = {
     }
 }
 
+const cleanerCompania = {
+    limpiarLista ( companiasDB ) {
+        if (companiasDB === undefined || companiasDB.length == 0)
+            return []
+        else
+            return companiasDB.map ((c) => ({
+                "c_id_compania" : c.c_id_compania.toString(10).padStart(4, '0'),
+                "c_nacionalizado" : c.c_nacionalizado ? "Si" : "No",
+                "c_nombre" : c.c_nombre,
+                "c_rif" : c.c_rif || "No posee" ,
+                "c_fecha_nacional" : c.c_fecha_nacional ? c.c_fecha_nacional.split('T')[0] : "No",
+                "c_fecha_apertura" : c.c_fecha_apertura.split('T')[0],
+                "c_capacidad_maxima_anual" : c.c_capacidad_maxima_anual,
+                "lugar_id" : c.lugar_id,
+                "l_nombre" : c.l_nombre
+            }))
+    }
+}
+
 const cleanerEmpleado = {
     limpiarLista( empleadosDB ) {
         if (empleadosDB === undefined || empleadosDB.length == 0)
@@ -220,6 +239,8 @@ export {
     cleanerConfiguracion,
     cleanerTipoYacimiento,
     cleanerProyecto,
+    cleanerProducto,
+    cleanerCompania
     cleanerProducto,
     cleanerPedido,
     cleanerHorario

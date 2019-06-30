@@ -888,6 +888,7 @@ import {daoProducto} from "./DAOs/daoProducto";
 import {daoPediProd} from "./DAOs/daoPediProd";
 import {daoPediEsta} from "./DAOs/daoPediEsta";
 import {daoInventario} from "./DAOs/daoInventario";
+import {daoHorario} from "./DAOs/daoHorario";
 
 app.get('/consultarLista/proyecto', (req, res) => {
   
@@ -1053,6 +1054,45 @@ app.get('/consultarCantidad/inventario', (req, res) => {
       })
       .catch( (bd_err)=> {
         console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+/* ****************************** HORARIO ****************************** */
+app.get('/consultarLista/orario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/horario")
+
+  daoHorario.consultarTodos()
+      .then( ({rows}) => {
+        console.log(rows);
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/insertar/horario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+
+  daoHorario.insertar(req.body.h_nombre)
+      .then( ({rows}) => {
+        console.log(`STATUS OK : 200`)
+        res.status(200).json({"rows" : rows})
+        /*for(let i=0;i<req.body.jornadas.length;i++)*/
+      })
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
         res.status(500).json(bd_err)
 
       })

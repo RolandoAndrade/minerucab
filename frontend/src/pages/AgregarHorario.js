@@ -35,7 +35,15 @@ export class AgregarHorario extends React.Component {
     };
 
     handleGuardar = () => {
-        console.log(this.state.jornadas);
+        console.log(`----> localhost:4000/insertar/horario`)
+        return axios.post('http://127.0.0.1:4000/insertar/horario', this.state)
+            .then( (res) => {
+                if( res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/insertar/horario`)
+                }
+                return res
+            })
+            .catch( (err) => err)
     };
     render = () => (
         <div>

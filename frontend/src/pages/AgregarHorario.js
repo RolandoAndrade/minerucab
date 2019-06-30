@@ -25,12 +25,18 @@ export class AgregarHorario extends React.Component {
         })
     }
 
-    handleGua = (target) => {
-        target=target.target||target;
-        this.setState({
-            [target.name]: target.value
-        })
-    }
+    changesOnScheduler = (e) =>
+    {
+        this.setState(
+            {
+                jornadas: e
+            }
+        );
+    };
+
+    handleGuardar = () => {
+        console.log(this.state.jornadas);
+    };
     render = () => (
         <div>
             <MenuDashBoard title="Agregar horario"/>
@@ -41,7 +47,7 @@ export class AgregarHorario extends React.Component {
                     name="h_nombre"
                     onChange={this.handleChange}/>
             </div>
-            <Scheduler editable={true}/>
+            <Scheduler editable={true} onChange={this.changesOnScheduler}/>
             <GuardarCancelar
                 position="center"
                 storeData={this.handleGuardar}

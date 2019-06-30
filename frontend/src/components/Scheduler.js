@@ -45,30 +45,28 @@ export class Scheduler extends React.Component
     {
         if(this.props.editable)
         {
-            let days=["l","m","x","j","v","s","d"];
-            if(t.target.classList.contains("clicked"))
+            let days = ["l", "m", "x", "j", "v", "s", "d"];
+            if (t.target.classList.contains("clicked"))
             {
                 t.target.classList.remove("clicked");
                 let jor = this.state.jornadas[days[day]];
-                for(let i=0;i<jor.length;i++)
+                for (let i = 0; i < jor.length; i++)
                 {
-                    if(jor[i].hora_entrada==hour&&jor[i].hora_salida==hour+1)
+                    if (jor[i].hora_entrada == hour && jor[i].hora_salida == hour + 1)
                     {
-                        jor.splice(i,1);
+                        jor.splice(i, 1);
                         break;
-                    }
-                    else if(jor[i].hora_entrada==hour)
+                    } else if (jor[i].hora_entrada == hour)
                     {
                         jor[i].hora_entrada++;
                         break;
-                    }
-                    else if(jor[i].hora_entrada<=hour&&hour<jor[i].hora_salida)
+                    } else if (jor[i].hora_entrada <= hour && hour < jor[i].hora_salida)
                     {
-                        let ax=jor[i].hora_salida;
-                        jor[i].hora_salida=hour;
-                        if(hour+1!=ax)
+                        let ax = jor[i].hora_salida;
+                        jor[i].hora_salida = hour;
+                        if (hour + 1 != ax)
                         {
-                            jor.push({hora_entrada: hour+1, hora_salida: ax})
+                            jor.push({hora_entrada: hour + 1, hora_salida: ax})
                         }
                     }
                 }
@@ -77,42 +75,40 @@ export class Scheduler extends React.Component
                         [days[day]]: jor
                     }
                 )
-            }
-            else
+            } else
             {
                 t.target.classList.add("clicked");
                 let jor = this.state.jornadas[days[day]];
                 let c = true;
-                for(let i=0;i<jor.length&&c;i++)
+                for (let i = 0; i < jor.length && c; i++)
                 {
-                    if(jor[i].hora_salida==hour)
+                    if (jor[i].hora_salida == hour)
                     {
                         jor[i].hora_salida++;
-                        c=false;
+                        c = false;
                         this.setState({
                             [days[day]]: this.join(jor)
                         })
-                    }
-                    else if(jor[i].hora_entrada==hour+1)
+                    } else if (jor[i].hora_entrada == hour + 1)
                     {
                         jor[i].hora_entrada--;
-                        c=false;
+                        c = false;
                         this.setState({
                             [days[day]]: this.join(jor)
                         })
                     }
                 }
-                if(c)
+                if (c)
                 {
-                    let v={hora_entrada: hour, hora_salida: hour+1};
+                    let v = {hora_entrada: hour, hora_salida: hour + 1};
                     jor.push(v);
                     this.setState({
                         [days[day]]: this.join(jor)
                     })
                 }
             }
+            this.props.onChange(this.state.jornadas)
         }
-        console.log(this.state)
     }
 
     render = () => (

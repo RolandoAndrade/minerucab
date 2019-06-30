@@ -29,25 +29,28 @@ export class Pedido extends React.Component {
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/pedido`)
                 let q = res.data.rows;
                 let ax={};
-                console.log(q);
                 for(let i=0;i<q.length;i++)
                 {
                     if(ax[q[i].p_id_pedido])
                     {
                         ax[q[i].p_id_pedido].productos.push({cantidad: q[i].p_cantidad, nombre: q[i].p_nombre, precio: (Math.floor(q[i].total*100)/100).toFixed(2)})
+                        ax[q[i].p_id_pedido].total=(Math.floor((parseFloat(ax[q[i].p_id_pedido].total)+parseFloat(q[i].total))*100)/100).toFixed(2);
                     }
                     else
                     {
-                        ax[q[i].p_id_pedido]={p_id_pedido: q[i].p_id_pedido, c_nombre: q[i].c_nombre, p_fecha_solicitud: q[i].p_fecha_solicitud, 
-                            e_nombre: q[i].e_nombre, productos:[{cantidad: q[i].p_cantidad, nombre: q[i].p_nombre, precio: (Math.floor(q[i].total*100)/100).toFixed(2)}]}
+                        ax[q[i].p_id_pedido]={
+                            p_id_pedido: q[i].p_id_pedido, 
+                            c_nombre: q[i].c_nombre, 
+                            p_fecha_solicitud: q[i].p_fecha_solicitud, 
+                            e_nombre: q[i].e_nombre, 
+                            total: (Math.floor(q[i].total*100)/100).toFixed(2),
+                            productos:[{cantidad: q[i].p_cantidad, nombre: q[i].p_nombre, precio: (Math.floor(q[i].total*100)/100).toFixed(2)}]}
                     }
                 }
-                console.log(Object.values(ax));
                 this.setState({
                     pedidos : Object.values(ax),
                     ped: ax
                 })
-                console.log(this.state)
             })
 
     }
@@ -143,6 +146,13 @@ export class Pedido extends React.Component {
                             },
                         },
                         {
+                            title: 'Total', field: 'total', type:'string', headerStyle:{ textAlign : "center"},
+                            cellStyle : {
+                                fontSize : "large",
+                                textAlign: "center"
+                            },
+                        },
+                        {
                             title: 'Estado', field: 'e_nombre', type:'string', headerStyle:{ textAlign : "center"},
                             cellStyle : {
                                 fontSize : "large",
@@ -216,28 +226,42 @@ export class Pedido extends React.Component {
                             <span> : {this.state.consultarPedido.p_id_pedido.toString(10).padStart(4, '0')}</span>
                         </p>
                         <p>
-                            <span className="mc-atributo">Fecha de solicitud: </span>
+                            <span className="mc-atributo">Fecha de solicitud </span>
                             <span> : {this.state.consultarPedido.p_fecha_solicitud.substring(0,10)}</span>
                         </p>
                         <p>
-                            <span className="mc-atributo">Estado: </span>
+                            <span className="mc-atributo">Estado </span>
                             <span> : {this.state.consultarPedido.e_nombre}</span>
                         </p>
                         <p><span className="mc-atributo">Productos comprados</span><span> :</span></p>
                             { this.state.consultarPedido.productos.map( (pedido, i) => (
                             <p className="mc-multivalor" key={i}>- {pedido.cantidad} toneladas de {pedido.nombre} a {pedido.precio} BsS</p>)) 
                             }
-
+                        <p>
+                            <span className="mc-atributo">Costo total </span>
+                            <span> : {this.state.consultarPedido.total}</span>
+                        </p>
 
 
 
                     </Modal.Body>
 
                     <Modal.Footer className="mc-footer">
+                        {this.state.consultarPedido.e_nombre=="no pagado"?
                         <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleModificar}>
-                            Modificar
+                            Pagar
                         </Button>
-
+                        :""}
+                        {this.state.consultarPedido.e_nombre=="iniciado"?
+                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleModificar}>
+                            Dar recursos
+                        </Button>
+                        :""}
+                        {this.state.consultarPedido.e_nombre=="pagado"?
+                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleModificar}>
+                            Entregar
+                        </Button>
+                        :""}
                         <Button variant="danger" className="mc-boton" onClick={this.handleEliminar}>
                             Eliminar
                         </Button>

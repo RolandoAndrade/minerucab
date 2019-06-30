@@ -56,7 +56,7 @@ const cleanerCompania = {
     limpiarLista ( companiasDB ) {
         if (companiasDB === undefined || companiasDB.length == 0)
             return []
-        else 
+        else
             return companiasDB.map ((c) => ({
                 "c_id_compania" : c.c_id_compania.toString(10).padStart(4, '0'),
                 "c_nacionalizado" : c.c_nacionalizado ? "Si" : "No",
@@ -138,6 +138,22 @@ const cleanerYacimiento = {
     }
 }
 
+const cleanerPedido = {
+    limpiarLista(  pedidoDB ) {
+        if ( pedidoDB === undefined ||  pedidoDB.length == 0)
+            return []
+        else
+            return  pedidoDB.map( y => ({
+                "p_id_pedido" : y.p_id_pedido.toString(10).padStart(4, '0'),
+                "p_fecha_solicitud": y.p_fecha_solicitud.substring(0,10),
+                "c_nombre": y.c_nombre,
+                "e_nombre": y.e_nombre,
+                "total": y.total
+            }))
+    }
+}
+
+
 const cleanerConfiguracion = {
     limpiarListaDropdown(  configuracioneDB ) {
         if ( configuracioneDB === undefined ||  configuracioneDB.length == 0)
@@ -201,6 +217,17 @@ const cleanerProducto = {
     }
 }
 
+const cleanerHorario = {
+    limpiarLista(  hor ) {
+        if ( hor === undefined ||  hor.length == 0)
+            return []
+        else
+            return  hor.map( p => ({
+                "h_id_horario" : p.horario_id,
+                "h_nombre" : p.h_nombre
+            }))
+    }
+}
 
 export {
     cleanerMineral, 
@@ -213,5 +240,7 @@ export {
     cleanerTipoYacimiento,
     cleanerProyecto,
     cleanerProducto,
-    cleanerCompania
+    cleanerCompania,
+    cleanerPedido,
+    cleanerHorario
 }

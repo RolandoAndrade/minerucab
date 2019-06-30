@@ -1227,6 +1227,8 @@ import {daoProyecto} from './DAOs/daoProyecto'
 import {daoProducto} from "./DAOs/daoProducto";
 import {daoPediProd} from "./DAOs/daoPediProd";
 import {daoPediEsta} from "./DAOs/daoPediEsta";
+import {daoInventario} from "./DAOs/daoInventario";
+import {daoHorario} from "./DAOs/daoHorario";
 
 app.get('/consultarLista/proyecto', (req, res) => {
   
@@ -1320,6 +1322,46 @@ app.post('/insertar/pedido', (req, res) => {
       })
 });
 
+app.get('/consultarLista/pedido', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/pedido")
+
+  daoPedido.consultarTodos()
+      .then( ({rows}) => {
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/eliminar/pedido', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/eliminar/pedido/${req.body.p_id_pedido}`)
+  daoPedido.eliminar(req.body.p_id_pedido)
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+
 
 /* ****************************** PRODUCTO ****************************** */
 app.get('/consultarLista/producto', (req, res) => {
@@ -1335,6 +1377,168 @@ app.get('/consultarLista/producto', (req, res) => {
       })
       .catch( (bd_err)=> {
         console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
+
+/* ****************************** INVENTARIO ****************************** */
+app.get('/consultarLista/inventario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/inventario")
+
+  daoInventario.consultarTodos()
+      .then( ({rows}) => {
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.get('/consultarCantidad/inventario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarCantidad/inventario"+req.body.mineral_id)
+
+  daoInventario.cantidadMineralGuardado(req.body.mineral_id)
+      .then( ({rows}) => {
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+/* ****************************** HORARIO ****************************** */
+app.get('/consultarLista/horario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/horario")
+
+  daoHorario.consultarTodos()
+      .then( ({rows}) => {
+        console.log(rows);
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/consultar/horario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultar/horario/${req.body.h_id_horario}`)
+  daoHorario.consultar(req.body.h_id_horario)
+      .then( ({rows}) => {
+        console.log(`STATUS OK : 200`)
+
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/insertar/horario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(req.body)
+  daoHorario.insertar(req.body)
+      .then( (bd_response) => {
+        console.log(`STATUS OK : 200`)
+        res.status(200).json({"rows" : bd_response.rows})
+        let h=bd_response.rows[0].h_id_horario;
+
+        let jor=req.body.jornadas;
+        try
+        {
+          for (let i in jor)
+          {
+            for(let j=0;j<jor[i].length;j++)
+            {
+              let data={j_dia: i, j_hora_entrada: jor[i][j].hora_entrada, j_hora_salida: jor[i][j].hora_salida, horario_id: h};
+              console.log(data);
+
+              daoHorario.insertarJornada(data).then(
+                  (bd_response) => {
+                  console.log(`STATUS OK : 200`)}).catch((e)=>error(e));
+            }
+          }
+        }
+        catch (e)
+        {
+
+        }
+      })
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+        res.status(500).json(bd_err)
+
+      })
+});
+
+
+app.post('/editar/horario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(req.body)
+  daoHorario.eliminarJornadas(req.body.horario_id)
+      .then( (bd_response) => {
+        console.log(`STATUS OK : 200`)
+        daoHorario.modificar(req.body).then((bd_response)=>{
+          res.status(200).json({"rowCount" : bd_response.rowCount})
+          })
+      })
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/eliminar/horario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(req.body)
+  daoHorario.eliminarJornadas(req.body.horario_id)
+      .then( (bd_response) => {
+        console.log(`STATUS OK : 200`)
+        daoHorario.eliminar(req.body.horario_id).then((bd_response)=>{
+          console.log(`STATUS OK : 200`)
+          res.status(200).json({"rows" : bd_response.rows});
+      }).catch((e)=>error(e))})
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
         res.status(500).json(bd_err)
 
       })

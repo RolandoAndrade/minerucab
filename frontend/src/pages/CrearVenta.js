@@ -93,36 +93,6 @@ export class CrearVenta extends React.Component
             }).catch( (err) => {
             return err
         })
-        /*console.log(new Date());
-        //then
-        console.log(`----> localhost:4000/insertar/pedi_prod`);
-        for (let i=0;i<this.state.minerales;i++)
-        {
-            let pedi_prod_data={
-                producto_id: this.state.minerales[i].presentacion_id,
-                pedido_id: this.state.pedido_id,
-                unidad_id: UNIDAD_ID,
-                p_cantidad: this.state.minerales[i].cantidad,
-                p_precio_unitario: this.state.minerales[i].precio
-            }
-            console.log(pedi_prod_data)
-        }
-
-        /*
-        return axios.post('http://127.0.0.1:4000/insertar/empleado',
-            {
-
-            }
-        )
-            .then( (res) => {
-                if( res.status === 200) {
-                    console.log(`<---- (OK 200) localhost:4000/insertar/empleado`)
-                }
-                return res
-            }).catch( (err) => {
-                return err
-            })*/
-
     };
 
     goSolicitud = () =>

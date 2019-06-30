@@ -25,7 +25,6 @@ import {ClienteAgregar} from '../pages/ClienteAgregar';
 import {EmpleadoAgregar} from "../pages/EmpleadoAgregar";
 import {MineralAgregar} from '../pages/MineralAgregar';
 import {YacimientoAgregar} from '../pages/YacimientoAgregar';
-import {HorarioCrear} from "../pages/HorarioCrear";
 import {MineralEditar} from '../pages/MineralEditar';
 import {ClienteEditar} from '../pages/ClienteEditar';
 import {EmpleadoEditar} from "../pages/EmpleadoEditar";
@@ -33,7 +32,12 @@ import {YacimientoEditar} from "../pages/YacimientoEditar";
 
 import {EmpleadosCrear} from "../pages/EmpleadosCrearRolando";
 import {CrearVenta} from "../pages/CrearVenta";
-
+import {Pedido} from "../pages/Pedido";
+import {Scheduler} from "../components/Scheduler";
+import {AgregarHorario} from "../pages/AgregarHorario";
+import {Horario} from "../pages/Horario";
+import {EditarHorario} from "../pages/EditarHorario";
+import {Pagos} from "../pages/Pagos";
 
 export const history = createHistory(); // PARA LLEVAR EL CONTROL DE PAGINAS VISITADAS POR USER
 
@@ -54,7 +58,6 @@ const AppRouter = () => (
         <PublicRoute path="/crear/cliente" component={ClienteAgregar} />
         <PublicRoute path="/crear/empleado" component={EmpleadoAgregar} />
         <PublicRoute path="/crear/mineral" component={MineralAgregar} />
-        <PublicRoute path="/crear/horario" component={HorarioCrear} />
         <PublicRoute path="/crear/yacimiento" component={YacimientoAgregar} />
         <PublicRoute path="/crear/yacimiento-configuracion" component={ConfiguracionYacimientoAgregar} />
         <PublicRoute path="/editar/cliente/:id" component={ClienteEditar} />
@@ -63,9 +66,12 @@ const AppRouter = () => (
         <PublicRoute path="/editar/yacimiento/:id" component={YacimientoEditar} />
         <PublicRoute path="/crear/pedido" component={CrearVenta} />
         <PublicRoute path="/aliado" component={Aliado} />
+        <PublicRoute path="/pedido" component={Pedido} />
 
-        <PublicRoute path="/crear/empleadoRolando" component={EmpleadosCrear} />
-
+        <PublicRoute path="/horario" component={Horario} />
+        <PublicRoute path="/crear/horario" component={AgregarHorario} />
+        <PublicRoute path="/editar/horario/:id" component={EditarHorario} />
+        <PublicRoute path="/pago/:id" component={Pagos} />
         {/* 
           PAGINAS QUE CARGAN LOGEADOS 
           <PrivateRoute path="/dashboard" component={Dashboard} />

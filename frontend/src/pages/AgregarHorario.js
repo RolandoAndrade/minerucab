@@ -70,7 +70,7 @@ export class AgregarHorario extends React.Component {
                 success={this.goHorario}
                 decline={this.goHorario}
             />
-                {this.state.goBack && <Redirect to="../..//horario" /> }
+            {this.state.goBack && <Redirect to="../../horario" /> }
 
         </div>
     )

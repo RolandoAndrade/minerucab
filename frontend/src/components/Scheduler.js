@@ -38,7 +38,7 @@ export class Scheduler extends React.Component
             for(let j=0;j<data[i].length;j++)
             {
                 let h=data[i][j].hora_entrada;
-                while(h<data[i][j].hora_salida)
+                while(h<(data[i][j].hora_salida==0?24:data[i][j].hora_salida))
                 {
                     let t = document.getElementById(h+""+as[i]);
                     t.classList.add("clicked");
@@ -114,7 +114,7 @@ export class Scheduler extends React.Component
                 {
                     if (jor[i].hora_salida == hour)
                     {
-                        jor[i].hora_salida++;
+                        jor[i].hora_salida=jor[i].hora_salida+1;
                         c = false;
                         this.setState({
                             [days[day]]: this.join(jor)

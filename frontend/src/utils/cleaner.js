@@ -241,7 +241,6 @@ export {
     cleanerProyecto,
     cleanerProducto,
     cleanerCompania,
-    cleanerProducto,
     cleanerPedido,
     cleanerHorario
 }

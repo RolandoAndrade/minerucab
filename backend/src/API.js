@@ -1000,45 +1000,40 @@ app.post('/insertar/yacimiento_configuracion', (req,res) => {
   console.log(`/insertar/yacimiento_configuracion `)
 
   let y = req.body
-  daoYacimientoConfiguracion.insertar(y.y_nombre,y.y_capacidad_explotacion,y.mineral_id,7)
+  let yac_id =  null
+  daoYacimientoConfiguracion.insertar(y.y_nombre,y.y_capacidad_explotacion,y.mineral_id,7)  
   .then((resp_bd) => {
-    console.log(`\n\ninsetado yamiento_config id ${resp_bd.rows[0].y_id_yacimiento_configuracion}`)
-    return resp_bd.rows[0].y_id_yacimiento_configuracion
+    yac_id = resp_bd.rows[0].y_id_yacimiento_configuracion
+    daoYacimientoConfiguracion.agregarRequisitos(yac_id,y["requisitos"])
   })
-  .then((yac_id) => {
+  .then((resp_bd) => {
     return new Promise((resolve,reject) => {
       y["etapas"].map((e,i) => { 
         daoEtapaConfiguracion.insertar(e.e_nombre,e.e_orden,e.e_tipo,yac_id)
         .then((resp_bd) => {
           let e_id = resp_bd.rows[0].e_id_etapa_configuracion
-          console.log(`\n\nInsertada etapa ${e_id} en el yac_config ${yac_id}`)
           y["etapas"][i]["fases"].map((f,j) => {
             daoFaseConfiguracion.insertar(f.f_nombre,f.f_orden,f.f_duracion,f.f_descripcion,e_id,f.unidad_id)
             .then((resp_bd) => {
               let f_id = resp_bd.rows[0].f_id_fase_configuracion
-              console.log(`\n\nInsertada fase ${f_id} en la etapa ${e_id} en el yac_config ${yac_id}`)
               if (f["cargos"].length > 0) {
                 daoFaseConfiguracion.asignarVariosCargo(f_id,f["cargos"])
                 .then((resp_bd) => {
-                  console.log(`\n\n cargos insertads en la fase_id : ${f_id}`)
                   if (f["maquinarias"].length > 0) {
                     daoFaseConfiguracion.asignarVariosMaquinaria(f_id,f["maquinarias"])
                     .then((resp_bd) => {
-                      console.log(`\n\n maquinarias insertads en la fase_id : ${f_id}`)
                       if( (i === (y["etapas"].length - 1)) && (j === (y["etapas"][i]["fases"].length - 1)))
                       resolve("bien!")
                     })
                   }else{
                     if( (i === (y["etapas"].length - 1)) && (j === (y["etapas"][i]["fases"].length - 1)))
                     resolve("bien!")
-                  }
-                  
+                  }                  
                 })
               }else{
                 if( (i === (y["etapas"].length - 1)) && (j === (y["etapas"][i]["fases"].length - 1)))
                 resolve("bien!") 
-              }
-                           
+              }                           
             })
           }) 
         })
@@ -1054,7 +1049,6 @@ app.post('/insertar/yacimiento_configuracion', (req,res) => {
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
     res.status(500).json(bd_err)
-
   }) 
 })
 

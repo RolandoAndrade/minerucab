@@ -29,6 +29,16 @@ const daoYacimientoConfiguracion = {
         `)
     },
 
+    agregarRequisitos ( yac_id, requisitos ) {
+        let query = `INSERT INTO MINE_YACI (m_id_mine_yaci,yacimiento_configuracion_id,mineral_id,m_cantidad,unidad_id) VALUES `
+        let i = 0
+        requisitos.forEach((r) => {
+            i++
+            query = query + `(DEFAULT,${yac_id},${r.m_id_mineral},${r.m_id_mineral},7)${i < requisitos.length ? ',' : ';' }`
+        })
+        return psql.query(query)
+    },
+
     BorrarRequisitos( id ) {
         return psql.query(`
             DELETE FROM MINE_YACI

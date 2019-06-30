@@ -6,7 +6,7 @@ import {InputText} from "../components/InputText";
 import {Dropdown} from "../components/Dropdown";
 import {MenuDashBoard} from "../components/MenuDashBoard";
 import {GuardarCancelar} from "../components/GuardarCancelar";
-import {cleanerCliente, cleanerLugar, cleanerMineral} from "../utils/cleaner";
+import {cleanerCliente, cleanerLugar, cleanerMineral, cleanerProducto} from "../utils/cleaner";
 import {Loader} from "../components/Loader";
 
 const IVA = 1.16;
@@ -23,6 +23,7 @@ export class CrearVenta extends React.Component
             goSolicitud: false,
             listaMinerales: [],
             listaClientes: [],
+            listaProductos: [],
             total: 0,
             subtotal: 0,
             loading: false,
@@ -48,6 +49,17 @@ export class CrearVenta extends React.Component
                 })
 
             });
+        axios.get('http://127.0.0.1:4000/consultarLista/producto')
+            .then( (res) => {
+                if(res.status === 200)
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/producto`);
+
+                this.setState({
+                    listaProductos: cleanerProducto.limpiarListaDropdown(res.data.rows),
+                })
+                console.log(this.state)
+
+            });
         axios.get('http://127.0.0.1:4000/consultarLista/cliente')
             .then( (res) => {
                 if(res.status === 200)
@@ -69,7 +81,9 @@ export class CrearVenta extends React.Component
         console.log(`----> localhost:4000/insertar/pedido`);
         return axios.post('http://127.0.0.1:4000/insertar/pedido',
             {
-                cliente_id: this.state.cliente_id
+                cliente_id: this.state.cliente_id,
+                minerales: this.state.minerales,
+                total: this.state.total,
             }
         ).then( (res) => {
                 if( res.status === 200) {
@@ -265,12 +279,12 @@ export class CrearVenta extends React.Component
                                               name={"presentacion_id"}
                                               placeholder="Presentación..."
                                               retrieveData={(target)=>this.handleRemovable(target,i)}
-                                              options={[
-                                                  {text:"Opción 1",id:1},
-                                                  {text:"Opción 2",id:2},
-                                                  {text:"Opción 3",id:3},
-                                                  {text:"Opción 4",id:4},
-                                                  {text:"Opción 5",id:5}]}
+                                              options={this.state.listaProductos.filter(
+                                                  (t) =>
+                                                  {
+                                                      return t.mineral == this.state.minerales[i].mineral_id
+                                                  }
+                                              )}
                                     />
                                 </div>
                             </div>

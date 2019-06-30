@@ -21,7 +21,7 @@ const cleanerMineral = {
                 "id" : m.m_id_mineral,
                 "text": m.m_nombre,
                 "value" : m.m_id_mineral,
-                "label":m.m_nombre
+                "label" : m.m_nombre
             }))
     }
 }
@@ -143,6 +143,43 @@ const cleanerTipoYacimiento = {
     }
 }
 
+const cleanerProyecto = {
+    limpiarLista( proyectosBD ) {
+        if (proyectosBD === undefined || proyectosBD.length == 0)
+            return []
+        else 
+            return proyectosBD.map( (p) => ({
+                ...p,
+                "p_id_proyecto" : p.p_id_proyecto.toString(10).padStart(4, '0'),
+                "pedido_id": p.pedido_id.toString(10).padStart(4, '0'),
+                "p_fecha_inicio" : p.p_fecha_inicio ? p.p_fecha_inicio.split('T')[0] : "Sin fecha"
+            }))
+    },
+    limpiarListaDropdown(  proyectosBD ) {
+        if ( proyectosBD === undefined ||  proyectosBD.length == 0)
+            return []
+        else 
+            return  proyectosBD.map( p => ({
+                ...p,
+                "text" : p.p_nombre,
+                "id" : p.p_id_proyecto
+            }))
+    }
+}
+
+const cleanerProducto = {
+    limpiarListaDropdown(  productoDB ) {
+        if ( productoDB === undefined ||  productoDB.length == 0)
+            return []
+        else
+            return  productoDB.map( p => ({
+                "text" : p.p_nombre,
+                "id" : p.p_id_producto,
+                "mineral": p.mineral_id
+            }))
+    }
+}
+
 
 export {
     cleanerMineral, 
@@ -152,5 +189,7 @@ export {
     cleanerCargo,
     cleanerYacimiento,
     cleanerConfiguracion,
-    cleanerTipoYacimiento
+    cleanerTipoYacimiento,
+    cleanerProyecto,
+    cleanerProducto
 }

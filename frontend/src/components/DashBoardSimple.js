@@ -15,8 +15,7 @@ export class DashBoardSimple extends React.Component {
                                      {text: "Usuarios", url: "usuarios"},
                                      {text: "Roles", url: "rol"},
                                      {text: "Minerales", url: "mineral"},
-                                     {text: "Yacimientos", url: "yacimiento"},
-                                     {text: "Depósitos", url: "deposito"},
+                                     {text: "Inventario", url: "inventario"},
                                      {text: "Plantas", url: "planta"},
                                      {text: "Procesos", url: "proceso"},
                                      {text: "Productos", url: "producto"},
@@ -32,8 +31,8 @@ export class DashBoardSimple extends React.Component {
                                  title="Proyectos" sections={
                                      [
                                          {text: "Proyectos", url: "proyecto"},
-                                         {text: "Explotaciones", url: "explotacion"},
-                                         {text: "Etapas", url: "etapa"},
+                                         {text: "Configuración explotaciones", url: "yacimiento-configuracion"},
+                                         {text: "Yacimientos", url: "yacimiento"},
                                          {text: "Empleados", url: "empleado"}]}/>
             </div>
         </div>

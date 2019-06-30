@@ -140,7 +140,8 @@ export class EmpleadoEditar extends React.Component {
             {
                 ...this.state.nuevo_empleado,
                 lugar_id : this.state.lugar.parroquia_id,
-                e_genero : this.state.nuevo_empleado.e_genero === 1 ? "m" : "f"
+                e_genero : this.state.nuevo_empleado.e_genero === 1 || this.state.nuevo_empleado.e_genero === "m"
+                    ? "m" : "f"
             }
         )
         .then( (res) => {
@@ -274,16 +275,19 @@ export class EmpleadoEditar extends React.Component {
                                     }
                         />
                         }
+                        {this.state.nuevo_empleado.e_genero &&
                         <Dropdown id="CrearEmpleadoGenero"
                                   name="e_genero"
-                                  defaultText={this.state.nuevo_empleado.e_genero === 'm' ? "Hombre" : "Mujer"}
-                                  defaultID={this.state.nuevo_empleado.e_genero === 'm' ? 1 : 2}
+                                  defaultText={this.state.nuevo_empleado.e_genero === "m" || this.state.nuevo_empleado.e_genero === 1
+                                     ? "Hombre" : "Mujer"}
+                                  defaultID={this.state.nuevo_empleado.e_genero === "m" || this.state.nuevo_empleado.e_genero === 1
+                                     ? 1 : 2}
                                   retrieveData={this.handleChange}
                                   placeholder="Género.."
                                   options={[
                                       {text:"Hombre",id:1},
                                       {text:"Mujer", id:2}]}
-                        />
+                        />}
                         <div className="RowContainer center" style={{width: "80%"}}>
                             <div className="LabelContainer">
                                 Fecha de nacimiento : &nbsp;

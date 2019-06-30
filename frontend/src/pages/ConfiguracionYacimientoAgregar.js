@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import {Button} from 'react-bootstrap';
 import {Dropdown} from "../components/Dropdown";
-import Select from 'react-select';
+import {DropdownV2} from "../components/DropdownV2"
 import {InputText} from "../components/InputText";
 import {GuardarCancelar} from "../components/GuardarCancelar";
 import {MenuDashBoard} from "../components/MenuDashBoard";
@@ -16,13 +16,8 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
       super(props)
       
       this.state  = {
-        ultimoRequisitoIndex : 0,
-        ultimoFaseIndex : 0,
-        prueba: 0,
-        minerales : [],
-        maquinas : [],
-        cargos : [],
-        nueva_configuracion_yacimiento : {
+        // INFO DE CONF_YACIMIENTO 
+        configuracion_yacimiento : {
             y_id_yacimiento_configuracion : 0,
             y_nombre :"",
             y_capacidad_explotacion : 0,
@@ -30,125 +25,220 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
             unidad_id : 7
         },
         requisitos : [],
-        etapas : []
+        etapas : [{
+            e_id_etapa_configuracion : 1,
+            e_nombre: "",
+            e_orden: 0,
+            e_tipo: 0,
+            ultimaFaseIndex : 1,
+            fases : [{
+                f_id_fase_configuracion : 0,
+                f_nombre : "Fase 1 (Por configurar)",
+                f_orden : 1,
+                f_duracion : 0,
+                f_descripcion : "",
+                unidad_id : 7
+            }]
+        }],
+        // PARA DAR IDs UNICOS
+        ultimoRequisitoIndex : 0,
+        ultimaEtapaIndex : 1,
+        // PARA LOS DROPDOWNS
+        minerales : []
       }
     }
 
     componentDidMount = () => {
         console.log(`----> localhost:4000/consultarLista/mineral `)
         axios.get('http://127.0.0.1:4000/consultarLista/mineral')
-            .then( (res) => {
+            .then( res => {
                 if(res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral`)
                     this.setState({
                         minerales : res.data.rows
                     })
-                }else {
+                } else {
                     console.log(`<---- (ERROR 500) localhost:4000/consultarLista/mineral`)
                 }
             })
     }
 
-    handleChange = (target) => {
+    changeInfo = (target) => {
         target=target.target||target;
-        console.log(`requisito.${target.name} = ${target.value}`)
+        console.log(`configuracion_yacimiento.${target.name} = ${target.value}`)
         this.setState({
-            nueva_configuracion_yacimiento :{
-                ...this.state.nueva_configuracion_yacimiento,
+            configuracion_yacimiento :{
+                ...this.state.configuracion_yacimiento,
                 [target.name] : target.value
             }
         })
     }
 
-    handleChangeRequisitos = (event,index) => {
-        console.log(event)
-        console.log(index)
-        const nuevosRequisitos = this.state.requisitos.map((req) => {
-            if (req.m_id_mine_yaci === index){
-                req.mineral_id = event.value
-                req.m_nombre = event.text
-            }
-            return req
-        })
-        this.setState({
-            requisitos : nuevosRequisitos
-        })
-    }
-
-    prueba = (event) => {
-        console.log(event)
-    }
-
-    handleChangeCantidadRequisito = (index,target) => {
-        console.log(`modificando la cantidad`)
-        const nuevosRequisitos = this.state.requisitos.map((req) => {
-            if (req.m_id_mine_yaci === index){
-                req.m_cantidad = target.value
-            }
-            return req
-        })
-        this.setState({
-            requisitos : nuevosRequisitos
-        })
+    changeRequisito = (opcion , id) => {
+        if (opcion.label) {
+            console.log(`requisito[${id}].mineral_id <-- ${opcion.value} (${opcion.label})`)
+            const nuevosRequisitos = this.state.requisitos.map( req => {
+                    if (req.m_id_mine_yaci === id){
+                        req.mineral_id = opcion.value
+                    }
+                    return req
+                })
+            this.setState({
+                requisitos : nuevosRequisitos
+            })
+        } else {
+            console.log(`requisito[${id}].m_cantidad <-- ${opcion.target.value}`)
+            const nuevosRequisitos = this.state.requisitos.map( req => {
+                if (req.m_id_mine_yaci === id){
+                    req.m_cantidad = opcion.target.value
+                }
+                return req
+            })
+            this.setState({
+                requisitos : nuevosRequisitos
+            })
+        }
+        
     }
     
-    handleAgregarRequisito = () => {
-        console.log(`agregando requisi ${this.state.ultimoRequisitoIndex + 1} `)
+    agregarRequisito = () => {
+        console.log(`new requisito = requisito[i:${this.state.requisitos.length+1} , id:${this.state.ultimoRequisitoIndex + 1}]`)
         this.setState( (prev) => ({
-            requisitos:[...prev.requisitos, {
-                m_id_mine_yaci : prev.ultimoRequisitoIndex + 1,
-                m_cantidad : null,
-                mineral_id : 0,
-                unidad_id : 7,
-                m_nombre : null
-            }],
+            requisitos:[
+                ...prev.requisitos, 
+                {
+                    m_id_mine_yaci : prev.ultimoRequisitoIndex + 1,
+                    m_cantidad : null,
+                    mineral_id : 0,
+                    unidad_id : 7,
+                    m_nombre : null
+                }
+            ],
             ultimoRequisitoIndex : prev.ultimoRequisitoIndex + 1
         }))
     }
 
-    handleQuitarRequerimiento = (index) => {
-        console.log(`quitando el requisito ${index} `)
-        const requisitosNuevo = this.state.requisitos.filter( (r) => r.m_id_mine_yaci !== index)
+    quitarRequisito = (id) => {
+        console.log(`delete requisito[ id:${id} ]`)
+        const requisitosNuevo = this.state.requisitos.filter( (r) => r.m_id_mine_yaci !== id)
         this.setState({
             requisitos : requisitosNuevo
         })
     }
 
-    handleAgregarEtapa = () => {
+    agregarEtapa = () => {
+        console.log(`new etapa = etapa[${this.state.ultimaEtapaIndex + 1}]`)
         this.setState( (prev) => ({
             etapas:[...prev.etapas, {
-                e_id_etapa_configuracion : prev.ultimoFaseIndex + 1,
+                e_id_etapa_configuracion : prev.ultimaEtapaIndex + 1,
                 e_nombre: "",
                 e_orden: 0,
-                e_tipo: ""
+                e_tipo: 0,
+                ultimaFaseIndex : 1,
+                fases : [{
+                    f_id_fase_configuracion : 0,
+                    f_nombre : "Fase 1 (Por configurar)",
+                    f_orden : 1,
+                    f_duracion : 0,
+                    f_descripcion : "",
+                    unidad_id : 7
+                }]
             }],
-            ultimoFaseIndex : prev.ultimoFaseIndex + 1
+            ultimaEtapaIndex : prev.ultimaEtapaIndex + 1
         }))
     }
 
-    buscarNombreMineral = (idMineral) => {
-        let mineral = this.state.minerales.find( m => m.m_id_mineral === idMineral)
-        console.log(mineral)
-        return mineral? mineral.m_nombre : ""
+    quitarEtapa = (id) => {
+        console.log(`delete etapa[ id:${id} ]`)
+        const etapasNuevo = this.state.etapas.filter( e => e.e_id_etapa_configuracion !== id)
+        this.setState({
+            etapas : etapasNuevo
+        })
     }
 
-    render = () => (
+    /* DENTRO DE ETAPA */
+    changeInfoEtapa = (opcion , id ) => {
+        if (opcion.label) {
+            console.log(`etapa[${id}].e_tipo <-- ${opcion.value} (${opcion.label})`)
+            const nuevaEtapas = this.state.etapas.map( e => {
+                if (e.e_id_etapa_configuracion === id){
+                    e.e_tipo = opcion.value
+                }
+                return e
+            })
+
+            this.setState({
+                etapas : nuevaEtapas
+            })
+        } else {
+            console.log(`etapa[${id}].e_nombre <-- ${opcion.target.value}`)
+            const nuevaEtapas = this.state.etapas.map( e => {
+                if (e.e_id_etapa_configuracion === id){
+                    e.e_nombre = opcion.target.value
+                }
+                return e
+            })
+            this.setState({
+                etapas : nuevaEtapas
+            })
+        }
+    }
+
+
+    /* DENTRO DE FASE 
+    changeInfoFase () => {}
+
+    agregarFase = () => {
+        console.log(`etapa_configuracionagregarFase[ i:${this.state.etapa_configuracion.e_orden} , id:${this.state.etapa_configuracion.e_id_etapa_configuracion} ] { new fase = fase[i:${this.state.fases.length +1} id:${this.state.ultimaFaseIndex + 1}}] } `)
+        this.setState( (prev) => ({
+            fases:[...prev.fases, {
+                f_id_fase_configuracion : prev.ultimaFaseIndex + 1,
+                f_nombre : `Fase ${prev.fases.length +1} (Por configurar)`,
+                f_orden : prev.fases.length +1,
+                f_duracion : 0,
+                f_descripcion : "",
+                unidad_id : 7
+            }],
+            ultimaFaseIndex : prev.ultimaFaseIndex + 1
+        }))
+    }
+
+    quitarFase = () => {
+
+    }
+    */
+
+
+    render = () => {
+        // PARA NO ESCRIBIR THIS.STATE MUCHAS VECES
+        const {
+            configuracion_yacimiento , requisitos, etapas, fases, minerales, maquinas, cargos
+        } = this.state
+    
+    
+        return (
         <div>   
-             <MenuDashBoard title={"Crear Configuracion de Yacimiento"}/>
+             <MenuDashBoard title={"Crear Configuración de Yacimiento"}/>
 
              <div>
-                {/* sobre el mineral, debo agregar el fondo gris*/}
-                <div className="info-mineral">
-                    <h1 className = "subtitulo-centrado">Sobre el mineral</h1>
-                    <div > 
-                        <div className="horizontal ">
-                            <div > {/*Todas las lineas de info */}
-                                <div className="horizontal pegar-derecha"> {/* primera linea */}
+                <div className="SobreMineral">
+                    <h1 className="subtitulo-centrado">Sobre el mineral</h1>
+                    <div> 
+                        <div className="horizontal">
+                            <div className="confYacimientoIzq">
+                                <InputText 
+                                    id={`NombreConfiguracion`}
+                                    label="Nombre de Configuración"
+                                    name="y_nombre"
+                                    onChange={this.changeInfo}
+                                />
+                                <div className="horizontal pegar-derecha">
                                     <p className="separador"> Mineral a explotar</p>
+                                    
                                     <div className="ancho-mineral">
                                         <Dropdown id="MineralExplotar"
                                                 name="mineral_id"
-                                                retrieveData={this.handleChange}
+                                                retrieveData={this.changeInfo}
                                                 placeholder="Mineral..."
                                                 options={
                                                     cleanerMineral.limpiarListaDropdown(
@@ -161,61 +251,64 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                         <InputText 
                                             id="CantidadExplotar"
                                             type="number"
-                                            min="0" 
+                                            min="1" 
                                             label="Cantidad"
                                             name="y_capacidad_explotacion"
-                                            onChange={this.handleChange}
+                                            onChange={this.changeInfo}
                                         />
                                     </div>
-                                    
-                                    <p className="separador"> de toneladas</p>
+                                    <p className="separador"> toneladas</p>
                                 </div>
-                                <p className = "subtitulo-centrado" > Minerales necesarios para su explotacion</p>
-                                <div> {/*lista dinamica de minerales */}
+                                <p className="subtitulo-centrado" > Minerales necesarios para su explotacion</p>
+                                <div> {/* MAPING DE REQUISITOS */}
                                     {
                                         this.state.requisitos.map(
                                             (requisito) => (
-                                                <div className="horizontal pegar-derecha"> {/* primera linea */}
-                                                    <div className="WideContainer" style={{justifyContent: "right", width: "30%"}}>
+                                                <div key={requisito.m_id_mine_yaci} className="horizontal pegar-derecha"> {/* primera linea */}
+                                                    <div className="ancho-cantidad">
                                                         <i 
-                                                            className="zmdi zmdi-close-circle-o LabelIcon"
-                                                            onClick={() => this.handleQuitarRequerimiento(requisito.m_id_mine_yaci)}>
+                                                            className="zmdi zmdi-close-circle-o LabelIcon pegar-derecha"
+                                                            onClick={() => this.quitarRequisito(requisito.m_id_mine_yaci)}>
                                                         </i>
                                                     </div>
                                                     <div className="ancho-mineral">
-                                                        <Select 
-                                                                id={`MineralRequerido-${requisito.m_id_mine_yaci}s`}
-                                                                name="m_id_mine_yaci"
-                                                                placeholder="Mineral..."
-                                                                value={requisito.mineral_id}
-                                                                onChange={(event) => this.handleChangeRequisitos(event,requisito.m_id_mine_yaci)}
-                                                                options={
-                                                                    cleanerMineral.limpiarListaDropdown(
-                                                                        this.state.minerales
-                                                                    )
-                                                                }
+                                                        <DropdownV2
+                                                            placeholder="Mineral ..."
+                                                            value={
+                                                                requisito.m_id_mineral
+                                                            }
+                                                            onChange={ event => 
+                                                                this.changeRequisito(event , requisito.m_id_mine_yaci)
+                                                            }
+                                                            options={
+                                                                cleanerMineral.limpiarListaDropdown(
+                                                                    minerales
+                                                                )
+                                                            }
                                                         />
                                                     </div>
                                                     <div className="ancho-cantidad">
                                                         <InputText 
-                                                            id={`CantidadRequerido-${requisito.m_id_mine_yaci}s`}
+                                                            id={`CantidadRequesito_${requisito.m_id_mine_yaci}_`}
                                                             label="Cantidad"
                                                             type="number"
                                                             min="0"
                                                             name="y_capacidad_explotacion"
-                                                            value={this.state.requisitos.find( r => r.m_id_mine_yaci === requisito.m_id_mine_yaci ).m_cantidad}
-                                                            onChange={({target})=>this.handleChangeCantidadRequisito(requisito.m_id_mine_yaci, target)}
+                                                            value={
+                                                                requisito.m_cantidad
+                                                            }
+                                                            onChange={ event => 
+                                                                this.changeRequisito(event , requisito.m_id_mine_yaci)
+                                                            }
                                                         />
                                                     </div>
-                                                    <p className="separador"> de toneladas</p>
+                                                    <p className="separador"> toneladas</p>
                                                 </div>
                                             )
                                         )
                                     }
-                                    <div className="pegar-derecha">
-                                        <div className="ButtonAddUser" onClick={this.handleAgregarRequisito} >
-                                            Agregar Mineral Requerido
-                                        </div>
+                                    <div className="btnAgregarRequisito" onClick={this.agregarRequisito} >
+                                        Agregar Mineral Requerido
                                     </div>
                                     
                                 </div>
@@ -223,8 +316,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                             <div className="imagen-diamante">
                                 <img 
                                     src="resources/img/Yacimiento_2.png"
-                                    width="60%"
-                                    style={{margin : "0 auto"}} 
+                                    width="200px"
                                 />
                             </div>
                             
@@ -233,25 +325,42 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                     
                 </div>
                 <div>
-                    <h1 className = "subtitulo-centrado">Etapas</h1>
+                    <h1 className="subtitulo-centrado">Etapas</h1>
                     <div>
-                        {/**Aqui van todas las etapas */}
+                        {/* ETAPA CONFIGURACION */}
                         {
                             this.state.etapas.map(
-                                (requisito, index) => (
-                                    <EtapaConfiguracion/>
+                                (etapa, index) => (
+                                    <EtapaConfiguracion
+
+                                        /* INFO */
+                                        key={etapa.e_id_etapa_configuracion}
+                                        etapa_configuracion = {{
+                                            ...this.state.etapas.find(e => e.e_id_etapa_configuracion === etapa.e_id_etapa_configuracion ),
+                                            e_orden : index+1
+                                        }}
+
+                                        /* DROPDOWNs */
+                                        maquinas={maquinas}
+                                        cargos={cargos}
+
+                                        /* METODOS */
+                                        minerales={this.state.minerales}
+                                        changeInfo={this.changeInfoEtapa}
+                                        quitarEtapa={this.quitarEtapa}
+                                    />
                                 ))
                         }
                     </div>
                     <div>
-                        <div className="ButtonAddUser" onClick={this.handleAgregarEtapa} >
+                        <div className="btnAgregarEtapa" onClick={this.agregarEtapa} >
                             Agregar Etapa
                         </div>
                     </div>
                 </div>
                 <div>
                     <GuardarCancelar
-                        position="right"
+                        position="center"
                         storeData={this.handleGuardar}
                         success={this.goSolicitud}
                         decline={this.goSolicitud}
@@ -260,5 +369,5 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
 
              </div>
         </div>
-    )
+    )}
 }

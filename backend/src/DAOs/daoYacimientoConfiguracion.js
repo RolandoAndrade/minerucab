@@ -15,11 +15,13 @@ const daoYacimientoConfiguracion = {
     },
 
     insertar (y_nombre,y_capacidad_explotacion,mineral_id,unidad_id){
-        return psql.query(`
+        const qry = `
             INSERT INTO YACIMIENTO_CONFIGURACION 
-            (y_id_yacimiento_configuracion,y_nombre,y_capacidad_explotacion,mineral_id,unidad_id) VALUES 
+                (y_id_yacimiento_configuracion,y_nombre,y_capacidad_explotacion,mineral_id,unidad_id) VALUES 
             (DEFAULT,'${y_nombre}',${y_capacidad_explotacion},${mineral_id},${unidad_id}) RETURNING (y_id_yacimiento_configuracion);
-        `)
+        `
+        console.log(qry)
+        return psql.query(qry)
     },
 
     eliminar( id ){

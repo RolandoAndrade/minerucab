@@ -115,6 +115,24 @@ export class Pedido extends React.Component {
         })
     }
 
+    handleEntregar = () => {
+        console.log(`----> localhost:4000/editarEstado/pedido/${this.state.consultarPedido.p_id_pedido}`)
+        axios.post('http://127.0.0.1:4000/editarEstado/pedido',
+            {
+                "pedido_id" : parseInt(this.state.consultarPedido.p_id_pedido),
+                "estado_id" : 7
+
+            })
+            .then( (res) => {
+                if( res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/eliminar/pedido`)
+                    this.handleCloseModal()
+                    this.handleCloseEliminar()
+                    location.reload()
+                }
+            })
+    }
+
     render = () => (
         <div>
             <MenuDashBoard title={"Pedidos"}/>
@@ -258,7 +276,7 @@ export class Pedido extends React.Component {
                         </Button>
                         :""}
                         {this.state.consultarPedido.e_nombre=="pagado"?
-                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleModificar}>
+                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleEntregar}>
                             Entregar
                         </Button>
                         :""}

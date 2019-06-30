@@ -47,20 +47,6 @@ const daoPedido = {
             `)
     }  ,
 
-
-
-    modificar({ m_id_mineral, m_nombre, m_tipo, m_radioactivo, m_fecha_nacionalizacion, m_descripcion }){
-        return psql.query(`
-            UPDATE MINERAL SET
-                m_nombre = ${m_nombre ? `'${m_nombre}'` : 'NULL' },
-                m_tipo = ${m_tipo ? `'${m_tipo}'` : 'NULL'},
-                m_radioactivo = ${m_radioactivo ? 'TRUE' : 'FALSE'},
-                m_fecha_nacionalizacion = ${m_fecha_nacionalizacion ? `'${m_fecha_nacionalizacion}'` : 'NULL'},
-                m_descripcion = ${m_descripcion ? `'${m_descripcion}'` : 'NULL'}
-                WHERE m_id_mineral = ${m_id_mineral}
-        `)
-    },
-
 }
 
 export {daoPedido}

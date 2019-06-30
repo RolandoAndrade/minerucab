@@ -284,6 +284,7 @@ export class CrearVenta extends React.Component
                     decline={this.goSolicitud}
                 />
             </div>
+            {this.state.goSolicitud && <Redirect push to="../../pedido" />}
             {this.state.loading && <Loader/>}
         </div>
     )

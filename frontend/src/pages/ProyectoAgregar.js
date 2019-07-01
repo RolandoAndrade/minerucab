@@ -796,7 +796,7 @@ export class ProyectoAgregar extends React.Component {
                                     label="Nombre"
                                     name="f_nombre"
                                     value={faseModal.f_nombre}
-                                    onChange={this.changeInfoFase}
+                                    disabled
                                 />
                                 <InputText 
                                     id={`DuracionFase`}
@@ -805,14 +805,14 @@ export class ProyectoAgregar extends React.Component {
                                     label="Duracion en meses"
                                     name="f_duracion"
                                     value={faseModal.f_duracion}
-                                    onChange={this.changeInfoFase}
+                                    disabled
                                 />
                                 <InputText 
                                     id={`DescripcionFase`}
                                     label="Descripción"
                                     name="f_descripcion"
                                     value={faseModal.f_descripcion}
-                                    onChange={this.changeInfoFase}
+                                    disabled
                                 />
                                 <p className="subtitulo-centrado">Cargos</p>
                                 <div> {/* MAPING DE CARGOS */}
@@ -843,9 +843,7 @@ export class ProyectoAgregar extends React.Component {
                                                                     )
                                                                 )
                                                             }
-                                                            onChange={ (event) =>
-                                                                this.changeCargo(event, cargo.f_id_fase_cargo)
-                                                            }
+                                                            isDisabled
                                                         />
                                                     </div>
                                                     <div className="ancho-cantidad">
@@ -933,6 +931,7 @@ export class ProyectoAgregar extends React.Component {
                                     name={"f_orden"}
                                     value={faseModal.f_orden}
                                     style={{fontSize : "100px"}}
+                                    disabled
                                     onChange={this.changeInfoFase}
                                 />
                             </div>

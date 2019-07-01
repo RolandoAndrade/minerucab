@@ -162,10 +162,6 @@ export class ProyectoAgregar extends React.Component {
 
         Promise.all( promesas ).then(
             () => {
-               this.changeInfo({
-                    label : "PRUEBA",
-                    value : 4
-                })
             }
         )
     }
@@ -226,11 +222,7 @@ export class ProyectoAgregar extends React.Component {
                             }) 
                         })),
                         requisitos : res.data.yacimiento_configuracion.requisitos
-                    },
-                        
-                        () =>
-                            this.abrirFase(8,34)
-                    )
+                    })
                 } else {
                     console.log(`<---- (ERROR 500) localhost:4000/consultar/detalle_yacimiento_configuracion`)
                 }
@@ -497,18 +489,18 @@ export class ProyectoAgregar extends React.Component {
             })
 
         } else {
-            console.log(`faseModal.${opcion.target.name}[ ${idCargo} ].f_cantidad <-- ${opcion.target.value}`)
-            const nuevosEmpleados = this.state.faseModal.cargos.map( c => {
-                if (c.f_id_fase_cargo === idCargo){
-                    c[opcion.target.name] = opcion.target.value
+            console.log(`faseModal.empleado[ ${idEmpleado} ].${opcion.target.name} <-- ${opcion.target.value}`)
+            const nuevosEmpleados = this.state.faseModal.empleados.map( e => {
+                if (e.idEspecial === idEmpleado){
+                    e[opcion.target.name] = opcion.target.value
                 }
-                return c
+                return e
             })
             
             this.setState({
                 faseModal : {
                     ...this.state.faseModal,
-                    cargos : nuevosEmpleados
+                    empleados : nuevosEmpleados
                 }
             })
         }
@@ -889,6 +881,18 @@ export class ProyectoAgregar extends React.Component {
                                     value={faseModal.f_descripcion}
                                     disabled
                                 />
+                                <p style={{textAlign : "center"}}>Fecha de Inicio</p>
+                                <InputDate 
+                                    name="f_fecha_inicio"
+                                    value={faseModal.f_fecha_inicio}
+                                    onChange={this.changeInfoFase}
+                                />
+                                <p style={{textAlign : "center"}}>Fecha Fin</p>
+                                <InputDate 
+                                    name="f_fecha_fin"
+                                    value={faseModal.f_fecha_fin}
+                                    onChange={this.changeInfoFase}
+                                />
                                 <p className="subtitulo-centrado">Empleados</p>
                                 <div> {/* MAPING DE EMPLEADOS */}
                                     { this.state.faseModal.empleados &&
@@ -954,20 +958,20 @@ export class ProyectoAgregar extends React.Component {
                                                             }
                                                         />
                                                     </div>
-                                                    {/*
+                                                    
                                                     <div style={{width : "20%" }}>
                                                         <InputText 
                                                             id={`Sueldo_${i}_${empleado.idCargo}`}
-                                                            label="Cantidad"
+                                                            label="Sueldo"
                                                             type="number"
                                                             min="0"
                                                             name="f_sueldo"
-                                                            value={empleado.f_cantidad}
+                                                            value={empleado.f_sueldo}
                                                             onChange= { (event) =>
-                                                                this.changeCargo(event, cargo.f_id_fase_cargo)
+                                                                this.changeEmpleado(event, empleado.idEspecial)
                                                             }
                                                         />
-                                                        </div>*/}
+                                                        </div>
                                                 </div>
                                             )
                                         )

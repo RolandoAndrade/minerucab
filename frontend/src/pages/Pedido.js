@@ -103,9 +103,16 @@ export class Pedido extends React.Component {
             {
                 console.log(res.rows[0]);
                 let cant = res.rows[0].cantidad_actual;
-                if(cant>total)
+                if(cant>=total)
                 {
-                    //retira
+                    axios.post('http://127.0.0.1:4000/insertar/inventario',
+                    {
+                        pedido_id: this.state.consultarPedido.p_id_pedido,
+                        i_ingresado: false,
+                        i_cantidad: total,
+                        mineral_id: this.state.consultarPedido.productos[0].mineral,
+                        unidad_id: 7
+                    })
                 }
                 else
                 {

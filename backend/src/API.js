@@ -1562,8 +1562,8 @@ app.post('/insertar/inventario', (req, res) => {
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
   console.log("/insertar/inventario")
-
-  daoInventario.insertar(req.body.mineral_id)
+  req.body.i_fecha_modificacion=getAhora();
+  daoInventario.insertar(req.body)
       .then( ({rows}) => {
         res.status(200).json({"rows" : rows})
 

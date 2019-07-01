@@ -78,6 +78,15 @@ export class Facturita extends React.Component
                     {
                         ...res.data.rows[0]
                     })
+                    axios.post('http://127.0.0.1:4000/consultar/tipo',this.state).then((res) => {
+                        if( res.status === 200) {
+                            this.setState(
+                            {
+                                ...res.data.rows[0]
+                            })
+                        }
+                        console.log(this.state);
+                    })
                 }
                 console.log(this.state);
             })
@@ -125,7 +134,7 @@ export class Facturita extends React.Component
 
     render = () => (
         <div>
-            <MenuDashBoard title="Pagar"/>
+            <MenuDashBoard title="Factura"/>
             <div className="CrearElemento">
                 <div className="firstColumn">
                     <div className="mc-atributo">Número de orden: </div>
@@ -202,9 +211,56 @@ export class Facturita extends React.Component
                 <div className="Container-80p" style={{marginTop: "5%"}}>
                     <div className="LabelContainer">
                         Datos del pago
+                    </div>
+                    <div className="CrearElemento">
+                        <div className="firstColumn">
+                            <div className="mc-atributo">Banco: </div>
+                        </div>
+                        <div className="secondColumn">
+                            <div className="mc-atributo bitContainer grey">
+                            {this.state.credito_id?this.state.c_banco:""}
+                            {this.state.debito_id?this.state.d_banco:""}
+                            {this.state.cheque_id?this.state.c_banco:""}
+                            {this.state.transferencia_id?this.state.t_banco:""}
+                            </div>
+                        </div>
+                        <div className="firstColumn">
+                            {this.state.credito_id?<div className="mc-atributo">Número de tarjeta de crédito: </div>:""}
+                            {this.state.debito_id?<div className="mc-atributo">Número de tarjeta de débito: </div>:""}
+                            {this.state.cheque_id?<div className="mc-atributo">Número de cheque: </div>:""}
+                            {this.state.transferencia_id?<div className="mc-atributo">Número de transferencia: </div>:""}
+                            
+                        </div>
+                        <div className="secondColumn">
+                            <div className="mc-atributo bitContainer grey">
+                                {this.state.credito_id?this.state.c_numero_tarjeta:""}
+                                {this.state.debito_id?this.state.c_numero_tarjeta:""}
+                                {this.state.cheque_id?this.state.c_numero_cheque:""}
+                                {this.state.transferencia_id?this.state.c_numero_transferencia:""}
+                            </div>
+                        </div>
+                        {this.state.credito_id?<div className="firstColumn"><div className="mc-atributo">Tipo de tarjeta: </div></div>:""}
+                        {this.state.credito_id?<div className="secondColumn"><div className="mc-atributo bitContainer grey">{this.state.c_tipo}</div></div>:""}
+                        {this.state.credito_id?<div className="firstColumn"><div className="mc-atributo">Fecha de vencimiento: </div></div>:""}
+                        {this.state.credito_id?<div className="secondColumn"><div className="mc-atributo bitContainer grey">{this.state.c_fecha_vencimiento&&this.state.c_fecha_vencimiento.substring(0,10)}</div></div>:""}
+                        {this.state.transferencia_id?<div className="firstColumn"><div className="mc-atributo">Número de cuenta: </div></div>:""}
+                        {this.state.transferencia_id?<div className="secondColumn"><div className="mc-atributo bitContainer grey">{this.t_numero_cuenta}</div></div>:""}
+
+                        <div className="firstColumn">
+                            <div className="mc-atributo">Fecha de pago: </div>
+                        </div>
+                        <div className="secondColumn">
+                            <div className="mc-atributo bitContainer blue">{this.state.p_fecha_pago&&this.state.p_fecha_pago.substring(0,10)} </div>
+                        </div>
+
 
                     </div>
+
+
+
                 </div>
+
+
             {this.state.loading && <Loader/>}
         </div>
     )

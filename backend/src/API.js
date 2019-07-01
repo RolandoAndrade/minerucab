@@ -1461,6 +1461,22 @@ app.post('/consultar/pedi_tipo', (req, res) => {
       })
 });
 
+app.post('/consultar/tipo', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultar/tipo")
+  console.log(req.body)
+  if(req.body.credito_id)
+    daoPedido.consultarCredito(req.body.credito_id).then( ({rows}) => {res.status(200).json({"rows" : rows})}).catch( (bd_err)=> {console.error(`bd_err : ${JSON.stringify(bd_err)}`); res.status(500).json(bd_err)})
+  else if(req.body.debito_id)
+    daoPedido.consultarDebito(req.body.debito_id).then( ({rows}) => {res.status(200).json({"rows" : rows})}).catch( (bd_err)=> {console.error(`bd_err : ${JSON.stringify(bd_err)}`); res.status(500).json(bd_err)})
+  else if(req.body.cheque_id)
+    daoPedido.consultarCheque(req.body.cheque_id).then( ({rows}) => {res.status(200).json({"rows" : rows})}).catch( (bd_err)=> {console.error(`bd_err : ${JSON.stringify(bd_err)}`); res.status(500).json(bd_err)})
+  else if(req.body.transferencia_id)
+    daoPedido.consultarTransferencia(req.body.transferencia_id).then( ({rows}) => {res.status(200).json({"rows" : rows})}).catch( (bd_err)=> {console.error(`bd_err : ${JSON.stringify(bd_err)}`); res.status(500).json(bd_err)})
+});
+
 
 /* ****************************** PRODUCTO ****************************** */
 app.get('/consultarLista/producto', (req, res) => {

@@ -588,8 +588,8 @@ export class ConfiguracionYacimientoEditar extends React.Component {
 
         const conf = this.state.configuracion_yacimiento
 
-        console.log(`----> localhost:4000/insertar/yacimiento_configuracion`)
-        return axios.post('http://127.0.0.1:4000/insertar/yacimiento_configuracion',
+        console.log(`----> localhost:4000/modificar/yacimiento_configuracion`)
+        return axios.post('http://127.0.0.1:4000/modificar/yacimiento_configuracion',
             {
                 ...this.state.configuracion_yacimiento,
                 y_capacidad_explotacion : parseFloat( conf.y_capacidad_explotacion ),
@@ -598,7 +598,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
             })
             .then( (res) => {
                 if( res.status === 200) {
-                    console.log(`<---- (OK 200) localhost:4000/insertar/yacimiento_configuracion`)
+                    console.log(`<---- (OK 200) localhost:4000/modificar/yacimiento_configuracion`)
                 }
                 return res
             }).catch( err => err)
@@ -778,7 +778,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                     />
                 </div> 
 
-                {null && this.state.goConfiguracionYacimiento && <Redirect to="/yacimiento-configuracion" /> }
+                {this.state.goConfiguracionYacimiento && <Redirect to="/yacimiento-configuracion" /> }
                 
 
                 {!!this.state.faseModal && 

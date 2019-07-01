@@ -18,7 +18,7 @@ export class Facturita extends React.Component
     {
         super(props);
         this.state = {
-            
+            goBack:false
         }
 
     }
@@ -259,8 +259,12 @@ export class Facturita extends React.Component
 
 
                 </div>
-
-
+                <div className="GuardarCancelar">
+                    <div className="GC ButtonPrimary" onClick={()=>this.setState({goBack: true})}>
+                        Aceptar
+                    </div>
+                </div>
+            {this.state.goBack && <Redirect push to="../../pedido" /> }
             {this.state.loading && <Loader/>}
         </div>
     )

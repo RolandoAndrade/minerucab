@@ -8,6 +8,7 @@ import {MenuDashBoard} from "../components/MenuDashBoard";
 import {GuardarCancelar} from "../components/GuardarCancelar";
 import {cleanerCliente, cleanerLugar, cleanerMineral, cleanerProducto} from "../utils/cleaner";
 import {Loader} from "../components/Loader";
+import {InputDate} from "../components/InputDate";
 const IVA = 1.16;
 const UNIDAD_ID=7;
 
@@ -217,31 +218,130 @@ export class Pagos extends React.Component
                     </div>
             </div>
 
-            {this.state.tipo_pago==1?<div className="CrearElemento">
-                <div className="firstColumn">
-                    <div className="mc-atributo">Banco: </div>
-                </div>
-                <div className="secondColumn">
-                    <InputText 
-                            id="Banco" 
-                            label="Banco" 
-                            name="c_banco"
-                            onChange={this.handleChange}
-                        />
-                </div>
-                <div className="firstColumn">
-                    <div className="mc-atributo">Tipo: </div>
-                </div>
-                <div className="secondColumn">
-                    <div className="mc-atributo bitContainer yellow">{this.state.p_fecha_solicitud&&this.state.p_fecha_solicitud.substring(0,10)} </div>
-                </div>
-                <div className="firstColumn">
-                    <div className="mc-atributo">Número: </div>
-                </div>
-                <div className="secondColumn">
-                    <div className="mc-atributo bitContainer green">{this.state.c_nombre} </div>
-                </div>
-            </div>:""}
+            {this.state.tipo_pago==1?
+                <div className="RowContainer Container-80p"
+                                 style={
+                                     {
+                                         position: "relative"
+                                     }}>
+                        <div className="WideContainer">
+                            <InputText 
+                                id="Banco" 
+                                label="Banco" 
+                                name="c_banco"
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <div className="WideContainer">
+                            <Dropdown id={"TipoTarjeta"}
+                                              name={"c_tipo"}
+                                              retrieveData={this.handleChange}
+                                              placeholder="Tipo de tarjeta..."
+                                              options={[
+                                                  {text:"mastercard",id:"mastercard"},
+                                                  {text:"visa",id:"visa"},
+                                                  {text:"american express",id:"american express"}]}
+                                />
+                        </div>        
+                        <div className="WideContainer">
+                            <InputText 
+                                id="NumeroCredito" 
+                                label="Número" 
+                                name="c_numero_tarjeta"
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <div className="WideContainer">
+                            <InputDate
+                                id="VencimientoCredito"
+                                name={"c_fecha_vencimiento"}
+                                onChange={this.handleChange}
+                                styles={{width: "100%"}}
+                                style={{background: "white", color: "black"}}
+                            />
+                        
+                        </div>
+                </div>:""}
+                {this.state.tipo_pago==2?
+                <div className="RowContainer Container-80p"
+                                 style={
+                                     {
+                                         position: "relative"
+                                     }}>
+                        <div className="WideContainer">
+                            <InputText 
+                                id="Banco" 
+                                label="Banco" 
+                                name="d_banco"
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                 
+                        <div className="WideContainer">
+                            <InputText 
+                                id="NumeroDebito" 
+                                label="Número" 
+                                name="d_numero_tarjeta"
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                </div>:""}
+                {this.state.tipo_pago==3?
+                <div className="RowContainer Container-80p"
+                                 style={
+                                     {
+                                         position: "relative"
+                                     }}>
+                        <div className="WideContainer">
+                            <InputText 
+                                id="Banco" 
+                                label="Banco" 
+                                name="d_banco"
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                 
+                        <div className="WideContainer">
+                            <InputText 
+                                id="NumeroChequeCuenta" 
+                                label="Número de cuenta" 
+                                name="c_numero_cuenta"
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <div className="WideContainer">
+                            <InputText 
+                                id="NumeroChequeCheque" 
+                                label="Número de cheque" 
+                                name="c_numero_cheque"
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                </div>:""}
+                {this.state.tipo_pago==4?
+                <div className="RowContainer Container-80p"
+                                 style={
+                                     {
+                                         position: "relative"
+                                     }}>
+                        <div className="WideContainer">
+                            <InputText 
+                                id="BancoTrans" 
+                                label="Banco" 
+                                name="t_banco"
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                 
+                        <div className="WideContainer">
+                            <InputText 
+                                id="NumeroTrans" 
+                                label="Número de transferencia" 
+                                name="t_numero_transferencia"
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                </div>:""}
             <GuardarCancelar
                 position="center"
                 storeData={this.handleGuardar}

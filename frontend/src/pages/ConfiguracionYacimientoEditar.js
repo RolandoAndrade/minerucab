@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import {Button, Modal} from 'react-bootstrap';
+import {Redirect} from 'react-router-dom';
 
 import {Dropdown} from "../components/Dropdown";
 import {DropdownV2} from "../components/DropdownV2"
@@ -843,7 +844,9 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                                             }}
                                                             options={
                                                                 cleanerCargo.limpiarListaDropdown(
-                                                                    cargos
+                                                                    cargos.filter( c1 => 
+                                                                        !faseModal.cargos.find( c2 => c2.c_id_cargo === c1.c_id_cargo )
+                                                                    )
                                                                 )
                                                             }
                                                             onChange={ (event) =>

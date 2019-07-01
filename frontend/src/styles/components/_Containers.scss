@@ -63,3 +63,31 @@
   display: inline-block;
   text-align: left;
 }
+
+.bitContainer
+{
+  width: 100%;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.bitContainer.green
+{
+  background: $verde-ucab;
+}
+.bitContainer.yellow
+{
+  background: $amarillo-ucab;
+}
+
+.bitContainer.blue
+{
+  background: $azul-ucab;
+}
+
+.bitContainer.grey
+{
+  background: grey;
+  color: black;
+}

@@ -78,6 +78,19 @@ export class Pedido extends React.Component {
         })
     }
 
+    handlePagar= () => {
+        console.log(`pagar(${this.state.consultarPedido.p_id_pedido})`)
+        this.setState({
+            pagar : this.state.consultarPedido.p_id_pedido
+        })
+    }
+
+    handleFactura= () => {
+        this.setState({
+            factura : this.state.consultarPedido.p_id_pedido
+        })
+    }
+
     handleEliminar = () => {
         console.log(`eliminarYacimiento(${this.state.consultarPedido.p_id_pedido})`)
 
@@ -113,6 +126,24 @@ export class Pedido extends React.Component {
         this.setState({
             consultarPedido: null
         })
+    }
+
+    handleEntregar = () => {
+        console.log(`----> localhost:4000/editarEstado/pedido/${this.state.consultarPedido.p_id_pedido}`)
+        axios.post('http://127.0.0.1:4000/editarEstado/pedido',
+            {
+                "pedido_id" : parseInt(this.state.consultarPedido.p_id_pedido),
+                "estado_id" : 7
+
+            })
+            .then( (res) => {
+                if( res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/eliminar/pedido`)
+                    this.handleCloseModal()
+                    this.handleCloseEliminar()
+                    location.reload()
+                }
+            })
     }
 
     render = () => (
@@ -248,18 +279,23 @@ export class Pedido extends React.Component {
 
                     <Modal.Footer className="mc-footer">
                         {this.state.consultarPedido.e_nombre=="no pagado"?
-                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleModificar}>
+                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handlePagar}>
                             Pagar
                         </Button>
                         :""}
                         {this.state.consultarPedido.e_nombre=="iniciado"?
-                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleModificar}>
+                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handlePagar}>
                             Dar recursos
                         </Button>
                         :""}
                         {this.state.consultarPedido.e_nombre=="pagado"?
-                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleModificar}>
+                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleEntregar}>
                             Entregar
+                        </Button>
+                        :""}
+                        {this.state.consultarPedido.e_nombre=="entregado"?
+                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleFactura}>
+                            Ver factura
                         </Button>
                         :""}
                         <Button variant="danger" className="mc-boton" onClick={this.handleEliminar}>
@@ -301,8 +337,11 @@ export class Pedido extends React.Component {
                 </Modal>
                 }
 
-                {!!this.state.modificarYacimiento
-                && <Redirect push to={`/editar/pedido/${this.state.modificarYacimiento}`} />
+                {!!this.state.pagar
+                && <Redirect push to={`/pago/${this.state.pagar}`} />
+                }
+                {!!this.state.factura
+                && <Redirect push to={`/factura/${this.state.factura}`} />
                 }
                 {this.state.agregarPresionado && <Redirect push to="/crear/pedido" />}
             </div>

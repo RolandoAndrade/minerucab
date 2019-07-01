@@ -13,7 +13,7 @@ import {EtapaConfiguracion} from "../components/EtapaConfiguracion";
 
 import {cleanerMineral, cleanerCargo, cleanerMaquinaria} from "../utils/cleaner"
 
-export class ConfiguracionYacimientoAgregar extends React.Component {
+export class ConfiguracionYacimientoEditar extends React.Component {
     constructor(props){
       super(props)
       
@@ -59,46 +59,112 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
     }
 
     componentDidMount = () => {
+        const id = Number.parseInt(this.props.location.pathname.split("/")[3] , 10)
+
+        
+        
         console.log(`----> localhost:4000/consultarLista/mineral `)
         axios.get('http://127.0.0.1:4000/consultarLista/mineral')
+        .then( res => {
+            if(res.status === 200) {
+                console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral`)
+                this.setState({
+                    minerales : res.data.rows
+                })
+            } else {
+                console.log(`<---- (ERROR 500) localhost:4000/consultarLista/mineral`)
+            }
+        })
+        .then( () => {
+            console.log(`----> localhost:4000/consultarLista/cargo `)
+            axios.get('http://127.0.0.1:4000/consultarLista/cargo')
+                .then( res => {
+                    if(res.status === 200) {
+                        console.log(`<---- (OK 200) localhost:4000/consultarLista/cargo`)
+                        this.setState({
+                            cargos : res.data.rows
+                        })
+                    } else {
+                        console.log(`<---- (ERROR 500) localhost:4000/consultarLista/cargo`)
+                    }
+                })
+        })
+        .then( () => {
+            console.log(`----> localhost:4000/consultarLista/maquinaria `)
+            axios.get('http://127.0.0.1:4000/consultarLista/maquinaria')
+                .then( res => {
+                    if(res.status === 200) {
+                        console.log(`<---- (OK 200) localhost:4000/consultarLista/maquinaria`)
+                        this.setState({
+                            maquinarias : res.data.rows
+                        })
+                    } else {
+                        console.log(`<---- (ERROR 500) localhost:4000/consultarLista/maquinaria`)
+                    }
+                })
+        })
+        .then( () => {
+            console.log(`----> localhost:4000/consultar/detalle_yacimiento_configuracion/${id} `)
+            axios.post('http://127.0.0.1:4000/consultar/detalle_yacimiento_configuracion/',
+                { y_id_yacimiento_configuracion : id }                
+            )
             .then( res => {
                 if(res.status === 200) {
-                    console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral`)
+                    console.log(`<---- (OK 200) localhost:4000/consultar/detalle_yacimiento_configuracion/${id}`)
                     this.setState({
-                        minerales : res.data.rows
+                        configuracionBD : res.data.yacimiento_configuracion
                     })
+
+                    return res.data.yacimiento_configuracion
                 } else {
-                    console.log(`<---- (ERROR 500) localhost:4000/consultarLista/mineral`)
+                    console.log(`<---- (ERROR 500) localhost:4000/consultar/detalle_yacimiento_configuracion/${id}`)
                 }
             })
-            .then( () => {
-                console.log(`----> localhost:4000/consultarLista/cargo `)
-                axios.get('http://127.0.0.1:4000/consultarLista/cargo')
-                    .then( res => {
-                        if(res.status === 200) {
-                            console.log(`<---- (OK 200) localhost:4000/consultarLista/cargo`)
-                            this.setState({
-                                cargos : res.data.rows
+            .then( cBD => {
+                // VACIAR INFO DE LA BD EN LOS INPUTS
+
+                this.setState({
+                    // INFO DE CONF_YACIMIENTO 
+                    configuracion_yacimiento : {
+                        y_id_yacimiento_configuracion : cBD.y_id_yacimiento_configuracion,
+                        y_nombre : cBD.y_nombre,
+                        y_capacidad_explotacion : cBD.y_capacidad_explotacion,
+                        mineral_id : cBD.mineral_id,
+                        unidad_id : 7
+                    },
+                    requisitos : cBD.requisitos.map( requisito => {
+                        requisito["m_id_mineral"] = requisito.mineral_id
+                        return requisito
+                    } ),
+                    etapas : cBD.etapas.map( etapa => {
+                        etapa.e_orden = etapa.e_orden.toString() 
+                        etapa.e_tipo = etapa.e_tipo === "explotacion" ? 1 : 2
+                        etapa["ultimaFaseIndex"] = 500
+                        etapa.fases = etapa.fases.map( fase => {
+                            fase.f_orden = fase.f_orden.toString()
+                            fase.f_duracion = fase.f_duracion.toString()
+                            fase["ultimoCargoIndex"] = 500
+                            fase.cargos = fase.cargos.map( cargo => {
+                                cargo.f_cantidad = cargo.f_cantidad.toString()
+                                return cargo
                             })
-                        } else {
-                            console.log(`<---- (ERROR 500) localhost:4000/consultarLista/cargo`)
-                        }
-                    })
-            })
-            .then( () => {
-                console.log(`----> localhost:4000/consultarLista/maquinaria `)
-                axios.get('http://127.0.0.1:4000/consultarLista/maquinaria')
-                    .then( res => {
-                        if(res.status === 200) {
-                            console.log(`<---- (OK 200) localhost:4000/consultarLista/maquinaria`)
-                            this.setState({
-                                maquinarias : res.data.rows
+
+                            fase["ultimaMaquinariaIndex"] = 500
+                            fase.maquinarias = fase.maquinarias.map( maquinaria => {
+                                maquinaria.f_cantidad = maquinaria.f_cantidad.toString()
+                                return maquinaria
                             })
-                        } else {
-                            console.log(`<---- (ERROR 500) localhost:4000/consultarLista/maquinaria`)
-                        }
-                    })
+                            return fase
+                        })
+                        return etapa
+                    }), 
+                    // PARA DAR IDs UNICOS
+                    ultimoRequisitoIndex : 500,
+                    ultimaEtapaIndex : 500,
+                  })
+
             })
+        })
     }
 
 
@@ -558,7 +624,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                     id={`NombreConfiguracion`}
                                     label="Nombre de Configuración"
                                     name="y_nombre"
-                                    vale={configuracion_yacimiento.y_nombre}
+                                    value={configuracion_yacimiento.y_nombre}
                                     onChange={this.changeInfo}
                                 />
                                 <div className="horizontal pegar-derecha">
@@ -589,6 +655,7 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                             min="1" 
                                             label="Cantidad"
                                             name="y_capacidad_explotacion"
+                                            value={configuracion_yacimiento.y_capacidad_explotacion}
                                             onChange={this.changeInfo}
                                         />
                                     </div>
@@ -612,6 +679,10 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                                             onChange={ event => 
                                                                 this.changeRequisito(event , requisito.m_id_mine_yaci)
                                                             }
+                                                            value={{
+                                                                value : requisito.m_id_mineral,
+                                                                label: !!requisito.m_id_mineral ? minerales.find( r => r.m_id_mineral === requisito.m_id_mineral).m_nombre : "Mineral ..."
+                                                            }}
                                                             options={
                                                                 cleanerMineral.limpiarListaDropdown(
                                                                     minerales.filter( m => 

@@ -205,7 +205,11 @@ export class Aliado extends React.Component {
               <p>
                 <span className="mc-atributo">Lugar</span>
                 {/* !!! OJO !!! AGREGAR EL NOMBRE DE LUGAR CON QUERY */}
-                <span> : {this.state.consultarCompania.l_nombre}</span>
+                <span> : Estado {this.state.consultarCompania.estado}, municipio {this.state.consultarCompania.municipio}, parroquia {this.state.consultarCompania.parroquia}</span>
+              </p>
+              <p>
+                <span className="mc-atributo">Capacidad máxima anual</span>
+                <span> : {this.state.consultarCompania.c_capacidad_maxima_anual} toneladas</span>
               </p>
              
             </Modal.Body>

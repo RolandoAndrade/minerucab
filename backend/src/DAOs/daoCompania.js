@@ -3,9 +3,8 @@ import {psql} from '../postgreConnection'
 const daoCompania = {
     consultarTodos() {
         return psql.query(`
-            SELECT C.*, L.l_nombre 
-            FROM COMPANIA C, LUGAR L
-            WHERE C.lugar_id = L.l_id_lugar
+            SELECT C.*, P.l_nombre parroquia,M.l_nombre municipio,E.l_nombre estado FROM COMPANIA C, LUGAR P, LUGAR M, LUGAR E 
+            WHERE C.lugar_id= P.l_id_lugar and P.lugar_id=M.l_id_lugar and M.lugar_id = E.l_id_lugar
         `)
     },
 

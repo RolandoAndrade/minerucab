@@ -66,7 +66,7 @@ const cleanerCompania = {
                 "c_fecha_apertura" : c.c_fecha_apertura.split('T')[0],
                 "c_capacidad_maxima_anual" : c.c_capacidad_maxima_anual,
                 "lugar_id" : c.lugar_id,
-                "l_nombre" : c.l_nombre
+                "l_nombre" : c.parroquia
             }))
     }
 }

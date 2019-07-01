@@ -74,14 +74,29 @@ export class Pagos extends React.Component
 
     handleGuardar = () =>
     {
-        console.log(`----> localhost:4000/insertar/pedi_tipo`)
-        return axios.post('http://127.0.0.1:4000/insertar/pedi_tipo', this.state
+        console.log(`----> localhost:4000/insertar/tipo`)
+        return axios.post('http://127.0.0.1:4000/insertar/tipo', this.state
         )
         .then( (res) => {
             if( res.status === 200) {
-                console.log(`<---- (OK 200) localhost:4000/insertar/pedi_tipo`)
-            }
-            return res
+                console.log(`<---- (OK 200) localhost:4000/insertar/tipo`)
+                console.log(`----> localhost:4000/insertar/pedi_tipo`);
+                this.setState(
+                {
+                    ...res.data.rows[0]
+                })
+                console.log(this.state)
+                return axios.post('http://127.0.0.1:4000/insertar/pedi_tipo', this.state)
+                .then( (res) => {
+                    if( res.status === 200) {
+                        console.log(`<---- (OK 200) localhost:4000/insertar/pedi_tipo`)
+                    }
+                    return res
+                }).catch( (err) => {
+                    return err
+                })
+                    }
+                    return res
         }).catch( (err) => {
             return err
         })

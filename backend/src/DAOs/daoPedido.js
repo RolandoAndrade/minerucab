@@ -61,17 +61,17 @@ const daoPedido = {
             `)
     }  ,
 
-    pagar({p_total, p_fecha_pago,credito_id,debito_id,transferencia_id, cheque_id,pedido_id,unidad_id}){
+    pagar({total, p_fecha_pago,c_id_credito,d_id_debito,t_id_transferencia, c_id_cheque,p_id_pedido,unidad_id}){
         return psql.query(`
-            INSERT INTO PEDIDO (p_id_pedi_tipo,p_monto, p_fecha_pago,credito_id,debito_id,transferencia_id, cheque_id,pedido_id,unidad_id)
+            INSERT INTO PEDI_TIPO (p_id_pedi_tipo,p_monto, p_fecha_pago,credito_id,debito_id,transferencia_id, cheque_id,pedido_id,unidad_id)
             VALUES (DEFAULT,
-                    ${p_total ? `'${p_total}'` : 'NULL'},
+                    ${total ? `'${total}'` : 'NULL'},
                     ${p_fecha_pago ? `'${p_fecha_pago}'` : 'NULL'},
-                    ${credito_id ? `'${credito_id}'` : 'NULL'},
-                    ${debito_id ? `'${debito_id}'` : 'NULL'},
-                    ${transferencia_id ? `'${transferencia_id}'` : 'NULL'},
-                    ${cheque_id ? `'${cheque_id}'` : 'NULL'},
-                    ${pedido_id ? `'${pedido_id}'` : 'NULL'},
+                    ${c_id_credito ? `'${c_id_credito}'` : 'NULL'},
+                    ${d_id_debito ? `'${d_id_debito}'` : 'NULL'},
+                    ${t_id_transferencia ? `'${t_id_transferencia}'` : 'NULL'},
+                    ${c_id_cheque ? `'${c_id_cheque}'` : 'NULL'},
+                    ${p_id_pedido ? `'${p_id_pedido}'` : 'NULL'},
                     ${unidad_id ? `'${unidad_id}'` : 'NULL'}) 
                     RETURNING (p_id_pedi_tipo)
             `)
@@ -113,7 +113,7 @@ const daoPedido = {
             VALUES (DEFAULT,
                     ${t_banco ? `'${t_banco}'` : 'NULL'},
                     ${t_numero_transferencia ? `'${t_numero_transferencia}'` : 'NULL'}) 
-                    RETURNING (p_id_pedido)
+                    RETURNING (t_id_transferencia)
             `)
     }  ,
 

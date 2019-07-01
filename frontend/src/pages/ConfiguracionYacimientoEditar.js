@@ -158,6 +158,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                         })
                         return etapa
                     }), 
+                    no_modificable : cBD.no_modificable,
                     // PARA DAR IDs UNICOS
                     ultimoRequisitoIndex : 500,
                     ultimaEtapaIndex : 500,
@@ -607,7 +608,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
     render = () => {
         // PARA NO ESCRIBIR THIS.STATE MUCHAS VECES
         const {
-            configuracion_yacimiento , requisitos, etapas, fases, minerales, maquinarias, cargos, faseModal
+            configuracion_yacimiento , requisitos, etapas, fases, minerales, maquinarias, cargos, faseModal, no_modificable
         } = this.state
     
     
@@ -626,6 +627,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                     label="Nombre de Configuración"
                                     name="y_nombre"
                                     value={configuracion_yacimiento.y_nombre}
+                                    disabled={no_modificable}
                                     onChange={this.changeInfo}
                                 />
                                 <div className="horizontal pegar-derecha">
@@ -634,6 +636,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                     <div className="ancho-mineral">
                                         <DropdownV2
                                                 name="mineral_id"
+                                                isDisabled={no_modificable}
                                                 onChange={this.changeInfo}
                                                 placeholder="Mineral..."
                                                 value={{
@@ -657,6 +660,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                             label="Cantidad"
                                             name="y_capacidad_explotacion"
                                             value={configuracion_yacimiento.y_capacidad_explotacion}
+                                            disabled={no_modificable}
                                             onChange={this.changeInfo}
                                         />
                                     </div>
@@ -671,12 +675,13 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                                     <div className="ancho-cantidad">
                                                         <i 
                                                             className="zmdi zmdi-close-circle-o LabelIcon pegar-derecha"
-                                                            onClick={() => this.quitarRequisito(requisito.m_id_mine_yaci)}>
+                                                            onClick={() => { if (!no_modificable) this.quitarRequisito(requisito.m_id_mine_yaci)}}>
                                                         </i>
                                                     </div>
                                                     <div className="ancho-mineral">
                                                         <DropdownV2
                                                             placeholder="Mineral ..."
+                                                            isDisabled={no_modificable}
                                                             onChange={ event => 
                                                                 this.changeRequisito(event , requisito.m_id_mine_yaci)
                                                             }
@@ -704,6 +709,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                                             value={
                                                                 requisito.m_cantidad
                                                             }
+                                                            disabled={no_modificable}
                                                             onChange={ event => 
                                                                 this.changeRequisito(event , requisito.m_id_mine_yaci)
                                                             }
@@ -714,7 +720,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                             )
                                         )
                                     }
-                                    <div className="btnAgregarRequisito" onClick={this.agregarRequisito} >
+                                    <div className="btnAgregarRequisito" onClick={() => { if (!no_modificable) this.agregarRequisito}} >
                                         Agregar Mineral Requerido
                                     </div>
                                     
@@ -759,12 +765,13 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                         quitarFase={this.quitarFase}
 
                                         abrirFase={this.abrirFase}
+                                        no_modificable={no_modificable}
                                     />
                                 ))
                         }
                     </div>
                     <div>
-                        <div className="btnAgregarEtapa" onClick={this.agregarEtapa} >
+                        <div className="btnAgregarEtapa" onClick={()=> { if (!no_modificable)this.agregarEtapa}} >
                             Agregar Etapa
                         </div>
                     </div>
@@ -803,6 +810,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                     label="Nombre"
                                     name="f_nombre"
                                     value={faseModal.f_nombre}
+                                    disabled={no_modificable}
                                     onChange={this.changeInfoFase}
                                 />
                                 <InputText 
@@ -812,6 +820,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                     label="Duracion en meses"
                                     name="f_duracion"
                                     value={faseModal.f_duracion}
+                                    disabled={no_modificable}
                                     onChange={this.changeInfoFase}
                                 />
                                 <InputText 
@@ -819,6 +828,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                     label="Descripción"
                                     name="f_descripcion"
                                     value={faseModal.f_descripcion}
+                                    disabled={no_modificable}
                                     onChange={this.changeInfoFase}
                                 />
                                 <p className="subtitulo-centrado">Cargos</p>
@@ -830,9 +840,9 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                                     <div>
                                                         <i 
                                                             className="zmdi zmdi-close-circle-o LabelIcon pegar-derecha"
-                                                            onClick={() => this.quitarCargo(
+                                                            onClick={() => { if (!no_modificable) this.quitarCargo(
                                                                 cargo.f_id_fase_cargo
-                                                            )}
+                                                            )}}
                                                         >
                                                         </i>
                                                     </div>
@@ -850,6 +860,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                                                     )
                                                                 )
                                                             }
+                                                            isDisabled={no_modificable}
                                                             onChange={ (event) =>
                                                                 this.changeCargo(event, cargo.f_id_fase_cargo)
                                                             }
@@ -863,6 +874,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                                             min="0"
                                                             name="f_cantidad"
                                                             value={cargo.f_cantidad}
+                                                            disabled={no_modificable}
                                                             onChange= { (event) =>
                                                                 this.changeCargo(event, cargo.f_id_fase_cargo)
                                                             }
@@ -872,7 +884,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                             )
                                         )
                                     }
-                                    <div className="btnAgregarRequisito" onClick={this.agregarCargo} >
+                                    <div className="btnAgregarRequisito" onClick={ () => { if (!no_modificable) this.agregarCargo() }} >
                                         Agregar cargo
                                     </div>
                                     
@@ -886,9 +898,9 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                                     <div>
                                                         <i 
                                                             className="zmdi zmdi-close-circle-o LabelIcon pegar-derecha"
-                                                            onClick={() => this.quitarMaquinaria(
+                                                            onClick={() => { if (!no_modificable) this.quitarMaquinaria(
                                                                 maquinaria.f_id_fase_maqu
-                                                            )}
+                                                            )}}
                                                         >
                                                         </i>
                                                     </div>
@@ -906,6 +918,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                                                     )
                                                                 )
                                                             }
+                                                            isDisabled={no_modificable}
                                                             onChange={ (event) =>
                                                                 this.changeMaquinaria(event, maquinaria.f_id_fase_maqu)
                                                             }
@@ -919,6 +932,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                                             min="0"
                                                             name="f_cantidad"
                                                             value={maquinaria.f_cantidad}
+                                                            disabled={no_modificable}
                                                             onChange= { (event) =>
                                                                 this.changeMaquinaria(event, maquinaria.f_id_fase_maqu)
                                                             }
@@ -928,7 +942,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                             )
                                         )
                                     }
-                                    <div className="btnAgregarRequisito" onClick={this.agregarMaquinaria} >
+                                    <div className="btnAgregarRequisito" onClick={() => { if (!no_modificable)this.agregarMaquinaria}} >
                                         Agregar maquinaria
                                     </div>
                                     
@@ -940,6 +954,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                     name={"f_orden"}
                                     value={faseModal.f_orden}
                                     style={{fontSize : "100px"}}
+                                    disabled={no_modificable}
                                     onChange={this.changeInfoFase}
                                 />
                             </div>
@@ -949,10 +964,10 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                     
                     <Modal.Footer className="mc-footer">
                     <Button variant="primary" className="mc-boton mc-boton-guardar" 
-                        onClick={() => this.guardarFase(
+                        onClick={() => { if (!no_modificable) this.guardarFase(
                             faseModal.etapa_configuracion_id,
                             faseModal.f_id_fase_configuracion
-                        )}
+                        )}}
                     >
                         Modificar
                     </Button>

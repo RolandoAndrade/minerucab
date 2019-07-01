@@ -7,7 +7,7 @@ export class EtapaConfiguracion extends React.Component {
 
     render = () => {
         let {
-            etapa_configuracion, maquinarias, cargos, tipos, quitarEtapa, changeInfo, agregarFase, quitarFase, abrirFase
+            etapa_configuracion, maquinarias, cargos, tipos, quitarEtapa, changeInfo, agregarFase, quitarFase, abrirFase, no_modificable
         } = this.props
 
         let id = etapa_configuracion.e_id_etapa_configuracion
@@ -22,6 +22,7 @@ export class EtapaConfiguracion extends React.Component {
                                 label="Nombre"
                                 name="e_nombre"
                                 value={etapa_configuracion.e_nombre}
+                                disabled={no_modificable}
                                 onChange={(event) => changeInfo(event, id)}
                             />
                         </div>
@@ -38,6 +39,7 @@ export class EtapaConfiguracion extends React.Component {
                                 { label: 'Explotación', value: 1 },
                                 { label: 'Refinación', value: 2 }
                             ]}
+                            isDisabled={no_modificable}
                             onChange={(event) => changeInfo(event, id)}
                             
                         />
@@ -50,7 +52,7 @@ export class EtapaConfiguracion extends React.Component {
                                             <div key={fase.f_id_fase_configuracion} className="faseHorizontal">
 
                                                 <i  className="zmdi zmdi-close-circle-o LabelIcon" 
-                                                    onClick={ () => quitarFase(id, fase.f_id_fase_configuracion) } 
+                                                    onClick={ () => { if (!no_modificable) quitarFase(id, fase.f_id_fase_configuracion) } } 
                                                 />
                                                 <div style={{width : "100%"}}>
                                                     <input
@@ -63,20 +65,21 @@ export class EtapaConfiguracion extends React.Component {
                                         ))
                                 }
                             </div>
-                            <div className="btnAgregarFase" onClick={() => agregarFase(id)} >
+                            <div className="btnAgregarFase" onClick={() => { if (!no_modificable) agregarFase(id)}} >
                                 Agregar Fase
                             </div>
                         </div>
                     </div>
                     <div className="etapa-conf-der">
                         <i className="zmdi zmdi-close-circle-o LabelIcon pegar-derecha"
-                            onClick={() => quitarEtapa(id)}>
+                            onClick={() => { if (!no_modificable) quitarEtapa(id)}}>
                         </i>
                         <div className="numero">
                             <input
                                 className="inputOrden"
                                 name={"e_orden"}
                                 value={etapa_configuracion.e_orden}
+                                disabled={no_modificable}
                                 onChange={(event) => changeInfo(event, id)}
                             />
                         </div>

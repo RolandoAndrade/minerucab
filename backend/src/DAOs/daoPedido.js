@@ -61,6 +61,22 @@ const daoPedido = {
             `)
     }  ,
 
+    pagar({p_total, p_fecha_pago,credito_id,debito_id,transferencia_id, cheque_id,pedido_id,unidad_id}){
+        return psql.query(`
+            INSERT INTO PEDIDO (p_id_pedi_tipo,p_monto, p_fecha_pago,credito_id,debito_id,transferencia_id, cheque_id,pedido_id,unidad_id)
+            VALUES (DEFAULT,
+                    ${p_total ? `'${p_total}'` : 'NULL'},
+                    ${p_fecha_pago ? `'${p_fecha_pago}'` : 'NULL'},
+                    ${credito_id ? `'${credito_id}'` : 'NULL'},
+                    ${debito_id ? `'${debito_id}'` : 'NULL'},
+                    ${transferencia_id ? `'${transferencia_id}'` : 'NULL'},
+                    ${cheque_id ? `'${cheque_id}'` : 'NULL'},
+                    ${pedido_id ? `'${pedido_id}'` : 'NULL'},
+                    ${unidad_id ? `'${unidad_id}'` : 'NULL'}) 
+                    RETURNING (p_id_pedi_tipo)
+            `)
+    }  ,
+
 }
 
 export {daoPedido}

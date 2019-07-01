@@ -10,7 +10,7 @@ import {cleanerCliente, cleanerLugar, cleanerMineral, cleanerProducto} from "../
 import {Loader} from "../components/Loader";
 import {InputDate} from "../components/InputDate";
 const IVA = 1.16;
-const UNIDAD_ID=7;
+const UNIDAD_ID=11;
 
 export class Pagos extends React.Component
 {
@@ -62,7 +62,8 @@ export class Pagos extends React.Component
 
                     this.setState(
                     {
-                        ...ax[id]
+                        ...ax[id],
+                        unidad_id: UNIDAD_ID
                     })
                 }
                 console.log(this.state);
@@ -73,8 +74,17 @@ export class Pagos extends React.Component
 
     handleGuardar = () =>
     {
-
-        
+        console.log(`----> localhost:4000/insertar/pedi_tipo`)
+        return axios.post('http://127.0.0.1:4000/insertar/pedi_tipo', this.state
+        )
+        .then( (res) => {
+            if( res.status === 200) {
+                console.log(`<---- (OK 200) localhost:4000/insertar/pedi_tipo`)
+            }
+            return res
+        }).catch( (err) => {
+            return err
+        })
 
     };
 

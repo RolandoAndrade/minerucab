@@ -1595,6 +1595,24 @@ app.post('/insertar/inventario', (req, res) => {
       })
 });
 
+app.get('/consultarMovimiento/inventario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarMovimiento/inventario")
+
+  daoInventario.todosLosMovimientos()
+      .then( ({rows}) => {
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
 /* ****************************** HORARIO ****************************** */
 app.get('/consultarLista/horario', (req, res) => {
 

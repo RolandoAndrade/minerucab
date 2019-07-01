@@ -21,6 +21,13 @@ const daoInventario = {
             WHERE i_id_inventario = ${id}
         `)
     },
+    todosLosMovimientos( ){
+        return psql.query(`
+            SELECT I.*, M.m_nombre 
+            FROM INVENTARIO I, MINERAL M 
+            WHERE M.m_id_mineral=I.mineral_id
+        `)
+    },
 
     cantidadMineralGuardado( id )
     {

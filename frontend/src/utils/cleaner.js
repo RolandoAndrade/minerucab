@@ -71,6 +71,22 @@ const cleanerCompania = {
     }
 }
 
+const cleanerInventario = {
+    limpiarLista ( inv ) {
+        if (inv === undefined || inv.length == 0)
+            return []
+        else
+            return inv.map ((c) => ({
+                "i_id_inventario" : c.i_id_inventario.toString(10).padStart(4, '0'),
+                "i_accion" : c.i_ingresado ? "Ingresado" : "Extraído",
+                "i_cantidad" : c.i_cantidad,
+                "m_nombre" : c.m_nombre,
+                "i_fecha_modificacion" : c.i_fecha_modificacion.split('T')[0]
+            }))
+    }
+}
+
+
 const cleanerEmpleado = {
     limpiarLista( empleadosDB ) {
         if (empleadosDB === undefined || empleadosDB.length == 0)
@@ -267,5 +283,6 @@ export {
     cleanerMaquinaria,
     cleanerCompania,
     cleanerPedido,
-    cleanerHorario
+    cleanerHorario,
+    cleanerInventario
 }

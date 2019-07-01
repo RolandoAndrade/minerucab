@@ -117,6 +117,40 @@ const daoPedido = {
             `)
     }  ,
 
+    consultarPago(id)
+    {
+        return psql.query(`
+            SELECT * FROM PEDI_TIPO WHERE pedido_id=${(id)}
+            `)
+    },
+
+    consultarCredito(id)
+    {
+        return psql.query(`
+            SELECT * FROM CREDITO WHERE c_id_credito=${(id)}
+            `)
+    },
+
+    consultarDebito(id)
+    {
+        return psql.query(`
+            SELECT * FROM DEBITO WHERE d_id_debito=${(id)}
+            `)
+    },
+    consultarCheque(id)
+    {
+        return psql.query(`
+            SELECT * FROM CHEQUE WHERE c_id_cheque=${(id)}
+            `)
+    },
+
+    consultarTransferencia(id)
+    {
+        return psql.query(`
+            SELECT * FROM TRANSFERENCIA WHERE t_id_transferencia=${(id)}
+            `)
+    },
+
 }
 
 export {daoPedido}

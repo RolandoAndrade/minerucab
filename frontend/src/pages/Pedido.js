@@ -85,6 +85,12 @@ export class Pedido extends React.Component {
         })
     }
 
+    handleFactura= () => {
+        this.setState({
+            factura : this.state.consultarPedido.p_id_pedido
+        })
+    }
+
     handleEliminar = () => {
         console.log(`eliminarYacimiento(${this.state.consultarPedido.p_id_pedido})`)
 
@@ -287,6 +293,11 @@ export class Pedido extends React.Component {
                             Entregar
                         </Button>
                         :""}
+                        {this.state.consultarPedido.e_nombre=="entregado"?
+                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleFactura}>
+                            Ver factura
+                        </Button>
+                        :""}
                         <Button variant="danger" className="mc-boton" onClick={this.handleEliminar}>
                             Eliminar
                         </Button>
@@ -328,6 +339,9 @@ export class Pedido extends React.Component {
 
                 {!!this.state.pagar
                 && <Redirect push to={`/pago/${this.state.pagar}`} />
+                }
+                {!!this.state.factura
+                && <Redirect push to={`/factura/${this.state.factura}`} />
                 }
                 {this.state.agregarPresionado && <Redirect push to="/crear/pedido" />}
             </div>

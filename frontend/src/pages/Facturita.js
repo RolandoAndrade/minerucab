@@ -12,7 +12,7 @@ import {Loader} from "../components/Loader";
 const IVA = 1.16;
 const UNIDAD_ID=7;
 
-export class Pagos extends React.Component
+export class Facturita extends React.Component
 {
     constructor(props)
     {
@@ -41,7 +41,8 @@ export class Pagos extends React.Component
                         if(ax[q[i].p_id_pedido])
                         {
                             ax[q[i].p_id_pedido].productos.push({cantidad: q[i].p_cantidad, nombre: q[i].p_nombre, precio: (Math.floor(q[i].p_precio_unitario*100)/100).toFixed(2)})
-                            ax[q[i].p_id_pedido].total=(Math.floor((parseFloat(ax[q[i].p_id_pedido].total)+parseFloat(q[i].total))*100)/100).toFixed(2);
+                            ax[q[i].p_id_pedido].subtotal=(Math.floor((parseFloat(ax[q[i].p_id_pedido].subtotal)+parseFloat(q[i].p_precio_unitario*q[i].p_cantidad))*100)/100).toFixed(2);
+                            ax[q[i].p_id_pedido].total+=parseFloat(q[i].p_precio_unitario*q[i].p_cantidad)*IVA;
                         }
                         else
                         {
@@ -50,7 +51,8 @@ export class Pagos extends React.Component
                                 c_nombre: q[i].c_nombre, 
                                 p_fecha_solicitud: q[i].p_fecha_solicitud, 
                                 e_nombre: q[i].e_nombre, 
-                                total: (Math.floor(q[i].total*100)/100).toFixed(2),
+                                subtotal: (Math.floor(q[i].p_precio_unitario*q[i].p_cantidad*100)/100).toFixed(2),
+                                total: (Math.floor(q[i].p_precio_unitario*q[i].p_cantidad*100)/100).toFixed(2)*IVA,
                                 productos:[{
                                     cantidad: q[i].p_cantidad, 
                                     nombre: q[i].p_nombre, 
@@ -60,12 +62,25 @@ export class Pagos extends React.Component
 
                     this.setState(
                     {
-                        ...ax[id]
+                        ...ax[id],
+                        unidad_id: UNIDAD_ID
                     })
                 }
                 console.log(this.state);
             })
 
+            axios.post('http://127.0.0.1:4000/consultar/pedi_tipo',
+            {
+                "p_id_pedido" : id,
+            }).then((res) => {
+                if( res.status === 200) {
+                    this.setState(
+                    {
+                        ...res.data.rows[0]
+                    })
+                }
+                console.log(this.state);
+            })
         
     }
 
@@ -182,6 +197,12 @@ export class Pagos extends React.Component
                         <div className="Amount">
                             Total: {this.state.total} Bs.S (16% IVA)
                         </div>
+                    </div>
+                </div>
+                <div className="Container-80p" style={{marginTop: "5%"}}>
+                    <div className="LabelContainer">
+                        Datos del pago
+
                     </div>
                 </div>
             {this.state.loading && <Loader/>}

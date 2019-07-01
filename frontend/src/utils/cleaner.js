@@ -94,6 +94,18 @@ const cleanerEmpleado = {
                 "lugar" : e.lugar, 
                 "estado" : e.estado
             }))
+    },
+
+    limpiarListaDropdown( empleadosDB ) {
+        if (empleadosDB === undefined || empleadosDB.length == 0)
+            return []
+        else 
+            return empleadosDB.map( e => ({
+                "id" : e.e_id_empleado,
+                "text": `${e.e_nombre} ${e.e_apellido}`,
+                "value" : e.e_id_empleado,
+                "label" : `${e.e_nombre} ${e.e_apellido}`
+            }))
     }
 }
 

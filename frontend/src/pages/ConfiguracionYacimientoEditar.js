@@ -728,8 +728,8 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                             </div>
                             <div className="imagen-diamante">
                                 <img 
-                                    src="resources/img/Yacimiento_2.png"
-                                    width="200px"
+                                    src="resources/img/Proyecto_4.png"
+                                    width="400px"
                                 />
                             </div>
                             

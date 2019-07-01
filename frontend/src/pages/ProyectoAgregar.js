@@ -7,11 +7,12 @@ import {Redirect} from 'react-router-dom';
 import {Dropdown} from "../components/Dropdown";
 import {DropdownV2} from "../components/DropdownV2"
 import {InputText} from "../components/InputText";
+import {InputDate} from "../components/InputDate";
 import {GuardarCancelar} from "../components/GuardarCancelar";
 import {MenuDashBoard} from "../components/MenuDashBoard";
 import {Etapa} from "../components/Etapa";
 
-import {cleanerMineral, cleanerCargo, cleanerMaquinaria, cleanerYacimiento} from "../utils/cleaner"
+import {cleanerMineral, cleanerCargo, cleanerMaquinaria, cleanerYacimiento, cleanerEmpleado} from "../utils/cleaner"
 
 export class ProyectoAgregar extends React.Component {
     constructor(props){
@@ -59,7 +60,9 @@ export class ProyectoAgregar extends React.Component {
         minerales : [],
         empleados : [],
         equipos : [],
-        yacimientos : []
+        yacimientos : [],
+        horarios : [],
+        pedidos : []
       }
     }
 
@@ -131,8 +134,39 @@ export class ProyectoAgregar extends React.Component {
                 }
             })
 
+        console.log(`----> localhost:4000/consultarLista/horario `)
+        promesas[5] = axios.get('http://127.0.0.1:4000/consultarLista/horario')
+            .then( res => {
+                if(res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/horario`)
+                    this.setState({
+                        horarios : res.data.rows
+                    })
+                } else {
+                    console.log(`<---- (ERROR 500) localhost:4000/consultarLista/horario`)
+                }
+            })
+
+        console.log(`----> localhost:4000/consultarLista/pedido `)
+        promesas[6] = axios.get('http://127.0.0.1:4000/consultarLista/pedido')
+            .then( res => {
+                if(res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/pedido`)
+                    this.setState({
+                        pedidos : res.data.rows
+                    })
+                } else {
+                    console.log(`<---- (ERROR 500) localhost:4000/consultarLista/pedido`)
+                }
+            })
+
         Promise.all( promesas ).then(
-            () => console.log("TODO LISTO BEBE")
+            () => {
+               /* this.changeInfo({
+                    label : "PRUEBA",
+                    value : 4
+                })*/
+            }
         )
     }
 
@@ -152,9 +186,45 @@ export class ProyectoAgregar extends React.Component {
                         configuracion_yacimiento : {
                             ...res.data.yacimiento_configuracion
                         },
-                        etapas : res.data.yacimiento_configuracion.etapas,
+                        etapas : res.data.yacimiento_configuracion.etapas.map( etapa => ({
+                            ...etapa,
+                            fases : etapa.fases.map( fase => {
+                                
+                                let empleadosNuevo = []
+                                fase.cargos.map( cargo => {
+                                    let i = 0;
+                               
+                                    while( i < cargo.f_cantidad ){
+                                        i = i +1
+                                        empleadosNuevo = [
+                                            ...empleadosNuevo,
+                                            {
+                                                e_id_empleado : 0,
+                                                horario_id : 0,
+                                                f_salario : 0,
+                                                f_viatico : 0,
+                                                e_nombre : 0,
+                                                c_id_cargo : cargo.c_id_cargo,
+                                                cargo_id : cargo.c_id_cargo
+                                            }
+                                        ]
+                                    }
+                                    return empleadosNuevo
+                                    
+                                })
+
+                                return ({
+                                    ...fase,
+                                    empleados : empleadosNuevo
+                                })
+                            }) 
+                        })),
                         requisitos : res.data.yacimiento_configuracion.requisitos
-                    })
+                    } /*,
+                        
+                        () =>
+                            this.abrirFase(8,34)*/
+                    )
                 } else {
                     console.log(`<---- (ERROR 500) localhost:4000/consultar/detalle_yacimiento_configuracion`)
                 }
@@ -621,6 +691,14 @@ export class ProyectoAgregar extends React.Component {
                                     vale={configuracion_yacimiento.p_nombre}
                                     onChange={this.changeInfo}
                                 />
+                                <div>
+                                    <p style={{textAlign : "center"}}>Fecha de Inicio</p>
+                                    <InputDate 
+                                        name="p_fecha_inicio"
+                                        value={configuracion_yacimiento.p_fecha_inicio}
+                                        onChange={this.changeInfo}
+                                    />
+                                </div>
                                 <DropdownV2
                                     name="yacimiento_id"
                                     onChange={this.changeInfo}
@@ -720,7 +798,7 @@ export class ProyectoAgregar extends React.Component {
                             </div>
                             <div className="imagen-diamante">
                                 <img 
-                                    src="resources/img/Proyecto_4.png"
+                                    src="resources/img/Proyecto_1.png"
                                     width="400px"
                                 />
                             </div>
@@ -790,7 +868,7 @@ export class ProyectoAgregar extends React.Component {
 
                     <Modal.Body> 
                         <div className="faseModal">
-                            <div className="fase-conf-izq">
+                            <div className="fase-fase-izq">
                                 <InputText 
                                     id={`NombreFase`}
                                     label="Nombre"
@@ -814,51 +892,73 @@ export class ProyectoAgregar extends React.Component {
                                     value={faseModal.f_descripcion}
                                     disabled
                                 />
-                                <p className="subtitulo-centrado">Cargos</p>
-                                <div> {/* MAPING DE CARGOS */}
-                                    { this.state.cargos &&
-                                        faseModal.cargos.map(
-                                            (cargo) => (
-                                                <div key={cargo.f_id_fase_cargo} className="cargoHorizontal">
-                                                    <div>
+                                <p className="subtitulo-centrado">Empleados</p>
+                                <div> {/* MAPING DE EMPLEADOS */}
+                                    { this.state.empleados &&
+                                        faseModal.empleados.map(
+                                            (empleado, i) => (
+                                                <div key={i} className="cargoHorizontal">
+                                                    {/*<div>
+                                                        
                                                         <i 
                                                             className="zmdi zmdi-close-circle-o LabelIcon pegar-derecha"
                                                             onClick={() => this.quitarCargo(
                                                                 cargo.f_id_fase_cargo
                                                             )}
                                                         >
-                                                        </i>
-                                                    </div>
-                                                    <div style={{width : "30%" }}>
+                                                            </i> 
+                                                        
+                                                    </div>*/}
+                                                    <div style={{width : "20%" }}>
                                                         <DropdownV2
                                                             placeholder="Cargo ..."
                                                             value={{
-                                                                value: cargo.c_id_cargo,
-                                                                label: !!cargo.c_id_cargo ? this.state.cargos.find( c => c.c_id_cargo === cargo.c_id_cargo).c_nombre : "Cargo ..."
+                                                                value: empleado.c_id_cargo,
+                                                                label: !!empleado.c_id_cargo ? this.state.cargos.find( c => c.c_id_cargo === empleado.c_id_cargo).c_nombre : "Cargo ..."
                                                             }}
                                                             options={
                                                                 cleanerCargo.limpiarListaDropdown(
-                                                                    cargos.filter( c1 => 
-                                                                        !faseModal.cargos.find( c2 => c2.c_id_cargo === c1.c_id_cargo )
-                                                                    )
+                                                                    cargos
                                                                 )
                                                             }
                                                             isDisabled
                                                         />
                                                     </div>
-                                                    <div className="ancho-cantidad">
+                                                    <div style={{width : "20%" }}>
+                                                        <DropdownV2
+                                                            placeholder="Empleado ..."
+                                                            value={{
+                                                                value: empleado.e_id_empleado,
+                                                                label: !!empleado.e_id_empleado ? 
+                                                                    `${this.state.empleados
+                                                                        .filter( e => e.estado_id === 11 && e.cargo_id === empleado.cargo_id)
+                                                                        .find( e => e.e_id_empleado === empleado.e_id_empleado).e_nombre} 
+                                                                    ${this.state.empleados
+                                                                        .filter( e => e.estado_id === 11 && e.cargo_id === empleado.cargo_id)
+                                                                        .find( e => e.e_id_empleado === empleado.e_id_empleado).e_apellido}` 
+                                                                    : "Empleado ..."
+                                                            }}
+                                                            options={
+                                                                cleanerEmpleado.limpiarListaDropdown(
+                                                                    empleados.filter( e => e.estado_id === 11 && e.cargo_id === empleado.cargo_id)
+                                                                )
+                                                            }
+                                                        />
+                                                    </div>
+                                                    {/*
+                                                    <div style={{width : "20%" }}>
                                                         <InputText 
-                                                            id={`CantidadRequesito_${cargo.f_id_fase_cargo}_`}
+                                                            id={`Sueldo_${i}_${empleado.idCargo}`}
                                                             label="Cantidad"
                                                             type="number"
                                                             min="0"
-                                                            name="f_cantidad"
-                                                            value={cargo.f_cantidad}
+                                                            name="f_sueldo"
+                                                            value={empleado.f_cantidad}
                                                             onChange= { (event) =>
                                                                 this.changeCargo(event, cargo.f_id_fase_cargo)
                                                             }
                                                         />
-                                                    </div>
+                                                        </div>*/}
                                                 </div>
                                             )
                                         )
@@ -925,7 +1025,7 @@ export class ProyectoAgregar extends React.Component {
                                     
                                 </div>
                             </div>
-                            <div className="fase-conf-der">
+                            <div className="fase-fase-der">
                                 <input
                                     className="inputOrdenFase"
                                     name={"f_orden"}

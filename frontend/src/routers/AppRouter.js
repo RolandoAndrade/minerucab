@@ -14,6 +14,7 @@ import {MainPanel} from "../pages/MainPanel";
 
 
 import {ConfiguracionYacimientoAgregar} from '../pages/ConfiguracionYacimientoAgregar';
+import {ConfiguracionYacimientoEditar} from '../pages/ConfiguracionYacimientoEditar';
 
 import {Cliente} from '../pages/Cliente';
 import {Aliado} from '../pages/Aliado';
@@ -21,6 +22,7 @@ import {Mineral} from '../pages/Mineral';
 import {Empleado} from "../pages/Empleado";
 import {Yacimiento} from "../pages/Yacimiento";
 import {Proyecto} from "../pages/Proyecto";
+import {ConfiguracionYacimiento} from "../pages/ConfiguracionYacimiento";
 import {ClienteAgregar} from '../pages/ClienteAgregar';
 import {EmpleadoAgregar} from "../pages/EmpleadoAgregar";
 import {MineralAgregar} from '../pages/MineralAgregar';
@@ -55,6 +57,7 @@ const AppRouter = () => (
         <PublicRoute path="/empleado" component={Empleado} />
         <PublicRoute path="/yacimiento" component={Yacimiento} />
         <PublicRoute path="/proyecto" component={Proyecto} />
+        <PublicRoute path="/yacimiento-configuracion" component={ConfiguracionYacimiento} />
         <PublicRoute path="/crear/cliente" component={ClienteAgregar} />
         <PublicRoute path="/crear/empleado" component={EmpleadoAgregar} />
         <PublicRoute path="/crear/mineral" component={MineralAgregar} />
@@ -64,6 +67,7 @@ const AppRouter = () => (
         <PublicRoute path="/editar/mineral/:id" component={MineralEditar} />
         <PublicRoute path="/editar/empleado/:id" component={EmpleadoEditar} />
         <PublicRoute path="/editar/yacimiento/:id" component={YacimientoEditar} />
+        <PublicRoute path="/editar/yacimiento-configuracion/:id" component={ConfiguracionYacimientoEditar} />
         <PublicRoute path="/crear/pedido" component={CrearVenta} />
         <PublicRoute path="/aliado" component={Aliado} />
         <PublicRoute path="/pedido" component={Pedido} />

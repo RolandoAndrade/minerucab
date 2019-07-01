@@ -73,8 +73,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/src/API.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23550">
-              <caret line="1598" column="8" selection-start-line="1598" selection-start-column="8" selection-end-line="1598" selection-end-column="8" />
+            <state relative-caret-position="23970">
+              <caret line="1617" column="8" selection-start-line="1617" selection-start-column="8" selection-end-line="1617" selection-end-column="8" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -85,7 +85,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/pages/CrearVenta.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1290">
+            <state relative-caret-position="1305">
               <caret line="96" column="6" selection-start-line="96" selection-start-column="6" selection-end-line="96" selection-end-column="6" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
@@ -233,7 +233,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -303,6 +302,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -378,6 +378,7 @@
       <workItem from="1561928804244" duration="64000" />
       <workItem from="1561954157678" duration="68000" />
       <workItem from="1561962316440" duration="195000" />
+      <workItem from="1561970201449" duration="77000" />
     </task>
     <task id="LOCAL-00001" summary="Algunos cambios para probar mineral">
       <created>1561391607209</created>
@@ -684,7 +685,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65889000" />
+    <option name="totallyTimeSpent" value="65966000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -698,7 +699,7 @@
   <component name="ToolWindowManager">
     <frame x="-2" y="-2" width="1444" height="872" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28540772" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28898427" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -1109,8 +1110,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/src/API.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23550">
-          <caret line="1598" column="8" selection-start-line="1598" selection-start-column="8" selection-end-line="1598" selection-end-column="8" />
+        <state relative-caret-position="23970">
+          <caret line="1617" column="8" selection-start-line="1617" selection-start-column="8" selection-end-line="1617" selection-end-column="8" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -1119,7 +1120,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/pages/CrearVenta.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1290">
+        <state relative-caret-position="1305">
           <caret line="96" column="6" selection-start-line="96" selection-start-column="6" selection-end-line="96" selection-end-column="6" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />

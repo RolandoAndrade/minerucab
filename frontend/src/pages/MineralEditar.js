@@ -201,24 +201,31 @@ export class MineralEditar extends React.Component {
         <div>
             { this.state.nuevo_mineral &&
             <div className="CrearElemento">
-                <form>
-                    <p>
-                        <span className="mc-atributo">ID</span><span> : </span>
-                        <span>{this.state.nuevo_mineral.m_id_mineral.toString(10).padStart(4, '0')}</span>
-                    </p>
-                    <p>
-                        <InputText 
+                <div className="firstColumn">
+                    <div className="mc-atributo">ID: </div>
+                </div>
+                <div className="secondColumn">
+                    {this.state.nuevo_mineral.m_id_mineral.toString(10).padStart(4, '0')}
+                </div>
+                <div className="firstColumn">
+                    <div className="mc-atributo">Nombre: </div>
+                </div>
+                <div className="secondColumn">
+                    <InputText 
                             name="m_nombre"
                             id="CrearMineralNombre" 
                             label="Nombre"
                             onChange={this.handleChange}
                             value={this.state.nuevo_mineral.m_nombre}
                         />
-                    </p>
-                    <p>
-                        <span className="mc-atributo">¿Metal?</span><span> : </span>
+                </div>
+                <div className={"firstColumn"}>
+                    <div className="mc-atributo">¿Metal?: </div>
+                </div>
+                <div className="secondColumn">
+                    <form action="">
                         <label className="form-switch">
-                            <input 
+                            <input
                                 type="checkbox"
                                 name="m_tipo"
                                 onChange={this.handleBool}
@@ -226,9 +233,13 @@ export class MineralEditar extends React.Component {
                             />
                             <i></i>
                         </label>
-                    </p>
-                    <p>
-                        <span className="mc-atributo">¿Radioactivo?</span><span> : </span>
+                    </form>
+                </div>
+                <div className="firstColumn">
+                    <div className="mc-atributo">¿Radioactivo?: </div>
+                </div>
+                <div className="secondColumn">
+                    <form action="">
                         <label className="form-switch">
                             <input 
                                 type="checkbox"
@@ -238,55 +249,64 @@ export class MineralEditar extends React.Component {
                             />
                             <i></i>
                         </label>
-                    </p>
-                    <p>
-                        <span className="mc-atributo">Nacionalizado</span><span> : </span>
-                        <InputDate
-                            name="m_fecha_nacionalizacion"
-                            id="CrearMineralFecha" 
-                            label="Fecha Nacionalización"
-                            onChange={this.handleChange}
-                            value={this.state.nuevo_mineral.m_fecha_nacionalizacion}
-                        />
-                    </p>
-                    <p>
-                        <InputText
-                            name="m_descripcion"
-                            id="CrearMineralDescripcion" 
-                            label="Descripción"
-                            onChange={this.handleChange}
-                            value={this.state.nuevo_mineral.m_descripcion}
-                        />
-                    </p>
-                    <div className="compuesto-de">
-                            <span className="mc-atributo">Compuesto de</span><span> : </span>
-                            {this.state.compuestos.map( (compuesto, i) => (
-                                <div className="compuesto" key={i}>
-                                    <span>{compuesto.m_nombre}</span>
-                                    <img 
-                                        src="../resources/icons/Eliminar.png"
-                                        width="20px"
-                                        onClick={() => this.handleDescomponer(compuesto.m_id_mineral)}
-                                        className="IconoEliminar"
-                                    />
-                                </div>
-                            ))}
-                            <img 
-                                src="../resources/icons/Agregar.png"
-                                width="25px"
-                                onClick={this.handleOpenModal}
-                                className="IconoAgregar"
+                    </form>
+                </div>
+                <div className="firstColumn">
+                    <div className="mc-atributo">Nacionalizado:</div>
+                </div>
+                <div className="secondColumn">
+                    <InputDate
+                        id="m_fecha_nacionalizacion"
+                        name={"m_fecha_nacionalizacion"}
+                        onChange={this.handleChange}
+                        styles={{width: "100%"}}
+                        style={{background: "white", color: "black"}}
+                        value={this.state.nuevo_mineral.m_fecha_nacionalizacion}
+                    />
+                </div>
+                <div className="firstColumn">
+                    <div className="mc-atributo">Descripción:</div>
+                </div>
+                <div className="secondColumn">
+                    <textarea
+                        name="m_descripcion"
+                        placeholder="Descripción"
+                        onChange={this.handleChange}
+                        value={this.state.nuevo_mineral.m_descripcion}
+                    />
+                </div>
+                <div className="firstColumn">
+                    <span className="mc-atributo">Compuesto de</span><span> : </span>
+                    <img
+                        src="../resources/icons/Agregar.png"
+                        width="25px"
+                        onClick={this.handleOpenModal}
+                        className="IconoAgregar"
+                    />
+                </div>
+                <div>
+                    {this.state.compuestos.map( (compuesto, i) => (
+                        <div className="compuesto" key={i}>
+                            <span>{compuesto.m_nombre}</span>
+                            <img
+                                src="../resources/icons/Eliminar.png"
+                                width="20px"
+                                onClick={() => this.handleDescomponer(compuesto.m_id_mineral)}
+                                className="IconoEliminar"
                             />
-                    </div>
-                    <GuardarCancelar 
+                        </div>
+                    ))}
+                </div>
+                    
+                    
+    
+            </div> }
+            <GuardarCancelar 
                         position="center"
                         storeData={this.handleGuardar}
                         success={this.goMineral}
                         decline={this.goMineral}
                     />
-                </form>
-            </div> }
-
             {this.state.goMineral && <Redirect push to="/mineral" /> }
 
             {this.state.compuestos &&

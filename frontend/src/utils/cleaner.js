@@ -135,7 +135,20 @@ const cleanerYacimiento = {
                 ...y,
                 "y_id_yacimiento" : y.y_id_yacimiento.toString(10).padStart(4, '0')
             }))
-    }
+    },
+
+    limpiarListaDropdown(  yacimientosDB ) {
+        if ( yacimientosDB === undefined ||  yacimientosDB.length == 0)
+            return []
+        else
+            return  yacimientosDB.map( y => ({
+                ...y,
+                "text" : y.y_nombre,
+                "label" : y.y_nombre,
+                "id" : y.y_id_yacimiento ,
+                "value" : y.y_id_yacimiento
+            }))
+        }
 }
 
 const cleanerPedido = {

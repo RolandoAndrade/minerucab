@@ -164,6 +164,15 @@ const cleanerConfiguracion = {
                 "text" : cy.y_nombre,
                 "id" : cy.y_id_yacimiento_configuracion
             }))
+    },
+    limpiarLista(  configuracioneDB ) {
+        if ( configuracioneDB === undefined ||  configuracioneDB.length == 0)
+            return []
+        else 
+            return  configuracioneDB.map( cy => ({
+                ...cy,
+                "y_id_yacimiento_configuracion" : cy.y_id_yacimiento_configuracion.toString(10).padStart(4, '0')
+            }))
     }
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import {Button, Modal} from 'react-bootstrap';
+import {Redirect} from 'react-router-dom';
 
 import {Dropdown} from "../components/Dropdown";
 import {DropdownV2} from "../components/DropdownV2"

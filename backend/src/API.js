@@ -1336,7 +1336,7 @@ app.post(`/consultar/detalle_proyecto`,(req,res) => {
           proyecto["etapas"][i]["fases"].map((f,j) => {
             daoFase.consultarEmpleados(f.f_id_fase)
             .then((resp_bd) => {
-              proyecto["etapas"][i]["fases"][j]["empleados"] = resp_bd.rows
+              proyecto["etapas"][i]["fases"][j]["empleados"] = resp_bd.rows ? resp_bd.rows : []
               daoFase.consultarEquipos(f.f_id_fase)
               .then((resp_bd) => {
                 proyecto["etapas"][i]["fases"][j]["equipos"] = resp_bd.rows ? resp_bd.rows : []

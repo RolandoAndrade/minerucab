@@ -44,7 +44,7 @@ export class Pedido extends React.Component {
                             p_fecha_solicitud: q[i].p_fecha_solicitud, 
                             e_nombre: q[i].e_nombre, 
                             total: (Math.floor(q[i].total*100)/100).toFixed(2),
-                            productos:[{cantidad: q[i].p_cantidad, nombre: q[i].p_nombre, precio: (Math.floor(q[i].total*100)/100).toFixed(2)}]}
+                            productos:[{mineral: q[i].mineral_id, cantidad: q[i].p_cantidad, nombre: q[i].p_nombre, precio: (Math.floor(q[i].total*100)/100).toFixed(2)}]}
                     }
                 }
                 this.setState({
@@ -83,6 +83,44 @@ export class Pedido extends React.Component {
         this.setState({
             pagar : this.state.consultarPedido.p_id_pedido
         })
+    }
+
+    handleAsignar = () =>
+    {
+        axios.get('http://127.0.0.1:4000/consultarLista/inventario').then((res)=>{
+            console.log(res);
+        })
+        let total=0;
+        for(let i=0;i<this.state.consultarPedido.productos.length;i++)
+        {
+            total+=this.state.consultarPedido.productos[i].cantidad;
+        }
+        axios.post('http://127.0.0.1:4000/consultarCantidad/inventario',
+        {
+            mineral_id: this.state.consultarPedido.productos[0].mineral
+        }).then((res)=>{
+            try
+            {
+                console.log(res.rows[0]);
+                let cant = res.rows[0].cantidad_actual;
+                if(cant>total)
+                {
+                    //retira
+                }
+                else
+                {
+                    //redirecciona
+                }
+
+            }
+            catch
+            {
+
+            }
+            
+        })
+        
+
     }
 
     handleFactura= () => {
@@ -284,7 +322,7 @@ export class Pedido extends React.Component {
                         </Button>
                         :""}
                         {this.state.consultarPedido.e_nombre=="iniciado"?
-                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handlePagar}>
+                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleAsignar}>
                             Dar recursos
                         </Button>
                         :""}

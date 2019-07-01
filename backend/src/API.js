@@ -487,8 +487,8 @@ app.post('/eliminar/cliente', (req, res) => {
   
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
-  console.log(`/eliminar/cliente/${req.body.e_id_empleado}`)
-  daoCliente.eliminar(req.body.e_id_empleado)
+  console.log(`/eliminar/cliente/${req.body.c_id_cliente}`)
+  daoCliente.eliminar(req.body.c_id_cliente)
     .then( (bd_response) => {
       console.log(`STATUS OK : 200`)      
       

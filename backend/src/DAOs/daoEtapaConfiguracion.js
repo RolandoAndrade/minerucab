@@ -21,7 +21,6 @@ const daoEtapaConfiguracion = {
             INSERT INTO ETAPA_CONFIGURACION (e_id_etapa_configuracion,e_nombre,e_orden,e_tipo,yacimiento_configuracion_id) VALUES 
             (DEFAULt,${e_nombre ? `'${e_nombre}'` : 'null'},${e_orden},${e_tipo ? `'${e_tipo}'` : 'null'},${yacimiento_configuracion_id}) RETURNING e_id_etapa_configuracion;
         `
-        console.log(qry)
         return psql.query(qry)
     },
 }

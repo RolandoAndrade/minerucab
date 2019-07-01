@@ -901,7 +901,9 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                                             }}
                                                             options={
                                                                 cleanerMaquinaria.limpiarListaDropdown(
-                                                                    maquinarias
+                                                                    maquinarias.filter( c1 => 
+                                                                        !faseModal.maquinarias.find( c2 => c2.m_id_maquinaria === c1.m_id_maquinaria )
+                                                                    )
                                                                 )
                                                             }
                                                             onChange={ (event) =>

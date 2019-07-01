@@ -18,7 +18,7 @@ const daoYacimientoConfiguracion = {
         const qry = `
             INSERT INTO YACIMIENTO_CONFIGURACION 
                 (y_id_yacimiento_configuracion,y_nombre,y_capacidad_explotacion,mineral_id,unidad_id) VALUES 
-            (DEFAULT,'${y_nombre}',${y_capacidad_explotacion},${mineral_id},${unidad_id}) RETURNING (y_id_yacimiento_configuracion);
+            (DEFAULT,${y_nombre ? `'${y_nombre}'` : 'null'},${y_capacidad_explotacion},${mineral_id},${unidad_id}) RETURNING (y_id_yacimiento_configuracion);
         `
         console.log(qry)
         return psql.query(qry)
@@ -58,7 +58,7 @@ const daoYacimientoConfiguracion = {
     modificar (y_id_yacimiento_configuracion,y_nombre,y_capacidad_explotacion,mineral_id,unidad_id) {
         return psql.query(`
             UPDATE YACIMIENTO_CONFIGURACION
-            SET y_nombre = '${y_nombre}',
+            SET y_nombre = ${y_nombre ? `'${y_nombre}'` : 'null'},
                 y_capacidad_explotacion = ${y_capacidad_explotacion},
                 mineral_id = ${mineral_id},
                 unidad_id = ${unidad_id}

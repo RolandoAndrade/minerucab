@@ -2,6 +2,8 @@ import React from 'react';
 
 import {DropdownV2} from "./DropdownV2"
 import {InputText} from "./InputText";
+import {InputDate} from "./InputDate";
+
 
 export class Etapa extends React.Component {
 
@@ -42,6 +44,12 @@ export class Etapa extends React.Component {
                             isDisabled
                             onChange={(event) => changeInfo(event, id)}
                             
+                        />
+                        <p style={{textAlign : "center"}}>Fecha de Inicio</p>
+                        <InputDate 
+                            name="e_fecha_inicio"
+                            value={etapa_configuracion.e_fecha_inicio}
+                            onChange={(event) => changeInfo(event, id)}
                         />
                         <div>
                             <p className="subtitulo-centrado">Fases de la Etapa</p>

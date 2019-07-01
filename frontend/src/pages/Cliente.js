@@ -31,8 +31,9 @@ export class Cliente extends React.Component {
         this.setState({
             clientes : res.data.rows
         })
-
+          console.log(this.state)
       })
+
   }
 
   handleAgregar = () => {
@@ -208,7 +209,7 @@ export class Cliente extends React.Component {
               <p>
                 <span className="mc-atributo">Lugar</span>
                 {/* !!! OJO !!! AGREGAR EL NOMBRE DE LUGAR CON QUERY */}
-                <span> : {this.state.consultarCliente.lugar_id}</span>
+                <span> : Estado {this.state.consultarCliente.estado}, municipio {this.state.consultarCliente.municipio}, parroquia {this.state.consultarCliente.parroquia}</span>
               </p>
              
             </Modal.Body>

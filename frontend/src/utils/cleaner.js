@@ -36,7 +36,7 @@ const cleanerCliente = {
                 "c_nombre" : c.c_nombre,
                 "c_rif" : c.c_rif || "No posee" ,
                 "c_telefono" : c.c_telefono || "No posee",
-                "lugar_id" : c.lugar_id,
+                "lugar_id" : c.parroquia,
                 "lugar" : c.lugar
             }))
     },

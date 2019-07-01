@@ -162,10 +162,10 @@ export class ProyectoAgregar extends React.Component {
 
         Promise.all( promesas ).then(
             () => {
-               /* this.changeInfo({
+               this.changeInfo({
                     label : "PRUEBA",
                     value : 4
-                })*/
+                })
             }
         )
     }
@@ -181,24 +181,29 @@ export class ProyectoAgregar extends React.Component {
             .then( res => {
                 if(res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/consultar/detalle_yacimiento_configuracion`)
+                    console.log(`configuracion_yacimiento.yacimiento_id <-- ${target.value} (${target.label})`)
                     
                     this.setState({
                         configuracion_yacimiento : {
-                            ...res.data.yacimiento_configuracion
+                            ...res.data.yacimiento_configuracion,
+                            yacimiento_id : target.value
                         },
                         etapas : res.data.yacimiento_configuracion.etapas.map( etapa => ({
                             ...etapa,
                             fases : etapa.fases.map( fase => {
                                 
                                 let empleadosNuevo = []
+                                let id = 0
                                 fase.cargos.map( cargo => {
                                     let i = 0;
-                               
+                                    
                                     while( i < cargo.f_cantidad ){
+                                        id = id +1
                                         i = i +1
                                         empleadosNuevo = [
                                             ...empleadosNuevo,
                                             {
+                                                idEspecial:  id,
                                                 e_id_empleado : 0,
                                                 horario_id : 0,
                                                 f_salario : 0,
@@ -215,32 +220,24 @@ export class ProyectoAgregar extends React.Component {
 
                                 return ({
                                     ...fase,
+                                    lastEmpleadoIndex : id,
                                     empleados : empleadosNuevo
                                 })
                             }) 
                         })),
                         requisitos : res.data.yacimiento_configuracion.requisitos
-                    } /*,
+                    },
                         
                         () =>
-                            this.abrirFase(8,34)*/
+                            this.abrirFase(8,34)
                     )
                 } else {
                     console.log(`<---- (ERROR 500) localhost:4000/consultar/detalle_yacimiento_configuracion`)
                 }
             })
-            .then( () => {
-                console.log(`configuracion_yacimiento.yacimiento_id <-- ${target.value} (${target.label})`)
-                this.setState({
-                    configuracion_yacimiento : {
-                        ...this.state.configuracion_yacimiento,
-                        yacimiento_id : target.value
-                    }
-                })
-            })
+            
             
         } else {
-            target=target.target||target;
             console.log(`configuracion_yacimiento.${target.name} = ${target.value}`)
             this.setState({
                 configuracion_yacimiento :{
@@ -482,26 +479,26 @@ export class ProyectoAgregar extends React.Component {
     }
 
     /* MANEJAR CARGOS DENTRO DEL MODAL DE FASE DE UNA ETAPA */
-    changeCargo = (opcion , idCargo) => {
+    changeEmpleado = (opcion , idEmpleado) => {
         if (opcion.label) {
-            console.log(`faseModal.cargo[ ${idCargo} ].c_id_cargo <-- ${opcion.value} (${opcion.label})`)
-            const nuevosCargos = this.state.faseModal.cargos.map( c => {
-                    if (c.f_id_fase_cargo === idCargo){
-                        c.c_id_cargo = opcion.value
+            console.log(`faseModal.empleado[ ${idEmpleado} ].e_id_empleado <-- ${opcion.value} (${opcion.label})`)
+            const nuevosEmpleados = this.state.faseModal.empleados.map( e => {
+                    if (e.idEspecial === idEmpleado){
+                        e.e_id_empleado = opcion.value
                     }
-                    return c
+                    return e
                 })
 
             this.setState({
                 faseModal : {
                     ...this.state.faseModal,
-                    cargos : nuevosCargos
+                    empleados : nuevosEmpleados
                 }
             })
 
         } else {
             console.log(`faseModal.${opcion.target.name}[ ${idCargo} ].f_cantidad <-- ${opcion.target.value}`)
-            const nuevosCargos = this.state.faseModal.cargos.map( c => {
+            const nuevosEmpleados = this.state.faseModal.cargos.map( c => {
                 if (c.f_id_fase_cargo === idCargo){
                     c[opcion.target.name] = opcion.target.value
                 }
@@ -511,7 +508,7 @@ export class ProyectoAgregar extends React.Component {
             this.setState({
                 faseModal : {
                     ...this.state.faseModal,
-                    cargos : nuevosCargos
+                    cargos : nuevosEmpleados
                 }
             })
         }
@@ -709,7 +706,7 @@ export class ProyectoAgregar extends React.Component {
                                     }}
                                     options={
                                         cleanerYacimiento.limpiarListaDropdown(
-                                            yacimientos.filter( y => !y.ocupado )
+                                            yacimientos.filter( y => y.ocupado !== 0 )
                                         )
                                     }
                                 />
@@ -927,6 +924,9 @@ export class ProyectoAgregar extends React.Component {
                                                     <div style={{width : "20%" }}>
                                                         <DropdownV2
                                                             placeholder="Empleado ..."
+                                                            onChange={ (event) =>
+                                                                this.changeEmpleado(event, empleado.idEspecial)
+                                                            }
                                                             value={{
                                                                 value: empleado.e_id_empleado,
                                                                 label: !!empleado.e_id_empleado ? 
@@ -940,7 +940,11 @@ export class ProyectoAgregar extends React.Component {
                                                             }}
                                                             options={
                                                                 cleanerEmpleado.limpiarListaDropdown(
-                                                                    empleados.filter( e => e.estado_id === 11 && e.cargo_id === empleado.cargo_id)
+                                                                    empleados.filter( e => 
+                                                                        e.estado_id === 11 && 
+                                                                        e.cargo_id === empleado.cargo_id &&
+                                                                        !faseModal.empleados.find( e1 => e1.e_id_empleado === e.e_id_empleado)
+                                                                    )
                                                                 )
                                                             }
                                                         />
@@ -963,9 +967,10 @@ export class ProyectoAgregar extends React.Component {
                                             )
                                         )
                                     }
+                                    {null &
                                     <div className="btnAgregarRequisito" onClick={this.agregarCargo} >
                                         Agregar cargo
-                                    </div>
+                                    </div>}
                                     
                                 </div>
                                 <p className="subtitulo-centrado">Maquinarias</p>

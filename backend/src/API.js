@@ -1383,6 +1383,121 @@ app.post('/eliminar/pedido', (req, res) => {
 });
 
 
+app.post('/editarEstado/pedido', (req, res) => {
+
+  console.log("\n\n");
+  console.log(`----------------------> ${getAhora()}`);
+  console.log(`/editarEstado/pedido/`);
+  req.body.p_fecha_modificacion=getAhora();
+  console.log(req.body);
+  daoPediEsta.insertar(req.body).then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
+
+app.post('/consultar/pedido', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultar/pedido")
+
+  daoPedido.consultar(req.body.p_id_pedido)
+      .then( ({rows}) => {
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/insertar/tipo', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/insertar/tipo")
+  switch(req.body.tipo_pago)
+  {
+    case 1: 
+      daoPedido.insertarCredito(req.body).then( ({rows}) => {res.status(200).json({"rows" : rows})}).catch( (bd_err)=> {console.error(`bd_err : ${JSON.stringify(bd_err)}`);res.status(500).json(bd_err)}); 
+      break;
+    case 2: 
+      daoPedido.insertarDebito(req.body).then( ({rows}) => {res.status(200).json({"rows" : rows})}).catch( (bd_err)=> {console.error(`bd_err : ${JSON.stringify(bd_err)}`);res.status(500).json(bd_err)}); 
+      break;
+    case 3: 
+      daoPedido.insertarCheque(req.body).then( ({rows}) => {res.status(200).json({"rows" : rows})}).catch( (bd_err)=> {console.error(`bd_err : ${JSON.stringify(bd_err)}`);res.status(500).json(bd_err)}); 
+      break;
+    case 4: 
+      daoPedido.insertarTransferencia(req.body).then( ({rows}) => {res.status(200).json({"rows" : rows})}).catch( (bd_err)=> {console.error(`bd_err : ${JSON.stringify(bd_err)}`);res.status(500).json(bd_err)}); 
+      break;
+  }
+  
+});
+
+
+app.post('/insertar/pedi_tipo', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/insertar/pedi_tipo")
+  req.body.p_fecha_pago=getAhora();
+  daoPedido.pagar(req.body)
+      .then( ({rows}) => {
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/consultar/pedi_tipo', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultar/pedi_tipo")
+  daoPedido.consultarPago(req.body.p_id_pedido)
+      .then( ({rows}) => {
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/consultar/tipo', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultar/tipo")
+  console.log(req.body)
+  if(req.body.credito_id)
+    daoPedido.consultarCredito(req.body.credito_id).then( ({rows}) => {res.status(200).json({"rows" : rows})}).catch( (bd_err)=> {console.error(`bd_err : ${JSON.stringify(bd_err)}`); res.status(500).json(bd_err)})
+  else if(req.body.debito_id)
+    daoPedido.consultarDebito(req.body.debito_id).then( ({rows}) => {res.status(200).json({"rows" : rows})}).catch( (bd_err)=> {console.error(`bd_err : ${JSON.stringify(bd_err)}`); res.status(500).json(bd_err)})
+  else if(req.body.cheque_id)
+    daoPedido.consultarCheque(req.body.cheque_id).then( ({rows}) => {res.status(200).json({"rows" : rows})}).catch( (bd_err)=> {console.error(`bd_err : ${JSON.stringify(bd_err)}`); res.status(500).json(bd_err)})
+  else if(req.body.transferencia_id)
+    daoPedido.consultarTransferencia(req.body.transferencia_id).then( ({rows}) => {res.status(200).json({"rows" : rows})}).catch( (bd_err)=> {console.error(`bd_err : ${JSON.stringify(bd_err)}`); res.status(500).json(bd_err)})
+});
+
 
 /* ****************************** PRODUCTO ****************************** */
 app.get('/consultarLista/producto', (req, res) => {

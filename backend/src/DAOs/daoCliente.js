@@ -28,7 +28,7 @@ const daoCliente = {
             VALUES ( 
                 DEFAULT,
                 ${c_rif ? `'${c_rif}'` : 'NULL'}, 
-                ${c_nombre ? `'${c_rif}'` : 'NULL'}, 
+                ${c_nombre ? `'${c_nombre}'` : 'NULL'}, 
                 ${c_telefono ? `'${c_telefono}'` : 'NULL'}, 
                 ${lugar_id ? lugar_id : 'NULL'}
             )

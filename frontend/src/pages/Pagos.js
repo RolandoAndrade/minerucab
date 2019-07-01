@@ -18,7 +18,7 @@ export class Pagos extends React.Component
     {
         super(props);
         this.state = {
-            
+            goBack: false
         }
 
     }
@@ -90,6 +90,20 @@ export class Pagos extends React.Component
                 .then( (res) => {
                     if( res.status === 200) {
                         console.log(`<---- (OK 200) localhost:4000/insertar/pedi_tipo`)
+                        console.log(`----> localhost:4000/editarEstado/pedido/${this.state.p_id_pedido}`)
+                        axios.post('http://127.0.0.1:4000/editarEstado/pedido',
+                        {       
+                            "pedido_id" : this.state.p_id_pedido,
+                            "estado_id" : 6
+                        })
+            .then( (res) => {
+                if( res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/eliminar/pedido`)
+                    this.handleCloseModal()
+                    this.handleCloseEliminar()
+                    location.reload()
+                }
+            })
                     }
                     return res
                 }).catch( (err) => {
@@ -103,9 +117,12 @@ export class Pagos extends React.Component
 
     };
 
-    goSolicitud = () =>
+    goToPedidos = () =>
     {
-       
+       this.setState(
+       {
+        goBack:true
+       })
     };
 
 
@@ -370,9 +387,10 @@ export class Pagos extends React.Component
             <GuardarCancelar
                 position="center"
                 storeData={this.handleGuardar}
-                success={this.goHorario}
-                decline={this.goHorario}
+                success={this.goToPedidos}
+                decline={this.goToPedidos}
             />
+            {this.state.goBack && <Redirect push to="../../pedido" /> }
             {this.state.loading && <Loader/>}
         </div>
     )

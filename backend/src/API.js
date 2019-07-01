@@ -1402,12 +1402,30 @@ app.post('/consultar/pedido', (req, res) => {
       })
 });
 
+app.post('/insertar/tipo', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/insertar/tipo")
+  req.body.p_fecha_pago=getAhora();
+  daoPedido.pagar(req.body)
+      .then( ({rows}) => {
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
 
 app.post('/insertar/pedi_tipo', (req, res) => {
 
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
-  console.log("/consultar/pedido")
+  console.log("/insertar/pedi_tipo")
   req.body.p_fecha_pago=getAhora();
   daoPedido.pagar(req.body)
       .then( ({rows}) => {

@@ -77,6 +77,45 @@ const daoPedido = {
             `)
     }  ,
 
+    insertarCredito({ c_banco, c_numero_tarjeta, c_tipo, c_fecha_vencimiento }){
+        return psql.query(`
+            INSERT INTO CREDITO (c_id_credito, c_banco, c_numero_tarjeta, c_tipo, c_fecha_vencimiento)
+            VALUES (DEFAULT,
+                    ${c_banco? `'${c_banco}'` : 'NULL'},
+                    ${c_numero_tarjeta ? `'${c_numero_tarjeta}'` : 'NULL'},
+                    ${c_tipo ? `'${c_tipo}'` : 'NULL'},
+                    ${c_fecha_vencimiento ? `'${c_fecha_vencimiento}'` : 'NULL'}) 
+                    RETURNING (p_id_pedido)
+            `)
+    }  ,
+    insertarDebito({ p_fecha_solicitud, cliente_id }){
+        return psql.query(`
+            INSERT INTO PEDIDO (p_id_pedido, p_fecha_solicitud, cliente_id)
+            VALUES (DEFAULT,
+                    ${p_fecha_solicitud ? `'${p_fecha_solicitud}'` : 'NULL'},
+                    ${cliente_id ? `'${cliente_id}'` : 'NULL'}) 
+                    RETURNING (p_id_pedido)
+            `)
+    }  ,
+    insertarCheque({ p_fecha_solicitud, cliente_id }){
+        return psql.query(`
+            INSERT INTO PEDIDO (p_id_pedido, p_fecha_solicitud, cliente_id)
+            VALUES (DEFAULT,
+                    ${p_fecha_solicitud ? `'${p_fecha_solicitud}'` : 'NULL'},
+                    ${cliente_id ? `'${cliente_id}'` : 'NULL'}) 
+                    RETURNING (p_id_pedido)
+            `)
+    }  ,
+    insertarTransferencia({ p_fecha_solicitud, cliente_id }){
+        return psql.query(`
+            INSERT INTO PEDIDO (p_id_pedido, p_fecha_solicitud, cliente_id)
+            VALUES (DEFAULT,
+                    ${p_fecha_solicitud ? `'${p_fecha_solicitud}'` : 'NULL'},
+                    ${cliente_id ? `'${cliente_id}'` : 'NULL'}) 
+                    RETURNING (p_id_pedido)
+            `)
+    }  ,
+
 }
 
 export {daoPedido}

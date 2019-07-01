@@ -7,7 +7,7 @@ import MaterialTable from 'material-table';
 
 import {cleanerPedido, cleanerYacimiento} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
-
+import Swal from "sweetalert2";
 export class Pedido extends React.Component {
     constructor(props){
         super(props)
@@ -16,7 +16,8 @@ export class Pedido extends React.Component {
             pedidos : [],
             agregarPresionado : null,
             consultarPedido: null,
-            ped: {}
+            ped: {},
+            goProyecto: false
         }
     }
 
@@ -44,7 +45,7 @@ export class Pedido extends React.Component {
                             p_fecha_solicitud: q[i].p_fecha_solicitud, 
                             e_nombre: q[i].e_nombre, 
                             total: (Math.floor(q[i].total*100)/100).toFixed(2),
-                            productos:[{cantidad: q[i].p_cantidad, nombre: q[i].p_nombre, precio: (Math.floor(q[i].total*100)/100).toFixed(2)}]}
+                            productos:[{mineral: q[i].mineral_id, cantidad: q[i].p_cantidad, nombre: q[i].p_nombre, precio: (Math.floor(q[i].total*100)/100).toFixed(2)}]}
                     }
                 }
                 this.setState({
@@ -83,6 +84,96 @@ export class Pedido extends React.Component {
         this.setState({
             pagar : this.state.consultarPedido.p_id_pedido
         })
+    }
+
+    handleAsignar = () =>
+    {
+        let total=0;
+        for(let i=0;i<this.state.consultarPedido.productos.length;i++)
+        {
+            total+=this.state.consultarPedido.productos[i].cantidad;
+        }
+        axios.post('http://127.0.0.1:4000/consultarCantidad/inventario',
+        {
+            mineral_id: this.state.consultarPedido.productos[0].mineral
+        }).then((res)=>{
+            try
+            {
+                console.log(res.data.rows[0]);
+                let cant = res.data.rows[0].cantidad_actual;
+                if(cant>=total)
+                {
+                    axios.post('http://127.0.0.1:4000/insertar/inventario',
+                    {
+                        pedido_id: parseInt(this.state.consultarPedido.p_id_pedido),
+                        i_ingresado: false,
+                        i_cantidad: total,
+                        mineral_id: this.state.consultarPedido.productos[0].mineral,
+                        unidad_id: 7
+                    }).then((res)=>{
+                        axios.post('http://127.0.0.1:4000/editarEstado/pedido',
+                        {
+                            "pedido_id" : parseInt(this.state.consultarPedido.p_id_pedido),
+                            "estado_id" : 5
+                        })
+                        .then( (res) => {
+                            if( res.status === 200) {
+                                console.log(`<---- (OK 200) localhost:4000/editarEstado/pedido`)
+                                this.handleCloseModal()
+                                this.handleCloseEliminar()
+                                location.reload()
+                            }
+                        })
+                    })
+                }
+                else
+                {
+                    Swal.fire({
+                    title: 'Debes crear un proyecto',
+                    text: 'No tiene suficiente material, debe generar un proyecto',
+                    type: 'info',
+                    showCancelButton: false,
+                    confirmButtonText: 'Vamos',
+                    cancelButtonText: 'No, editar',
+                    confirmButtonColor: "#1CA1DC",
+                    cancelButtonColor: "#dc3832"
+                    }).then((result) => {
+                    if (result.value)
+                    {
+                        this.setState({
+                            goProyecto:true
+                        })
+                    }
+                    })
+                }
+
+            }
+            catch(e)
+            {
+                console.log(e);
+                Swal.fire({
+                    title: 'Debes crear un proyecto',
+                    text: 'No tiene suficiente material, debe generar un proyecto',
+                    type: 'info',
+                    showCancelButton: false,
+                    confirmButtonText: 'Vamos',
+                    cancelButtonText: 'No, editar',
+                    confirmButtonColor: "#1CA1DC",
+                    cancelButtonColor: "#dc3832"
+                    }).then((result) => {
+                    if (result.value)
+                    {
+                        this.setState({
+                            goProyecto:true
+                        })
+                    }
+                    })
+
+            }
+            
+        })
+        
+
     }
 
     handleFactura= () => {
@@ -284,7 +375,7 @@ export class Pedido extends React.Component {
                         </Button>
                         :""}
                         {this.state.consultarPedido.e_nombre=="iniciado"?
-                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handlePagar}>
+                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleAsignar}>
                             Dar recursos
                         </Button>
                         :""}
@@ -342,6 +433,9 @@ export class Pedido extends React.Component {
                 }
                 {!!this.state.factura
                 && <Redirect push to={`/factura/${this.state.factura}`} />
+                }
+                {this.state.goProyecto
+                && <Redirect push to={"../../crear/proyecto"} />
                 }
                 {this.state.agregarPresionado && <Redirect push to="/crear/pedido" />}
             </div>

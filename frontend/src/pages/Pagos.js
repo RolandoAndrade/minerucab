@@ -338,7 +338,7 @@ export class Pagos extends React.Component
                             <InputText 
                                 id="Banco" 
                                 label="Banco" 
-                                name="d_banco"
+                                name="c_banco"
                                 onChange={this.handleChange}
                             />
                         </div>

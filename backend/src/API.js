@@ -1557,11 +1557,11 @@ app.get('/consultarLista/inventario', (req, res) => {
       })
 });
 
-app.get('/consultarCantidad/inventario', (req, res) => {
+app.post('/consultarCantidad/inventario', (req, res) => {
 
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
-  console.log("/consultarCantidad/inventario"+req.body.mineral_id)
+  console.log("/consultarCantidad/inventario/"+req.body.mineral_id)
 
   daoInventario.cantidadMineralGuardado(req.body.mineral_id)
       .then( ({rows}) => {
@@ -1574,6 +1574,27 @@ app.get('/consultarCantidad/inventario', (req, res) => {
 
       })
 });
+
+
+app.post('/insertar/inventario', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/insertar/inventario")
+  req.body.i_fecha_modificacion=getAhora();
+  console.log(req.body);
+  daoInventario.insertar(req.body)
+      .then( ({rows}) => {
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
 /* ****************************** HORARIO ****************************** */
 app.get('/consultarLista/horario', (req, res) => {
 

@@ -2,7 +2,7 @@ const validadorYacimientoConfiguracion = {
     validar (y)  {
         let flag = ""
         if (!y) flag = "Configuracion vacia"
-        if (!y.y_nombre === "") flag = "nombre vacio"
+        if (!y.y_nombre || y.y_nombre === "") flag = "nombre de configuracion de yacimiento vacio"
         if (y.y_capacidad_explotacion <= 0 ) flag = "y_capacidad_explotacion < 0"
 
         if (y.requisitos && y.requisitos.length > 0)
@@ -20,7 +20,7 @@ const validadorYacimientoConfiguracion = {
     
             y.etapas.forEach((e) => {
                 if (!(e.e_tipo === "explotacion" || e.e_tipo === "refinacion")) flag = "tipo de etapa invalido"
-                if (e.e_nombre === "") flag = "etapa sin nombre"
+                if (!e.e_nombre || e.e_nombre === "") flag = "etapa sin nombre"
                 if (!e.fases) flag = "etapa sin fases"
                 else if (e.fases.length === 0) flag = "etapa sin fases"
                 else {
@@ -31,7 +31,7 @@ const validadorYacimientoConfiguracion = {
         
                     e.fases.forEach((f) => {
                         if (f.f_duracion <= 0 ) flag = "fase de duracion negativa"
-                        if (f.f_nombre === "") flag = "fase sin nombre"
+                        if (!f.f_nombre || f.f_nombre === "") flag = "fase sin nombre"
                         if (!f.cargos) flag = "fase sin cargos"
                         else if (f.cargos.length === 0) flag = "fase sin cargos"
                         else {

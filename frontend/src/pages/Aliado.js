@@ -31,7 +31,7 @@ export class Aliado extends React.Component {
         this.setState({
             companias : res.data.rows
         })
-
+          console.log(this.state);
       })
   }
 
@@ -91,7 +91,7 @@ export class Aliado extends React.Component {
 
   handleCloseModal = () => {
     this.setState({
-      consultarCliente: null
+      consultarCompania: null
     })
   }
     
@@ -155,24 +155,21 @@ export class Aliado extends React.Component {
               }}
 
               onRowClick={(event, rowData) => this.handleConsultar(rowData.c_id_compania)}
-              localization={{
+              localization={
+                  {
                 toolbar : {
                   searchPlaceholder : "Buscar ..."
+                },
+                pagination:
+                {
+                    labelRowsSelect: "Filas"
+                },
+                body: {
+                    emptyDataSourceMessage: "No hay entradas disponibles"
                 }
               }}
 
-              actions={[
-                {
-                  icon : () => <img 
-                    src="../resources/icons/Agregar.png"
-                    width="25px"
-                    onClick={this.handleAgregar}
-                    className="IconoAgregar"
-                  />,
-                  tooltip: 'Agregar',
-                  isFreeAction: true
-                }
-              ]}
+             
 
             />
           }
@@ -203,7 +200,7 @@ export class Aliado extends React.Component {
               </p>
               <p>
                 <span className="mc-atributo">Fecha de apertura</span>
-                <span> : {this.state.consultarCompania.c_telefono}</span>
+                <span> : {this.state.consultarCompania.c_fecha_apertura.substring(0,10)}</span>
               </p>
               <p>
                 <span className="mc-atributo">Lugar</span>
@@ -213,15 +210,6 @@ export class Aliado extends React.Component {
              
             </Modal.Body>
             
-            <Modal.Footer className="mc-footer">
-              <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleModificar}>
-                Modificar
-              </Button>
-
-              <Button variant="danger" className="mc-boton" onClick={this.handleEliminar}>
-                Eliminar
-              </Button>
-            </Modal.Footer>
           </Modal>
           }
 

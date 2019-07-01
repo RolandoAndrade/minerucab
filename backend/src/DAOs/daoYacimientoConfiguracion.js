@@ -20,7 +20,6 @@ const daoYacimientoConfiguracion = {
                 (y_id_yacimiento_configuracion,y_nombre,y_capacidad_explotacion,mineral_id,unidad_id) VALUES 
             (DEFAULT,${y_nombre ? `'${y_nombre}'` : 'null'},${y_capacidad_explotacion},${mineral_id},${unidad_id}) RETURNING (y_id_yacimiento_configuracion);
         `
-        console.log(qry)
         return psql.query(qry)
     },
 

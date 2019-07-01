@@ -19,10 +19,10 @@ const daoEtapa = {
         `)
     },
 
-    insertar(e_nombre,e_orden,e_tipo,yacimiento_configuracion_id){
+    insertar(e_fecha_inicio,estado_id,proyecto_id,etapa_configuracion_id){
         const qry = `
-            INSERT INTO ETAPA_CONFIGURACION (e_id_etapa_configuracion,e_nombre,e_orden,e_tipo,yacimiento_configuracion_id) VALUES 
-            (DEFAULt,${e_nombre ? `'${e_nombre}'` : 'null'},${e_orden},${e_tipo ? `'${e_tipo}'` : 'null'},${yacimiento_configuracion_id}) RETURNING e_id_etapa_configuracion;
+        INSERT INTO ETAPA (e_id_etapa,e_fecha_inicio,estado_id,proyecto_id,etapa_configuracion_id) VALUES  
+            (DEFAULt,${e_fecha_inicio ? `'${e_fecha_inicio}'`:'null'},${estado_id},${proyecto_id},${etapa_configuracion_id}) RETURNING e_id_etapa_configuracion;
         `
         return psql.query(qry)
     },

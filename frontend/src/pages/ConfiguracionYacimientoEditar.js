@@ -844,7 +844,9 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                                             }}
                                                             options={
                                                                 cleanerCargo.limpiarListaDropdown(
-                                                                    cargos
+                                                                    cargos.filter( c1 => 
+                                                                        !faseModal.cargos.find( c2 => c2.c_id_cargo === c1.c_id_cargo )
+                                                                    )
                                                                 )
                                                             }
                                                             onChange={ (event) =>

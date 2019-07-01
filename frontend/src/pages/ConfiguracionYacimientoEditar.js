@@ -613,7 +613,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
     
         return (
         <div>   
-             <MenuDashBoard title={"Crear Configuración de Yacimiento"}/>
+             <MenuDashBoard title={"Modificar Configuración de Yacimiento"}/>
 
              <div>
                 <div className="SobreMineral">

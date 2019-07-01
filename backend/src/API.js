@@ -1193,7 +1193,6 @@ app.get('/consultarLista/tipo_yacimiento', (req, res) => {
   daoTipoYacimiento.consultarTodos()
     .then( ({rows}) => {
       res.status(200).json({"rows" : rows})
-
     })
     .catch( (bd_err)=> {
       console.error(`bd_err : ${JSON.stringify(bd_err)}`)

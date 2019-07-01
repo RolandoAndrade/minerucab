@@ -18,6 +18,7 @@ const validadorYacimientoConfiguracion = {
             }
     
             y.etapas.forEach((e) => {
+                if (!(e.e_tipo === "explotacion" || e.e_tipo === "refinacion")) flag = "tipo de etapa invalido"
                 if (!e.fases) flag = "etapa sin fases"
                 else if (e.fases.length === 0) flag = "etapa sin fases"
                 else {
@@ -29,7 +30,19 @@ const validadorYacimientoConfiguracion = {
                     e.fases.forEach((f) => {
                         if (f.f_duracion <= 0 ) flag = "fase de duracion negativa"
                         if (!f.cargos) flag = "fase sin cargos"
-                        if (f.cargos.length === 0) flag = "fase sin cargos"
+                        else if (f.cargos.length === 0) flag = "fase sin cargos"
+                        else {
+                            f.cargos.forEach((c) => {
+                                if (c.c_id_cargo === 0 ) flag = "cargo invalido"
+                                if (!c.f_cantidad || c.f_cantidad <=0) flag = "cantidad de cargos invalida"
+                            })
+                        }
+
+                        if (f.maquinarias && f.maquinarias > 0 )
+                            f.maquinarias.forEach((m) => {
+                                if (m.f_cantidad === 0) flag = "maquinaria invalida"
+                                if (!m.f_cantidad || m.f_cantidad <=0) flag = "cantidad de maquinarias invalida"
+                            })
                     })
                 }                
             })

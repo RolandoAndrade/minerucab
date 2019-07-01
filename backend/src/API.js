@@ -1,5 +1,6 @@
 /* DEPENDENCIAS */
 import {daoPedido} from "./DAOs/daoPedido";
+import {validadorYacimientoConfiguracion} from "./utils/validador"
 
 const express = require('express');
 const app = express();
@@ -1000,10 +1001,20 @@ app.post('/insertar/yacimiento_configuracion', (req,res) => {
   console.log(`/insertar/yacimiento_configuracion `)
 
   let y = req.body
+  const m = validadorYacimientoConfiguracion.validar(y)
+  if (m !== "") {
+    console.log(`\n\nSTATUS ERROR: 500`)      
+    console.error(`\n\nERROR: Formato invalido: ${m}`)
+
+    res.status(500).json({"ErrorMessage" : m})
+    return 0;
+  }
   let yac_id =  null
   daoYacimientoConfiguracion.insertar(y.y_nombre,y.y_capacidad_explotacion,y.mineral_id,7)  
   .then((resp_bd) => {
     yac_id = resp_bd.rows[0].y_id_yacimiento_configuracion
+    if (!y["requisitos"] || y["requisitos"].length === 0 )
+      return 0;
     return daoYacimientoConfiguracion.agregarRequisitos(yac_id,y["requisitos"])
   })
   .then((resp_bd) => {
@@ -1058,12 +1069,25 @@ app.post('/modificar/yacimiento_configuracion', (req,res) => {
   console.log(`/modificar/yacimiento_configuracion/${req.body.y_id_yacimiento_configuracion}`)
 
   let y = req.body
+  const m = validadorYacimientoConfiguracion.validar(y)
+  if (m !== "") {
+    console.log(`\n\nSTATUS ERROR: 500`)      
+    console.error(`\n\nERROR: Formato invalido: ${m}`)
+
+    res.status(500).json({"ErrorMessage" : m})
+    return 0;
+  }
   daoYacimientoConfiguracion.BorrarRequisitos(y.y_id_yacimiento_configuracion)
   .then((resp_bd) => {
     return daoYacimientoConfiguracion.BorrarEtapas(y.y_id_yacimiento_configuracion)
   })
   .then((resp_bd) => {
     return daoYacimientoConfiguracion.modificar(y.y_id_yacimiento_configuracion,y.y_nombre,y.y_capacidad_explotacion,y.mineral_id,y.unidad_id)
+  })
+  .then((resp_bd) => {
+    if (!y["requisitos"] || y["requisitos"].length === 0 )
+      return 0;
+    return daoYacimientoConfiguracion.agregarRequisitos(y.y_id_yacimiento_configuracion,y["requisitos"])
   })
   .then((resp_bd) => {
     return new Promise((resolve,reject) => {
@@ -1089,14 +1113,12 @@ app.post('/modificar/yacimiento_configuracion', (req,res) => {
                   }else{
                     if( (i === (y["etapas"].length - 1)) && (j === (y["etapas"][i]["fases"].length - 1)))
                     resolve("bien!")
-                  }
-                  
+                  }                  
                 })
               }else{
                 if( (i === (y["etapas"].length - 1)) && (j === (y["etapas"][i]["fases"].length - 1)))
                 resolve("bien!") 
-              }
-                           
+              }                           
             })
           }) 
         })

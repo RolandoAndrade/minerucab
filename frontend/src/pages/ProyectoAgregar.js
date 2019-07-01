@@ -891,7 +891,7 @@ export class ProyectoAgregar extends React.Component {
                                 />
                                 <p className="subtitulo-centrado">Empleados</p>
                                 <div> {/* MAPING DE EMPLEADOS */}
-                                    { this.state.empleados &&
+                                    { this.state.faseModal.empleados &&
                                         faseModal.empleados.map(
                                             (empleado, i) => (
                                                 <div key={i} className="cargoHorizontal">
@@ -943,7 +943,12 @@ export class ProyectoAgregar extends React.Component {
                                                                     empleados.filter( e => 
                                                                         e.estado_id === 11 && 
                                                                         e.cargo_id === empleado.cargo_id &&
-                                                                        !faseModal.empleados.find( e1 => e1.e_id_empleado === e.e_id_empleado)
+                                                                        !faseModal.empleados.find( e1 => e1.e_id_empleado === e.e_id_empleado) &&
+                                                                        !this.state.etapas.find( etapa =>
+                                                                            etapa.fases.find( f => 
+                                                                                f.empleados.find( e1 => e1.e_id_empleado === e.e_id_empleado)
+                                                                            )
+                                                                        )
                                                                     )
                                                                 )
                                                             }
@@ -967,7 +972,7 @@ export class ProyectoAgregar extends React.Component {
                                             )
                                         )
                                     }
-                                    {null &
+                                    {null &&
                                     <div className="btnAgregarRequisito" onClick={this.agregarCargo} >
                                         Agregar cargo
                                     </div>}
@@ -975,7 +980,7 @@ export class ProyectoAgregar extends React.Component {
                                 </div>
                                 <p className="subtitulo-centrado">Maquinarias</p>
                                 <div> {/* MAPING DE MAQUINARIAS */}
-                                    { this.state.maquinarias &&
+                                    { this.state.faseModal.maquinarias &&
                                         faseModal.maquinarias.map(
                                             (maquinaria) => (
                                                 <div key={maquinaria.f_id_fase_maqu} className="cargoHorizontal">

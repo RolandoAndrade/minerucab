@@ -1,9 +1,9 @@
 import React from 'react';
 
-import {DropdownV2} from "../components/DropdownV2"
-import {InputText} from "../components/InputText";
+import {DropdownV2} from "./DropdownV2"
+import {InputText} from "./InputText";
 
-export class EtapaConfiguracion extends React.Component {
+export class Etapa extends React.Component {
 
     render = () => {
         let {
@@ -22,7 +22,7 @@ export class EtapaConfiguracion extends React.Component {
                                 label="Nombre"
                                 name="e_nombre"
                                 value={etapa_configuracion.e_nombre}
-                                disabled={no_modificable}
+                                disabled
                                 onChange={(event) => changeInfo(event, id)}
                             />
                         </div>
@@ -31,15 +31,15 @@ export class EtapaConfiguracion extends React.Component {
                             placeholder="Tipo ..."
                             value={{
                                 value : etapa_configuracion.e_tipo,
-                                label : etapa_configuracion.e_tipo === 1 ? "Explotación" : 
-                                        etapa_configuracion.e_tipo === 2 ? "Refinación" :
+                                label : etapa_configuracion.e_tipo === "explotacion" ? "Explotación" : 
+                                        etapa_configuracion.e_tipo === "refinacion" ? "Refinación" :
                                         "Tipo ..."
                             }}
                             options={[
                                 { label: 'Explotación', value: 1 },
                                 { label: 'Refinación', value: 2 }
                             ]}
-                            isDisabled={no_modificable}
+                            isDisabled
                             onChange={(event) => changeInfo(event, id)}
                             
                         />
@@ -50,11 +50,7 @@ export class EtapaConfiguracion extends React.Component {
                                     etapa_configuracion.fases.map(
                                         (fase, index) => (
                                             <div key={fase.f_id_fase_configuracion} className="faseHorizontal">
-
-                                                <i  className="zmdi zmdi-close-circle-o LabelIcon" 
-                                                    onClick={ () => { if (!no_modificable) quitarFase(id, fase.f_id_fase_configuracion) } } 
-                                                />
-                                                <div style={{width : "100%"}}>
+                                                <div style={{width : "100%", margin: "10px"}}>
                                                     <input
                                                         className="btnFase" type="button" 
                                                         value={`(${fase.f_orden}) - ${fase.f_nombre.slice(0, 25)} ...`}
@@ -65,21 +61,16 @@ export class EtapaConfiguracion extends React.Component {
                                         ))
                                 }
                             </div>
-                            <div className="btnAgregarFase" onClick={() => { if (!no_modificable) agregarFase(id)}} >
-                                Agregar Fase
-                            </div>
                         </div>
                     </div>
                     <div className="etapa-conf-der">
-                        <i className="zmdi zmdi-close-circle-o LabelIcon pegar-derecha"
-                            onClick={() => { if (!no_modificable) quitarEtapa(id)}}>
-                        </i>
+                        <p style={{height:"10px"}}>&nbsp;</p>
                         <div className="numero">
                             <input
                                 className="inputOrden"
                                 name={"e_orden"}
                                 value={etapa_configuracion.e_orden}
-                                disabled={no_modificable}
+                                disabled
                                 onChange={(event) => changeInfo(event, id)}
                             />
                         </div>

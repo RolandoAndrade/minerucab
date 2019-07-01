@@ -7,13 +7,14 @@ import {Redirect} from 'react-router-dom';
 import {Dropdown} from "../components/Dropdown";
 import {DropdownV2} from "../components/DropdownV2"
 import {InputText} from "../components/InputText";
+import {InputDate} from "../components/InputDate";
 import {GuardarCancelar} from "../components/GuardarCancelar";
 import {MenuDashBoard} from "../components/MenuDashBoard";
-import {EtapaConfiguracion} from "../components/EtapaConfiguracion";
+import {Etapa} from "../components/Etapa";
 
-import {cleanerMineral, cleanerCargo, cleanerMaquinaria} from "../utils/cleaner"
+import {cleanerMineral, cleanerCargo, cleanerMaquinaria, cleanerYacimiento, cleanerEmpleado} from "../utils/cleaner"
 
-export class ConfiguracionYacimientoEditar extends React.Component {
+export class ProyectoAgregar extends React.Component {
     constructor(props){
       super(props)
       
@@ -27,7 +28,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
             unidad_id : 7
         },
         requisitos : [],
-        etapas : [{
+        etapas : [/*{
             e_id_etapa_configuracion : 1,
             e_nombre: "",
             e_orden: 1,
@@ -47,37 +48,42 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                     c_id_cargo : 0,
                     f_cantidad : null,
                 }],
-                maquinarias : []
+                empleados : [], 
+                maquinarias : [],
+                equipos : []
             }]
-        }],
+        }*/],
         // PARA DAR IDs UNICOS
         ultimoRequisitoIndex : 0,
         ultimaEtapaIndex : 1,
         // PARA LOS DROPDOWNS
-        minerales : []
+        minerales : [],
+        empleados : [],
+        equipos : [],
+        yacimientos : [],
+        horarios : [],
+        pedidos : []
       }
     }
 
     componentDidMount = () => {
-        const id = Number.parseInt(this.props.location.pathname.split("/")[3] , 10)
-
-        
+        let promesas = []
         
         console.log(`----> localhost:4000/consultarLista/mineral `)
-        axios.get('http://127.0.0.1:4000/consultarLista/mineral')
-        .then( res => {
-            if(res.status === 200) {
-                console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral`)
-                this.setState({
-                    minerales : res.data.rows
-                })
-            } else {
-                console.log(`<---- (ERROR 500) localhost:4000/consultarLista/mineral`)
-            }
-        })
-        .then( () => {
-            console.log(`----> localhost:4000/consultarLista/cargo `)
-            axios.get('http://127.0.0.1:4000/consultarLista/cargo')
+        promesas[0] = axios.get('http://127.0.0.1:4000/consultarLista/mineral')
+            .then( res => {
+                if(res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral`)
+                    this.setState({
+                        minerales : res.data.rows
+                    })
+                } else {
+                    console.log(`<---- (ERROR 500) localhost:4000/consultarLista/mineral`)
+                }
+            })
+                
+        console.log(`----> localhost:4000/consultarLista/cargo `)
+        promesas[1] = axios.get('http://127.0.0.1:4000/consultarLista/cargo')
                 .then( res => {
                     if(res.status === 200) {
                         console.log(`<---- (OK 200) localhost:4000/consultarLista/cargo`)
@@ -88,96 +94,151 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                         console.log(`<---- (ERROR 500) localhost:4000/consultarLista/cargo`)
                     }
                 })
-        })
-        .then( () => {
-            console.log(`----> localhost:4000/consultarLista/maquinaria `)
-            axios.get('http://127.0.0.1:4000/consultarLista/maquinaria')
-                .then( res => {
-                    if(res.status === 200) {
-                        console.log(`<---- (OK 200) localhost:4000/consultarLista/maquinaria`)
-                        this.setState({
-                            maquinarias : res.data.rows
-                        })
-                    } else {
-                        console.log(`<---- (ERROR 500) localhost:4000/consultarLista/maquinaria`)
-                    }
-                })
-        })
-        .then( () => {
-            console.log(`----> localhost:4000/consultar/detalle_yacimiento_configuracion/${id} `)
-            axios.post('http://127.0.0.1:4000/consultar/detalle_yacimiento_configuracion/',
-                { y_id_yacimiento_configuracion : id }                
-            )
+
+        console.log(`----> localhost:4000/consultarLista/maquinaria `)
+        promesas[2] = axios.get('http://127.0.0.1:4000/consultarLista/maquinaria')
             .then( res => {
                 if(res.status === 200) {
-                    console.log(`<---- (OK 200) localhost:4000/consultar/detalle_yacimiento_configuracion/${id}`)
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/maquinaria`)
                     this.setState({
-                        configuracionBD : res.data.yacimiento_configuracion
+                        maquinarias : res.data.rows
                     })
-
-                    return res.data.yacimiento_configuracion
                 } else {
-                    console.log(`<---- (ERROR 500) localhost:4000/consultar/detalle_yacimiento_configuracion/${id}`)
+                    console.log(`<---- (ERROR 500) localhost:4000/consultarLista/maquinaria`)
                 }
             })
-            .then( cBD => {
-                // VACIAR INFO DE LA BD EN LOS INPUTS
 
-                this.setState({
-                    // INFO DE CONF_YACIMIENTO 
-                    configuracion_yacimiento : {
-                        y_id_yacimiento_configuracion : cBD.y_id_yacimiento_configuracion,
-                        y_nombre : cBD.y_nombre,
-                        y_capacidad_explotacion : cBD.y_capacidad_explotacion,
-                        mineral_id : cBD.mineral_id,
-                        unidad_id : 7
-                    },
-                    requisitos : cBD.requisitos.map( requisito => {
-                        requisito["m_id_mineral"] = requisito.mineral_id
-                        return requisito
-                    } ),
-                    etapas : cBD.etapas.map( etapa => {
-                        etapa.e_orden = etapa.e_orden.toString() 
-                        etapa.e_tipo = etapa.e_tipo === "explotacion" ? 1 : 2
-                        etapa["ultimaFaseIndex"] = 500
-                        etapa.fases = etapa.fases.map( fase => {
-                            fase.f_orden = fase.f_orden.toString()
-                            fase.f_duracion = fase.f_duracion.toString()
-                            fase["ultimoCargoIndex"] = 500
-                            fase.cargos = fase.cargos.map( cargo => {
-                                cargo.f_cantidad = cargo.f_cantidad.toString()
-                                return cargo
-                            })
-
-                            fase["ultimaMaquinariaIndex"] = 500
-                            fase.maquinarias = fase.maquinarias.map( maquinaria => {
-                                maquinaria.f_cantidad = maquinaria.f_cantidad.toString()
-                                return maquinaria
-                            })
-                            return fase
-                        })
-                        return etapa
-                    }), 
-                    no_modificable : cBD.no_modificable,
-                    // PARA DAR IDs UNICOS
-                    ultimoRequisitoIndex : 500,
-                    ultimaEtapaIndex : 500,
-                  })
-
+        console.log(`----> localhost:4000/consultarLista/empleado `)
+        promesas[3] = axios.get('http://127.0.0.1:4000/consultarLista/empleado')
+            .then( res => {
+                if(res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/empleado`)
+                    this.setState({
+                        empleados : res.data.rows
+                    })
+                } else {
+                    console.log(`<---- (ERROR 500) localhost:4000/consultarLista/empleado`)
+                }
             })
-        })
+
+        console.log(`----> localhost:4000/consultarLista/yacimiento `)
+        promesas[4] = axios.get('http://127.0.0.1:4000/consultarLista/yacimiento')
+            .then( res => {
+                if(res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/yacimiento`)
+                    this.setState({
+                        yacimientos : res.data.rows
+                    })
+                } else {
+                    console.log(`<---- (ERROR 500) localhost:4000/consultarLista/yacimiento`)
+                }
+            })
+
+        console.log(`----> localhost:4000/consultarLista/horario `)
+        promesas[5] = axios.get('http://127.0.0.1:4000/consultarLista/horario')
+            .then( res => {
+                if(res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/horario`)
+                    this.setState({
+                        horarios : res.data.rows
+                    })
+                } else {
+                    console.log(`<---- (ERROR 500) localhost:4000/consultarLista/horario`)
+                }
+            })
+
+        console.log(`----> localhost:4000/consultarLista/pedido `)
+        promesas[6] = axios.get('http://127.0.0.1:4000/consultarLista/pedido')
+            .then( res => {
+                if(res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/pedido`)
+                    this.setState({
+                        pedidos : res.data.rows
+                    })
+                } else {
+                    console.log(`<---- (ERROR 500) localhost:4000/consultarLista/pedido`)
+                }
+            })
+
+        Promise.all( promesas ).then(
+            () => {
+               /* this.changeInfo({
+                    label : "PRUEBA",
+                    value : 4
+                })*/
+            }
+        )
     }
 
 
     changeInfo = (target) => {
         if (target.label) {
-            console.log(`configuracion_yacimiento.mineral_id <-- ${target.value} (${target.label})`)
-            this.setState({
-                configuracion_yacimiento : {
-                    ...this.state.configuracion_yacimiento,
-                    mineral_id : target.value
+            // PEDIR CONFIGURACION DEL YACIMIENTO
+            const idConf = this.state.yacimientos.find( y => y.y_id_yacimiento === target.value).yacimiento_configuracion_id
+            axios.post('http://127.0.0.1:4000/consultar/detalle_yacimiento_configuracion',
+                { y_id_yacimiento_configuracion : idConf }
+            )
+            .then( res => {
+                if(res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/consultar/detalle_yacimiento_configuracion`)
+                    
+                    this.setState({
+                        configuracion_yacimiento : {
+                            ...res.data.yacimiento_configuracion
+                        },
+                        etapas : res.data.yacimiento_configuracion.etapas.map( etapa => ({
+                            ...etapa,
+                            fases : etapa.fases.map( fase => {
+                                
+                                let empleadosNuevo = []
+                                fase.cargos.map( cargo => {
+                                    let i = 0;
+                               
+                                    while( i < cargo.f_cantidad ){
+                                        i = i +1
+                                        empleadosNuevo = [
+                                            ...empleadosNuevo,
+                                            {
+                                                e_id_empleado : 0,
+                                                horario_id : 0,
+                                                f_salario : 0,
+                                                f_viatico : 0,
+                                                e_nombre : 0,
+                                                c_id_cargo : cargo.c_id_cargo,
+                                                cargo_id : cargo.c_id_cargo
+                                            }
+                                        ]
+                                    }
+                                    return empleadosNuevo
+                                    
+                                })
+
+                                return ({
+                                    ...fase,
+                                    empleados : empleadosNuevo
+                                })
+                            }) 
+                        })),
+                        requisitos : res.data.yacimiento_configuracion.requisitos
+                    } /*,
+                        
+                        () =>
+                            this.abrirFase(8,34)*/
+                    )
+                } else {
+                    console.log(`<---- (ERROR 500) localhost:4000/consultar/detalle_yacimiento_configuracion`)
                 }
             })
+            .then( () => {
+                console.log(`configuracion_yacimiento.yacimiento_id <-- ${target.value} (${target.label})`)
+                this.setState({
+                    configuracion_yacimiento : {
+                        ...this.state.configuracion_yacimiento,
+                        yacimiento_id : target.value
+                    }
+                })
+            })
+            
         } else {
             target=target.target||target;
             console.log(`configuracion_yacimiento.${target.name} = ${target.value}`)
@@ -589,8 +650,8 @@ export class ConfiguracionYacimientoEditar extends React.Component {
 
         const conf = this.state.configuracion_yacimiento
 
-        console.log(`----> localhost:4000/modificar/yacimiento_configuracion`)
-        return axios.post('http://127.0.0.1:4000/modificar/yacimiento_configuracion',
+        console.log(`----> localhost:4000/insertar/yacimiento_configuracion`)
+        return axios.post('http://127.0.0.1:4000/insertar/yacimiento_configuracion',
             {
                 ...this.state.configuracion_yacimiento,
                 y_capacidad_explotacion : parseFloat( conf.y_capacidad_explotacion ),
@@ -599,7 +660,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
             })
             .then( (res) => {
                 if( res.status === 200) {
-                    console.log(`<---- (OK 200) localhost:4000/modificar/yacimiento_configuracion`)
+                    console.log(`<---- (OK 200) localhost:4000/insertar/yacimiento_configuracion`)
                 }
                 return res
             }).catch( err => err)
@@ -608,93 +669,107 @@ export class ConfiguracionYacimientoEditar extends React.Component {
     render = () => {
         // PARA NO ESCRIBIR THIS.STATE MUCHAS VECES
         const {
-            configuracion_yacimiento , requisitos, etapas, fases, minerales, maquinarias, cargos, faseModal, no_modificable
+            configuracion_yacimiento , requisitos, etapas, fases, minerales, maquinarias, cargos, faseModal,
+            empleados, equipos, yacimientos
         } = this.state
     
     
         return (
         <div>   
-             <MenuDashBoard title={"Modificar Configuración de Yacimiento"}/>
+             <MenuDashBoard title={"Crear Proyecto"}/>
 
              <div>
                 <div className="SobreMineral">
-                    <h1 className="subtitulo-centrado">Sobre el mineral</h1>
+                    <h1 className="subtitulo-centrado">Sobre el proyecto</h1>
                     <div> 
                         <div className="horizontal">
                             <div className="confYacimientoIzq">
                                 <InputText 
-                                    id={`NombreConfiguracion`}
-                                    label="Nombre de Configuración"
-                                    name="y_nombre"
-                                    value={configuracion_yacimiento.y_nombre}
-                                    disabled={no_modificable}
+                                    id={`NombreProyecto`}
+                                    label="Nombre de Proyecto"
+                                    name="p_nombre"
+                                    vale={configuracion_yacimiento.p_nombre}
                                     onChange={this.changeInfo}
                                 />
-                                <div className="horizontal pegar-derecha">
-                                    <p className="separador"> Mineral a explotar</p>
-                                    
-                                    <div className="ancho-mineral">
-                                        <DropdownV2
-                                                name="mineral_id"
-                                                isDisabled={no_modificable}
-                                                onChange={this.changeInfo}
-                                                placeholder="Mineral..."
-                                                value={{
-                                                    value: configuracion_yacimiento.mineral_id,
-                                                    label: !!configuracion_yacimiento.mineral_id ? minerales.find( m => m.m_id_mineral === configuracion_yacimiento.mineral_id).m_nombre : "Mineral ..."
-                                                }}
-                                                options={
-                                                    cleanerMineral.limpiarListaDropdown(
-                                                        minerales.filter( m => 
-                                                            !requisitos.find( r => r.mineral_id === m.m_id_mineral )
-                                                        )
-                                                    )
-                                                }
-                                        />
-                                    </div>
-                                    <div className="ancho-cantidad">
-                                        <InputText 
-                                            id="CantidadExplotar"
-                                            type="number"
-                                            min="1" 
-                                            label="Cantidad"
-                                            name="y_capacidad_explotacion"
-                                            value={configuracion_yacimiento.y_capacidad_explotacion}
-                                            disabled={no_modificable}
-                                            onChange={this.changeInfo}
-                                        />
-                                    </div>
-                                    <p className="separador"> toneladas</p>
+                                <div>
+                                    <p style={{textAlign : "center"}}>Fecha de Inicio</p>
+                                    <InputDate 
+                                        name="p_fecha_inicio"
+                                        value={configuracion_yacimiento.p_fecha_inicio}
+                                        onChange={this.changeInfo}
+                                    />
                                 </div>
-                                <p className="subtitulo-centrado" > Minerales necesarios para su explotacion</p>
-                                <div> {/* MAPING DE REQUISITOS */}
+                                <DropdownV2
+                                    name="yacimiento_id"
+                                    onChange={this.changeInfo}
+                                    placeholder="Mineral..."
+                                    value={{
+                                        value: configuracion_yacimiento.yacimiento_id,
+                                        label: !!configuracion_yacimiento.yacimiento_id ? yacimientos.find( y => y.y_id_yacimiento === configuracion_yacimiento.yacimiento_id).y_nombre : "Yacimiento ..."
+                                    }}
+                                    options={
+                                        cleanerYacimiento.limpiarListaDropdown(
+                                            yacimientos.filter( y => !y.ocupado )
+                                        )
+                                    }
+                                />
+                                {!configuracion_yacimiento.yacimiento_id &&
+                                    <p className="subtitulo-centrado" >Eliga un yacimiento para poder continuar</p>}
+                                {configuracion_yacimiento.yacimiento_id &&
+                                <div>
+                                    <div className="horizontal pegar-derecha">
+                                        <p className="separador"> Mineral a explotar</p>
+                                        
+                                        <div className="ancho-mineral">
+                                            <DropdownV2
+                                                    name="mineral_id"
+                                                    placeholder="Mineral..."
+                                                    isDisabled
+                                                    value={{
+                                                        value: configuracion_yacimiento.mineral_id,
+                                                        label: !!configuracion_yacimiento.mineral_id ? minerales.find( m => m.m_id_mineral === configuracion_yacimiento.mineral_id).m_nombre : "Mineral ..."
+                                                    }}
+                                                    options={
+                                                        cleanerMineral.limpiarListaDropdown(
+                                                            minerales.filter( m => 
+                                                                !requisitos.find( r => r.mineral_id === m.m_id_mineral )
+                                                            )
+                                                        )
+                                                    }
+                                            />
+                                        </div>
+                                        <div className="ancho-cantidad">
+                                            <InputText 
+                                                id="CantidadExplotar"
+                                                type="number"
+                                                min="1" 
+                                                label="Cantidad"
+                                                name="y_capacidad_explotacion"
+                                                value={configuracion_yacimiento.y_capacidad_explotacion}
+                                                disabled
+                                            />
+                                        </div>
+                                        <p className="separador"> toneladas</p>
+                                    </div>
+                                    <p className="subtitulo-centrado" > Minerales necesarios para su explotacion</p>
+                                    <div> {/* MAPING DE REQUISITOS */}
                                     {
                                         this.state.requisitos.map(
                                             (requisito) => (
-                                                <div key={requisito.m_id_mine_yaci} className="horizontal pegar-derecha"> {/* primera linea */}
+                                                <div key={requisito.m_id_mine_yaci} className="horizontal pegar-derecha">
                                                     <div className="ancho-cantidad">
-                                                        <i 
-                                                            className="zmdi zmdi-close-circle-o LabelIcon pegar-derecha"
-                                                            onClick={() => { if (!no_modificable) this.quitarRequisito(requisito.m_id_mine_yaci)}}>
-                                                        </i>
                                                     </div>
                                                     <div className="ancho-mineral">
                                                         <DropdownV2
                                                             placeholder="Mineral ..."
-                                                            isDisabled={no_modificable}
-                                                            onChange={ event => 
-                                                                this.changeRequisito(event , requisito.m_id_mine_yaci)
-                                                            }
+                                                            isDisabled
                                                             value={{
-                                                                value : requisito.m_id_mineral,
-                                                                label: !!requisito.m_id_mineral ? minerales.find( r => r.m_id_mineral === requisito.m_id_mineral).m_nombre : "Mineral ..."
+                                                                value : requisito.mineral_id,
+                                                                label: !!requisito.mineral_id ? minerales.find( r => r.m_id_mineral === requisito.mineral_id).m_nombre : "Mineral ..."
                                                             }}
                                                             options={
                                                                 cleanerMineral.limpiarListaDropdown(
-                                                                    minerales.filter( m => 
-                                                                        !requisitos.find( r => r.mineral_id === m.m_id_mineral ) &&
-                                                                        m.m_id_mineral !== configuracion_yacimiento.mineral_id
-                                                                    )
+                                                                    minerales
                                                                 )
                                                             }
                                                         />
@@ -709,10 +784,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                                             value={
                                                                 requisito.m_cantidad
                                                             }
-                                                            disabled={no_modificable}
-                                                            onChange={ event => 
-                                                                this.changeRequisito(event , requisito.m_id_mine_yaci)
-                                                            }
+                                                            disabled
                                                         />
                                                     </div>
                                                     <p className="separador"> toneladas</p>
@@ -720,15 +792,13 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                             )
                                         )
                                     }
-                                    <div className="btnAgregarRequisito" onClick={() => { if (!no_modificable) this.agregarRequisito}} >
-                                        Agregar Mineral Requerido
-                                    </div>
                                     
                                 </div>
+                                </div>}
                             </div>
                             <div className="imagen-diamante">
                                 <img 
-                                    src="resources/img/Proyecto_4.png"
+                                    src="resources/img/Proyecto_1.png"
                                     width="400px"
                                 />
                             </div>
@@ -740,11 +810,11 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                 <div>
                     <h1 className="subtitulo-centrado">Etapas</h1>
                     <div>
-                        {/* ETAPA CONFIGURACION */}
+                        {/* ETAPA  */}
                         {
                             this.state.etapas.map(
                                 (etapa, index) => (
-                                    <EtapaConfiguracion
+                                    <Etapa
 
                                         /* INFO */
                                         key={etapa.e_id_etapa_configuracion}
@@ -765,15 +835,9 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                         quitarFase={this.quitarFase}
 
                                         abrirFase={this.abrirFase}
-                                        no_modificable={no_modificable}
                                     />
                                 ))
                         }
-                    </div>
-                    <div>
-                        <div className="btnAgregarEtapa" onClick={()=> { if (!no_modificable)this.agregarEtapa}} >
-                            Agregar Etapa
-                        </div>
                     </div>
                 </div>
                 <div>
@@ -804,14 +868,13 @@ export class ConfiguracionYacimientoEditar extends React.Component {
 
                     <Modal.Body> 
                         <div className="faseModal">
-                            <div className="fase-conf-izq">
+                            <div className="fase-fase-izq">
                                 <InputText 
                                     id={`NombreFase`}
                                     label="Nombre"
                                     name="f_nombre"
                                     value={faseModal.f_nombre}
-                                    disabled={no_modificable}
-                                    onChange={this.changeInfoFase}
+                                    disabled
                                 />
                                 <InputText 
                                     id={`DuracionFase`}
@@ -820,71 +883,87 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                     label="Duracion en meses"
                                     name="f_duracion"
                                     value={faseModal.f_duracion}
-                                    disabled={no_modificable}
-                                    onChange={this.changeInfoFase}
+                                    disabled
                                 />
                                 <InputText 
                                     id={`DescripcionFase`}
                                     label="Descripción"
                                     name="f_descripcion"
                                     value={faseModal.f_descripcion}
-                                    disabled={no_modificable}
-                                    onChange={this.changeInfoFase}
+                                    disabled
                                 />
-                                <p className="subtitulo-centrado">Cargos</p>
-                                <div> {/* MAPING DE CARGOS */}
-                                    { this.state.cargos &&
-                                        faseModal.cargos.map(
-                                            (cargo) => (
-                                                <div key={cargo.f_id_fase_cargo} className="cargoHorizontal">
-                                                    <div>
+                                <p className="subtitulo-centrado">Empleados</p>
+                                <div> {/* MAPING DE EMPLEADOS */}
+                                    { this.state.empleados &&
+                                        faseModal.empleados.map(
+                                            (empleado, i) => (
+                                                <div key={i} className="cargoHorizontal">
+                                                    {/*<div>
+                                                        
                                                         <i 
                                                             className="zmdi zmdi-close-circle-o LabelIcon pegar-derecha"
-                                                            onClick={() => { if (!no_modificable) this.quitarCargo(
+                                                            onClick={() => this.quitarCargo(
                                                                 cargo.f_id_fase_cargo
-                                                            )}}
+                                                            )}
                                                         >
-                                                        </i>
-                                                    </div>
-                                                    <div style={{width : "30%" }}>
+                                                            </i> 
+                                                        
+                                                    </div>*/}
+                                                    <div style={{width : "20%" }}>
                                                         <DropdownV2
                                                             placeholder="Cargo ..."
                                                             value={{
-                                                                value: cargo.c_id_cargo,
-                                                                label: !!cargo.c_id_cargo ? this.state.cargos.find( c => c.c_id_cargo === cargo.c_id_cargo).c_nombre : "Cargo ..."
+                                                                value: empleado.c_id_cargo,
+                                                                label: !!empleado.c_id_cargo ? this.state.cargos.find( c => c.c_id_cargo === empleado.c_id_cargo).c_nombre : "Cargo ..."
                                                             }}
                                                             options={
                                                                 cleanerCargo.limpiarListaDropdown(
-                                                                    cargos.filter( c1 => 
-                                                                        !faseModal.cargos.find( c2 => c2.c_id_cargo === c1.c_id_cargo )
-                                                                    )
+                                                                    cargos
                                                                 )
                                                             }
-                                                            isDisabled={no_modificable}
-                                                            onChange={ (event) =>
-                                                                this.changeCargo(event, cargo.f_id_fase_cargo)
+                                                            isDisabled
+                                                        />
+                                                    </div>
+                                                    <div style={{width : "20%" }}>
+                                                        <DropdownV2
+                                                            placeholder="Empleado ..."
+                                                            value={{
+                                                                value: empleado.e_id_empleado,
+                                                                label: !!empleado.e_id_empleado ? 
+                                                                    `${this.state.empleados
+                                                                        .filter( e => e.estado_id === 11 && e.cargo_id === empleado.cargo_id)
+                                                                        .find( e => e.e_id_empleado === empleado.e_id_empleado).e_nombre} 
+                                                                    ${this.state.empleados
+                                                                        .filter( e => e.estado_id === 11 && e.cargo_id === empleado.cargo_id)
+                                                                        .find( e => e.e_id_empleado === empleado.e_id_empleado).e_apellido}` 
+                                                                    : "Empleado ..."
+                                                            }}
+                                                            options={
+                                                                cleanerEmpleado.limpiarListaDropdown(
+                                                                    empleados.filter( e => e.estado_id === 11 && e.cargo_id === empleado.cargo_id)
+                                                                )
                                                             }
                                                         />
                                                     </div>
-                                                    <div className="ancho-cantidad">
+                                                    {/*
+                                                    <div style={{width : "20%" }}>
                                                         <InputText 
-                                                            id={`CantidadRequesito_${cargo.f_id_fase_cargo}_`}
+                                                            id={`Sueldo_${i}_${empleado.idCargo}`}
                                                             label="Cantidad"
                                                             type="number"
                                                             min="0"
-                                                            name="f_cantidad"
-                                                            value={cargo.f_cantidad}
-                                                            disabled={no_modificable}
+                                                            name="f_sueldo"
+                                                            value={empleado.f_cantidad}
                                                             onChange= { (event) =>
                                                                 this.changeCargo(event, cargo.f_id_fase_cargo)
                                                             }
                                                         />
-                                                    </div>
+                                                        </div>*/}
                                                 </div>
                                             )
                                         )
                                     }
-                                    <div className="btnAgregarRequisito" onClick={ () => { if (!no_modificable) this.agregarCargo() }} >
+                                    <div className="btnAgregarRequisito" onClick={this.agregarCargo} >
                                         Agregar cargo
                                     </div>
                                     
@@ -898,9 +977,9 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                                     <div>
                                                         <i 
                                                             className="zmdi zmdi-close-circle-o LabelIcon pegar-derecha"
-                                                            onClick={() => { if (!no_modificable) this.quitarMaquinaria(
+                                                            onClick={() => this.quitarMaquinaria(
                                                                 maquinaria.f_id_fase_maqu
-                                                            )}}
+                                                            )}
                                                         >
                                                         </i>
                                                     </div>
@@ -913,12 +992,11 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                                             }}
                                                             options={
                                                                 cleanerMaquinaria.limpiarListaDropdown(
-                                                                    maquinarias.filter( c1 => 
-                                                                        !faseModal.maquinarias.find( c2 => c2.m_id_maquinaria === c1.m_id_maquinaria )
+                                                                        maquinarias.filter( c1 => 
+                                                                            !faseModal.maquinarias.find( c2 => c2.m_id_maquinaria === c1.m_id_maquinaria )
+                                                                        )
                                                                     )
-                                                                )
                                                             }
-                                                            isDisabled={no_modificable}
                                                             onChange={ (event) =>
                                                                 this.changeMaquinaria(event, maquinaria.f_id_fase_maqu)
                                                             }
@@ -932,7 +1010,6 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                                             min="0"
                                                             name="f_cantidad"
                                                             value={maquinaria.f_cantidad}
-                                                            disabled={no_modificable}
                                                             onChange= { (event) =>
                                                                 this.changeMaquinaria(event, maquinaria.f_id_fase_maqu)
                                                             }
@@ -942,19 +1019,19 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                             )
                                         )
                                     }
-                                    <div className="btnAgregarRequisito" onClick={() => { if (!no_modificable)this.agregarMaquinaria}} >
+                                    <div className="btnAgregarRequisito" onClick={this.agregarMaquinaria} >
                                         Agregar maquinaria
                                     </div>
                                     
                                 </div>
                             </div>
-                            <div className="fase-conf-der">
+                            <div className="fase-fase-der">
                                 <input
                                     className="inputOrdenFase"
                                     name={"f_orden"}
                                     value={faseModal.f_orden}
                                     style={{fontSize : "100px"}}
-                                    disabled={no_modificable}
+                                    disabled
                                     onChange={this.changeInfoFase}
                                 />
                             </div>
@@ -964,10 +1041,10 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                     
                     <Modal.Footer className="mc-footer">
                     <Button variant="primary" className="mc-boton mc-boton-guardar" 
-                        onClick={() => { if (!no_modificable) this.guardarFase(
+                        onClick={() => this.guardarFase(
                             faseModal.etapa_configuracion_id,
                             faseModal.f_id_fase_configuracion
-                        )}}
+                        )}
                     >
                         Modificar
                     </Button>

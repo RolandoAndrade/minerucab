@@ -494,7 +494,8 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
     }
 
     guardarBD = () => {
-        const nuevaEtapas = this.state.etapas.map( e => {
+        const supuestaEstapas = JSON.parse( JSON.stringify(this.state.etapas) )
+        const nuevaEtapas = supuestaEstapas.map( e => {
             // ETAPA
             e.e_tipo = e.e_tipo !== 1 && e.e_tipo !==2 ? 0 :
                         e.e_tipo === 1 ? 'explotacion' : 'refinacion'
@@ -650,8 +651,8 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                             </div>
                             <div className="imagen-diamante">
                                 <img 
-                                    src="resources/img/Yacimiento_2.png"
-                                    width="200px"
+                                    src="resources/img/Proyecto_4.png"
+                                    width="400px"
                                 />
                             </div>
                             
@@ -829,8 +830,10 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
                                                             }}
                                                             options={
                                                                 cleanerMaquinaria.limpiarListaDropdown(
-                                                                    maquinarias
-                                                                )
+                                                                        maquinarias.filter( c1 => 
+                                                                            !faseModal.maquinarias.find( c2 => c2.m_id_maquinaria === c1.m_id_maquinaria )
+                                                                        )
+                                                                    )
                                                             }
                                                             onChange={ (event) =>
                                                                 this.changeMaquinaria(event, maquinaria.f_id_fase_maqu)

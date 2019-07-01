@@ -1426,17 +1426,18 @@ app.post('/insertar/proyecto', (req,res) => {
       })
     })    
   })
+  .then((DATA_RESPUESTA) => {
+    console.log(`STATUS OK : 200`)      
+    res.status(200).json({"message" : "Proyecto Insertado Exitosamente!!!!!"})
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+  
+    res.status(500).json(bd_err)
+  })
 })
-.then((DATA_RESPUESTA) => {
-  console.log(`STATUS OK : 200`)      
-  res.status(200).json({"message" : "Proyecto Insertado Exitosamente!!!!!"})
-})
-.catch( (bd_err) => {
-  console.log(`STATUS ERROR: 500`)      
-  console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
-  res.status(500).json(bd_err)
-})
 
 function error(bd_err)
 {

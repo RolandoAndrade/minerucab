@@ -37,6 +37,25 @@ app.get('/prueba', (req, res) => {
 
   res.status(200).json(respuesta);
 });
+/* ****************************** EQUIPO ****************************** */
+
+import {daoEquipo} from './DAOs/daoEquipo'
+
+app.get('/consultarLista/equipo', (req,res) =>{
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/equipo")
+
+  daoEquipo.consultarTodos()
+    .then(({rows}) => {
+      res.status(200).json({"rows" : rows})
+    })
+    .catch((bd_err) => {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+    })
+})
+
 /* ****************************** COMPANIA ****************************** */
 import {daoCompania} from './DAOs/daoCompania'
 

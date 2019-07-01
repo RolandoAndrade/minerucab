@@ -494,7 +494,8 @@ export class ConfiguracionYacimientoAgregar extends React.Component {
     }
 
     guardarBD = () => {
-        const nuevaEtapas = this.state.etapas.map( e => {
+        const supuestaEstapas = JSON.parse( JSON.stringify(this.state.etapas) )
+        const nuevaEtapas = supuestaEstapas.map( e => {
             // ETAPA
             e.e_tipo = e.e_tipo !== 1 && e.e_tipo !==2 ? 0 :
                         e.e_tipo === 1 ? 'explotacion' : 'refinacion'

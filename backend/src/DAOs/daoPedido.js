@@ -85,33 +85,34 @@ const daoPedido = {
                     ${c_numero_tarjeta ? `'${c_numero_tarjeta}'` : 'NULL'},
                     ${c_tipo ? `'${c_tipo}'` : 'NULL'},
                     ${c_fecha_vencimiento ? `'${c_fecha_vencimiento}'` : 'NULL'}) 
-                    RETURNING (p_id_pedido)
+                    RETURNING (c_id_credito)
             `)
     }  ,
-    insertarDebito({ p_fecha_solicitud, cliente_id }){
+    insertarDebito({ d_numero_tarjeta, d_banco }){
         return psql.query(`
-            INSERT INTO PEDIDO (p_id_pedido, p_fecha_solicitud, cliente_id)
+            INSERT INTO DEBITO (d_id_debito, d_banco, d_numero_tarjeta)
             VALUES (DEFAULT,
-                    ${p_fecha_solicitud ? `'${p_fecha_solicitud}'` : 'NULL'},
-                    ${cliente_id ? `'${cliente_id}'` : 'NULL'}) 
-                    RETURNING (p_id_pedido)
+                    ${d_banco ? `'${d_banco}'` : 'NULL'},
+                    ${d_numero_tarjeta ? `'${d_numero_tarjeta}'` : 'NULL'}) 
+                    RETURNING (d_id_debito)
             `)
     }  ,
-    insertarCheque({ p_fecha_solicitud, cliente_id }){
+    insertarCheque({ c_numero_cheque, c_banco, c_numero_cuenta }){
         return psql.query(`
-            INSERT INTO PEDIDO (p_id_pedido, p_fecha_solicitud, cliente_id)
+            INSERT INTO CHEQUE (c_id_cheque, c_numero_cheque, c_banco, c_numero_cuenta)
             VALUES (DEFAULT,
-                    ${p_fecha_solicitud ? `'${p_fecha_solicitud}'` : 'NULL'},
-                    ${cliente_id ? `'${cliente_id}'` : 'NULL'}) 
-                    RETURNING (p_id_pedido)
+                    ${c_numero_cheque ? `'${c_numero_cheque}'` : 'NULL'},
+                    ${c_banco ? `'${c_banco}'` : 'NULL'},
+                    ${c_numero_cuenta ? `'${c_numero_cuenta}'` : 'NULL'}) 
+                    RETURNING (c_id_cheque)
             `)
     }  ,
-    insertarTransferencia({ p_fecha_solicitud, cliente_id }){
+    insertarTransferencia({ t_banco, t_numero_transferencia }){
         return psql.query(`
-            INSERT INTO PEDIDO (p_id_pedido, p_fecha_solicitud, cliente_id)
+            INSERT INTO PEDIDO (t_id_transferencia, t_banco, t_numero_transferencia)
             VALUES (DEFAULT,
-                    ${p_fecha_solicitud ? `'${p_fecha_solicitud}'` : 'NULL'},
-                    ${cliente_id ? `'${cliente_id}'` : 'NULL'}) 
+                    ${t_banco ? `'${t_banco}'` : 'NULL'},
+                    ${t_numero_transferencia ? `'${t_numero_transferencia}'` : 'NULL'}) 
                     RETURNING (p_id_pedido)
             `)
     }  ,

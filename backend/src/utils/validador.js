@@ -54,6 +54,29 @@ const validadorYacimientoConfiguracion = {
     }
 }
 
+const validadorProyecto = {
+    validar (p)  {
+        let flag = ""
+        if (!p) flag = "Proyecto vacio"
+        if (!p.p_nombre || p.p_nombre === "") flag = "nombre del proyecto vacio"
+        if (!p.p_fecha_inicio || p.p_fecha_inicio < new Date().getTime()) flag = "Fecha de inicio del proyecto menor a hoy"
+        if (y.y_capacidad_explotacion <= 0 ) flag = "y_capacidad_explotacion < 0"
+
+        if (y.requisitos && y.requisitos.length > 0)
+            y.requisitos.forEach((r) => {
+                if (r.m_cantidad <= 0) flag = "cantidad de requisito negativa"
+            })
+                        
+        if (!y.etapas) flag = "configuracion sin etapas"
+        else if (y.etapas.length === 0) flag = "configuracion sin etapas"
+        else{
+
+        }
+        return flag
+    }
+}
+
 export {
-    validadorYacimientoConfiguracion
+    validadorYacimientoConfiguracion,
+    validadorProyecto
 }

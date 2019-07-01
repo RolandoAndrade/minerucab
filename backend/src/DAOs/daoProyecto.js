@@ -34,6 +34,37 @@ const daoProyecto  = {
         `)
     },
 
+    insertar (p_nombre,p_fecha_inicio,estado_id,yacimiento_id,pedido_id){
+        const qry = `
+        INSERT INTO PROYECTO 
+        (p_id_proyecto,p_nombre,p_fecha_inicio,estado_id,yacimiento_id,pedido_id) VALUES                 
+        (DEFAULT,${p_nombre ? `'${p_nombre}'` : 'null'},
+        ${p_fecha_inicio ? `'${p_fecha_inicio}'` : 'null'},
+        ${estado_id},${yacimiento_id},${pedido_id? pedido_id:'null'}) RETURNING (p_id_proyecto);
+        `
+        return psql.query(qry)
+    },
+
+    eliminar( id ){
+        return psql.query(`
+            DELETE FROM PROYECTO
+            WHERE p_id_proyecto = ${id}
+        `)
+    },
+
+    modificar (p_id_proyecto,p_nombre,p_fecha_inicio,estado_id,yacimiento_id,pedido_id) {
+        const qry = `
+        UPDATE PROYECTO
+        SET p_nombre = ${p_nombre ? `'${p_nombre}'` : 'null'},
+            p_fecha_inicio = ${p_fecha_inicio ? `'${p_fecha_inicio}'` : 'null'},
+            estado_id = ${estado_id},
+            yacimiento_id = ${yacimiento_id},
+            pedido_id = ${pedido_id? pedido_id:'null'}
+        WHERE p_id_proyecto = ${p_id_proyecto}
+        `
+        return psql.query(qry)
+    },
+
     /*
     eliminar( id ){
         return psql.query(`

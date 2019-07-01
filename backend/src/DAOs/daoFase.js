@@ -20,7 +20,9 @@ const daoFase = {
     insertar(f_fecha_inicio,f_fecha_fin,etapa_id,fase_configuracion_id,estado_id) {
         const qry = `
             INSERT INTO FASE (f_id_fase,f_fecha_inicio,f_fecha_fin,etapa_id,fase_configuracion_id,estado_id) VALUES 
-            (DEFAULT,${f_fecha_inicio ? `'${f_fecha_inicio}'` : 'null'},${f_fecha_fin ? `'${f_fecha_fin}'` : 'null'},${f_duracion},${etapa_id},${fase_configuracion_id},${estado_id}) RETURNING (f_id_fase_configuracion);
+            (DEFAULT,${f_fecha_inicio ? `'${f_fecha_inicio}'` : 'null'},
+            ${f_fecha_fin ? `'${f_fecha_fin}'` : 'null'},${f_duracion},
+            ${etapa_id},${fase_configuracion_id},${estado_id}) RETURNING (f_id_fase);
         `
         console.log(qry)
         return psql.query(qry)
@@ -64,7 +66,24 @@ const daoFase = {
             i++;
             query =  query + `(DEFAULT,${e.f_costo_alquiler},${e.unidad_id},${e.unidad_id},${fase_id})${i < maquinarias.length ? ',' : ';' }`
         })
-        console.log(query)
+        return psql.query(query)
+    },
+
+    consultarGastos(fase_id) {
+        return psql.query(`
+            SELECT * 
+            FROM GASTO_ADICIONAL
+            WHERE fase_id = ${fase_id}
+        `)
+    },
+
+    asignarVariosGastos ( fase_id, gastos) {
+        let query = `INSERT INTO GASTO_ADICIONAL (g_id_gasto_adicional,g_monto,g_concepto,unidad_id,fase_id) VALUES`
+        let i = 0
+        gastos.forEach( g => {
+            i++;
+            query =  query + `(DEFAULT,${g.g_monto},${e.unidad_id},${g.g_concepto ? `'${g.g_concepto}'`:'null'},${g.unidad_id},${fase_id})${i < maquinarias.length ? ',' : ';' }`
+        })
         return psql.query(query)
     },
 

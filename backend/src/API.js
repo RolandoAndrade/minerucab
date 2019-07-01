@@ -1,6 +1,6 @@
 /* DEPENDENCIAS */
 import {daoPedido} from "./DAOs/daoPedido";
-import {validadorYacimientoConfiguracion} from "./utils/validador"
+import {validadorYacimientoConfiguracion, validadorProyecto} from "./utils/validador"
 
 const express = require('express');
 const app = express();
@@ -1072,7 +1072,7 @@ app.post('/insertar/yacimiento_configuracion', (req,res) => {
   })
   .then((DATA_RESPUESTA) => {
     console.log(`STATUS OK : 200`)      
-    res.status(200).json({"message" : "exito!"})
+    res.status(200).json({"message" : "Configuracion de Yacimiento Insertada Exitosamente!!!!!"})
   })
   .catch( (bd_err) => {
     console.log(`STATUS ERROR: 500`)      
@@ -1262,13 +1262,15 @@ app.post('/eliminar/tipo_yacimiento', (req, res) => {
     })
 });
 
-/* ****************************** YACIMIENTO ****************************** */
-import {daoProyecto} from './DAOs/daoProyecto'
+/* ****************************** PROYECTO ****************************** */
+import {daoProyecto} from "./DAOs/daoProyecto";
 import {daoProducto} from "./DAOs/daoProducto";
 import {daoPediProd} from "./DAOs/daoPediProd";
 import {daoPediEsta} from "./DAOs/daoPediEsta";
 import {daoInventario} from "./DAOs/daoInventario";
 import {daoHorario} from "./DAOs/daoHorario";
+import {daoEtapa} from "./DAOs/daoEtapa";
+import {daoFase} from "./DAOs/daoFase";
 
 app.get('/consultarLista/proyecto', (req, res) => {
   
@@ -1308,6 +1310,133 @@ app.post('/consultar/proyecto', (req, res) => {
 
     })
 });
+
+app.post(`/consultar/detalle_proyecto`,(req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultar/detalle_proyecto")
+
+  let proy_id = req.body.p_id_proyecto
+  let proyecto = null
+
+  daoProyecto.consultar(proy_id)
+  .then(({rows}) => {
+    proyecto = rows[0]
+    return daoEtapa.consultarTodosProyecto(proy_id)
+  })
+  .then((resp_bd) => {
+    proyecto["etapas"]=resp_bd.rows
+  })
+  .then(() => {
+    return new Promise((resolve,reject) => {
+      proyecto["etapas"].map((e,i) => { 
+        daoFase.consultarTodosEtapa(e.e_id_etapa)
+        .then((resp_bd) => {
+          proyecto["etapas"][i]["fases"] = resp_bd.rows
+          proyecto["etapas"][i]["fases"].map((f,j) => {
+            daoFase.consultarEmpleados(f.f_id_fase)
+            .then((resp_bd) => {
+              proyecto["etapas"][i]["fases"][j]["empleados"] = resp_bd.rows
+              daoFase.consultarEquipos(f.f_id_fase)
+              .then((resp_bd) => {
+                proyecto["etapas"][i]["fases"][j]["equipos"] = resp_bd.rows ? resp_bd.rows : []
+                daoFase.consultarGastos(f.f_id_fase)
+                .then((resp_bd) => {
+                  proyecto["etapas"][i]["fases"][j]["gastos"] = resp_bd.rows ? resp_bd.rows : []
+                  if( (i === (proyecto["etapas"].length - 1)) && (j === (proyecto["etapas"][i]["fases"].length - 1)))
+                  resolve("bien!")
+                })                    
+              })
+            })
+          })   
+        })
+      })
+    })    
+  })
+  .then((DATA_RESPUESTA) => {
+    console.log(`STATUS OK : 200`)      
+    res.status(200).json({"proyecto" : proyecto})
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+    res.status(500).json(bd_err)
+  })
+})
+
+app.post('/insertar/proyecto', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/insertar/proyecto `)
+
+  let p = req.body
+  const m = validadorProyecto.validar(p)
+  if (m !== "") {
+    console.log(`\n\nSTATUS ERROR: 500`)      
+    console.error(`\n\nERROR: Formato invalido: ${m}`)
+
+    res.status(500).json({"ErrorMessage" : m})
+    return 0;
+  }
+  let proy_id =  null
+  daoProyecto.insertar(p.p_nombre,p.p_fecha_inicio,3,p.yacimiento_id,p.pedido_id? p.pedido_id : null)  
+  .then((resp_bd) => {
+    proy_id = resp_bd.rows[0].p_id_proyecto    
+  })
+  .then(() => {
+    return new Promise((resolve,reject) => {
+      p["etapas"].map((e,i) => {
+        daoEtapa.insertar(e.e_fecha_inicio,3,proy_id,e.e_id_etapa_configuracion)
+        .then((resp_bd) => {
+          let e_id = resp_bd.rows[0].e_id_etapa
+          p["etapas"][i]["fases"].map((f,j) => {
+            daoFase.insertar(f.f_fecha_inicio,f.f_fecha_fin,e_id,f.f_id_fase_configuracion,3)
+            .then((resp_bd) => {
+              let f_id = resp_bd.rows[0].f_id_fase
+              if (f["empleados"].length > 0) {
+                daoFase.asignarVariosEmpleados(f_id,f["empleados"])
+                .then((resp_bd) => {
+                  if (f["equipos"].length > 0) {
+                    daoFase.asignarVariosEquipos(f_id,f["equipos"])
+                    .then((resp_bd) => {
+                      if ( f["gastos"].length > 0){
+                        daoFase.asignarVariosGastos(f_id,f["gastos"])
+                        .then((resp_bd) => {
+                          if( (i === (p["etapas"].length - 1)) && (j === (p["etapas"][i]["fases"].length - 1)))
+                          resolve("bien!")
+                        })
+                      }else{
+                        if( (i === (p["etapas"].length - 1)) && (j === (p["etapas"][i]["fases"].length - 1)))
+                        resolve("bien!")
+                      }                      
+                    })
+                  }else{
+                    if( (i === (p["etapas"].length - 1)) && (j === (p["etapas"][i]["fases"].length - 1)))
+                    resolve("bien!")
+                  }                  
+                })
+              }else{
+                if( (i === (p["etapas"].length - 1)) && (j === (p["etapas"][i]["fases"].length - 1)))
+                resolve("bien!") 
+              }                           
+            })
+          }) 
+        })
+      })
+    })    
+  })
+})
+.then((DATA_RESPUESTA) => {
+  console.log(`STATUS OK : 200`)      
+  res.status(200).json({"message" : "Proyecto Insertado Exitosamente!!!!!"})
+})
+.catch( (bd_err) => {
+  console.log(`STATUS ERROR: 500`)      
+  console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+  res.status(500).json(bd_err)
+})
 
 function error(bd_err)
 {

@@ -420,7 +420,6 @@ CREATE TABLE PROYECTO (
     yacimiento_id INTEGER NOT NULL,
     pedido_id INTEGER,
 
-    CONSTRAINT check_p_fecha_inicio CHECK (p_fecha_inicio <= now()),
     CONSTRAINT p_id_proyecto PRIMARY KEY (p_id_proyecto)
 );
 

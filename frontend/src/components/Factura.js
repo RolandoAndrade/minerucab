@@ -8,10 +8,11 @@ import {MenuDashBoard} from "../components/MenuDashBoard";
 import {GuardarCancelar} from "../components/GuardarCancelar";
 import {cleanerCliente, cleanerLugar, cleanerMineral, cleanerProducto} from "../utils/cleaner";
 import {Loader} from "../components/Loader";
+
 const IVA = 1.16;
 const UNIDAD_ID=7;
 
-export class Pagos extends React.Component
+export class Factura extends React.Component
 {
     constructor(props)
     {
@@ -40,8 +41,7 @@ export class Pagos extends React.Component
                         if(ax[q[i].p_id_pedido])
                         {
                             ax[q[i].p_id_pedido].productos.push({cantidad: q[i].p_cantidad, nombre: q[i].p_nombre, precio: (Math.floor(q[i].p_precio_unitario*100)/100).toFixed(2)})
-                            ax[q[i].p_id_pedido].subtotal=(Math.floor((parseFloat(ax[q[i].p_id_pedido].subtotal)+parseFloat(q[i].p_precio_unitario*q[i].p_cantidad))*100)/100).toFixed(2);
-                            ax[q[i].p_id_pedido].total+=parseFloat(q[i].p_precio_unitario*q[i].p_cantidad)*IVA;
+                            ax[q[i].p_id_pedido].total=(Math.floor((parseFloat(ax[q[i].p_id_pedido].total)+parseFloat(q[i].total))*100)/100).toFixed(2);
                         }
                         else
                         {
@@ -50,8 +50,7 @@ export class Pagos extends React.Component
                                 c_nombre: q[i].c_nombre, 
                                 p_fecha_solicitud: q[i].p_fecha_solicitud, 
                                 e_nombre: q[i].e_nombre, 
-                                subtotal: (Math.floor(q[i].p_precio_unitario*q[i].p_cantidad*100)/100).toFixed(2),
-                                total: (Math.floor(q[i].p_precio_unitario*q[i].p_cantidad*100)/100).toFixed(2)*IVA,
+                                total: (Math.floor(q[i].total*100)/100).toFixed(2),
                                 productos:[{
                                     cantidad: q[i].p_cantidad, 
                                     nombre: q[i].p_nombre, 
@@ -91,7 +90,6 @@ export class Pagos extends React.Component
         this.setState({
             [target.name]: target.value
         })
-        console.log(this.state)
     };
 
    
@@ -111,7 +109,6 @@ export class Pagos extends React.Component
 
     render = () => (
         <div>
-            <MenuDashBoard title="Pagar"/>
             <div className="CrearElemento">
                 <div className="firstColumn">
                     <div className="mc-atributo">Número de orden: </div>
@@ -175,79 +172,6 @@ export class Pagos extends React.Component
                     })
                 }
             </div>
-            <div className="TotalAmountContainer">
-                    <div className="AmountSquare">
-                        <div className="Amount">
-                            Subtotal: {this.state.subtotal} Bs.S
-                        </div>
-                        <div className="Amount">
-                            Total: {this.state.total} Bs.S (16% IVA)
-                        </div>
-                    </div>
-                </div>
-            <div className="Container-80p" style={{marginTop: "5%"}}>
-                <div className="LabelContainer">
-                    Datos del pago
-
-                </div>
-
-                <div className="RowContainer Container-90p"
-                                 style={
-                                     {
-                                         position: "relative"
-                                     }}>
-                        <div className="WideContainer" style={{margin: "5px"}}>
-                         <Dropdown id={"TipoPago"}
-                                              name={"tipo_pago"}
-                                              retrieveData={this.handleChange}
-                                              placeholder="Tipo de Pago..."
-                                              options={[
-                                                  {text:"Crédito",id:1},
-                                                  {text:"Débito",id:2},
-                                                  {text:"Cheque",id:3},
-                                                  {text:"Transferencia",id:4}]}
-                                    />
-                        </div>
-                        <div className="WideContainer" style={{margin: "5px"}}>
-                            
-                        </div>
-                        <div className="WideContainer" style={{margin: "5px"}}>
-                            
-                        </div>
-                    </div>
-            </div>
-
-            {this.state.tipo_pago==1?<div className="CrearElemento">
-                <div className="firstColumn">
-                    <div className="mc-atributo">Banco: </div>
-                </div>
-                <div className="secondColumn">
-                    <InputText 
-                            id="Banco" 
-                            label="Banco" 
-                            name="c_banco"
-                            onChange={this.handleChange}
-                        />
-                </div>
-                <div className="firstColumn">
-                    <div className="mc-atributo">Tipo: </div>
-                </div>
-                <div className="secondColumn">
-                    <div className="mc-atributo bitContainer yellow">{this.state.p_fecha_solicitud&&this.state.p_fecha_solicitud.substring(0,10)} </div>
-                </div>
-                <div className="firstColumn">
-                    <div className="mc-atributo">Número: </div>
-                </div>
-                <div className="secondColumn">
-                    <div className="mc-atributo bitContainer green">{this.state.c_nombre} </div>
-                </div>
-            </div>:""}
-            <GuardarCancelar
-                position="center"
-                storeData={this.handleGuardar}
-                success={this.goHorario}
-                decline={this.goHorario}
-            />
             {this.state.loading && <Loader/>}
         </div>
     )

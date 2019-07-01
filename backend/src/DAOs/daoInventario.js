@@ -47,18 +47,18 @@ const daoInventario = {
 
     insertar({i_cantidad, i_ingresado,i_fecha_modificacion, mineral_id, unidad_id,proyecto_id, solicitud_id ,pedido_id  }){
         return psql.query(`
-            INSERT INTO INVENTARIO (i_id_inventario, i_cantidad, i_ingresado,i_fecha_modificacion, mineral_id, unidad_id,proyecto_id, solicitud_id ,pedido_id )
-            VALUES (DEFAULT,
+            INSERT INTO INVENTARIO (i_id_inventario,i_cantidad,i_ingresado,i_fecha_modificacion,mineral_id,unidad_id,proyecto_id,solicitud_id,pedido_id) 
+                VALUES (DEFAULT,
                     ${i_cantidad ? `'${i_cantidad}'` : 'NULL'},
-                    ${i_ingresado ? `'${i_ingresado}'` : 'NULL'},
+                    ${i_ingresado ? `'${i_ingresado}'` : false},
                     ${i_fecha_modificacion ? `'${i_fecha_modificacion}'` : 'NULL'},
                     ${mineral_id ? `'${mineral_id}'` : 'NULL'},
                     ${unidad_id ? `'${unidad_id}'` : 'NULL'},
                     ${proyecto_id ? `'${proyecto_id}'` : 'NULL'},
                     ${solicitud_id ? `'${solicitud_id}'` : 'NULL'},
-                    ${pedido_id ? `'${pedido_id}'` : 'NULL'},
+                    ${pedido_id ? `'${pedido_id}'` : 'NULL'}
                     ) 
-                    RETURNING (p_id_pedido)
+                    RETURNING (i_id_inventario)
             `)
     }  ,
 }

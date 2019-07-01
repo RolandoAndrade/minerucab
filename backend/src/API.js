@@ -1563,6 +1563,7 @@ app.post('/insertar/inventario', (req, res) => {
   console.log(`----------------------> ${getAhora()}`)
   console.log("/insertar/inventario")
   req.body.i_fecha_modificacion=getAhora();
+  console.log(req.body);
   daoInventario.insertar(req.body)
       .then( ({rows}) => {
         res.status(200).json({"rows" : rows})

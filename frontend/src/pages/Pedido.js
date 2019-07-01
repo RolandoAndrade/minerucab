@@ -7,7 +7,7 @@ import MaterialTable from 'material-table';
 
 import {cleanerPedido, cleanerYacimiento} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
-
+import Swal from "sweetalert2";
 export class Pedido extends React.Component {
     constructor(props){
         super(props)
@@ -16,7 +16,8 @@ export class Pedido extends React.Component {
             pedidos : [],
             agregarPresionado : null,
             consultarPedido: null,
-            ped: {}
+            ped: {},
+            goProyecto: false
         }
     }
 
@@ -87,9 +88,6 @@ export class Pedido extends React.Component {
 
     handleAsignar = () =>
     {
-        axios.get('http://127.0.0.1:4000/consultarLista/inventario').then((res)=>{
-            console.log(res);
-        })
         let total=0;
         for(let i=0;i<this.state.consultarPedido.productos.length;i++)
         {
@@ -101,27 +99,75 @@ export class Pedido extends React.Component {
         }).then((res)=>{
             try
             {
-                console.log(res.rows[0]);
-                let cant = res.rows[0].cantidad_actual;
+                console.log(res.data.rows[0]);
+                let cant = res.data.rows[0].cantidad_actual;
                 if(cant>=total)
                 {
                     axios.post('http://127.0.0.1:4000/insertar/inventario',
                     {
-                        pedido_id: this.state.consultarPedido.p_id_pedido,
+                        pedido_id: parseInt(this.state.consultarPedido.p_id_pedido),
                         i_ingresado: false,
                         i_cantidad: total,
                         mineral_id: this.state.consultarPedido.productos[0].mineral,
                         unidad_id: 7
+                    }).then((res)=>{
+                        axios.post('http://127.0.0.1:4000/editarEstado/pedido',
+                        {
+                            "pedido_id" : parseInt(this.state.consultarPedido.p_id_pedido),
+                            "estado_id" : 5
+                        })
+                        .then( (res) => {
+                            if( res.status === 200) {
+                                console.log(`<---- (OK 200) localhost:4000/editarEstado/pedido`)
+                                this.handleCloseModal()
+                                this.handleCloseEliminar()
+                                location.reload()
+                            }
+                        })
                     })
                 }
                 else
                 {
-                    //redirecciona
+                    Swal.fire({
+                    title: 'Debes crear un proyecto',
+                    text: 'No tiene suficiente material, debe generar un proyecto',
+                    type: 'info',
+                    showCancelButton: false,
+                    confirmButtonText: 'Vamos',
+                    cancelButtonText: 'No, editar',
+                    confirmButtonColor: "#1CA1DC",
+                    cancelButtonColor: "#dc3832"
+                    }).then((result) => {
+                    if (result.value)
+                    {
+                        this.setState({
+                            goProyecto:true
+                        })
+                    }
+                    })
                 }
 
             }
-            catch
+            catch(e)
             {
+                console.log(e);
+                Swal.fire({
+                    title: 'Debes crear un proyecto',
+                    text: 'No tiene suficiente material, debe generar un proyecto',
+                    type: 'info',
+                    showCancelButton: false,
+                    confirmButtonText: 'Vamos',
+                    cancelButtonText: 'No, editar',
+                    confirmButtonColor: "#1CA1DC",
+                    cancelButtonColor: "#dc3832"
+                    }).then((result) => {
+                    if (result.value)
+                    {
+                        this.setState({
+                            goProyecto:true
+                        })
+                    }
+                    })
 
             }
             
@@ -387,6 +433,9 @@ export class Pedido extends React.Component {
                 }
                 {!!this.state.factura
                 && <Redirect push to={`/factura/${this.state.factura}`} />
+                }
+                {this.state.goProyecto
+                && <Redirect push to={"../../crear/proyecto"} />
                 }
                 {this.state.agregarPresionado && <Redirect push to="/crear/pedido" />}
             </div>

@@ -2,7 +2,7 @@
 
 SELECT c_id_compania "Código de la empresa", c_rif "RIF", c_nombre "Nombre de la empresa",
        c_nacionalizado "¿Está nacionalizada?", c_fecha_nacional "Fecha de nacionalización",
-       c_fecha_apertura "Fecha de inaguración", c_capacidad_maxima_anual "Producción anual",
+       c_fecha_apertura "Fecha de inauguración", c_capacidad_maxima_anual "Producción anual",
        u_nombre "Unidad de producción", E.l_nombre "Estado" , M.l_nombre "Municipio",P.l_nombre "Parroquia",
        compras "Compras realizadas"
 FROM

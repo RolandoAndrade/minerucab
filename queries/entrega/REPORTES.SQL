@@ -1,3 +1,5 @@
+/*Empresa aliada a la que se le realizaron más compras*/
+
 SELECT c_id_compania "Código de la empresa", c_rif "RIF", c_nombre "Nombre de la empresa",
        c_nacionalizado "¿Está nacionalizada?", c_fecha_nacional "Fecha de nacionalización",
        c_fecha_apertura "Fecha de inaguración", c_capacidad_maxima_anual "Producción anual",
@@ -19,3 +21,22 @@ WHERE c_id_compania = compania AND
         C.lugar_id = P.l_id_lugar AND
         P.lugar_id = M.l_id_lugar AND
         M.lugar_id = E.l_id_lugar;
+
+/*Fases que presentan retrasos*/
+
+SELECT p_nombre "Nombre del proyecto",
+       e_nombre "Etapa atrasada",
+       e_orden "Número de etapa",
+       f_id_fase "Código de la fase",
+       f_nombre "Nombre de la fase",
+       f_orden "Número de fase",
+       f_fecha_inicio "Fecha de inicio pautada",
+       f_fecha_fin "Fecha de fin pautada"
+FROM FASE, FASE_CONFIGURACION, ETAPA, ETAPA_CONFIGURACION, PROYECTO
+WHERE fase_configuracion_id = f_id_fase_configuracion AND
+        etapa_id = e_id_etapa AND
+        proyecto_id = p_id_proyecto AND
+        etapa.etapa_configuracion_id = e_id_etapa_configuracion AND
+        f_fecha_fin<now() AND
+        fase.estado_id != 2;
+

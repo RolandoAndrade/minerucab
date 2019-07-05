@@ -1,0 +1,1 @@
+DELETE FROM PROYECTO WHERE p_id_proyecto=p_id_proyecto

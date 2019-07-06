@@ -112,7 +112,8 @@ CREATE TABLE EMPLEADO (
     CONSTRAINT check_e_genero CHECK (e_genero in ('m', 'f')),
     CONSTRAINT check_e_fecha_ingreso CHECK (e_fecha_ingreso <= now()),
     CONSTRAINT check_e_fecha_nacimiento CHECK (e_fecha_nacimiento + interval'18 years' <= e_fecha_ingreso),
-    CONSTRAINT e_id_empleado PRIMARY KEY (e_id_empleado)
+    CONSTRAINT e_id_empleado PRIMARY KEY (e_id_empleado),
+    CONSTRAINT e_estado_id CHECK (estado_id IN (11,12))
 );
 
 CREATE TABLE EQUIPO (
@@ -121,7 +122,10 @@ CREATE TABLE EQUIPO (
     e_modelo VARCHAR(255) NOT NULL,
     e_serial VARCHAR(255) NOT NULL UNIQUE,
     maquinaria_id INTEGER NOT NULL,
-    CONSTRAINT e_id_equipo PRIMARY KEY (e_id_equipo)
+    estado_id INTEGER NOT NULL,
+
+    CONSTRAINT e_id_equipo PRIMARY KEY (e_id_equipo),
+    CONSTRAINT e_estado_id CHECK (estado_id IN (11,12))
 );
 
 CREATE TABLE ESTADO (
@@ -137,7 +141,6 @@ CREATE TABLE ETAPA (
     proyecto_id INTEGER NOT NULL,
     etapa_configuracion_id INTEGER NOT NULL,
 
-    CONSTRAINT chec_e_fecha_inicio CHECK (e_fecha_inicio <= now()),
     CONSTRAINT e_id_etapa PRIMARY KEY (e_id_etapa)
 );
 
@@ -332,7 +335,6 @@ CREATE TABLE PEDI_ESTA (
     estado_id INTEGER NOT NULL,
     pedido_id INTEGER NOT NULL,
 
-    CONSTRAINT check_p_fecha_modificacion CHECK (p_fecha_modificacion <= now()),
     CONSTRAINT p_id_pedi_esta PRIMARY KEY (p_id_pedi_esta)
 );
 
@@ -361,7 +363,6 @@ CREATE TABLE PEDI_TIPO (
     unidad_id INTEGER NOT NULL,
 
     CONSTRAINT check_p_monto CHECK (p_monto > 0),
-    CONSTRAINT check_p_fecha_pago CHECK (p_fecha_pago <= now()),
     CONSTRAINT p_id_pedi_tipo PRIMARY KEY (p_id_pedi_tipo)
 );
 
@@ -370,7 +371,6 @@ CREATE TABLE PEDIDO (
     p_fecha_solicitud DATE NOT NULL,
     cliente_id INTEGER NOT NULL,
 
-    CONSTRAINT check_p_fecha_solicitud CHECK (p_fecha_solicitud <= now()),
     CONSTRAINT p_id_pedido PRIMARY KEY (p_id_pedido)
 );
 

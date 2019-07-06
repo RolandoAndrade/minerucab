@@ -282,6 +282,21 @@ const cleanerMaquinaria = {
     }
 }
 
+const cleanerEquipo = {
+    limpiarListaDropdown(  equiposDB ) {
+        if ( equiposDB === undefined ||  equiposDB.length == 0)
+            return []
+        else
+            return  equiposDB.map( e => ({
+                ...e,
+                "text" : `${e.e_marca} - ${e.e_modelo} - ${e.e_serial}`,
+                "label" : `${e.e_marca} - ${e.e_modelo} - ${e.e_serial}`,
+                "id" : e.e_id_equipo,
+                "value" : e.e_id_equipo
+            }))
+    }
+}
+
 const cleanerHorario = {
     limpiarLista(  hor ) {
         if ( hor === undefined ||  hor.length == 0)
@@ -290,6 +305,18 @@ const cleanerHorario = {
             return  hor.map( p => ({
                 "h_id_horario" : p.horario_id,
                 "h_nombre" : p.h_nombre
+            }))
+    },
+    limpiarListaDropdown(  horariosDB ) {
+        if ( horariosDB === undefined ||  horariosDB.length == 0)
+            return []
+        else
+            return  horariosDB.map( h => ({
+                ...h,
+                "text" : h.h_nombre,
+                "label" : h.h_nombre,
+                "id" : h.h_id_horario ,
+                "value" : h.h_id_horario
             }))
     }
 }
@@ -306,6 +333,7 @@ export {
     cleanerProyecto,
     cleanerProducto,
     cleanerMaquinaria,
+    cleanerEquipo,
     cleanerCompania,
     cleanerPedido,
     cleanerHorario,

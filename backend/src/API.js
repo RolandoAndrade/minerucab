@@ -1401,12 +1401,12 @@ app.post('/insertar/proyecto', (req,res) => {
               daoEmpleado.modificarEstatusEmpleados(f_id,f["empleados"],12)
             })
             .then((resp_bd) => {
-              if (f["equipos"].length > 0) {
+              if (f["equipos"] && f["equipos"].length > 0) {
                 daoFase.asignarVariosEquipos(f_id,f["equipos"])
               }
             })
             .then((resp_bd) => {
-              if ( f["gastos"].length > 0){
+              if ( f["gastos"] && f["gastos"].length > 0){
                 daoFase.asignarVariosGastos(f_id,f["gastos"])
               }
             })

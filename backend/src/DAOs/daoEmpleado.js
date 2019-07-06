@@ -82,7 +82,7 @@ const daoEmpleado = {
         `)
     },
 
-    modificarEstatusEmpleados(fase_id, empleados, estatus_id){
+    modificarEstatusEmpleados(empleados, estatus_id){
         let query = `
             UPDATE EMPLEADO
             SET estado_id = ${estatus_id}
@@ -93,6 +93,20 @@ const daoEmpleado = {
             i++;
             query = query + `${e.e_id_empleado}${i < empleados.length ? ',' : ');' } `
         })
+        console.log(query)
+        return psql.query(query)
+    },
+
+    liberarEmpleadosProyecto(p_id){
+        let query = `
+            UPDATE EMPLEADO
+            SET estado_id = 11
+            WHERE e_id_empleado IN (
+            SELECT FE.empleado_id FROM FASE_EMPL FE, FASE F, ETAPA E
+            WHERE FE.fase_id = F.f_id_fase
+            AND F.etapa_id = E.e_id_etapa
+            AND E.proyecto_id = ${p_id});
+        `
         console.log(query)
         return psql.query(query)
     }

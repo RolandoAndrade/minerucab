@@ -1049,7 +1049,7 @@ app.post('/insertar/yacimiento_configuracion', (req,res) => {
               if (f["cargos"].length > 0) {
                 daoFaseConfiguracion.asignarVariosCargo(f_id,f["cargos"])
                 .then((resp_bd) => {
-                  if (f["maquinarias"].length > 0) {
+                  if (f["maquinarias"] && f["maquinarias"].length > 0) {
                     daoFaseConfiguracion.asignarVariosMaquinaria(f_id,f["maquinarias"])
                     .then((resp_bd) => {
                       if( (i === (y["etapas"].length - 1)) && (j === (y["etapas"][i]["fases"].length - 1)))
@@ -1398,11 +1398,16 @@ app.post('/insertar/proyecto', (req,res) => {
               daoFase.asignarVariosEmpleados(f_id,f["empleados"])
             })
             .then((resp_bd) => {
-              daoEmpleado.modificarEstatusEmpleados(f_id,f["empleados"],12)
+              daoEmpleado.modificarEstatusEmpleados(f["empleados"],12)
             })
             .then((resp_bd) => {
               if (f["equipos"] && f["equipos"].length > 0) {
                 daoFase.asignarVariosEquipos(f_id,f["equipos"])
+              }
+            })
+            .then((resp_bd) => {
+              if (f["equipos"] && f["equipos"].length > 0) {
+                daoEquipo.modificarEstatusEquipos(f["equipos"],12)
               }
             })
             .then((resp_bd) => {
@@ -1431,6 +1436,102 @@ app.post('/insertar/proyecto', (req,res) => {
   })
 })
 
+app.post('/modificar/proyecto', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/modificar/proyecto/${req.body.p_id_proyecto}`)
+
+  let p = req.body
+  const m = validadorProyecto.validar(p)
+  if (m !== "") {
+    console.log(`\n\nSTATUS ERROR: 500`)      
+    console.error(`\n\nERROR: Formato invalido: ${m}`)
+
+    res.status(500).json({"ErrorMessage" : m})
+    return 0;
+  }
+  daoEmpleado.liberarEmpleadosProyecto(p.p_id_proyecto)
+  .then((resp_bd) => {
+    return daoEquipo.liberarEquiposProyecto(p.p_id_proyecto)
+  })
+  .then((resp_bd) => {
+    return daoProyecto.borrarEtapas(p.p_id_proyecto)
+  })
+  .then((resp_bd) => {
+    return daoProyecto.modificar(p.p_id_proyecto,p.p_nombre,p.p_fecha_inicio,p.estado_id,p.yacimiento_id,p.pedido_id)
+  })
+  .then(() => {
+    return new Promise((resolve,reject) => {
+      p["etapas"].map((e,i) => {
+        daoEtapa.insertar(e.e_fecha_inicio,3,p.p_id_proyecto,e.e_id_etapa_configuracion)
+        .then((resp_bd) => {
+          let e_id = resp_bd.rows[0].e_id_etapa
+          p["etapas"][i]["fases"].map((f,j) => {
+            let f_id = null
+            daoFase.insertar(f.f_fecha_inicio,f.f_fecha_fin,e_id,f.f_id_fase_configuracion,3)
+            .then((resp_bd) => {
+              f_id = resp_bd.rows[0].f_id_fase
+              daoFase.asignarVariosEmpleados(f_id,f["empleados"])
+            })
+            .then((resp_bd) => {
+              daoEmpleado.modificarEstatusEmpleados(f["empleados"],12)
+            })
+            .then((resp_bd) => {
+              if (f["equipos"] && f["equipos"].length > 0) {
+                daoFase.asignarVariosEquipos(f_id,f["equipos"])
+              }
+            })
+            .then((resp_bd) => {
+              if (f["equipos"] && f["equipos"].length > 0) {
+                daoEquipo.modificarEstatusEquipos(f["equipos"],12)
+              }
+            })
+            .then((resp_bd) => {
+              if ( f["gastos"] && f["gastos"].length > 0){
+                daoFase.asignarVariosGastos(f_id,f["gastos"])
+              }
+            })
+            .then((resp_bd) => {
+              if( (i === (p["etapas"].length - 1)) && (j === (p["etapas"][i]["fases"].length - 1)))
+                  resolve("bien!")
+            })                         
+          })
+        }) 
+      })
+    })
+  })
+  .then((DATA_RESPUESTA) => {
+    console.log(`STATUS OK : 200`)      
+    res.status(200).json({"message" : "Proyecto Modificado Exitosamente!!!!!"})
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+  
+    res.status(500).json(bd_err)
+  })
+})
+
+app.post('/eliminar/proyecto', (req, res) => {
+  
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/eliminar/proyecto/${req.body.p_id_proyecto}`)
+  daoProyecto.eliminar(req.body.p_id_proyecto)
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
+});
 
 function error(bd_err)
 {

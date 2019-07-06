@@ -622,6 +622,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                     <div> 
                         <div className="horizontal">
                             <div className="confYacimientoIzq">
+                                { no_modificable && <div style={{color: "red"}}>Ya existe un proyecto asociado a la configuración</div> }
                                 <InputText 
                                     id={`NombreConfiguracion`}
                                     label="Nombre de Configuración"

@@ -22,7 +22,7 @@ const daoEtapa = {
     insertar(e_fecha_inicio,estado_id,proyecto_id,etapa_configuracion_id){
         const qry = `
         INSERT INTO ETAPA (e_id_etapa,e_fecha_inicio,estado_id,proyecto_id,etapa_configuracion_id) VALUES  
-            (DEFAULt,${e_fecha_inicio ? `'${e_fecha_inicio}'`:'null'},${estado_id},${proyecto_id},${etapa_configuracion_id}) RETURNING e_id_etapa_configuracion;
+            (DEFAULt,${e_fecha_inicio ? `'${e_fecha_inicio}'`:'null'},${estado_id},${proyecto_id},${etapa_configuracion_id}) RETURNING (e_id_etapa);
         `
         return psql.query(qry)
     },

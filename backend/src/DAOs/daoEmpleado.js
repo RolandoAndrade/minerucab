@@ -88,10 +88,12 @@ const daoEmpleado = {
             SET estado_id = ${estatus_id}
             WHERE e_id_empleado IN (
         `
+        let i = 0
         empleados.forEach( e => {
             i++;
             query = query + `${e.e_id_empleado}${i < empleados.length ? ',' : ');' } `
         })
+        console.log(query)
         return psql.query(query)
     }
 

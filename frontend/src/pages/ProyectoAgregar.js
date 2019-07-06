@@ -28,7 +28,10 @@ export class ProyectoAgregar extends React.Component {
             y_nombre :"",
             y_capacidad_explotacion : 0,
             mineral_id : 0,
-            unidad_id : 7
+            unidad_id : 7,
+            p_fecha_inicio : null,
+            p_nombre : "",
+            
         },
         requisitos : [],
         etapas : [/*{
@@ -273,13 +276,12 @@ export class ProyectoAgregar extends React.Component {
             
             
         } else {
-            console.log(`configuracion_yacimiento.${target.name} = ${target.value}`)
+            console.log(`configuracion_yacimiento.${target.target.name} = ${target.target.value}`)
             this.setState({
                 configuracion_yacimiento :{
                     ...this.state.configuracion_yacimiento,
-                    [target.name] : target.value
-                }
-            })
+                    [target.target.name] : target.target.value
+            }})
         }
     }
 
@@ -718,8 +720,8 @@ export class ProyectoAgregar extends React.Component {
 
         const conf = this.state.configuracion_yacimiento
 
-        console.log(`----> localhost:4000/insertar/yacimiento_configuracion`)
-        return axios.post('http://127.0.0.1:4000/insertar/yacimiento_configuracion',
+        console.log(`----> localhost:4000/insertar/proyecto`)
+        return axios.post('http://127.0.0.1:4000/insertar/proyecto',
             {
                 ...this.state.configuracion_yacimiento,
                 y_capacidad_explotacion : parseFloat( conf.y_capacidad_explotacion ),
@@ -728,7 +730,7 @@ export class ProyectoAgregar extends React.Component {
             })
             .then( (res) => {
                 if( res.status === 200) {
-                    console.log(`<---- (OK 200) localhost:4000/insertar/yacimiento_configuracion`)
+                    console.log(`<---- (OK 200) localhost:4000/insertar/proyecto`)
                 }
                 return res
             }).catch( err => err)
@@ -1045,7 +1047,7 @@ export class ProyectoAgregar extends React.Component {
                                                             type="number"
                                                             min="0"
                                                             name="f_salario"
-                                                            value={empleado.f_sueldo}
+                                                            value={empleado.f_salario}
                                                             onChange= { (event) =>
                                                                 this.changeEmpleado(event, empleado.idEspecial)
                                                             }

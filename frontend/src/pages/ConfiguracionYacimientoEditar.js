@@ -720,7 +720,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                             )
                                         )
                                     }
-                                    <div className="btnAgregarRequisito" onClick={() => { if (!no_modificable) this.agregarRequisito}} >
+                                    <div className="btnAgregarRequisito" onClick={() => { if (!no_modificable) this.agregarRequisito()}} >
                                         Agregar Mineral Requerido
                                     </div>
                                     
@@ -771,7 +771,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                         }
                     </div>
                     <div>
-                        <div className="btnAgregarEtapa" onClick={()=> { if (!no_modificable)this.agregarEtapa}} >
+                        <div className="btnAgregarEtapa" onClick={()=> { if (!no_modificable)this.agregarEtapa()}} >
                             Agregar Etapa
                         </div>
                     </div>
@@ -942,7 +942,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                             )
                                         )
                                     }
-                                    <div className="btnAgregarRequisito" onClick={() => { if (!no_modificable)this.agregarMaquinaria}} >
+                                    <div className="btnAgregarRequisito" onClick={() => { if (!no_modificable) this.agregarMaquinaria()}} >
                                         Agregar maquinaria
                                     </div>
                                     

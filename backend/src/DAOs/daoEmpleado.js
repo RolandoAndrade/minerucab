@@ -82,6 +82,19 @@ const daoEmpleado = {
         `)
     },
 
+    modificarEstatusEmpleados(fase_id, empleados, estatus_id){
+        let query = `
+            UPDATE EMPLEADO
+            SET estado_id = ${estatus_id}
+            WHERE e_id_empleado IN (
+        `
+        empleados.forEach( e => {
+            i++;
+            query = query + `${e.e_id_empleado}${i < empleados.length ? ',' : ');' } `
+        })
+        return psql.query(query)
+    }
+
 
 }
 

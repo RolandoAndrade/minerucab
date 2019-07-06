@@ -86,8 +86,7 @@ const validadorProyecto = {
 
                     e.fases.forEach((f) => {
                         if (f.f_fecha_inicio)
-                            try {
-                                if (new Date(f.f_fecha_inicio) < new Date().getTime()) flag = `Fecha de fase en etapa ${e.e_orden} fase ${f.f_orden}, menor a hoy`
+                            try {                                
                                 if (f.fecha_fin && new Date(f.fecha_fin) < new Date(f.f_fecha_inicio)) ` Fecha_fin > fecha)inicio en etapa ${e.e_orden} fase ${f.f_orden}`
                             }catch (e) { 
                                 flag = `Formato de fecha invalida en etapa ${e.e_orden} fase ${f.f_orden}`

@@ -12,7 +12,10 @@ import {GuardarCancelar} from "../components/GuardarCancelar";
 import {MenuDashBoard} from "../components/MenuDashBoard";
 import {Etapa} from "../components/Etapa";
 
-import {cleanerMineral, cleanerCargo, cleanerMaquinaria, cleanerYacimiento, cleanerEmpleado} from "../utils/cleaner"
+import {    cleanerMineral, cleanerCargo, cleanerMaquinaria, 
+            cleanerYacimiento, cleanerEmpleado, cleanerHorario, 
+            cleanerEquipo
+} from "../utils/cleaner"
 
 export class ProyectoAgregar extends React.Component {
     constructor(props){
@@ -134,16 +137,16 @@ export class ProyectoAgregar extends React.Component {
                 }
             })
 
-        console.log(`----> localhost:4000/consultarLista/horario `)
-        promesas[5] = axios.get('http://127.0.0.1:4000/consultarLista/horario')
+        console.log(`----> localhost:4000/consultarLista/horario_v2 `)
+        promesas[5] = axios.get('http://127.0.0.1:4000/consultarLista/horario_v2')
             .then( res => {
                 if(res.status === 200) {
-                    console.log(`<---- (OK 200) localhost:4000/consultarLista/horario`)
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/horario_v2`)
                     this.setState({
                         horarios : res.data.rows
                     })
                 } else {
-                    console.log(`<---- (ERROR 500) localhost:4000/consultarLista/horario`)
+                    console.log(`<---- (ERROR 500) localhost:4000/consultarLista/horario_v2`)
                 }
             })
 
@@ -157,6 +160,19 @@ export class ProyectoAgregar extends React.Component {
                     })
                 } else {
                     console.log(`<---- (ERROR 500) localhost:4000/consultarLista/pedido`)
+                }
+            })
+
+        console.log(`----> localhost:4000/consultarLista/equipo `)
+        promesas[6] = axios.get('http://127.0.0.1:4000/consultarLista/equipo')
+            .then( res => {
+                if(res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/equipo`)
+                    this.setState({
+                        equipos : res.data.rows
+                    })
+                } else {
+                    console.log(`<---- (ERROR 500) localhost:4000/consultarLista/equipo`)
                 }
             })
 
@@ -189,21 +205,21 @@ export class ProyectoAgregar extends React.Component {
                             fases : etapa.fases.map( fase => {
                                 
                                 let empleadosNuevo = []
-                                let id = 0
+                                let id1 = 0
                                 fase.cargos.map( cargo => {
                                     let i = 0;
                                     
                                     while( i < cargo.f_cantidad ){
-                                        id = id +1
+                                        id1 = id1 +1
                                         i = i +1
                                         empleadosNuevo = [
                                             ...empleadosNuevo,
                                             {
-                                                idEspecial:  id,
+                                                idEspecial:  id1,
                                                 e_id_empleado : 0,
                                                 horario_id : 0,
-                                                f_salario : 0,
-                                                f_viatico : 0,
+                                                f_salario : null,
+                                                f_viatico : null,
                                                 e_nombre : 0,
                                                 c_id_cargo : cargo.c_id_cargo,
                                                 cargo_id : cargo.c_id_cargo
@@ -214,10 +230,37 @@ export class ProyectoAgregar extends React.Component {
                                     
                                 })
 
+                                let equiposNuevo = []
+                                let id2 = 0
+                                fase.maquinarias.map( maquinaria => {
+                                    let i = 0;
+                                    
+                                    while( i < maquinaria.f_cantidad ){
+                                        id2 = id2 +1
+                                        i = i +1
+                                        equiposNuevo = [
+                                            ...equiposNuevo,
+                                            {
+                                                idEspecial:  id2,
+                                                e_id_equipo : 0,
+                                                f_salario : null,
+                                                f_viatico : null,
+                                                e_nombre : 0,
+                                                m_id_maquinaria : maquinaria.m_id_maquinaria,
+                                                maquinaria_id : maquinaria.m_id_maquinaria
+                                            }
+                                        ]
+                                    }
+                                    return equiposNuevo
+                                    
+                                })
+
                                 return ({
                                     ...fase,
-                                    lastEmpleadoIndex : id,
-                                    empleados : empleadosNuevo
+                                    lastEmpleadoIndex : id1,
+                                    lastEmpleadoIndex : id2,
+                                    empleados : empleadosNuevo,
+                                    equipos : equiposNuevo
                                 })
                             }) 
                         })),
@@ -473,10 +516,10 @@ export class ProyectoAgregar extends React.Component {
     /* MANEJAR CARGOS DENTRO DEL MODAL DE FASE DE UNA ETAPA */
     changeEmpleado = (opcion , idEmpleado) => {
         if (opcion.label) {
-            console.log(`faseModal.empleado[ ${idEmpleado} ].e_id_empleado <-- ${opcion.value} (${opcion.label})`)
+            console.log(`faseModal.empleado[ ${idEmpleado} ].${opcion.name} <-- ${opcion.value} (${opcion.label})`)
             const nuevosEmpleados = this.state.faseModal.empleados.map( e => {
                     if (e.idEspecial === idEmpleado){
-                        e.e_id_empleado = opcion.value
+                        e[opcion.name] = opcion.value
                     }
                     return e
                 })
@@ -574,6 +617,42 @@ export class ProyectoAgregar extends React.Component {
         
     }
 
+    changeEquipo = (opcion , idEquipo) => {
+        if (opcion.label) {
+            console.log(`faseModal.empleado[ ${idEquipo} ].${opcion.name} <-- ${opcion.value} (${opcion.label})`)
+            const nuevosEquipo = this.state.faseModal.equipos.map( e => {
+                    if (e.idEspecial === idEquipo){
+                        e[opcion.name] = opcion.value
+                    }
+                    return e
+                })
+
+            this.setState({
+                faseModal : {
+                    ...this.state.faseModal,
+                    equipos : nuevosEquipo
+                }
+            })
+
+        } else {
+            console.log(`faseModal.empleado[ ${idEquipo} ].${opcion.target.name} <-- ${opcion.target.value}`)
+            const nuevosEquipo = this.state.faseModal.equipos.map( e => {
+                if (e.idEspecial === idEquipo){
+                    e[opcion.target.name] = opcion.target.value
+                }
+                return e
+            })
+            
+            this.setState({
+                faseModal : {
+                    ...this.state.faseModal,
+                    equipos : nuevosEquipo
+                }
+            })
+        }
+        
+    }
+
     agregarMaquinaria = () => {
         this.setState({
             faseModal : {
@@ -659,7 +738,7 @@ export class ProyectoAgregar extends React.Component {
         // PARA NO ESCRIBIR THIS.STATE MUCHAS VECES
         const {
             configuracion_yacimiento , requisitos, etapas, fases, minerales, maquinarias, cargos, faseModal,
-            empleados, equipos, yacimientos
+            empleados, equipos, yacimientos, horarios
         } = this.state
     
     
@@ -929,7 +1008,7 @@ export class ProyectoAgregar extends React.Component {
                                                         <DropdownV2
                                                             placeholder="Empleado ..."
                                                             onChange={ (event) =>
-                                                                this.changeEmpleado(event, empleado.idEspecial)
+                                                                this.changeEmpleado({...event, name: "e_id_empleado"}, empleado.idEspecial)
                                                             }
                                                             value={{
                                                                 value: empleado.e_id_empleado,
@@ -965,13 +1044,43 @@ export class ProyectoAgregar extends React.Component {
                                                             label="Sueldo"
                                                             type="number"
                                                             min="0"
-                                                            name="f_sueldo"
+                                                            name="f_salario"
                                                             value={empleado.f_sueldo}
                                                             onChange= { (event) =>
                                                                 this.changeEmpleado(event, empleado.idEspecial)
                                                             }
                                                         />
-                                                        </div>
+                                                    </div>
+                                                    <div style={{width : "20%" }}>
+                                                        <InputText 
+                                                            id={`Viaticos_${i}_${empleado.idCargo}`}
+                                                            label="Viaticos (opcional)"
+                                                            type="number"
+                                                            min="0"
+                                                            name="f_viatico"
+                                                            value={empleado.f_viatico}
+                                                            onChange= { (event) =>
+                                                                this.changeEmpleado(event, empleado.idEspecial)
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div style={{width : "20%" }}>
+                                                        <DropdownV2
+                                                            placeholder="Horario ..."
+                                                            value={{
+                                                                value: empleado.horario_id,
+                                                                label: !!empleado.horario_id ? horarios.find( h => h.h_id_horario === empleado.horario_id).h_nombre : "Horario ..."
+                                                            }}
+                                                            options={
+                                                                cleanerHorario.limpiarListaDropdown(
+                                                                    horarios
+                                                                )
+                                                            }
+                                                            onChange= { (event) =>
+                                                                this.changeEmpleado({...event, name: "horario_id"}, empleado.idEspecial)
+                                                            }
+                                                        />
+                                                    </div>
                                                 </div>
                                             )
                                         )
@@ -982,50 +1091,73 @@ export class ProyectoAgregar extends React.Component {
                                     </div>}
                                     
                                 </div>
-                                <p className="subtitulo-centrado">Maquinarias</p>
+                                <p className="subtitulo-centrado">Equipos</p>
                                 <div> {/* MAPING DE MAQUINARIAS */}
-                                    { this.state.faseModal.maquinarias &&
-                                        faseModal.maquinarias.map(
-                                            (maquinaria) => (
-                                                <div key={maquinaria.f_id_fase_maqu} className="cargoHorizontal">
-                                                    <div>
-                                                        <i 
-                                                            className="zmdi zmdi-close-circle-o LabelIcon pegar-derecha"
-                                                            onClick={() => this.quitarMaquinaria(
-                                                                maquinaria.f_id_fase_maqu
-                                                            )}
-                                                        >
-                                                        </i>
-                                                    </div>
-                                                    <div style={{width : "30%" }}>
+                                    { this.state.faseModal.equipos &&
+                                        faseModal.equipos.map(
+                                            (equipo) => (
+                                                <div key={equipo.idEspecial} className="cargoHorizontal">
+                                                    <div style={{width : "20%" }}>
                                                         <DropdownV2
                                                             placeholder="Maquinaria ..."
                                                             value={{
-                                                                value: maquinaria.m_id_maquinaria,
-                                                                label: !!maquinaria.m_id_maquinaria ? maquinarias.find( m => m.m_id_maquinaria === maquinaria.m_id_maquinaria).m_nombre : "Maquinaria ..."
+                                                                value: equipo.m_id_maquinaria,
+                                                                label: !!equipo.m_id_maquinaria ? maquinarias.find( m => m.m_id_maquinaria === equipo.m_id_maquinaria).m_nombre : "Maquinaria ..."
                                                             }}
                                                             options={
                                                                 cleanerMaquinaria.limpiarListaDropdown(
-                                                                        maquinarias.filter( c1 => 
-                                                                            !faseModal.maquinarias.find( c2 => c2.m_id_maquinaria === c1.m_id_maquinaria )
+                                                                    maquinarias
+                                                                )
+                                                            }
+                                                            isDisabled
+                                                        />
+                                                    </div>
+                                                    <div style={{width : "40%" }}>
+                                                        <DropdownV2
+                                                            placeholder="Equipo ..."
+                                                            onChange={ (event) =>
+                                                                this.changeEquipo({...event, name: "e_id_equipo"}, equipo.idEspecial)
+                                                            }
+                                                            value={{
+                                                                value: equipo.e_id_equipo,
+                                                                label: !!equipo.e_id_equipo ? 
+                                                                    `${this.state.equipos
+                                                                        .filter( e => /*e.estado_id === 11 && */e.maquinaria_id === equipo.maquinaria_id)
+                                                                        .find( e => e.e_id_equipo === equipo.e_id_equipo).e_marca} - 
+                                                                    ${this.state.equipos
+                                                                        .filter( e => /*e.estado_id === 11 && */e.maquinaria_id === equipo.maquinaria_id)
+                                                                        .find( e => e.e_id_equipo === equipo.e_id_equipo).e_modelo} - 
+                                                                    ${this.state.equipos
+                                                                        .filter( e => /*e.estado_id === 11 && */e.maquinaria_id === equipo.maquinaria_id)
+                                                                        .find( e => e.e_id_equipo === equipo.e_id_equipo).e_serial}` 
+                                                                    : "Equipo ..."
+                                                            }}
+                                                            options={
+                                                                cleanerEquipo.limpiarListaDropdown(
+                                                                    equipos.filter( e => 
+                                                                        /*e.estado_id === 11 &&*/ 
+                                                                        e.maquinaria_id === equipo.maquinaria_id &&
+                                                                        !faseModal.equipos.find( e1 => e1.e_id_equipo === e.e_id_equipo) &&
+                                                                        !this.state.etapas.find( etapa =>
+                                                                            etapa.fases.find( f => 
+                                                                                f.equipos.find( e1 => e1.e_id_equipo === e.e_id_equipo)
+                                                                            )
                                                                         )
                                                                     )
-                                                            }
-                                                            onChange={ (event) =>
-                                                                this.changeMaquinaria(event, maquinaria.f_id_fase_maqu)
+                                                                )
                                                             }
                                                         />
                                                     </div>
-                                                    <div className="ancho-cantidad">
+                                                    <div style={{width : "20%" }}>
                                                         <InputText 
-                                                            id={`CantidadMaquinaria_${maquinaria.f_id_fase_maqu}_`}
-                                                            label="Cantidad"
+                                                            id={`Alquiler_${equipo.idEspecial}_`}
+                                                            label="Costo Alquiler"
                                                             type="number"
                                                             min="0"
-                                                            name="f_cantidad"
-                                                            value={maquinaria.f_cantidad}
+                                                            name="f_costo_alquiler"
+                                                            value={equipo.f_costo_alquiler}
                                                             onChange= { (event) =>
-                                                                this.changeMaquinaria(event, maquinaria.f_id_fase_maqu)
+                                                                this.changeEquipo(event, equipo.idEspecial)
                                                             }
                                                         />
                                                     </div>
@@ -1033,9 +1165,6 @@ export class ProyectoAgregar extends React.Component {
                                             )
                                         )
                                     }
-                                    <div className="btnAgregarRequisito" onClick={this.agregarMaquinaria} >
-                                        Agregar maquinaria
-                                    </div>
                                     
                                 </div>
                             </div>

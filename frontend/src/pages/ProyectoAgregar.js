@@ -683,9 +683,9 @@ export class ProyectoAgregar extends React.Component {
     }
 
     /* MANEJAR EL GUARDADO EN LA BD */
-    goConfiguracionYacimiento = () => {
+    goProyecto = () => {
         this.setState({
-            goConfiguracionYacimiento : true
+            goProyecto : true
         })
     }
 
@@ -912,12 +912,12 @@ export class ProyectoAgregar extends React.Component {
                     <GuardarCancelar
                         position="center"
                         storeData={this.guardarBD}
-                        success={this.goConfiguracionYacimiento}
-                        decline={this.goConfiguracionYacimiento}
+                        success={this.goProyecto}
+                        decline={this.goProyecto}
                     />
                 </div> 
 
-                {this.state.goConfiguracionYacimiento && <Redirect to="/yacimiento-configuracion" /> }
+                {this.state.goProyecto && <Redirect to="/proyecto" /> }
                 
 
                 {!!this.state.faseModal && 

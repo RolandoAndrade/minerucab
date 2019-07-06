@@ -61,7 +61,7 @@ const validadorProyecto = {
         if (!p.p_nombre || p.p_nombre === "") flag = "Nombre del proyecto vacio"
         if (!p.p_fecha_inicio) flag = "Fecha de inicio del proyecto vacia"
         try {
-            if (new Date(p.p_fecha_inicio) < new Date().getTime()) flag = "Fecha de inicio del proyecto menor a hoy"
+            new Date(p.p_fecha_inicio)
         }catch (e) { 
             flag = "Formato de fecha invalida"
         }       
@@ -86,11 +86,10 @@ const validadorProyecto = {
 
                     e.fases.forEach((f) => {
                         if (f.f_fecha_inicio)
-                            try {
-                                if (new Date(f.f_fecha_inicio) < new Date().getTime()) flag = `Fecha de fase en etapa ${e.e_orden} fase ${f.f_orden}, menor a hoy`
-                                if (f.fecha_fin && new Date(f.fecha_fin) < new Date(f.f_fecha_inicio)) ` Fecha_fin > fecha)inicio en etapa ${e.e_orden} fase ${f.f_orden}`
+                            try {                                
+                                if (f.fecha_fin && (new Date(f.fecha_fin)).getTime() < (new Date(f.f_fecha_inicio)).getTime()) ` Fecha_fin > fecha)inicio en etapa ${e.e_orden} fase ${f.f_orden}`
                             }catch (e) { 
-                                flag = `Formato de fecha invalida en etapa ${e.e_orden} fase ${f.f_orden}`
+                                flag = `Formato de fecha_fin invalida en etapa ${e.e_orden} fase ${f.f_orden}`
                             }
                         if (!f.empleados) flag = `En etapa ${e.e_orden} fase ${f.f_orden}, fase sin empleados`
                         else if (f.empleados.length === 0) flag = `En etapa ${e.e_orden} fase ${f.f_orden}, fase sin empleados`

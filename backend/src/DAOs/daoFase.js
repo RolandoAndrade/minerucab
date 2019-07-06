@@ -21,7 +21,7 @@ const daoFase = {
         const qry = `
             INSERT INTO FASE (f_id_fase,f_fecha_inicio,f_fecha_fin,etapa_id,fase_configuracion_id,estado_id) VALUES 
             (DEFAULT,${f_fecha_inicio ? `'${f_fecha_inicio}'` : 'null'},
-            ${f_fecha_fin ? `'${f_fecha_fin}'` : 'null'},${f_duracion},
+            ${f_fecha_fin ? `'${f_fecha_fin}'` : 'null'},
             ${etapa_id},${fase_configuracion_id},${estado_id}) RETURNING (f_id_fase);
         `
         console.log(qry)
@@ -43,8 +43,9 @@ const daoFase = {
         let i = 0
         empleados.forEach( e => {
             i++;
-            query = query + `(DEFAULT, ${e.f_viatico}, ${e.f_salario},${e.e_id_empleado},${fase_id},${e.h_id_horario},${e.unidad_id})${i < cargos.length ? ',' : ';' } `
+            query = query + `(DEFAULT, ${e.f_viatico}, ${e.f_salario},${e.e_id_empleado},${fase_id},${e.horario_id },${e.unidad_id})${i < empleados.length ? ',' : ';' } `
         })
+
         console.log(query)
         return psql.query(query)
     },
@@ -60,12 +61,13 @@ const daoFase = {
     },
 
     asignarVariosEquipos(fase_id,equipos){
-        let query = `INSERT INTO FASE_EQUI (f_id_fase_equi,f_costo_alquiler,unidad_id,unidad_id,fase_id) VALUES `
+        let query = `INSERT INTO FASE_EQUI (f_id_fase_equi,f_costo_alquiler,unidad_id,equipo_id,fase_id) VALUES `
         let i = 0;
         equipos.forEach( e => {
             i++;
-            query =  query + `(DEFAULT,${e.f_costo_alquiler},${e.unidad_id},${e.unidad_id},${fase_id})${i < maquinarias.length ? ',' : ';' }`
+            query =  query + `(DEFAULT,${e.f_costo_alquiler},${e.unidad_id},${e.equipo_id},${fase_id})${i < equipos.length ? ',' : ';' }`
         })
+        console.log(query)
         return psql.query(query)
     },
 
@@ -82,8 +84,9 @@ const daoFase = {
         let i = 0
         gastos.forEach( g => {
             i++;
-            query =  query + `(DEFAULT,${g.g_monto},${e.unidad_id},${g.g_concepto ? `'${g.g_concepto}'`:'null'},${g.unidad_id},${fase_id})${i < maquinarias.length ? ',' : ';' }`
+            query =  query + `(DEFAULT,${g.g_monto},${g.g_concepto ? `'${g.g_concepto}'`:'null'},${g.unidad_id},${fase_id})${i < gastos.length ? ',' : ';' }`
         })
+        console.log(query)
         return psql.query(query)
     },
 

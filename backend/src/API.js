@@ -1011,7 +1011,7 @@ app.post('/consultar/detalle_yacimiento_configuracion', (req,res) => {
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
     res.status(500).json(bd_err)
-  }) 
+  })
 });
 
 app.post('/insertar/yacimiento_configuracion', (req,res) => {
@@ -1391,40 +1391,33 @@ app.post('/insertar/proyecto', (req,res) => {
         .then((resp_bd) => {
           let e_id = resp_bd.rows[0].e_id_etapa
           p["etapas"][i]["fases"].map((f,j) => {
+            let f_id = null
             daoFase.insertar(f.f_fecha_inicio,f.f_fecha_fin,e_id,f.f_id_fase_configuracion,3)
             .then((resp_bd) => {
-              let f_id = resp_bd.rows[0].f_id_fase
-              if (f["empleados"].length > 0) {
-                daoFase.asignarVariosEmpleados(f_id,f["empleados"])
-                .then((resp_bd) => {
-                  if (f["equipos"].length > 0) {
-                    daoFase.asignarVariosEquipos(f_id,f["equipos"])
-                    .then((resp_bd) => {
-                      if ( f["gastos"].length > 0){
-                        daoFase.asignarVariosGastos(f_id,f["gastos"])
-                        .then((resp_bd) => {
-                          if( (i === (p["etapas"].length - 1)) && (j === (p["etapas"][i]["fases"].length - 1)))
-                          resolve("bien!")
-                        })
-                      }else{
-                        if( (i === (p["etapas"].length - 1)) && (j === (p["etapas"][i]["fases"].length - 1)))
-                        resolve("bien!")
-                      }                      
-                    })
-                  }else{
-                    if( (i === (p["etapas"].length - 1)) && (j === (p["etapas"][i]["fases"].length - 1)))
-                    resolve("bien!")
-                  }                  
-                })
-              }else{
-                if( (i === (p["etapas"].length - 1)) && (j === (p["etapas"][i]["fases"].length - 1)))
-                resolve("bien!") 
-              }                           
+              f_id = resp_bd.rows[0].f_id_fase
+              daoFase.asignarVariosEmpleados(f_id,f["empleados"])
             })
-          }) 
-        })
+            .then((resp_bd) => {
+              daoEmpleado.modificarEstatusEmpleados(f_id,f["empleados"],12)
+            })
+            .then((resp_bd) => {
+              if (f["equipos"].length > 0) {
+                daoFase.asignarVariosEquipos(f_id,f["equipos"])
+              }
+            })
+            .then((resp_bd) => {
+              if ( f["gastos"].length > 0){
+                daoFase.asignarVariosGastos(f_id,f["gastos"])
+              }
+            })
+            .then((resp_bd) => {
+              if( (i === (p["etapas"].length - 1)) && (j === (p["etapas"][i]["fases"].length - 1)))
+                  resolve("bien!")
+            })                         
+          })
+        }) 
       })
-    })    
+    })
   })
   .then((DATA_RESPUESTA) => {
     console.log(`STATUS OK : 200`)      

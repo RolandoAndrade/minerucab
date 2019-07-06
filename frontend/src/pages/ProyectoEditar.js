@@ -278,7 +278,23 @@ export class ProyectoEditar extends React.Component {
                             // PARA DAR IDs UNICOS
                             ultimoRequisitoIndex : 500,
                             ultimaEtapaIndex : 500,
-                        })
+                        },
+                            () => {
+                                let empleadosOriginales = []
+
+                                this.state.etapas.forEach(e => {
+                                    e.fases.forEach( f => {
+                                        f.empleados.forEach( emp => {
+                                            empleadosOriginales.push(emp)
+                                        })
+                                    })
+                                })
+                                    
+                                this.setState({
+                                    empleadosOriginales 
+                                })
+                            }
+                        )
 
                     })
                       
@@ -289,6 +305,12 @@ export class ProyectoEditar extends React.Component {
 
         Promise.all( promesas ).then(
             () => {
+                this.setState({
+                    empleados : [ 
+                        ...this.state.empleadosOriginales, 
+                        ...empleados.filter( e => e.estado_id === 11) 
+                    ]
+                })
             }
         )
     }
@@ -848,7 +870,7 @@ export class ProyectoEditar extends React.Component {
         // PARA NO ESCRIBIR THIS.STATE MUCHAS VECES
         const {
             configuracion_yacimiento , requisitos, etapas, fases, minerales, maquinarias, cargos, faseModal,
-            empleados, equipos, yacimientos, horarios
+            empleados, equipos, yacimientos, horarios, empleadosOriginales
         } = this.state
     
     
@@ -1135,7 +1157,6 @@ export class ProyectoEditar extends React.Component {
                                                             options={
                                                                 cleanerEmpleado.limpiarListaDropdown(
                                                                     empleados.filter( e => 
-                                                                        e.estado_id === 11 && 
                                                                         e.cargo_id === empleado.cargo_id &&
                                                                         !faseModal.empleados.find( e1 => e1.e_id_empleado === e.e_id_empleado) &&
                                                                         !this.state.etapas.find( etapa =>

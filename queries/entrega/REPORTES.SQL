@@ -40,3 +40,18 @@ WHERE fase_configuracion_id = f_id_fase_configuracion AND
         f_fecha_fin<now() AND
         fase.estado_id != 2;
 
+/*Empleados disponibles*/
+
+SELECT E.e_id_empleado "Codigo del empleado", E.e_cedula "Cedula del empleado", E.e_nombre "Nombre",
+       E.e_segundo_nombre "Segundo nombre", e_apellido "Apellido", E.e_segundo_apellido "Segundo apellido",
+       E.e_genero "Genero", E.e_telefono "Telefono", E.e_fecha_nacimiento "Fecha de nacimiento",
+       E.e_fecha_ingreso "Fecha de ingreso", C.c_nombre "Cargo", ES.l_nombre "Estado" ,
+       M.l_nombre "Municipio",P.l_nombre "Parroquia"
+FROM EMPLEADO E, CARGO C, LUGAR P, LUGAR M, LUGAR ES
+WHERE E.estado_id = 11 AND
+      C.c_id_cargo = E.cargo_id AND
+      E.lugar_id = P.l_id_lugar AND
+      P.lugar_id = M.l_id_lugar AND
+      M.lugar_id = ES.l_id_lugar;
+
+

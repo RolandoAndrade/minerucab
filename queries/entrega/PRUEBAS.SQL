@@ -1,4 +1,4 @@
-select * from fase_carg
+select * from fase_carg;
 
 
 SELECT E.proyecto_id, E.salarios "Gastos en empleados", M.gastos "Gastos en equipo",
@@ -19,11 +19,11 @@ FROM
                FROM gasto_adicional, fase, etapa
                WHERE fase_id = f_id_fase AND
                        etapa_id = e_id_etapa
-               GROUP BY proyecto_id) GA ON (GA.proyecto_id = E.proyecto_id)
+               GROUP BY proyecto_id) GA ON (GA.proyecto_id = E.proyecto_id);
 
 
 
 
-SELECT * FROM fase_empl
+SELECT * FROM fase_empl;
 
 

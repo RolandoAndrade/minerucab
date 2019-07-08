@@ -1,1 +1,1 @@
-DELETE FROM PROYECTO WHERE p_id_proyecto=p_id_proyecto
+DELETE FROM pedi_prod WHERE pedido_id=pedido_id

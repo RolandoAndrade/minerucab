@@ -23,7 +23,22 @@ FROM
 
 
 
+SELECT cliente_id, (CASE
+    WHEN COUNT(credito_id) = greatest(COUNT(credito_id), COUNT(debito_id), COUNT(transferencia_id), COUNT(cheque_id)) then 'Tarjeta de credito'
+    WHEN COUNT(debito_id) = greatest(COUNT(credito_id), COUNT(debito_id), COUNT(transferencia_id), COUNT(cheque_id)) then 'Tarjeta de debito'
+    WHEN COUNT(transferencia_id) = greatest(COUNT(credito_id), COUNT(debito_id), COUNT(transferencia_id), COUNT(cheque_id)) then 'Transferencia'
+    WHEN COUNT(cheque_id) = greatest(COUNT(credito_id), COUNT(debito_id), COUNT(transferencia_id), COUNT(cheque_id)) then 'Cheque'
+    END) "Tipo de pago preferido"
+FROM PEDI_TIPO, PEDIDO
+WHERE pedido_id = p_id_pedido
+GROUP BY cliente_id
 
-SELECT * FROM fase_empl;
 
+SELECT cliente_id, COUNT(credito_id),COUNT(debito_id),COUNT(transferencia_id),COUNT(cheque_id)
+FROM PEDIDO, PEDI_TIPO
+WHERE pedido_id = p_id_pedido
+GROUP BY cliente_id
+
+SELECT * FROM PEDIDO
+SELECT * FROM pedi_prod
 

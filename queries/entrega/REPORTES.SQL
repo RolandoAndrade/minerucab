@@ -85,8 +85,15 @@ SELECT XXX.* FROM
 WHERE YYY.mes=XXX.mes AND XXX.año=YYY.año AND XXX."Total"=YYY.total;
 
 
+/*TOP 10 MEJORES CLIENTES*/
 
-
+SELECT cliente_id "Codigo de cliente",
+       c_nombre "Nombre", c_rif "RIF", SUM(p_monto) "Total en pagos"
+FROM PEDI_TIPO, PEDIDO, CLIENTE
+WHERE pedido_id = p_id_pedido AND
+        cliente_id = c_id_cliente
+GROUP BY cliente_id, c_nombre, c_rif
+ORDER BY "Total en pagos" DESC LIMIT 10
 
 /*Empleados disponibles*/
 

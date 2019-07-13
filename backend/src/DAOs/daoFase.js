@@ -3,9 +3,10 @@ import {psql} from '../postgreConnection'
 const daoFase = {
     consultarTodosEtapa(etapa_id) {
         return psql.query(`
-            SELECT * FROM FASE F, FASE_CONFIGURACION FC
+            SELECT F.*, Fc.*, E.e_nombre  FROM FASE F, FASE_CONFIGURACION FC, ESTADO E
             WHERE F.etapa_id = ${etapa_id}
             AND F.fase_configuracion_id = FC.f_id_fase_configuracion
+            AND F.estado_id = E.e_id_estado
         `)
     },
 
@@ -43,7 +44,7 @@ const daoFase = {
         let i = 0
         empleados.forEach( e => {
             i++;
-            query = query + `(DEFAULT, ${e.f_viatico}, ${e.f_salario},${e.e_id_empleado},${fase_id},${e.horario_id },${e.unidad_id})${i < empleados.length ? ',' : ';' } `
+            query = query + `(DEFAULT, ${e.f_viatico}, ${e.f_salario},${e.e_id_empleado},${fase_id},${e.horario_id },11)${i < empleados.length ? ',' : ';' } `
         })
 
         console.log(query)
@@ -65,7 +66,7 @@ const daoFase = {
         let i = 0;
         equipos.forEach( e => {
             i++;
-            query =  query + `(DEFAULT,${e.f_costo_alquiler},${e.unidad_id},${e.equipo_id},${fase_id})${i < equipos.length ? ',' : ';' }`
+            query =  query + `(DEFAULT,${e.f_costo_alquiler},11,${e.e_id_equipo},${fase_id})${i < equipos.length ? ',' : ';' }`
         })
         console.log(query)
         return psql.query(query)
@@ -84,7 +85,7 @@ const daoFase = {
         let i = 0
         gastos.forEach( g => {
             i++;
-            query =  query + `(DEFAULT,${g.g_monto},${g.g_concepto ? `'${g.g_concepto}'`:'null'},${g.unidad_id},${fase_id})${i < gastos.length ? ',' : ';' }`
+            query =  query + `(DEFAULT,${g.g_monto},${g.g_concepto ? `'${g.g_concepto}'`:'null'},11,${fase_id})${i < gastos.length ? ',' : ';' }`
         })
         console.log(query)
         return psql.query(query)

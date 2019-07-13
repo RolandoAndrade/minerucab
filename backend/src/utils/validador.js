@@ -88,7 +88,7 @@ const validadorProyecto = {
                     e.fases.forEach((f) => {
                         if (f.f_fecha_inicio)
                             try {                                
-                                if (f.f_fecha_fin && (new Date(f.f_fecha_fin)).getTime() < (new Date(f.f_fecha_inicio)).getTime()) flag += `Fecha_fin < fecha_inicio en etapa ${e.e_orden} fase ${f.f_orden}\n`
+                                if (f.f_fecha_fin && (new Date(f.f_fecha_fin)).getTime() <= (new Date(f.f_fecha_inicio)).getTime()) flag += `Fecha_fin < fecha_inicio en etapa ${e.e_orden} fase ${f.f_orden}\n`
                             }catch (e) { 
                                 flag += `Formato de fecha_fin invalida en etapa ${e.e_orden} fase ${f.f_orden}\n`
                             }

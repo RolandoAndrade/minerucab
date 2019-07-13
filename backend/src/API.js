@@ -974,6 +974,7 @@ app.post('/consultar/detalle_yacimiento_configuracion', (req,res) => {
   })
   .then(() => {
     return new Promise((resolve,reject) => {
+      let promesas2 = []
       yacimiento_configuracion["etapas"].map((e,i) => { 
         daoFaseConfiguracion.consultarTodosEtapa(e.e_id_etapa_configuracion)
         .then((resp_bd) => {
@@ -982,12 +983,12 @@ app.post('/consultar/detalle_yacimiento_configuracion', (req,res) => {
             daoFaseConfiguracion.consultarCargos(f.f_id_fase_configuracion)
             .then((resp_bd) => {
               yacimiento_configuracion["etapas"][i]["fases"][j]["cargos"] = resp_bd.rows
-              daoFaseConfiguracion.consultarMaquinarias(f.f_id_fase_configuracion)
+              promesas2.push(daoFaseConfiguracion.consultarMaquinarias(f.f_id_fase_configuracion)
               .then((resp_bd) => {
                 yacimiento_configuracion["etapas"][i]["fases"][j]["maquinarias"] = resp_bd.rows ? resp_bd.rows : []
                 if( (i === (yacimiento_configuracion["etapas"].length - 1)) && (j === (yacimiento_configuracion["etapas"][i]["fases"].length - 1)))
-                resolve("bien!")    
-              })
+                Promise.all(promesas2).then(() => resolve("bien!"))    
+              }))
             })
           })   
         })
@@ -1329,6 +1330,7 @@ app.post(`/consultar/detalle_proyecto`,(req,res) => {
   })
   .then(() => {
     return new Promise((resolve,reject) => {
+      let promesas2 = []
       proyecto["etapas"].map((e,i) => { 
         daoFase.consultarTodosEtapa(e.e_id_etapa)
         .then((resp_bd) => {
@@ -1340,12 +1342,12 @@ app.post(`/consultar/detalle_proyecto`,(req,res) => {
               daoFase.consultarEquipos(f.f_id_fase)
               .then((resp_bd) => {
                 proyecto["etapas"][i]["fases"][j]["equipos"] = resp_bd.rows ? resp_bd.rows : []
-                daoFase.consultarGastos(f.f_id_fase)
+                promesas2.push(daoFase.consultarGastos(f.f_id_fase)
                 .then((resp_bd) => {
                   proyecto["etapas"][i]["fases"][j]["gastos"] = resp_bd.rows ? resp_bd.rows : []
                   if( (i === (proyecto["etapas"].length - 1)) && (j === (proyecto["etapas"][i]["fases"].length - 1)))
-                  resolve("bien!")
-                })                    
+                  Promise.all(promesas2).then(() => resolve("bien!"))
+                }))                    
               })
             })
           })   

@@ -43,7 +43,7 @@ const daoFase = {
         let i = 0
         empleados.forEach( e => {
             i++;
-            query = query + `(DEFAULT, ${e.f_viatico}, ${e.f_salario},${e.e_id_empleado},${fase_id},${e.horario_id },${e.unidad_id})${i < empleados.length ? ',' : ';' } `
+            query = query + `(DEFAULT, ${e.f_viatico}, ${e.f_salario},${e.e_id_empleado},${fase_id},${e.horario_id },11)${i < empleados.length ? ',' : ';' } `
         })
 
         console.log(query)

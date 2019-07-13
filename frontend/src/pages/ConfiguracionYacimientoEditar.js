@@ -367,8 +367,10 @@ export class ConfiguracionYacimientoEditar extends React.Component {
     /* MODAL DE FASE DE UNA ETAPA */
     abrirFase = (idEtapa, idFase) => {
         console.log(`etapa[ ${idEtapa} ] { abrir modal fase[ ${idFase} ] } `)
-        const etapa = this.state.etapas.find( e => e.e_id_etapa_configuracion === idEtapa )
-        const fase = etapa.fases.find( f => f.f_id_fase_configuracion === idFase )
+        let etapa = JSON.parse( JSON.stringify( this.state.etapas.find( e => e.e_id_etapa_configuracion === idEtapa ) ))
+        let fase = JSON.parse( JSON.stringify(  etapa.fases.find( f => f.f_id_fase_configuracion === idFase ) ))
+        console.log(this.state.etapas)
+        console.log(fase);
         this.setState({
             faseModal : {
                 ...fase,
@@ -892,7 +894,7 @@ export class ConfiguracionYacimientoEditar extends React.Component {
                                 </div>
                                 <p className="subtitulo-centrado">Maquinarias</p>
                                 <div> {/* MAPING DE MAQUINARIAS */}
-                                    { this.state.maquinarias &&
+                                    { this.state.faseModal.maquinarias &&
                                         faseModal.maquinarias.map(
                                             (maquinaria) => (
                                                 <div key={maquinaria.f_id_fase_maqu} className="cargoHorizontal">

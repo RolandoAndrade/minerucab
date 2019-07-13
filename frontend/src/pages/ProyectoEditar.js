@@ -76,7 +76,7 @@ export class ProyectoEditar extends React.Component {
         
         console.log(`----> localhost:4000/consultarLista/mineral `)
         promesas[0] = axios.get('http://127.0.0.1:4000/consultarLista/mineral')
-            .then( res => {
+        .then( res => {
                 if(res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral`)
                     this.setState({
@@ -86,10 +86,10 @@ export class ProyectoEditar extends React.Component {
                     console.log(`<---- (ERROR 500) localhost:4000/consultarLista/mineral`)
                 }
             })
-                
-        console.log(`----> localhost:4000/consultarLista/cargo `)
+            
+            console.log(`----> localhost:4000/consultarLista/cargo `)
         promesas[1] = axios.get('http://127.0.0.1:4000/consultarLista/cargo')
-                .then( res => {
+        .then( res => {
                     if(res.status === 200) {
                         console.log(`<---- (OK 200) localhost:4000/consultarLista/cargo`)
                         this.setState({
@@ -99,11 +99,11 @@ export class ProyectoEditar extends React.Component {
                         console.log(`<---- (ERROR 500) localhost:4000/consultarLista/cargo`)
                     }
                 })
-
-        console.log(`----> localhost:4000/consultarLista/maquinaria `)
-        promesas[2] = axios.get('http://127.0.0.1:4000/consultarLista/maquinaria')
-            .then( res => {
-                if(res.status === 200) {
+                
+                console.log(`----> localhost:4000/consultarLista/maquinaria `)
+                promesas[2] = axios.get('http://127.0.0.1:4000/consultarLista/maquinaria')
+                .then( res => {
+                    if(res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/maquinaria`)
                     this.setState({
                         maquinarias : res.data.rows
@@ -112,9 +112,9 @@ export class ProyectoEditar extends React.Component {
                     console.log(`<---- (ERROR 500) localhost:4000/consultarLista/maquinaria`)
                 }
             })
-
-        console.log(`----> localhost:4000/consultarLista/empleado `)
-        promesas[3] = axios.get('http://127.0.0.1:4000/consultarLista/empleado')
+            
+            console.log(`----> localhost:4000/consultarLista/empleado `)
+            promesas[3] = axios.get('http://127.0.0.1:4000/consultarLista/empleado')
             .then( res => {
                 if(res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/empleado`)
@@ -125,9 +125,9 @@ export class ProyectoEditar extends React.Component {
                     console.log(`<---- (ERROR 500) localhost:4000/consultarLista/empleado`)
                 }
             })
-
-        console.log(`----> localhost:4000/consultarLista/yacimiento `)
-        promesas[4] = axios.get('http://127.0.0.1:4000/consultarLista/yacimiento')
+            
+            console.log(`----> localhost:4000/consultarLista/yacimiento `)
+            promesas[4] = axios.get('http://127.0.0.1:4000/consultarLista/yacimiento')
             .then( res => {
                 if(res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/yacimiento`)
@@ -139,8 +139,8 @@ export class ProyectoEditar extends React.Component {
                 }
             })
 
-        console.log(`----> localhost:4000/consultarLista/horario_v2 `)
-        promesas[5] = axios.get('http://127.0.0.1:4000/consultarLista/horario_v2')
+            console.log(`----> localhost:4000/consultarLista/horario_v2 `)
+            promesas[5] = axios.get('http://127.0.0.1:4000/consultarLista/horario_v2')
             .then( res => {
                 if(res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/horario_v2`)
@@ -151,9 +151,9 @@ export class ProyectoEditar extends React.Component {
                     console.log(`<---- (ERROR 500) localhost:4000/consultarLista/horario_v2`)
                 }
             })
-
-        console.log(`----> localhost:4000/consultarLista/pedido `)
-        promesas[6] = axios.get('http://127.0.0.1:4000/consultarLista/pedido')
+            
+            console.log(`----> localhost:4000/consultarLista/pedido `)
+            promesas[6] = axios.get('http://127.0.0.1:4000/consultarLista/pedido')
             .then( res => {
                 if(res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/pedido`)
@@ -164,9 +164,9 @@ export class ProyectoEditar extends React.Component {
                     console.log(`<---- (ERROR 500) localhost:4000/consultarLista/pedido`)
                 }
             })
-
-        console.log(`----> localhost:4000/consultarLista/equipo `)
-        promesas[6] = axios.get('http://127.0.0.1:4000/consultarLista/equipo')
+            
+            console.log(`----> localhost:4000/consultarLista/equipo `)
+            promesas[7] = axios.get('http://127.0.0.1:4000/consultarLista/equipo')
             .then( res => {
                 if(res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/equipo`)
@@ -177,21 +177,24 @@ export class ProyectoEditar extends React.Component {
                     console.log(`<---- (ERROR 500) localhost:4000/consultarLista/equipo`)
                 }
             })
+            
+            
+            let id = parseInt(this.props.location.pathname.split("/")[3] , 10)
+            console.log(id)
 
-        
-        console.log(`----> localhost:4000/consultar/detalle_proyecto `)
-        promesas[7] = axios.post('http://127.0.0.1:4000/consultar/detalle_proyecto',
-            { p_id_proyecto : 10 }
-        )
+            console.log(`----> localhost:4000/consultar/detalle_proyecto `)
+            promesas[8] = axios.post('http://127.0.0.1:4000/consultar/detalle_proyecto',
+                { p_id_proyecto : id }
+            )
             .then( res => {
                 if(res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/consultar/detalle_proyecto`)
                     let pBD = res.data.proyecto
-
+                    
                     // SEGUNDA PETICIONS CSM
                     console.log(`----> localhost:4000/consultar/detalle_yacimiento_configuracion/${pBD.etapas[0].yacimiento_configuracion_id} `)
                     axios.post('http://127.0.0.1:4000/consultar/detalle_yacimiento_configuracion/',
-                        { y_id_yacimiento_configuracion : pBD.etapas[0].yacimiento_configuracion_id } 
+                    { y_id_yacimiento_configuracion : pBD.etapas[0].yacimiento_configuracion_id } 
                     )
                     .then( res => {
                         if(res.status === 200) {
@@ -203,7 +206,7 @@ export class ProyectoEditar extends React.Component {
                     })
                     .then( cBD => {
                         // VACIAR INFO DE LA BD EN LOS INPUTS
-
+                        
                         this.setState({
                             // INFO DE CONF_YACIMIENTO 
                             configuracion_yacimiento : {
@@ -232,7 +235,7 @@ export class ProyectoEditar extends React.Component {
 
                                 let etapa2 = pBD.etapas.find( e2 => e2.etapa_configuracion_id === etapa.e_id_etapa_configuracion )
                                 etapa["e_fecha_inicio"] = !!etapa2.e_fecha_inicio ? etapa2.e_fecha_inicio.split('T')[0] : null
-
+                                
                                 etapa.fases = etapa.fases.map( fase => {
                                     let fase2 = etapa2.fases.find( f2 => f2.fase_configuracion_id === fase.f_id_fase_configuracion )
                                     fase["f_fecha_inicio"] = fase2.f_fecha_inicio ? fase2.f_fecha_inicio.split('T')[0] : null
@@ -264,6 +267,10 @@ export class ProyectoEditar extends React.Component {
                                     })
                                     fase["ultimaMaquinariaIndex"] = 500
                                     fase.maquinarias = fase.maquinarias ? fase.maquinarias.map( maquinaria => {
+                                        maquinaria.f_cantidad = maquinaria.f_cantidad.toString()
+                                        return maquinaria
+                                    }) : []
+                                    fase["equipos"] = fase.maquinarias ? fase.maquinarias.map( maquinaria => {
                                         maquinaria.f_cantidad = maquinaria.f_cantidad.toString()
                                         return maquinaria
                                     }) : []
@@ -1177,7 +1184,7 @@ export class ProyectoEditar extends React.Component {
                                                             type="number"
                                                             min="0"
                                                             name="f_salario"
-                                                            value={empleado.f_sueldo}
+                                                            value={empleado.f_salario}
                                                             onChange= { (event) =>
                                                                 this.changeEmpleado(event, empleado.idEspecial)
                                                             }

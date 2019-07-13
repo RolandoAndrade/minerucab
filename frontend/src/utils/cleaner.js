@@ -238,7 +238,7 @@ const cleanerProyecto = {
             return proyectosBD.map( (p) => ({
                 ...p,
                 "p_id_proyecto" : p.p_id_proyecto.toString(10).padStart(4, '0'),
-                "pedido_id": p.pedido_id.toString(10).padStart(4, '0'),
+                "pedido_id": p.pedido_id ? p.pedido_id.toString(10).padStart(4, '0') : "No tiene",
                 "p_fecha_inicio" : p.p_fecha_inicio ? p.p_fecha_inicio.split('T')[0] : "Sin fecha"
             }))
     },

@@ -12,10 +12,11 @@ const daoEtapa = {
 
     consultarTodosProyecto(proyecto_id){
         return psql.query(`
-            SELECT E.*, EC.*
-            FROM ETAPA E, ETAPA_CONFIGURACION EC
+            SELECT E.*, EC.*, ES.e_nombre AS estado_nombre
+            FROM ETAPA E, ETAPA_CONFIGURACION EC, ESTADO ES
             WHERE proyecto_id = ${proyecto_id}
                 AND E.etapa_configuracion_id = EC.e_id_etapa_configuracion
+                AND E.estado_id = ES.e_id_estado
         `)
     },
 

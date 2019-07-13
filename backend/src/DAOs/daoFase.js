@@ -3,9 +3,10 @@ import {psql} from '../postgreConnection'
 const daoFase = {
     consultarTodosEtapa(etapa_id) {
         return psql.query(`
-            SELECT * FROM FASE F, FASE_CONFIGURACION FC
+            SELECT F.*, Fc.*, E.e_nombre  FROM FASE F, FASE_CONFIGURACION FC, ESTADO E
             WHERE F.etapa_id = ${etapa_id}
             AND F.fase_configuracion_id = FC.f_id_fase_configuracion
+            AND F.estado_id = E.e_id_estado
         `)
     },
 

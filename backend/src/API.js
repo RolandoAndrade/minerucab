@@ -1859,6 +1859,25 @@ app.get('/consultarLista/horario', (req, res) => {
       })
 });
 
+app.get('/consultarLista/horario_v2', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/horario_v2")
+
+  daoHorario.consultarTodosV2()
+      .then( ({rows}) => {
+        console.log(rows);
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
 app.post('/consultar/horario', (req, res) => {
 
   console.log("\n\n")

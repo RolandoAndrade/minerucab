@@ -10,10 +10,10 @@ const daoProyecto  = {
                 P.estado_id, E.e_nombre estado, 
                 P.yacimiento_id, Y.y_nombre yacimiento, 
                 P.pedido_id
-            FROM PROYECTO P, ESTADO E, YACIMIENTO Y, PEDIDO PE 
+            FROM ESTADO E, YACIMIENTO Y, PROYECTO P 
+                LEFT OUTER JOIN PEDIDO PE ON P.pedido_id = PE.p_id_pedido
             WHERE P.estado_id = E.e_id_estado AND
-                P.yacimiento_id = Y.y_id_yacimiento AND
-                P.pedido_id = PE.p_id_pedido
+                P.yacimiento_id = Y.y_id_yacimiento
         `)
     },
 
@@ -26,10 +26,10 @@ const daoProyecto  = {
                 P.estado_id, E.e_nombre estado, 
                 P.yacimiento_id, Y.y_nombre yacimiento, 
                 P.pedido_id
-            FROM PROYECTO P, ESTADO E, YACIMIENTO Y, PEDIDO PE 
+            FROM ESTADO E, YACIMIENTO Y, PROYECTO P 
+                LEFT OUTER JOIN PEDIDO PE ON P.pedido_id = PE.p_id_pedido
             WHERE P.estado_id = E.e_id_estado AND
                 P.yacimiento_id = Y.y_id_yacimiento AND
-                P.pedido_id = PE.p_id_pedido AND
                 P.p_id_proyecto = ${id}
         `)
     },

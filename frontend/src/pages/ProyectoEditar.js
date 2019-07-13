@@ -17,7 +17,7 @@ import {    cleanerMineral, cleanerCargo, cleanerMaquinaria,
             cleanerEquipo
 } from "../utils/cleaner"
 
-export class ProyectoAgregar extends React.Component {
+export class ProyectoEditar extends React.Component {
     constructor(props){
       super(props)
       
@@ -29,9 +29,8 @@ export class ProyectoAgregar extends React.Component {
             y_capacidad_explotacion : 0,
             mineral_id : 0,
             unidad_id : 7,
-            p_fecha_inicio : null,
             p_nombre : "",
-            
+            p_fecha_inicio : null
         },
         requisitos : [],
         etapas : [/*{
@@ -77,7 +76,7 @@ export class ProyectoAgregar extends React.Component {
         
         console.log(`----> localhost:4000/consultarLista/mineral `)
         promesas[0] = axios.get('http://127.0.0.1:4000/consultarLista/mineral')
-            .then( res => {
+        .then( res => {
                 if(res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral`)
                     this.setState({
@@ -87,10 +86,10 @@ export class ProyectoAgregar extends React.Component {
                     console.log(`<---- (ERROR 500) localhost:4000/consultarLista/mineral`)
                 }
             })
-                
-        console.log(`----> localhost:4000/consultarLista/cargo `)
+            
+            console.log(`----> localhost:4000/consultarLista/cargo `)
         promesas[1] = axios.get('http://127.0.0.1:4000/consultarLista/cargo')
-                .then( res => {
+        .then( res => {
                     if(res.status === 200) {
                         console.log(`<---- (OK 200) localhost:4000/consultarLista/cargo`)
                         this.setState({
@@ -100,11 +99,11 @@ export class ProyectoAgregar extends React.Component {
                         console.log(`<---- (ERROR 500) localhost:4000/consultarLista/cargo`)
                     }
                 })
-
-        console.log(`----> localhost:4000/consultarLista/maquinaria `)
-        promesas[2] = axios.get('http://127.0.0.1:4000/consultarLista/maquinaria')
-            .then( res => {
-                if(res.status === 200) {
+                
+                console.log(`----> localhost:4000/consultarLista/maquinaria `)
+                promesas[2] = axios.get('http://127.0.0.1:4000/consultarLista/maquinaria')
+                .then( res => {
+                    if(res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/maquinaria`)
                     this.setState({
                         maquinarias : res.data.rows
@@ -113,9 +112,9 @@ export class ProyectoAgregar extends React.Component {
                     console.log(`<---- (ERROR 500) localhost:4000/consultarLista/maquinaria`)
                 }
             })
-
-        console.log(`----> localhost:4000/consultarLista/empleado `)
-        promesas[3] = axios.get('http://127.0.0.1:4000/consultarLista/empleado')
+            
+            console.log(`----> localhost:4000/consultarLista/empleado `)
+            promesas[3] = axios.get('http://127.0.0.1:4000/consultarLista/empleado')
             .then( res => {
                 if(res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/empleado`)
@@ -126,9 +125,9 @@ export class ProyectoAgregar extends React.Component {
                     console.log(`<---- (ERROR 500) localhost:4000/consultarLista/empleado`)
                 }
             })
-
-        console.log(`----> localhost:4000/consultarLista/yacimiento `)
-        promesas[4] = axios.get('http://127.0.0.1:4000/consultarLista/yacimiento')
+            
+            console.log(`----> localhost:4000/consultarLista/yacimiento `)
+            promesas[4] = axios.get('http://127.0.0.1:4000/consultarLista/yacimiento')
             .then( res => {
                 if(res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/yacimiento`)
@@ -140,8 +139,8 @@ export class ProyectoAgregar extends React.Component {
                 }
             })
 
-        console.log(`----> localhost:4000/consultarLista/horario_v2 `)
-        promesas[5] = axios.get('http://127.0.0.1:4000/consultarLista/horario_v2')
+            console.log(`----> localhost:4000/consultarLista/horario_v2 `)
+            promesas[5] = axios.get('http://127.0.0.1:4000/consultarLista/horario_v2')
             .then( res => {
                 if(res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/horario_v2`)
@@ -152,9 +151,9 @@ export class ProyectoAgregar extends React.Component {
                     console.log(`<---- (ERROR 500) localhost:4000/consultarLista/horario_v2`)
                 }
             })
-
-        console.log(`----> localhost:4000/consultarLista/pedido `)
-        promesas[6] = axios.get('http://127.0.0.1:4000/consultarLista/pedido')
+            
+            console.log(`----> localhost:4000/consultarLista/pedido `)
+            promesas[6] = axios.get('http://127.0.0.1:4000/consultarLista/pedido')
             .then( res => {
                 if(res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/pedido`)
@@ -165,9 +164,9 @@ export class ProyectoAgregar extends React.Component {
                     console.log(`<---- (ERROR 500) localhost:4000/consultarLista/pedido`)
                 }
             })
-
-        console.log(`----> localhost:4000/consultarLista/equipo `)
-        promesas[6] = axios.get('http://127.0.0.1:4000/consultarLista/equipo')
+            
+            console.log(`----> localhost:4000/consultarLista/equipo `)
+            promesas[7] = axios.get('http://127.0.0.1:4000/consultarLista/equipo')
             .then( res => {
                 if(res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/consultarLista/equipo`)
@@ -178,13 +177,150 @@ export class ProyectoAgregar extends React.Component {
                     console.log(`<---- (ERROR 500) localhost:4000/consultarLista/equipo`)
                 }
             })
+            
+            
+            let id = parseInt(this.props.location.pathname.split("/")[3] , 10)
+            console.log(id)
+
+            console.log(`----> localhost:4000/consultar/detalle_proyecto `)
+            promesas[8] = axios.post('http://127.0.0.1:4000/consultar/detalle_proyecto',
+                { p_id_proyecto : id }
+            )
+            .then( res => {
+                if(res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/consultar/detalle_proyecto`)
+                    let pBD = res.data.proyecto
+                    
+                    // SEGUNDA PETICIONS CSM
+                    console.log(`----> localhost:4000/consultar/detalle_yacimiento_configuracion/${pBD.etapas[0].yacimiento_configuracion_id} `)
+                    axios.post('http://127.0.0.1:4000/consultar/detalle_yacimiento_configuracion/',
+                    { y_id_yacimiento_configuracion : pBD.etapas[0].yacimiento_configuracion_id } 
+                    )
+                    .then( res => {
+                        if(res.status === 200) {
+                            console.log(`<---- (OK 200) localhost:4000/consultar/detalle_yacimiento_configuracion/${pBD.etapas[0].yacimiento_configuracion_id}`)
+                            return res.data.yacimiento_configuracion
+                        } else {
+                            console.log(`<---- (ERROR 500) localhost:4000/consultar/detalle_yacimiento_configuracion/${pBD.etapas[0].yacimiento_configuracion_id}`)
+                        }
+                    })
+                    .then( cBD => {
+                        // VACIAR INFO DE LA BD EN LOS INPUTS
+                        
+                        this.setState({
+                            // INFO DE CONF_YACIMIENTO 
+                            configuracion_yacimiento : {
+                                y_id_yacimiento_configuracion : cBD.y_id_yacimiento_configuracion,
+                                y_nombre : cBD.y_nombre,
+                                y_capacidad_explotacion : cBD.y_capacidad_explotacion,
+                                mineral_id : cBD.mineral_id,
+                                unidad_id : 7,
+
+                                p_nombre : pBD.p_nombre,
+                                p_id_proyecto : pBD.p_id_proyecto,
+                                estado : pBD.estado,
+                                estado_id : pBD.estado_id,
+                                p_fecha_inicio : pBD.p_fecha_inicio.split('T')[0],
+                                pedido_id : pBD.pedido_id,
+                                yacimiento_id : pBD.yacimiento_id
+                            },
+                            requisitos : cBD.requisitos.map( requisito => {
+                                requisito["m_id_mineral"] = requisito.mineral_id
+                                return requisito
+                            } ),
+                            etapas : cBD.etapas.map( etapa => {
+                                etapa.e_orden = etapa.e_orden.toString() 
+                                etapa.e_tipo = etapa.e_tipo === "explotacion" ? 1 : 2
+                                etapa["ultimaFaseIndex"] = 500
+
+                                let etapa2 = pBD.etapas.find( e2 => e2.etapa_configuracion_id === etapa.e_id_etapa_configuracion )
+                                etapa["e_fecha_inicio"] = !!etapa2.e_fecha_inicio ? etapa2.e_fecha_inicio.split('T')[0] : null
+                                
+                                etapa.fases = etapa.fases.map( fase => {
+                                    let fase2 = etapa2.fases.find( f2 => f2.fase_configuracion_id === fase.f_id_fase_configuracion )
+                                    fase["f_fecha_inicio"] = fase2.f_fecha_inicio ? fase2.f_fecha_inicio.split('T')[0] : null
+                                    fase["f_fecha_fin"] = fase2.f_fecha_fin ? fase2.f_fecha_fin.split('T')[0] : null
+
+                                    fase["empleados"] = fase2.empleados ? fase2.empleados.map( empleado => {
+                                        empleado["f_salario"] = empleado.f_salario.toString()
+                                        empleado["f_viatico"] = empleado.f_viatico.toString()
+                                        empleado["cargo_id"] = empleado.c_id_cargo
+                                        return empleado
+                                    }) : []
+                                    /*
+                                    fase.maquinarias = fase.maquinarias ? fase.maquinarias.map( maquinaria => {
+                                        maquinaria.f_cantidad = maquinaria.f_cantidad.toString()
+                                        return maquinaria
+                                    }) : []
+
+                                    fase.maquinarias = fase.maquinarias ? fase.maquinarias.map( maquinaria => {
+                                        maquinaria.f_cantidad = maquinaria.f_cantidad.toString()
+                                        return maquinaria
+                                    }) : []*/
+
+                                    fase.f_orden = fase.f_orden.toString()
+                                    fase.f_duracion = fase.f_duracion.toString()
+                                    fase["ultimoCargoIndex"] = 500
+                                    fase.cargos = fase.cargos.map( cargo => {
+                                        cargo.f_cantidad = cargo.f_cantidad.toString()
+                                        return cargo
+                                    })
+                                    fase["ultimaMaquinariaIndex"] = 500
+                                    fase.maquinarias = fase.maquinarias ? fase.maquinarias.map( maquinaria => {
+                                        maquinaria.f_cantidad = maquinaria.f_cantidad.toString()
+                                        return maquinaria
+                                    }) : []
+                                    fase["equipos"] = fase.maquinarias ? fase.maquinarias.map( maquinaria => {
+                                        maquinaria.f_cantidad = maquinaria.f_cantidad.toString()
+                                        return maquinaria
+                                    }) : []
+                                    return fase
+                                })
+
+                              
+
+                                return etapa
+                            }), 
+                            no_modificable : cBD.no_modificable,
+                            // PARA DAR IDs UNICOS
+                            ultimoRequisitoIndex : 500,
+                            ultimaEtapaIndex : 500,
+                        },
+                            () => {
+                                let empleadosOriginales = []
+
+                                this.state.etapas.forEach(e => {
+                                    e.fases.forEach( f => {
+                                        f.empleados.forEach( emp => {
+                                            empleadosOriginales.push(emp)
+                                        })
+                                    })
+                                })
+                                    
+                                this.setState({
+                                    empleadosOriginales 
+                                })
+                            }
+                        )
+
+                    })
+                      
+                } else {
+                    console.log(`<---- (ERROR 500) localhost:4000/consultar/detalle_proyecto`)
+                }
+            })
 
         Promise.all( promesas ).then(
             () => {
+                this.setState({
+                    empleados : [ 
+                        ...this.state.empleadosOriginales, 
+                        ...empleados.filter( e => e.estado_id === 11) 
+                    ]
+                })
             }
         )
     }
-
 
     changeInfo = (target) => {
         if (target.label) {
@@ -276,12 +412,13 @@ export class ProyectoAgregar extends React.Component {
             
             
         } else {
-            console.log(`configuracion_yacimiento.${target.target.name} = ${target.target.value}`)
+            console.log(`configuracion_yacimiento.${target.name} = ${target.value}`)
             this.setState({
                 configuracion_yacimiento :{
                     ...this.state.configuracion_yacimiento,
-                    [target.target.name] : target.target.value
-            }})
+                    [target.name] : target.value
+                }
+            })
         }
     }
 
@@ -720,8 +857,8 @@ export class ProyectoAgregar extends React.Component {
 
         const conf = this.state.configuracion_yacimiento
 
-        console.log(`----> localhost:4000/insertar/proyecto`)
-        return axios.post('http://127.0.0.1:4000/insertar/proyecto',
+        console.log(`----> localhost:4000/insertar/yacimiento_configuracion`)
+        return axios.post('http://127.0.0.1:4000/insertar/yacimiento_configuracion',
             {
                 ...this.state.configuracion_yacimiento,
                 y_capacidad_explotacion : parseFloat( conf.y_capacidad_explotacion ),
@@ -730,7 +867,7 @@ export class ProyectoAgregar extends React.Component {
             })
             .then( (res) => {
                 if( res.status === 200) {
-                    console.log(`<---- (OK 200) localhost:4000/insertar/proyecto`)
+                    console.log(`<---- (OK 200) localhost:4000/insertar/yacimiento_configuracion`)
                 }
                 return res
             }).catch( err => err)
@@ -740,7 +877,7 @@ export class ProyectoAgregar extends React.Component {
         // PARA NO ESCRIBIR THIS.STATE MUCHAS VECES
         const {
             configuracion_yacimiento , requisitos, etapas, fases, minerales, maquinarias, cargos, faseModal,
-            empleados, equipos, yacimientos, horarios
+            empleados, equipos, yacimientos, horarios, empleadosOriginales
         } = this.state
     
     
@@ -758,7 +895,7 @@ export class ProyectoAgregar extends React.Component {
                                     id={`NombreProyecto`}
                                     label="Nombre de Proyecto"
                                     name="p_nombre"
-                                    vale={configuracion_yacimiento.p_nombre}
+                                    value={configuracion_yacimiento.p_nombre}
                                     onChange={this.changeInfo}
                                 />
                                 <div>
@@ -889,7 +1026,7 @@ export class ProyectoAgregar extends React.Component {
                                         /* INFO */
                                         key={etapa.e_id_etapa_configuracion}
                                         etapa_configuracion = {{
-                                            ...this.state.etapas.find(e => e.e_id_etapa_configuracion === etapa.e_id_etapa_configuracion ),
+                                            ...this.state.etapas.find(e => e.e_id_etapa_configuracion === etapa.e_id_etapa_configuracion )
                                         }}
 
                                         /* DROPDOWNs */
@@ -1007,6 +1144,7 @@ export class ProyectoAgregar extends React.Component {
                                                         />
                                                     </div>
                                                     <div style={{width : "20%" }}>
+                                                        { empleado.cargo_id && 
                                                         <DropdownV2
                                                             placeholder="Empleado ..."
                                                             onChange={ (event) =>
@@ -1016,17 +1154,16 @@ export class ProyectoAgregar extends React.Component {
                                                                 value: empleado.e_id_empleado,
                                                                 label: !!empleado.e_id_empleado ? 
                                                                     `${this.state.empleados
-                                                                        .filter( e => e.estado_id === 11 && e.cargo_id === empleado.cargo_id)
+                                                                        .filter( e => e.cargo_id === empleado.cargo_id)
                                                                         .find( e => e.e_id_empleado === empleado.e_id_empleado).e_nombre} 
                                                                     ${this.state.empleados
-                                                                        .filter( e => e.estado_id === 11 && e.cargo_id === empleado.cargo_id)
+                                                                        .filter( e =>  e.cargo_id === empleado.cargo_id)
                                                                         .find( e => e.e_id_empleado === empleado.e_id_empleado).e_apellido}` 
                                                                     : "Empleado ..."
                                                             }}
                                                             options={
                                                                 cleanerEmpleado.limpiarListaDropdown(
                                                                     empleados.filter( e => 
-                                                                        e.estado_id === 11 && 
                                                                         e.cargo_id === empleado.cargo_id &&
                                                                         !faseModal.empleados.find( e1 => e1.e_id_empleado === e.e_id_empleado) &&
                                                                         !this.state.etapas.find( etapa =>
@@ -1037,7 +1174,7 @@ export class ProyectoAgregar extends React.Component {
                                                                     )
                                                                 )
                                                             }
-                                                        />
+                                                        />}
                                                     </div>
                                                     
                                                     <div style={{width : "20%" }}>

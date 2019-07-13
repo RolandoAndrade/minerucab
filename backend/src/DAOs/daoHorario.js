@@ -9,6 +9,13 @@ const daoHorario = {
         `)
     },
 
+    consultarTodosV2() {
+        return psql.query(`
+            SELECT *  
+            FROM HORARIO
+        `)
+    },
+
     consultar( id ){
         return psql.query(`
             SELECT H.h_nombre, J.*  

@@ -33,8 +33,8 @@ export class Etapa extends React.Component {
                             placeholder="Tipo ..."
                             value={{
                                 value : etapa_configuracion.e_tipo,
-                                label : etapa_configuracion.e_tipo === "explotacion" ? "Explotación" : 
-                                        etapa_configuracion.e_tipo === "refinacion" ? "Refinación" :
+                                label : etapa_configuracion.e_tipo === 1 || etapa_configuracion.e_tipo === "explotacion" ? "Explotación" : 
+                                        etapa_configuracion.e_tipo === 2 || etapa_configuracion.e_tipo === "refinacion" ? "Refinación" :
                                         "Tipo ..."
                             }}
                             options={[

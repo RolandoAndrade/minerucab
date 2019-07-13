@@ -204,7 +204,7 @@ export class YacimientoEditar extends React.Component {
                         <Dropdown id="CrearEmpleadoLugarEstado"
                             name="estado_id"
                             retrieveData={this.handleChangeLugar}
-                            placeholder="Estado donde vive..."
+                            placeholder="Estado donde se ubica..."
                             defaultID={this.state.lugar.estado_id}
                             defaultText={this.state.lugar.estado.l_nombre}
                             options={
@@ -218,7 +218,7 @@ export class YacimientoEditar extends React.Component {
                         <Dropdown id="CrearEmpleadoLugarMunicipio"
                             name="municipio_id"
                             retrieveData={this.handleChangeLugar}
-                            placeholder="Municipio donde vive..."
+                            placeholder="Municipio donde se ubica..."
                             defaultID={this.state.lugar.municipio_id}
                             defaultText={this.state.lugar.municipio.l_nombre}
                             options={
@@ -232,7 +232,7 @@ export class YacimientoEditar extends React.Component {
                         <Dropdown id="CrearEmpleadoLugarParroquia"
                             name="parroquia_id"
                             retrieveData={this.handleChangeLugar}
-                            placeholder="Parroquia donde vive..."
+                            placeholder="Parroquia donde se ubica..."
                             defaultID={this.state.lugar.parroquia_id}
                             defaultText={this.state.lugar.parroquia.l_nombre}
                             options={

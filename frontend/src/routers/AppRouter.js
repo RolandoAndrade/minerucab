@@ -32,6 +32,7 @@ import {MineralEditar} from '../pages/MineralEditar';
 import {ClienteEditar} from '../pages/ClienteEditar';
 import {EmpleadoEditar} from "../pages/EmpleadoEditar";
 import {YacimientoEditar} from "../pages/YacimientoEditar";
+import {ProyectoEditar} from '../pages/ProyectoEditar';
 
 import {EmpleadosCrear} from "../pages/EmpleadosCrearRolando";
 import {CrearVenta} from "../pages/CrearVenta";
@@ -72,6 +73,7 @@ const AppRouter = () => (
         <PublicRoute path="/editar/empleado/:id" component={EmpleadoEditar} />
         <PublicRoute path="/editar/yacimiento/:id" component={YacimientoEditar} />
         <PublicRoute path="/editar/yacimiento-configuracion/:id" component={ConfiguracionYacimientoEditar} />
+        <PublicRoute path="/editar/proyecto/:id" component={ProyectoEditar} />
         <PublicRoute path="/crear/pedido" component={CrearVenta} />
         <PublicRoute path="/aliado" component={Aliado} />
         <PublicRoute path="/pedido" component={Pedido} />

@@ -85,6 +85,9 @@ SELECT XXX.* FROM
 WHERE YYY.mes=XXX.mes AND XXX.año=YYY.año AND XXX."Total"=YYY.total;
 
 
+
+
+
 /*Empleados disponibles*/
 
 SELECT E.e_id_empleado "Codigo del empleado", E.e_cedula "Cedula del empleado", E.e_nombre "Nombre",
@@ -100,3 +103,17 @@ WHERE E.estado_id = 11 AND
       M.lugar_id = ES.l_id_lugar;
 
 
+/*Tipo de pago preferido por los clientes*/
+
+SELECT cliente_id "Codigo de cliente",
+       c_nombre "Nombre", c_rif "RIF",(CASE
+       WHEN COUNT(credito_id) = greatest(COUNT(credito_id), COUNT(debito_id), COUNT(transferencia_id), COUNT(cheque_id)) then 'Tarjeta de credito'
+       WHEN COUNT(debito_id) = greatest(COUNT(credito_id), COUNT(debito_id), COUNT(transferencia_id), COUNT(cheque_id)) then 'Tarjeta de debito'
+       WHEN COUNT(transferencia_id) = greatest(COUNT(credito_id), COUNT(debito_id), COUNT(transferencia_id), COUNT(cheque_id)) then 'Transferencia'
+       WHEN COUNT(cheque_id) = greatest(COUNT(credito_id), COUNT(debito_id), COUNT(transferencia_id), COUNT(cheque_id)) then 'Cheque'
+       END) "Tipo de pago preferido"
+FROM PEDI_TIPO, PEDIDO, CLIENTE
+WHERE pedido_id = p_id_pedido AND
+      cliente_id = c_id_cliente AND
+      p_fecha_pago BETWEEN '1998-01-01' and now()
+GROUP BY cliente_id, c_nombre, c_rif

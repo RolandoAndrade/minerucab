@@ -60,6 +60,7 @@ const validadorProyecto = {
         if (!p) flag += "Proyecto vacio\n"
         if (!p.p_nombre || p.p_nombre === "") flag += "Nombre del proyecto vacio\n"
         if (!p.p_fecha_inicio) flag += "Fecha de inicio del proyecto vacia\n"
+        if (!p.yacimiento_id) flag += "proyecto sin yacimiento asociado\n"
         try {
             new Date(p.p_fecha_inicio)
         }catch (e) { 
@@ -75,6 +76,7 @@ const validadorProyecto = {
             }
 
             p.etapas.forEach((e) => {
+                if (!e.e_id_etapa_configuracion) flag += `Etapa ${e.e_orden} sin configuracion asociada\n`
                 if (!e.fases) flag += `Etapa ${e.e_orden} sin fases\n`
                 else if (e.fases.length === 0) flag += `etapa ${e.e_orden} sin fases\n`
                 else {
@@ -83,21 +85,22 @@ const validadorProyecto = {
                         if (!f) flag += `fase de orden ${i+1} no presente\n`
                     }
 
-
                     e.fases.forEach((f) => {
                         if (f.f_fecha_inicio)
                             try {                                
-                                if (f.fecha_fin && (new Date(f.fecha_fin)).getTime() < (new Date(f.f_fecha_inicio)).getTime()) ` Fecha_fin > fecha)inicio en etapa ${e.e_orden} fase ${f.f_orden}`
+                                if (f.f_fecha_fin && (new Date(f.f_fecha_fin)).getTime() < (new Date(f.f_fecha_inicio)).getTime()) flag += `Fecha_fin < fecha_inicio en etapa ${e.e_orden} fase ${f.f_orden}\n`
                             }catch (e) { 
                                 flag += `Formato de fecha_fin invalida en etapa ${e.e_orden} fase ${f.f_orden}\n`
                             }
+                        else if (f.f_fecha_fin) flag += `Fecha_fin sin Fecha_inicio en etapa ${e.e_orden} fase ${f.f_orden}\n`
+                        if(!f.f_id_fase_configuracion) flag += `fase sin configuracion asociada en etapa ${e.e_orden} fase ${f.f_orden}\n`
                         if (!f.empleados) flag += `En etapa ${e.e_orden} fase ${f.f_orden}, fase sin empleados\n`
                         else if (f.empleados.length === 0) flag += `En etapa ${e.e_orden} fase ${f.f_orden}, fase sin empleados\n`
                         else {
                             f.empleados.forEach((empl) => {
                                 if (empl.e_id_empleado === 0 ) flag += `En etapa ${e.e_orden} fase ${f.f_orden}, empleado no seleccionado\n`
                                 if (empl.horario_id === 0 ) flag += `En etapa ${e.e_orden} fase ${f.f_orden}, horario no seleccionado\n`
-                                if (empl.f_viatico && empl.f_viatico < 0 ) flag += `En etapa ${e.e_orden} fase ${f.f_orden}, viaticos negativos\n`
+                                if (empl.f_viatico && empl.f_viatico <= 0 ) flag += `En etapa ${e.e_orden} fase ${f.f_orden}, viaticos negativos\n`
                                 if (empl.f_salario && empl.f_salario < 0 ) flag += `En etapa ${e.e_orden} fase ${f.f_orden}, error en salario\n`
                             })
                         }

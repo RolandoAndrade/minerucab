@@ -65,7 +65,7 @@ const daoFase = {
         let i = 0;
         equipos.forEach( e => {
             i++;
-            query =  query + `(DEFAULT,${e.f_costo_alquiler},${e.unidad_id},${e.equipo_id},${fase_id})${i < equipos.length ? ',' : ';' }`
+            query =  query + `(DEFAULT,${e.f_costo_alquiler},11,${e.e_id_equipo},${fase_id})${i < equipos.length ? ',' : ';' }`
         })
         console.log(query)
         return psql.query(query)
@@ -84,7 +84,7 @@ const daoFase = {
         let i = 0
         gastos.forEach( g => {
             i++;
-            query =  query + `(DEFAULT,${g.g_monto},${g.g_concepto ? `'${g.g_concepto}'`:'null'},${g.unidad_id},${fase_id})${i < gastos.length ? ',' : ';' }`
+            query =  query + `(DEFAULT,${g.g_monto},${g.g_concepto ? `'${g.g_concepto}'`:'null'},11,${fase_id})${i < gastos.length ? ',' : ';' }`
         })
         console.log(query)
         return psql.query(query)

@@ -40,6 +40,51 @@ WHERE fase_configuracion_id = f_id_fase_configuracion AND
         f_fecha_fin<now() AND
         fase.estado_id != 2;
 
+/*Proyecto mas costoso por mes.*/
+
+SELECT XXX.* FROM
+                 (SELECT E.proyecto_id, E.salarios "Gastos en salarios", M.gastos "Gastos en equipo",
+                         viaticos "Viáticos", GA.monto "Gastos adicionales",
+                         coalesce(M.gastos,0)+coalesce(E.salarios+viaticos,0)+coalesce(GA.monto,0) "Total", E.mes, E.año
+                  FROM
+                      (SELECT SUM(f_salario) salarios, SUM(f_viatico) viaticos, proyecto_id,
+                              EXTRACT(MONTH FROM f_fecha_inicio) mes, EXTRACT(YEAR FROM f_fecha_inicio) año
+                       FROM fase_empl, etapa, fase
+                       WHERE fase_id = f_id_fase AND
+                               etapa_id = e_id_etapa
+                       GROUP BY proyecto_id, mes, año) E FULL JOIN
+                      (SELECT SUM(f_costo_alquiler) gastos, proyecto_id, EXTRACT(MONTH FROM f_fecha_inicio) mes, EXTRACT(YEAR FROM f_fecha_inicio) año
+                       FROM fase_equi, fase, etapa
+                       WHERE fase_id = f_id_fase AND
+                               etapa_id = e_id_etapa
+                       GROUP BY proyecto_id, mes, año) M ON E.proyecto_id = M.proyecto_id
+                                                         FULL JOIN (SELECT SUM(g_monto) monto, proyecto_id,  EXTRACT(MONTH FROM f_fecha_inicio) mes, EXTRACT(YEAR FROM f_fecha_inicio) año
+                                                                    FROM gasto_adicional, fase, etapa
+                                                                    WHERE fase_id = f_id_fase AND
+                                                                            etapa_id = e_id_etapa
+                                                                    GROUP BY proyecto_id, mes, año) GA ON (GA.proyecto_id = E.proyecto_id)) XXX,
+                 (SELECT MAX(coalesce(M.gastos,0)+coalesce(E.salarios+viaticos,0)+coalesce(GA.monto,0)) total, E.mes, E.año
+                  FROM
+                      (SELECT SUM(f_salario) salarios, SUM(f_viatico) viaticos, proyecto_id,
+                              EXTRACT(MONTH FROM f_fecha_inicio) mes, EXTRACT(YEAR FROM f_fecha_inicio) año
+                       FROM fase_empl, etapa, fase
+                       WHERE fase_id = f_id_fase AND
+                               etapa_id = e_id_etapa
+                       GROUP BY proyecto_id, mes, año) E FULL JOIN
+                      (SELECT SUM(f_costo_alquiler) gastos, proyecto_id, EXTRACT(MONTH FROM f_fecha_inicio) mes, EXTRACT(YEAR FROM f_fecha_inicio) año
+                       FROM fase_equi, fase, etapa
+                       WHERE fase_id = f_id_fase AND
+                               etapa_id = e_id_etapa
+                       GROUP BY proyecto_id, mes, año) M ON E.proyecto_id = M.proyecto_id
+                                                         FULL JOIN (SELECT SUM(g_monto) monto, proyecto_id,  EXTRACT(MONTH FROM f_fecha_inicio) mes, EXTRACT(YEAR FROM f_fecha_inicio) año
+                                                                    FROM gasto_adicional, fase, etapa
+                                                                    WHERE fase_id = f_id_fase AND
+                                                                            etapa_id = e_id_etapa
+                                                                    GROUP BY proyecto_id, mes, año) GA ON (GA.proyecto_id = E.proyecto_id)
+                  GROUP BY E.mes, E.año) YYY
+WHERE YYY.mes=XXX.mes AND XXX.año=YYY.año AND XXX."Total"=YYY.total;
+
+
 /*Empleados disponibles*/
 
 SELECT E.e_id_empleado "Codigo del empleado", E.e_cedula "Cedula del empleado", E.e_nombre "Nombre",

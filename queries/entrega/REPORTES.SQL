@@ -114,21 +114,17 @@ FROM PEDI_TIPO, PEDIDO, CLIENTE
 WHERE pedido_id = p_id_pedido AND
         cliente_id = c_id_cliente
 GROUP BY cliente_id, c_nombre, c_rif
-ORDER BY "Total en pagos" DESC LIMIT 10
+ORDER BY "Total en pagos" DESC LIMIT 10;
 
 /*Empleados disponibles*/
 
-SELECT E.e_id_empleado "Codigo del empleado", E.e_cedula "Cedula del empleado", E.e_nombre "Nombre",
-       E.e_segundo_nombre "Segundo nombre", e_apellido "Apellido", E.e_segundo_apellido "Segundo apellido",
-       E.e_genero "Genero", E.e_telefono "Telefono", E.e_fecha_nacimiento "Fecha de nacimiento",
-       E.e_fecha_ingreso "Fecha de ingreso", C.c_nombre "Cargo", ES.l_nombre "Estado" ,
-       M.l_nombre "Municipio",P.l_nombre "Parroquia"
-FROM EMPLEADO E, CARGO C, LUGAR P, LUGAR M, LUGAR ES
-WHERE E.estado_id = 11 AND
-      C.c_id_cargo = E.cargo_id AND
-      E.lugar_id = P.l_id_lugar AND
-      P.lugar_id = M.l_id_lugar AND
-      M.lugar_id = ES.l_id_lugar;
+SELECT e_nombre "Nombre",e_segundo_nombre "Segundo Nombre", e_apellido "Apellido", e_segundo_apellido "Segundo Apellido"
+FROM EMPLEADO
+WHERE e_id_empleado NOT IN (SELECT empleado_id
+                            FROM FASE_EMPL, FASE
+                            WHERE fase_id = f_id_fase AND
+                                ((f_fecha_inicio BETWEEN '1998-01-01' AND now()) OR
+                                 (f_fecha_fin BETWEEN '1998-01-01' AND now())));
 
 
 /*Tipo de pago preferido por los clientes*/

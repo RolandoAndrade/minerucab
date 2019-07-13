@@ -40,6 +40,27 @@ WHERE fase_configuracion_id = f_id_fase_configuracion AND
         f_fecha_fin<now() AND
         fase.estado_id != 2;
 
+
+/*Listado de fases y etapas del proyecto*/
+
+SELECT p_nombre "Nombre del proyecto",
+       p_fecha_inicio "Fecha de inicio de proyecto",
+       E.e_nombre "Etapa",
+       e_orden "Numero de etapa",
+       e_fecha_inicio "Fecha de inicio de etapa",
+       f_nombre "Nombre de la fase",
+       f_orden "Numero de fase",
+       f_fecha_inicio "Fecha de inicio de fase pautada",
+       f_fecha_fin "Fecha de fin de fase pautada",
+       S.e_nombre "Estado de la fase"
+FROM FASE, FASE_CONFIGURACION, ETAPA, ETAPA_CONFIGURACION E, PROYECTO, ESTADO S
+WHERE fase_configuracion_id = f_id_fase_configuracion AND
+        etapa_id = e_id_etapa AND
+        proyecto_id = p_id_proyecto AND
+        etapa.etapa_configuracion_id = e_id_etapa_configuracion AND
+        fase.estado_id = s.e_id_estado AND
+    f_fecha_inicio BETWEEN '1998-01-01' AND now();
+
 /*Proyecto mas costoso por mes.*/
 
 SELECT XXX.* FROM

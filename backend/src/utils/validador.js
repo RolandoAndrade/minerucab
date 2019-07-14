@@ -78,6 +78,7 @@ const validadorProyecto = {
             p.etapas.forEach((e) => {
                 if (!e.e_id_etapa_configuracion) flag += `Etapa ${e.e_orden} sin configuracion asociada\n`
                 if (!e.fases) flag += `Etapa ${e.e_orden} sin fases\n`
+                if (e.e_fecha_inicio && (new Date(e.e_fecha_inicio)).getTime() < (new Date(p.p_fecha_inicio)).getTime()) flag += `Fecha_inicio de etapa ${e.e_orden} < fecha_inicio del proyecto\n`
                 else if (e.fases.length === 0) flag += `etapa ${e.e_orden} sin fases\n`
                 else {
                     for(let i = 0; i < e.fases.length; i++){
@@ -87,9 +88,11 @@ const validadorProyecto = {
 
                     e.fases.forEach((f) => {
                         if (f.f_fecha_inicio)
-                            try {                                
-                                if (f.f_fecha_fin && (new Date(f.f_fecha_fin)).getTime() <= (new Date(f.f_fecha_inicio)).getTime()) flag += `Fecha_fin < fecha_inicio en etapa ${e.e_orden} fase ${f.f_orden}\n`
-                            }catch (e) { 
+                            try {
+                                if (!e.e_fecha_inicio ) flag += `Fecha_inicio de fase ${f.f_orden} seteada sin haber seteado fecha_inicio de etapa ${e.e_orden}\n`
+                                if (e.e_fecha_inicio && (new Date(f.f_fecha_inicio)).getTime() < (new Date(e.e_fecha_inicio)).getTime()) flag += `Fecha_inicio de fase de orden ${f.f_orden} <  fecha_inicio de etapa de orden ${e.e_orden} \n`
+                                if (f.f_fecha_fin && (new Date(f.f_fecha_fin)).getTime() < (new Date(f.f_fecha_inicio)).getTime()) flag += `Fecha_fin < fecha_inicio en etapa ${e.e_orden} fase ${f.f_orden}\n`
+                            }catch (err) { 
                                 flag += `Formato de fecha_fin invalida en etapa ${e.e_orden} fase ${f.f_orden}\n`
                             }
                         else if (f.f_fecha_fin) flag += `Fecha_fin sin Fecha_inicio en etapa ${e.e_orden} fase ${f.f_orden}\n`

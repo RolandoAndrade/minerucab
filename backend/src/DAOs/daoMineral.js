@@ -89,6 +89,34 @@ const daoMineral = {
                             MM.mineral_id_compone = ${m_id_mineral}
                 )
         `)
+    },
+
+    consultarMineralesComprables(){
+        let query = `
+        SELECT P.mineral_id, P.p_peso, P.p_nombre, PC.p_id_prod_comp, PC.p_precio_estimado
+        FROM PRODUCTO P, PROD_COMP PC
+        WHERE P.p_id_producto = PC.producto_id
+            AND P.p_fabricado = FALSE
+            AND PC.p_precio_estimado <= ALL (
+                            SELECT Y.p_precio_estimado
+                            FROM PRODUCTO X, PROD_COMP Y
+                            WHERE X.p_id_producto = Y.producto_id
+                            AND X.p_fabricado = FALSE
+                            AND  X.mineral_id = P.mineral_id )
+            AND PC.p_id_prod_comp <= ALL (
+                                            SELECT PC.p_id_prod_comp
+                                            FROM PRODUCTO Z, PROD_COMP PC
+                                            WHERE Z.p_id_producto = PC.producto_id
+                                            AND Z.p_fabricado = FALSE
+                                            AND PC.p_precio_estimado <= ALL (
+                                                            SELECT Y.p_precio_estimado
+                                                            FROM PRODUCTO X, PROD_COMP Y
+                                                            WHERE X.p_id_producto = Y.producto_id
+                                                            AND X.p_fabricado = FALSE
+                                                            AND  X.mineral_id = P.mineral_id )
+                                            AND Z.mineral_id = P.mineral_id);
+        `
+        return psql.query(query)
     }
 }
 

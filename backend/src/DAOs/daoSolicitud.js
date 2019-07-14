@@ -76,6 +76,17 @@ const daoSolicitud = {
         })
         console.log(`\nAlmacenar Productos:\n${query}`)
         return psql.query(query)
+    },
+
+    obtenerProyectoPedidoDisparador(s_id_solicitud){
+        let query = `
+        SELECT P.pedido_id, S.proyecto_id
+        FROM PROYECTO P, SOLICITUD S
+        WHERE S.proyecto_id = P.p_id_proyecto
+        AND S.s_id_solicitud = ${s_id_solicitud}
+        LIMIT 1;`
+        console.log(`\nObtener Proyecto Pedido Disparador:\n${query}`)
+        return psql.query(query)
     }
 }
 

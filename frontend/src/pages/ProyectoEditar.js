@@ -229,19 +229,27 @@ export class ProyectoEditar extends React.Component {
                                 return requisito
                             } ),
                             etapas : cBD.etapas.map( etapa => {
+                                let etapa2 = pBD.etapas.find( e2 => e2.etapa_configuracion_id === etapa.e_id_etapa_configuracion )
                                 etapa.e_orden = etapa.e_orden.toString() 
                                 etapa.e_tipo = etapa.e_tipo === "explotacion" ? 1 : 2
                                 etapa["ultimaFaseIndex"] = 500
                                 let i = 1;
                                 let j = 1;
 
-                                let etapa2 = pBD.etapas.find( e2 => e2.etapa_configuracion_id === etapa.e_id_etapa_configuracion )
                                 etapa["e_fecha_inicio"] = !!etapa2.e_fecha_inicio ? etapa2.e_fecha_inicio.split('T')[0] : null
-                                
+                                etapa["estado_id"] =  etapa2.estado_id
+                                    etapa["estado"] =  etapa2.estado_id === 3 ? "pendiente" :
+                                                        etapa2.estado_id === 8 ? "activa" : "finalizada"
+                                    etapa["e_id_etapa"] =  etapa2.e_id_etapa
+
                                 etapa.fases = etapa.fases.map( fase => {
                                     let fase2 = etapa2.fases.find( f2 => f2.fase_configuracion_id === fase.f_id_fase_configuracion )
                                     fase["f_fecha_inicio"] = fase2.f_fecha_inicio ? fase2.f_fecha_inicio.split('T')[0] : null
                                     fase["f_fecha_fin"] = fase2.f_fecha_fin ? fase2.f_fecha_fin.split('T')[0] : null
+                                    fase["estado_id"] =  fase2.estado_id
+                                    fase["estado"] =  fase2.estado_id === 3 ? "pendiente" :
+                                                        fase2.estado_id === 8 ? "activa" : "finalizada"
+                                    fase["f_id_fase"] =  fase2.f_id_fase
 
                                     fase["empleados"] = fase2.empleados ? fase2.empleados.map( empleado => {
                                         empleado["f_salario"] = !!empleado.f_salario && empleado.f_salario.toString()
@@ -844,6 +852,88 @@ export class ProyectoEditar extends React.Component {
         })
     }
 
+    // MANEJO DE ESTADOS -- GESTION DEL PROYECTO
+    iniciarProyecto = () => {
+        console.log(`---> iniciarProyecto : ${this.state.configuracion_yacimiento.p_id_proyecto}`)
+        this.setState({
+            configuracion_yacimiento : {
+                ...this.state.configuracion_yacimiento,
+                estado_id : 15
+            }
+        })
+        //location.reload()   
+    }
+
+    activarProyecto = () => {
+        console.log(`---> activarProyecto : ${this.state.configuracion_yacimiento.p_id_proyecto}`)
+        this.setState({
+            configuracion_yacimiento : {
+                ...this.state.configuracion_yacimiento,
+                estado_id : 8
+            }
+        })
+        //location.reload()   
+    }
+
+    activarFase = (idFase) => {
+        console.log(`---> activarFase : ${idFase}`)
+        this.setState({
+            faseModal : {
+                ...this.state.faseModal,
+                estado_id : 8,
+                estado : "activo"
+            }
+        },
+            () => this.guardarFase()
+        )
+    }
+
+    finalizarFase = (idFase) => {
+        console.log(`---> finalizarFase : ${idFase}`)
+        this.setState({
+            faseModal : {
+                ...this.state.faseModal,
+                estado_id : 10,
+                estado : "finalizado"
+            }
+        }, 
+            () => this.guardarFase()
+        )
+        
+    }
+
+    esEtapaCerrable = (idEtapa) => {
+        const etapa = this.state.etapas.find( e => e.e_id_etapa === idEtapa)
+        let esCerrable = true
+
+        etapa.fases.forEach( fase => {
+            if ( fase.estado_id !== 10 )
+                esCerrable = false
+        })
+
+        return esCerrable
+    }
+
+    cerrarEtapa = (idEtapa) => {
+        console.log(`---> cerrarEtapa : ${idEtapa}`)
+    }
+
+    esProyectoCerrable = () => {
+        let esCerrable = true
+
+        this.state.etapas.forEach( etapa => {
+            if ( etapa.estado_id !== 10 )
+                esCerrable = false
+        })
+
+        return esCerrable
+    }
+
+    cerrarProyecto = () => {
+        console.log(`---> cerrarProyecto : ${this.state.configuracion_yacimiento.p_id_proyecto}`)
+    }
+
+
     /* MANEJAR EL GUARDADO EN LA BD */
     goProyecto = () => {
         this.setState({
@@ -902,11 +992,12 @@ export class ProyectoEditar extends React.Component {
             configuracion_yacimiento , requisitos, etapas, fases, minerales, maquinarias, cargos, faseModal,
             empleados, equipos, yacimientos, horarios
         } = this.state
-    
+
+        const estado_id = configuracion_yacimiento.estado_id
     
         return (
         <div>   
-             <MenuDashBoard title={"Editar Proyecto"}/>
+             <MenuDashBoard title={`${this.state.configuracion_yacimiento.estado_id === 3 ? "Editar Proyecto": "Gestionar Proyecto"}`}/>
 
              <div>
                 <div className="SobreMineral">
@@ -914,12 +1005,35 @@ export class ProyectoEditar extends React.Component {
                     <div> 
                         <div className="horizontal">
                             <div className="confYacimientoIzq">
+                                { !!estado_id && estado_id === 3 ?
+                                    <div style={{margin : "5px auto"}}>
+                                        <Button variant="warning" className="mc-boton" onClick={this.iniciarProyecto}>
+                                            Iniciar Proyecto
+                                        </Button>
+                                    </div> 
+                                : !!estado_id && estado_id === 15 ?
+                                    <div style={{margin : "5px auto"}}>
+                                        <Button variant="warning" className="mc-boton" onClick={this.activarProyecto}>
+                                            Activar Proyecto
+                                        </Button>
+                                    </div>
+                                : !!estado_id ?
+                                    <div style={{margin : "5px auto"}}>
+                                        <Button variant="warning" className="mc-boton" 
+                                            onClick={this.cerrarProyecto}
+                                            disabled={ !this.esProyectoCerrable() }
+                                        >
+                                            Cerrar Proyecto 
+                                        </Button>
+                                    </div>
+                                : null }
                                 <InputText 
                                     id={`NombreProyecto`}
                                     label="Nombre de Proyecto"
                                     name="p_nombre"
                                     value={configuracion_yacimiento.p_nombre}
                                     onChange={this.changeInfo}
+                                    disabled={estado_id !== 3}
                                 />
                                 <div>
                                     <p style={{textAlign : "center"}}>Fecha de Inicio</p>
@@ -927,6 +1041,7 @@ export class ProyectoEditar extends React.Component {
                                         name="p_fecha_inicio"
                                         value={configuracion_yacimiento.p_fecha_inicio}
                                         onChange={this.changeInfo}
+                                        disabled={estado_id !== 3}
                                     />
                                 </div>
                                 <DropdownV2
@@ -1052,11 +1167,11 @@ export class ProyectoEditar extends React.Component {
                                         etapa_configuracion = {{
                                             ...this.state.etapas.find(e => e.e_id_etapa_configuracion === etapa.e_id_etapa_configuracion )
                                         }}
-
+                                        esCerrable={ this.esEtapaCerrable(etapa.e_id_etapa) }
+                                        cerrarEtapa={ this.cerrarEtapa }
                                         /* DROPDOWNs */
                                         maquinarias={maquinarias}
                                         cargos={cargos}
-
                                         /* METODOS */
                                         minerales={this.state.minerales}
                                         changeInfo={this.changeInfoEtapa}
@@ -1074,7 +1189,7 @@ export class ProyectoEditar extends React.Component {
                 <div>
                     <GuardarCancelar
                         position="center"
-                        storeData={this.guardarBD}
+                        storeData={ estado_id === 3 ? this.guardarBD : this.goProyecto}
                         success={this.goProyecto}
                         decline={this.goProyecto}
                     />
@@ -1100,6 +1215,12 @@ export class ProyectoEditar extends React.Component {
                     <Modal.Body> 
                         <div className="faseModal">
                             <div className="fase-fase-izq">
+                                <InputText 
+                                    id={`NombreFase`}
+                                    label="Estado"
+                                    value={`ESTADO ACTUAL: ${faseModal.estado}`}
+                                    disabled
+                                />
                                 <InputText 
                                     id={`NombreFase`}
                                     label="Nombre"
@@ -1185,6 +1306,7 @@ export class ProyectoEditar extends React.Component {
                                                                         .find( e => e.e_id_empleado === empleado.e_id_empleado).e_apellido}` 
                                                                     : "Empleado ..."
                                                             }}
+                                                            isDisabled={estado_id !== 3}
                                                             options={
                                                                 cleanerEmpleado.limpiarListaDropdown(
                                                                     empleados.filter( e => 
@@ -1209,6 +1331,7 @@ export class ProyectoEditar extends React.Component {
                                                             min="0"
                                                             name="f_salario"
                                                             value={empleado.f_salario}
+                                                            disabled={estado_id !== 3}
                                                             onChange= { (event) =>
                                                                 this.changeEmpleado(event, empleado.idEspecial)
                                                             }
@@ -1222,6 +1345,7 @@ export class ProyectoEditar extends React.Component {
                                                             min="0"
                                                             name="f_viatico"
                                                             value={empleado.f_viatico}
+                                                            disabled={estado_id !== 3}
                                                             onChange= { (event) =>
                                                                 this.changeEmpleado(event, empleado.idEspecial)
                                                             }
@@ -1234,6 +1358,7 @@ export class ProyectoEditar extends React.Component {
                                                                 value: empleado.horario_id,
                                                                 label: !!empleado.horario_id ? horarios.find( h => h.h_id_horario === empleado.horario_id).h_nombre : "Horario ..."
                                                             }}
+                                                            isDisabled={estado_id !== 3}
                                                             options={
                                                                 cleanerHorario.limpiarListaDropdown(
                                                                     horarios
@@ -1295,6 +1420,7 @@ export class ProyectoEditar extends React.Component {
                                                                         .find( e => e.e_id_equipo === equipo.e_id_equipo).e_serial}` 
                                                                     : "Equipo ..."
                                                             }}
+                                                            isDisabled={estado_id !== 3}
                                                             options={
                                                                 cleanerEquipo.limpiarListaDropdown(
                                                                     equipos.filter( e => 
@@ -1318,6 +1444,7 @@ export class ProyectoEditar extends React.Component {
                                                             min="0"
                                                             name="f_costo_alquiler"
                                                             value={equipo.f_costo_alquiler}
+                                                            disabled={estado_id !== 3}
                                                             onChange= { (event) =>
                                                                 this.changeEquipo(event, equipo.idEspecial)
                                                             }
@@ -1345,20 +1472,41 @@ export class ProyectoEditar extends React.Component {
                     </Modal.Body>
                     
                     <Modal.Footer className="mc-footer">
-                    <Button variant="primary" className="mc-boton mc-boton-guardar" 
-                        onClick={() => this.guardarFase(
-                            faseModal.etapa_configuracion_id,
-                            faseModal.f_id_fase_configuracion
-                        )}
-                    >
-                        Modificar
-                    </Button>
+                    
+                    {estado_id === 3 ?  
 
-                    <Button variant="secondary" className="mc-boton" 
-                        onClick={this.cancelarFase}
-                    >
-                        Cancelar
-                    </Button>
+                        <Button variant="primary" className="mc-boton mc-boton-guardar" 
+                            onClick={() => this.guardarFase(
+                                faseModal.etapa_configuracion_id,
+                                faseModal.f_id_fase_configuracion
+                            )}
+                        >
+                            Modificar
+                        </Button>
+
+                    : estado_id === 8 && faseModal.estado_id === 3  ?
+
+                        <Button variant="warning" className="mc-boton" 
+                            onClick={() => this.activarFase(faseModal.f_id_fase)}
+                        >
+                            Activar Fase
+                        </Button>
+
+                    : estado_id === 8 && faseModal.estado_id === 8  ?
+
+                        <Button variant="success" className="mc-boton" 
+                            onClick={() => this.finalizarFase(faseModal.f_id_fase)}
+                        >
+                            Finalizar Fase
+                        </Button>
+
+                    : null }
+
+                        <Button variant="secondary" className="mc-boton" 
+                            onClick={this.cancelarFase}
+                        >
+                            Volver
+                        </Button>
                     </Modal.Footer>
                 </Modal>}
 

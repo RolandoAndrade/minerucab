@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d7ce102b-bdc5-4fc4-9682-e82a04b1e4dc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/queries/entrega/UPDATES.SQL" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL" beforeDir="false" afterPath="$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/queries/entrega/REPORTES.SQL" beforeDir="false" afterPath="$PROJECT_DIR$/queries/entrega/REPORTES.SQL" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -65,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="9" lean-forward="true" selection-start-line="6" selection-end-line="12" selection-end-column="74" />
+            <state relative-caret-position="15">
+              <caret line="1" selection-start-line="1" selection-end-line="19" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -95,7 +93,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/queries/entrega/CREATE_db.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5670">
+            <state relative-caret-position="289">
               <caret line="378" column="45" selection-start-line="370" selection-start-column="4" selection-end-line="370" selection-end-column="14" />
             </state>
           </provider>
@@ -110,11 +108,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/queries/entrega/REPORTES.SQL">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1815">
-              <caret line="126" column="80" selection-start-line="126" selection-start-column="80" selection-end-line="126" selection-end-column="80" />
+            <state relative-caret-position="74">
+              <caret line="131" selection-start-line="131" selection-end-line="146" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -205,8 +203,8 @@
         <option value="$PROJECT_DIR$/queries/entrega/INSERT_db.sql" />
         <option value="$PROJECT_DIR$/queries/entrega/DELETE.SQL" />
         <option value="$PROJECT_DIR$/queries/entrega/UPDATES.SQL" />
-        <option value="$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL" />
         <option value="$PROJECT_DIR$/queries/entrega/REPORTES.SQL" />
+        <option value="$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL" />
       </list>
     </option>
   </component>
@@ -365,21 +363,7 @@
       <workItem from="1562345644847" duration="17756000" />
       <workItem from="1562370947682" duration="595000" />
       <workItem from="1562523377352" duration="10056000" />
-      <workItem from="1563049768435" duration="11512000" />
-    </task>
-    <task id="LOCAL-00005" summary="Color gris input autorrellenado">
-      <created>1561401037920</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1561401037920</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Identificar y remover los propios">
-      <created>1561404393741</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1561404393741</updated>
+      <workItem from="1563049768435" duration="16663000" />
     </task>
     <task id="LOCAL-00007" summary="Arreglado fallo de overlaping de Dropdowns">
       <created>1561405822348</created>
@@ -710,11 +694,25 @@
       <option name="project" value="LOCAL" />
       <updated>1563057561941</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Empleados disponibles por periodo de tiempo">
+      <created>1563062241940</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1563062241940</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Presentación más solicitada por año">
+      <created>1563065308633</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1563065308647</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="114247000" />
+    <option name="totallyTimeSpent" value="119398000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -726,7 +724,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2" y="-2" width="1444" height="872" extended-state="6" />
+    <frame x="-2" y="-2" width="1444" height="872" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3104435" />
@@ -748,8 +746,8 @@
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32977304" />
       <window_info anchor="bottom" id="Database Changes" order="10" weight="0.32977304" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32977304" />
-      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Database Console" order="13" visible="true" weight="0.25367156" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5007153" side_tool="true" weight="0.25367156" />
+      <window_info active="true" anchor="bottom" id="Database Console" order="13" sideWeight="0.49928468" visible="true" weight="0.25367156" />
       <window_info anchor="bottom" id="Messages" order="14" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -776,8 +774,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Añadida ruta a pedido" />
-    <MESSAGE value="Mostrar tabla de pedidos" />
     <MESSAGE value="Dao Inventario" />
     <MESSAGE value="API inventario" />
     <MESSAGE value="Empiezo con horarios" />
@@ -801,7 +797,9 @@
     <MESSAGE value="Tipo de pago preferido" />
     <MESSAGE value="Top 10 mejores clientes" />
     <MESSAGE value="Listado de etapas y fases del proyecto" />
-    <option name="LAST_COMMIT_MESSAGE" value="Listado de etapas y fases del proyecto" />
+    <MESSAGE value="Empleados disponibles por periodo de tiempo" />
+    <MESSAGE value="Presentación más solicitada por año" />
+    <option name="LAST_COMMIT_MESSAGE" value="Presentación más solicitada por año" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/frontend/src/pages/MineralAgregar.js">
@@ -1110,41 +1108,6 @@
     <entry file="file://$PROJECT_DIR$/backend/src/index.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/queries/entrega/CREATE_db.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5670">
-          <caret line="378" column="45" selection-start-line="370" selection-start-column="4" selection-end-line="370" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/queries/entrega/DELETE.SQL">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/queries/entrega/FOREIGN_db.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="156" column="21" selection-start-line="156" selection-start-column="21" selection-end-line="156" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/queries/entrega/DROP_db.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="85" column="26" selection-start-line="85" selection-start-column="25" selection-end-line="85" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/queries/entrega/INSERT_db.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-705">
-          <caret line="7112" column="16" selection-start-line="7110" selection-end-line="7591" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://0ecd0efa-84fc-4c89-abc9-5233d674a220/database/miner_ucab/schema/public/table/empleado.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -1159,17 +1122,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL">
+    <entry file="file://$PROJECT_DIR$/queries/entrega/DROP_db.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="9" lean-forward="true" selection-start-line="6" selection-end-line="12" selection-end-column="74" />
+        <state relative-caret-position="339">
+          <caret line="85" column="26" selection-start-line="85" selection-start-column="25" selection-end-line="85" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queries/entrega/DELETE.SQL">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queries/entrega/CREATE_db.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="378" column="45" selection-start-line="370" selection-start-column="4" selection-end-line="370" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queries/entrega/FOREIGN_db.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="156" column="21" selection-start-line="156" selection-start-column="21" selection-end-line="156" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queries/entrega/INSERT_db.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-705">
+          <caret line="7112" column="16" selection-start-line="7110" selection-end-line="7591" selection-end-column="91" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/queries/entrega/REPORTES.SQL">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1815">
-          <caret line="126" column="80" selection-start-line="126" selection-start-column="80" selection-end-line="126" selection-end-column="80" />
+        <state relative-caret-position="74">
+          <caret line="131" selection-start-line="131" selection-end-line="146" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" selection-start-line="1" selection-end-line="19" selection-end-column="30" />
         </state>
       </provider>
     </entry>

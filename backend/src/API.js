@@ -1514,6 +1514,28 @@ app.post('/modificar/proyecto', (req,res) => {
   })
 })
 
+app.post('/proyecto/realizar_solicitud', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/proyecto/realizar_solicitud ${req.body.p_id_proyecto}`)
+
+  proy_id = req.body.p_id_proyecto ? req.body.p_id_proyecto : 0
+  requisitos = req.body.requisitos ? req.body.requisitos : []
+  if (proy_id === 0) {
+    res.status(500).json({"ErrorMessage" : "id proyecto invalido o vacio"})
+    return 0;
+  }
+  if (requisitos.length === 0){
+    res.status(200).json({"ErrorMessage" : "Proyecto sin requisitos, puede avanzar de etapa"})
+    return 0;
+  }
+  //verificar minerales del inventario
+  daoInventario.consultarRequisitos(requisitos)
+  .then((resp_bd) => {
+    inventario = resp_bd.rows
+  }) 
+})
+
 app.post('/eliminar/proyecto', (req, res) => {
   
   console.log("\n\n")

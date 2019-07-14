@@ -17,7 +17,7 @@ const daoYacimiento = {
                 TY.t_nombre tipo_yacimiento,
                 (SELECT COUNT(*) 
                 FROM PROYECTO
-                WHERE estado_id = 8
+                WHERE estado_id != 10
                 AND yacimiento_id = Y.y_id_yacimiento) AS ocupado
             FROM  LUGAR L, UNIDAD U, YACIMIENTO_CONFIGURACION YC, 
                 YACIMIENTO Y FULL OUTER JOIN TIPO_YACIMIENTO TY

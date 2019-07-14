@@ -1275,6 +1275,7 @@ import {daoInventario} from "./DAOs/daoInventario";
 import {daoHorario} from "./DAOs/daoHorario";
 import {daoEtapa} from "./DAOs/daoEtapa";
 import {daoFase} from "./DAOs/daoFase";
+import { daoSolicitud } from "./DAOs/daoSolicitud";
 
 app.get('/consultarLista/proyecto', (req, res) => {
   
@@ -1525,26 +1526,83 @@ app.post('/proyecto/realizar_solicitud', (req,res) => {
   console.log(`----------------------> ${getAhora()}`)
   console.log(`/proyecto/realizar_solicitud ${req.body.p_id_proyecto}`)
 
-  proy_id = req.body.p_id_proyecto ? req.body.p_id_proyecto : 0
-  requisitos = req.body.requisitos ? req.body.requisitos : []
+  let proy_id = req.body.p_id_proyecto ? req.body.p_id_proyecto : 0
+  let requisitos = req.body.requisitos ? req.body.requisitos : []
+  
   if (proy_id === 0) {
     res.status(500).json({"ErrorMessage" : "id proyecto invalido o vacio"})
     return 0;
   }
   if (requisitos.length === 0){
-    res.status(200).json({"ErrorMessage" : "Proyecto sin requisitos, puede avanzar de etapa"})
+    res.status(200).json({"resp" : "Proyecto sin requisitos, puede avanzar de etapa"})
     return 0;
   }
   //verificar minerales del inventario
+  let inventario = null
+  let comprables = null
+  let mensaje = ""
   let lista_compra = []
+  let lista_articulos = []
   daoInventario.consultarRequisitos(requisitos)
   .then((resp_bd) => {
     inventario = resp_bd.rows
-    requisitos.forEach((m) =>{
-      let n = inventario.find((s) => s.m_id_mineral === m.m_id_mineral )
-      if (!n.cantidad_actual) lista_compra.push({"m_cantidad": m.m_cantidad*1000, "m_id_mineral": m.m_id_mineral})
-      else if (m.m_cantidad*1000 > n.cantidad_actual) lista_compra.push({"m_cantidad": m.m_cantidad*1000 - n.cantidad_actual, "m_id_mineral": m.m_id_mineral})
+    console.log(`\n\n:Lista inventario: \n${JSON.stringify(inventario)}`)
+    return new Promise((resolve,reject) => {
+      requisitos.forEach((m, index) =>{
+        let n = inventario.find((s) => s.m_id_mineral === m.m_id_mineral )
+        if (!n.cantidad_actual) lista_compra.push({"m_cantidad": m.m_cantidad*1000, "m_id_mineral": m.m_id_mineral})
+        else if (m.m_cantidad*1000 > n.cantidad_actual) lista_compra.push({"m_cantidad": m.m_cantidad*1000 - n.cantidad_actual, "m_id_mineral": m.m_id_mineral})
+        if (index === requisitos.length - 1) resolve("bien")
+      })
+    })    
+  })
+  .then((DATA_RESPUESTA) => {
+    console.log(`\n\n:Lista compra: \n${JSON.stringify(lista_compra)}`)
+    return daoMineral.consultarMineralesComprables()
+  })
+  .then((resp_bd) => {
+    comprables = resp_bd.rows
+    console.log(`\n\n:Lista comprables: \n${JSON.stringify(comprables)}`)
+    return new Promise((resolve, reject) => {
+      lista_compra.forEach((arti, index) => {
+        console.log(`\naqui ${index}\n`)
+        let c = comprables.find( (d) => d.mineral_id === arti.m_id_mineral )
+        console.log(`\naalla ${index}\n`)
+        if (c) console.log(`\n\n:ariculo : \n${JSON.stringify({...c,"p_cantidad": Math.ceil(arti.m_cantidad/c.p_peso)})}`)
+        if (c) lista_articulos.push({...c,"p_cantidad": Math.ceil(arti.m_cantidad/c.p_peso)})
+        else mensaje += `m_id_minera: ${arti.m_id_mineral} `
+        if (index === lista_compra.length - 1) resolve("bien")
+      })
     })
+  })
+  .then((DATA_RESPUESTA) =>{
+    console.log(`\n\n:lista_articulos: \n${JSON.stringify(lista_articulos)}`)
+    //res.status(200).json({"resp" : "todo bien hasta ahora"})
+    return new Promise((resolve, reject) =>{
+      if (lista_articulos.length < lista_compra.length){
+        console.log(`\n\nNO SE PUEDE REALIZAR LA SOLICITUD`)
+        mensaje = `Los siguientes minerales no pueden ser comprados por falta de productos: ${mensaje}`
+        reject("Hay minerales no comprables, registre producto apara continuar")
+      }else{
+        daoSolicitud.insertar(proy_id)
+        .then((resp_bd) => {
+          return daoSolicitud.asignarVariosArticulos(resp_bd.rows[0].s_id_solicitud,lista_articulos)
+        })
+        .then((resp_bd) => {
+          resolve("bien")
+        })
+      }
+    })
+  })
+  .then((DATA_RESPUESTA) => {
+    console.log(`STATUS OK : 200`)
+    res.status(200).json({"resp" : "Solitud registrada exitosamente"})
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+    res.status(500).json({"resp": mensaje})
   }) 
 })
 

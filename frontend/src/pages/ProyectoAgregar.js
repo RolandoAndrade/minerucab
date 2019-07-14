@@ -276,11 +276,11 @@ export class ProyectoAgregar extends React.Component {
             
             
         } else {
-            console.log(`configuracion_yacimiento.${target.target.name} = ${target.target.value}`)
+            console.log(`configuracion_yacimiento.${target.name || target.target.name} = ${target.value || target.target.value}`)
             this.setState({
                 configuracion_yacimiento :{
                     ...this.state.configuracion_yacimiento,
-                    [target.target.name] : target.target.value
+                    [target.name || target.target.name] : target.value || target.target.value
             }})
         }
     }
@@ -521,9 +521,12 @@ export class ProyectoAgregar extends React.Component {
             console.log(`faseModal.empleado[ ${idEmpleado} ].${opcion.name} <-- ${opcion.value} (${opcion.label})`)
             const nuevosEmpleados = this.state.faseModal.empleados.map( e => {
                     if (e.idEspecial === idEmpleado){
-                        e[opcion.name] = opcion.value
-                    }
-                    return e
+                        return ({
+                            ...e,
+                            [opcion.name] : opcion.value   
+                        })
+                    } else
+                        return e
                 })
 
             this.setState({
@@ -537,9 +540,12 @@ export class ProyectoAgregar extends React.Component {
             console.log(`faseModal.empleado[ ${idEmpleado} ].${opcion.target.name} <-- ${opcion.target.value}`)
             const nuevosEmpleados = this.state.faseModal.empleados.map( e => {
                 if (e.idEspecial === idEmpleado){
-                    e[opcion.target.name] = opcion.target.value
-                }
-                return e
+                    return ({
+                        ...e,
+                        [opcion.target.name] : opcion.target.value   
+                    })
+                } else
+                    return e
             })
             
             this.setState({
@@ -621,11 +627,14 @@ export class ProyectoAgregar extends React.Component {
 
     changeEquipo = (opcion , idEquipo) => {
         if (opcion.label) {
-            console.log(`faseModal.empleado[ ${idEquipo} ].${opcion.name} <-- ${opcion.value} (${opcion.label})`)
+            console.log(`faseModal.equipo[ ${idEquipo} ].${opcion.name} <-- ${opcion.value} (${opcion.label})`)
             const nuevosEquipo = this.state.faseModal.equipos.map( e => {
-                    if (e.idEspecial === idEquipo){
-                        e[opcion.name] = opcion.value
-                    }
+                if (e.idEspecial === idEquipo){
+                    return ({
+                        ...e,
+                        [opcion.name] : opcion.value   
+                    })
+                } else
                     return e
                 })
 
@@ -637,13 +646,16 @@ export class ProyectoAgregar extends React.Component {
             })
 
         } else {
-            console.log(`faseModal.empleado[ ${idEquipo} ].${opcion.target.name} <-- ${opcion.target.value}`)
+            console.log(`faseModal.equipo[ ${idEquipo} ].${opcion.target.name} <-- ${opcion.target.value}`)
             const nuevosEquipo = this.state.faseModal.equipos.map( e => {
                 if (e.idEspecial === idEquipo){
-                    e[opcion.target.name] = opcion.target.value
-                }
-                return e
-            })
+                    return ({
+                        ...e,
+                        [opcion.target.name] : opcion.target.value   
+                    })
+                } else
+                    return e
+                })
             
             this.setState({
                 faseModal : {
@@ -779,7 +791,7 @@ export class ProyectoAgregar extends React.Component {
                                     }}
                                     options={
                                         cleanerYacimiento.limpiarListaDropdown(
-                                            yacimientos.filter( y => y.ocupado !== 0 )
+                                            yacimientos.filter( y => y.ocupado === "0" )
                                         )
                                     }
                                 />
@@ -1124,20 +1136,20 @@ export class ProyectoAgregar extends React.Component {
                                                                 value: equipo.e_id_equipo,
                                                                 label: !!equipo.e_id_equipo ? 
                                                                     `${this.state.equipos
-                                                                        .filter( e => /*e.estado_id === 11 && */e.maquinaria_id === equipo.maquinaria_id)
+                                                                        .filter( e => e.estado_id === 11 && e.maquinaria_id === equipo.maquinaria_id)
                                                                         .find( e => e.e_id_equipo === equipo.e_id_equipo).e_marca} - 
                                                                     ${this.state.equipos
-                                                                        .filter( e => /*e.estado_id === 11 && */e.maquinaria_id === equipo.maquinaria_id)
+                                                                        .filter( e => e.estado_id === 11 && e.maquinaria_id === equipo.maquinaria_id)
                                                                         .find( e => e.e_id_equipo === equipo.e_id_equipo).e_modelo} - 
                                                                     ${this.state.equipos
-                                                                        .filter( e => /*e.estado_id === 11 && */e.maquinaria_id === equipo.maquinaria_id)
+                                                                        .filter( e => e.estado_id === 11 && e.maquinaria_id === equipo.maquinaria_id)
                                                                         .find( e => e.e_id_equipo === equipo.e_id_equipo).e_serial}` 
                                                                     : "Equipo ..."
                                                             }}
                                                             options={
                                                                 cleanerEquipo.limpiarListaDropdown(
                                                                     equipos.filter( e => 
-                                                                        /*e.estado_id === 11 &&*/ 
+                                                                        e.estado_id === 11 && 
                                                                         e.maquinaria_id === equipo.maquinaria_id &&
                                                                         !faseModal.equipos.find( e1 => e1.e_id_equipo === e.e_id_equipo) &&
                                                                         !this.state.etapas.find( etapa =>

@@ -1291,7 +1291,6 @@ app.get('/consultarLista/proyecto', (req, res) => {
     .catch( (bd_err)=> {
       console.error(`bd_err : ${JSON.stringify(bd_err)}`)
       res.status(500).json(bd_err)
-
     })
 });
 
@@ -1698,7 +1697,6 @@ app.get('/consultarLista/pedido', (req, res) => {
       .catch( (bd_err)=> {
         console.error(`bd_err : ${JSON.stringify(bd_err)}`)
         res.status(500).json(bd_err)
-
       })
 });
 

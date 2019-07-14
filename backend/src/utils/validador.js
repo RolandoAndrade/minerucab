@@ -100,7 +100,7 @@ const validadorProyecto = {
                             f.empleados.forEach((empl) => {
                                 if (empl.e_id_empleado === 0 ) flag += `En etapa ${e.e_orden} fase ${f.f_orden}, empleado no seleccionado\n`
                                 if (empl.horario_id === 0 ) flag += `En etapa ${e.e_orden} fase ${f.f_orden}, horario no seleccionado\n`
-                                if (empl.f_viatico && empl.f_viatico <= 0 ) flag += `En etapa ${e.e_orden} fase ${f.f_orden}, viaticos negativos\n`
+                                if (empl.f_viatico && empl.f_viatico < 0 ) flag += `En etapa ${e.e_orden} fase ${f.f_orden}, viaticos negativos\n`
                                 if (empl.f_salario && empl.f_salario < 0 ) flag += `En etapa ${e.e_orden} fase ${f.f_orden}, error en salario\n`
                             })
                         }

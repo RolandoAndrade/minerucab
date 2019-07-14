@@ -1536,9 +1536,15 @@ app.post('/proyecto/realizar_solicitud', (req,res) => {
     return 0;
   }
   //verificar minerales del inventario
+  let lista_compra = []
   daoInventario.consultarRequisitos(requisitos)
   .then((resp_bd) => {
     inventario = resp_bd.rows
+    requisitos.forEach((m) =>{
+      let n = inventario.find((s) => s.m_id_mineral === m.m_id_mineral )
+      if (!n.cantidad_actual) lista_compra.push({"m_cantidad": m.m_cantidad*1000, "m_id_mineral": m.m_id_mineral})
+      else if (m.m_cantidad*1000 > n.cantidad_actual) lista_compra.push({"m_cantidad": m.m_cantidad*1000 - n.cantidad_actual, "m_id_mineral": m.m_id_mineral})
+    })
   }) 
 })
 
@@ -1547,7 +1553,7 @@ app.post('/eliminar/proyecto', (req, res) => {
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
   console.log(`/eliminar/proyecto/${req.body.p_id_proyecto}`)
-  proy_id = req.body.p_id_proyecto
+  let proy_id = req.body.p_id_proyecto
   daoEmpleado.liberarEmpleadosProyecto(proy_id)
   .then((resp_bd) => {
     return daoEquipo.liberarEquiposProyecto(proy_id)

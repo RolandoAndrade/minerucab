@@ -51,11 +51,23 @@ export class Solicitud extends React.Component {
     })
   }
 
-  handleModificar = () => {
-    console.log(`modificarEmpleado(${this.state.consultarSolicitud.s_id_solicitud})`)
-    this.setState({
-      modificarEmpleado : this.state.consultarSolicitud.s_id_solicitud
+  recibirRecursos = () => {
+    const id = this.state.consultarSolicitud.s_id_solicitud
+    /*console.log(`http://127.0.0.1:4000/eliminar/solicitud/(${id})`)
+
+    axios.post('http://127.0.0.1:4000/eliminar/solicitud', 
+    {
+        "e_id_empleado" : this.state.consultarSolicitud.s_id_solicitud,
     })
+    .then( (res) => {
+        if( res.status === 200) {
+            console.log(`<---- (OK 200) localhost:4000/eliminar/solicitud`)
+            this.handleCloseModal()
+            this.handleCloseEliminar()
+            location.reload()
+        }
+    })*/
+    
   }
 
   handleEliminar = () => {
@@ -175,6 +187,85 @@ export class Solicitud extends React.Component {
               ]}
 
             />
+          }
+
+          {!!this.state.consultarSolicitud && 
+          <Modal 
+            size="lg"
+            show={!!this.state.consultarSolicitud} 
+            onHide={this.handleCloseModal}
+            centered
+            scrollable
+            dialogClassName="ModalConsultar"
+          >
+            <Modal.Header closeButton className="mc-header">
+              <div></div>
+              <h1>{`${this.state.consultarSolicitud.s_id_solicitud} - ${this.state.consultarSolicitud.p_nombre}`}</h1>
+            </Modal.Header>
+
+            <Modal.Body className="mc-body"> 
+              <p>
+                <span className="mc-atributo">ID</span>
+                <span> : {this.state.consultarSolicitud.s_id_solicitud.toString(10).padStart(4, '0')}</span>
+              </p>
+              <p>
+                <span className="mc-atributo">Fecha Solicitud</span>
+                <span> : {this.state.consultarSolicitud.s_fecha_solicitud.split('T')[0]}</span>
+              </p>
+              <p>
+                <span className="mc-atributo">Fecha Pago</span>
+                <span> : {this.state.consultarSolicitud.s_fecha_pago.split('T')[0]}</span>
+              </p>
+              <p>
+                <span className="mc-atributo">Estado Actual</span>
+                <span> : {this.state.consultarSolicitud.e_nombre}</span>
+              </p>
+             
+            </Modal.Body>
+            
+            <Modal.Footer className="mc-footer">
+              {this.state.consultarSolicitud.estado_id === 6 &&
+              <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.recibirRecursos}>
+                Recibir Recursos
+              </Button>}
+
+              <Button variant="danger" className="mc-boton" onClick={this.handleEliminar}>
+                Eliminar
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          }
+
+          {!!this.state.warningEliminar && 
+          <Modal 
+            size="lg"
+            show={!!this.state.warningEliminar} 
+            onHide={this.handleCloseEliminar}
+            centered
+            dialogClassName="ModalConsultar"
+          >
+            <Modal.Header closeButton className="mc-header">
+              <div></div>
+              <h1>ADVERTENCIA !!</h1>
+            </Modal.Header>
+
+            <Modal.Body className="mc-body"> 
+              <div>
+                <p style={{textAlign: "center"}}>{`¿Estas segur@ que deseas eliminar la solicitud de ID ${this.state.consoltarSolicitud && this.state.consoltarSolicitud.s_id_solicitud}?`}</p>
+              </div>
+             
+            </Modal.Body>
+            
+            <Modal.Footer className="mc-footer">
+              <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleCloseEliminar}>
+                No
+              </Button>
+
+              <Button variant="danger" className="mc-boton" onClick={this.handleEliminarSeguro}>
+                Si
+              </Button>
+            </Modal.Footer>
+          </Modal>
           }
     </div>
     </div>

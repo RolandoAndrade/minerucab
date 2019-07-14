@@ -980,16 +980,19 @@ app.post('/consultar/detalle_yacimiento_configuracion', (req,res) => {
         .then((resp_bd) => {
           yacimiento_configuracion["etapas"][i]["fases"] = resp_bd.rows
           yacimiento_configuracion["etapas"][i]["fases"].map((f,j) => {
-            daoFaseConfiguracion.consultarCargos(f.f_id_fase_configuracion)
-            .then((resp_bd) => {
-              yacimiento_configuracion["etapas"][i]["fases"][j]["cargos"] = resp_bd.rows
-              promesas2.push(daoFaseConfiguracion.consultarMaquinarias(f.f_id_fase_configuracion)
+            promesas2.push(new Promise((solve, jet) => {
+              daoFaseConfiguracion.consultarCargos(f.f_id_fase_configuracion)
+              .then((resp_bd) => {
+                yacimiento_configuracion["etapas"][i]["fases"][j]["cargos"] = resp_bd.rows
+                return daoFaseConfiguracion.consultarMaquinarias(f.f_id_fase_configuracion)
+              })
               .then((resp_bd) => {
                 yacimiento_configuracion["etapas"][i]["fases"][j]["maquinarias"] = resp_bd.rows ? resp_bd.rows : []
+                solve("continua")
                 if( (i === (yacimiento_configuracion["etapas"].length - 1)) && (j === (yacimiento_configuracion["etapas"][i]["fases"].length - 1)))
                 Promise.all(promesas2).then(() => resolve("bien!"))    
-              }))
-            })
+              })              
+            }))
           })   
         })
       })
@@ -1336,24 +1339,27 @@ app.post(`/consultar/detalle_proyecto`,(req,res) => {
         .then((resp_bd) => {
           proyecto["etapas"][i]["fases"] = resp_bd.rows
           proyecto["etapas"][i]["fases"].map((f,j) => {
-            daoFase.consultarEmpleados(f.f_id_fase)
-            .then((resp_bd) => {
-              proyecto["etapas"][i]["fases"][j]["empleados"] = resp_bd.rows ? resp_bd.rows : []
-              daoFase.consultarEquipos(f.f_id_fase)
+            promesas2.push(new Promise((solve, jet) => {
+              daoFase.consultarEmpleados(f.f_id_fase)
+              .then((resp_bd) => {
+                proyecto["etapas"][i]["fases"][j]["empleados"] = resp_bd.rows ? resp_bd.rows : []
+                return daoFase.consultarEquipos(f.f_id_fase)
+              })
               .then((resp_bd) => {
                 proyecto["etapas"][i]["fases"][j]["equipos"] = resp_bd.rows ? resp_bd.rows : []
-                promesas2.push(daoFase.consultarGastos(f.f_id_fase)
-                .then((resp_bd) => {
-                  proyecto["etapas"][i]["fases"][j]["gastos"] = resp_bd.rows ? resp_bd.rows : []
-                  if( (i === (proyecto["etapas"].length - 1)) && (j === (proyecto["etapas"][i]["fases"].length - 1)))
-                  Promise.all(promesas2).then(() => resolve("bien!"))
-                }))                    
+                return daoFase.consultarGastos(f.f_id_fase)
               })
-            })
-          })   
-        })
+              .then((resp_bd) => {
+                proyecto["etapas"][i]["fases"][j]["gastos"] = resp_bd.rows ? resp_bd.rows : []
+                solve("continua")
+                if( (i === (proyecto["etapas"].length - 1)) && (j === (proyecto["etapas"][i]["fases"].length - 1)))
+                Promise.all(promesas2).then(() => resolve("bien!"))
+              })
+            }))                                
+          }) 
+        })   
       })
-    })    
+    })
   })
   .then((DATA_RESPUESTA) => {
     console.log(`STATUS OK : 200`)      
@@ -1541,20 +1547,24 @@ app.post('/eliminar/proyecto', (req, res) => {
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
   console.log(`/eliminar/proyecto/${req.body.p_id_proyecto}`)
-  daoProyecto.eliminar(req.body.p_id_proyecto)
-    .then( (bd_response) => {
-      console.log(`STATUS OK : 200`)      
-      
-      res.status(200).json({"rowCount" : bd_response.rowCount})
+  proy_id = req.body.p_id_proyecto
+  daoEmpleado.liberarEmpleadosProyecto(proy_id)
+  .then((resp_bd) => {
+    return daoEquipo.liberarEquiposProyecto(proy_id)
+  })
+  .then ((resp_bd) => {
+    return daoProyecto.eliminar(proy_id)
+  })  
+  .then( (bd_response) => {
+    console.log(`STATUS OK : 200`)
+    res.status(200).json({"rowCount" : bd_response.rowCount})
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
-    })
-    .catch( (bd_err) => {
-      console.log(`STATUS ERROR: 500`)      
-      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
-
-      res.status(500).json(bd_err)
-
-    })
+    res.status(500).json(bd_err)
+  })
 });
 
 function error(bd_err)

@@ -53,7 +53,7 @@ const daoFase = {
 
     consultarEquipos(fase_id){
         return psql.query(`
-            SELECT F.*, E.e_id_equipo, E.e_marca, E.e_serial, M.m_id_maquinaria, M.m_nombre
+            SELECT F.*, E.e_id_equipo, E.e_marca, E.e_modelo, E.e_serial, M.m_id_maquinaria, M.m_nombre
             FROM FASE_EQUI F, EQUIPO E, MAQUINARIA M
             WHERE fase_id = ${fase_id}
                 AND F.equipo_id = E.e_id_equipo

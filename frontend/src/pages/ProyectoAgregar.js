@@ -1105,7 +1105,7 @@ export class ProyectoAgregar extends React.Component {
                                     </div>}
                                     
                                 </div>
-                                <p className="subtitulo-centrado">Equipos</p>
+                                <p className="subtitulo-centrado">{this.state.faseModal.equipos.length > 0 ? "Equipos" : "Sin equipos"}</p>
                                 <div> {/* MAPING DE MAQUINARIAS */}
                                     { this.state.faseModal.equipos &&
                                         faseModal.equipos.map(

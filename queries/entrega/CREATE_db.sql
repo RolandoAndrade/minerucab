@@ -462,7 +462,7 @@ CREATE TABLE SOLICITUD(
     estado_id INTEGER NOT NULL,
 
     CONSTRAINT check_s_fecha_solicitud CHECK (s_fecha_solicitud <= now()),
-    CONSTRAINT check_s_fecha_pago CHECK (s_fecha_pago IS NULL OR  s_fecha_pago>= s_fecha_pago AND s_fecha_pago<= now()),
+    CONSTRAINT check_s_fecha_pago CHECK (s_fecha_pago IS NULL OR  s_fecha_pago >= s_fecha_solicitud AND s_fecha_pago<= now()),
     CONSTRAINT s_id_solicitud PRIMARY KEY (s_id_solicitud)
 );
 

@@ -136,6 +136,13 @@ export class Proyecto extends React.Component {
                     fontSize : "large",
                     textAlign: "center"
                   },
+                },
+                { 
+                  title: 'Estado Actual', field: 'estado', type:'string', headerStyle:{ textAlign : "center"},
+                  cellStyle : {
+                    fontSize : "large",
+                    textAlign: "center"
+                  },
                 }
               ]}
               data={ cleanerProyecto.limpiarLista( this.state.proyectos ) }
@@ -152,9 +159,9 @@ export class Proyecto extends React.Component {
                 exportFileName: "Proyectos",
 
               }}
-
+			  
               onRowClick={(event, rowData) => this.handleConsultar(rowData.p_id_proyecto)}
-              localization={
+			  localization={
                   {
                 toolbar : {
                   searchPlaceholder : "Buscar ..."
@@ -227,8 +234,9 @@ export class Proyecto extends React.Component {
             </Modal.Body>
             
             <Modal.Footer className="mc-footer">
+
               <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleModificar}>
-                Modificar
+                {this.state.consultarProyecto.estado_id === 3 ? "Modificar" : "Gestionar"}
               </Button>
 
               <Button variant="danger" className="mc-boton" onClick={this.handleEliminar}>

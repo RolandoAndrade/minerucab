@@ -232,6 +232,8 @@ export class ProyectoEditar extends React.Component {
                                 etapa.e_orden = etapa.e_orden.toString() 
                                 etapa.e_tipo = etapa.e_tipo === "explotacion" ? 1 : 2
                                 etapa["ultimaFaseIndex"] = 500
+                                let i = 1;
+                                let j = 1;
 
                                 let etapa2 = pBD.etapas.find( e2 => e2.etapa_configuracion_id === etapa.e_id_etapa_configuracion )
                                 etapa["e_fecha_inicio"] = !!etapa2.e_fecha_inicio ? etapa2.e_fecha_inicio.split('T')[0] : null
@@ -242,9 +244,11 @@ export class ProyectoEditar extends React.Component {
                                     fase["f_fecha_fin"] = fase2.f_fecha_fin ? fase2.f_fecha_fin.split('T')[0] : null
 
                                     fase["empleados"] = fase2.empleados ? fase2.empleados.map( empleado => {
-                                        empleado["f_salario"] = empleado.f_salario.toString()
-                                        empleado["f_viatico"] = empleado.f_viatico.toString()
+                                        empleado["f_salario"] = !!empleado.f_salario && empleado.f_salario.toString()
+                                        empleado["f_viatico"] = !!empleado.f_viatico && empleado.f_viatico.toString()
                                         empleado["cargo_id"] = empleado.c_id_cargo
+                                        empleado["idEspecial"] = i
+                                        i++
                                         return empleado
                                     }) : []
                                     /*
@@ -270,14 +274,15 @@ export class ProyectoEditar extends React.Component {
                                         maquinaria.f_cantidad = maquinaria.f_cantidad.toString()
                                         return maquinaria
                                     }) : []
-                                    fase["equipos"] = fase.maquinarias ? fase.maquinarias.map( maquinaria => {
-                                        maquinaria.f_cantidad = maquinaria.f_cantidad.toString()
-                                        return maquinaria
+                                    fase["equipos"] = fase2.equipos ? fase2.equipos.map( equipo => {
+                                        equipo["f_costo_alquiler"] = equipo.f_costo_alquiler
+                                        equipo["maquinaria_id"] = equipo.m_id_maquinaria
+                                        equipo["idEspecial"] = j
+                                        j++
+                                        return equipo
                                     }) : []
                                     return fase
                                 })
-
-                              
 
                                 return etapa
                             }), 
@@ -288,18 +293,33 @@ export class ProyectoEditar extends React.Component {
                         },
                             () => {
                                 let empleadosOriginales = []
+                                let equiposOriginales = []
 
                                 this.state.etapas.forEach(e => {
                                     e.fases.forEach( f => {
                                         f.empleados.forEach( emp => {
                                             empleadosOriginales.push(emp)
                                         })
+                                        if (f.equipos)
+                                          f.equipos.forEach( equi => {
+                                            equiposOriginales.push(equi)
+                                          })  
                                     })
                                 })
                                     
                                 this.setState({
-                                    empleadosOriginales 
+                                    empleadosOriginales,
+                                    equiposOriginales,
+                                    empleados : [ 
+                                        ...empleadosOriginales, 
+                                        ...this.state.empleados.filter( e => e.estado_id === 11) 
+                                    ],
+                                    equipos :  [ 
+                                        ...equiposOriginales, 
+                                        ...this.state.equipos.filter( e => e.estado_id === 11) 
+                                    ]
                                 })
+                                
                             }
                         )
 
@@ -310,16 +330,7 @@ export class ProyectoEditar extends React.Component {
                 }
             })
 
-        Promise.all( promesas ).then(
-            () => {
-                this.setState({
-                    empleados : [ 
-                        ...this.state.empleadosOriginales, 
-                        ...empleados.filter( e => e.estado_id === 11) 
-                    ]
-                })
-            }
-        )
+        Promise.all( promesas )
     }
 
     changeInfo = (target) => {
@@ -412,11 +423,11 @@ export class ProyectoEditar extends React.Component {
             
             
         } else {
-            console.log(`configuracion_yacimiento.${target.name} = ${target.value}`)
+            console.log(`configuracion_yacimiento.${target.name || target.target.name} = ${target.value || target.target.value}`)
             this.setState({
                 configuracion_yacimiento :{
                     ...this.state.configuracion_yacimiento,
-                    [target.name] : target.value
+                    [target.name || target.target.name] : target.value || target.target.value
                 }
             })
         }
@@ -657,9 +668,12 @@ export class ProyectoEditar extends React.Component {
         if (opcion.label) {
             console.log(`faseModal.empleado[ ${idEmpleado} ].${opcion.name} <-- ${opcion.value} (${opcion.label})`)
             const nuevosEmpleados = this.state.faseModal.empleados.map( e => {
-                    if (e.idEspecial === idEmpleado){
-                        e[opcion.name] = opcion.value
-                    }
+                if (e.idEspecial === idEmpleado){
+                    return ({
+                        ...e,
+                        [opcion.name] : opcion.value   
+                    })
+                } else
                     return e
                 })
 
@@ -674,9 +688,12 @@ export class ProyectoEditar extends React.Component {
             console.log(`faseModal.empleado[ ${idEmpleado} ].${opcion.target.name} <-- ${opcion.target.value}`)
             const nuevosEmpleados = this.state.faseModal.empleados.map( e => {
                 if (e.idEspecial === idEmpleado){
-                    e[opcion.target.name] = opcion.target.value
-                }
-                return e
+                    return ({
+                        ...e,
+                        [opcion.target.name] : opcion.target.value   
+                    })
+                } else
+                    return e
             })
             
             this.setState({
@@ -758,13 +775,16 @@ export class ProyectoEditar extends React.Component {
 
     changeEquipo = (opcion , idEquipo) => {
         if (opcion.label) {
-            console.log(`faseModal.empleado[ ${idEquipo} ].${opcion.name} <-- ${opcion.value} (${opcion.label})`)
+            console.log(`faseModal.equipo[ ${idEquipo} ].${opcion.name} <-- ${opcion.value} (${opcion.label})`)
             const nuevosEquipo = this.state.faseModal.equipos.map( e => {
                     if (e.idEspecial === idEquipo){
-                        e[opcion.name] = opcion.value
-                    }
-                    return e
-                })
+                        return ({
+                            ...e,
+                            [opcion.name] : opcion.value   
+                        })
+                    } else
+                        return e
+                    })
 
             this.setState({
                 faseModal : {
@@ -774,13 +794,16 @@ export class ProyectoEditar extends React.Component {
             })
 
         } else {
-            console.log(`faseModal.empleado[ ${idEquipo} ].${opcion.target.name} <-- ${opcion.target.value}`)
+            console.log(`faseModal.equipo[ ${idEquipo} ].${opcion.target.name} <-- ${opcion.target.value}`)
             const nuevosEquipo = this.state.faseModal.equipos.map( e => {
                 if (e.idEspecial === idEquipo){
-                    e[opcion.target.name] = opcion.target.value
-                }
-                return e
-            })
+                    return ({
+                        ...e,
+                        [opcion.target.name] : opcion.target.value   
+                    })
+                } else
+                    return e
+                })
             
             this.setState({
                 faseModal : {
@@ -857,8 +880,8 @@ export class ProyectoEditar extends React.Component {
 
         const conf = this.state.configuracion_yacimiento
 
-        console.log(`----> localhost:4000/insertar/yacimiento_configuracion`)
-        return axios.post('http://127.0.0.1:4000/insertar/yacimiento_configuracion',
+        console.log(`----> localhost:4000/modificar/proyecto`)
+        return axios.post('http://127.0.0.1:4000/modificar/proyecto',
             {
                 ...this.state.configuracion_yacimiento,
                 y_capacidad_explotacion : parseFloat( conf.y_capacidad_explotacion ),
@@ -867,7 +890,7 @@ export class ProyectoEditar extends React.Component {
             })
             .then( (res) => {
                 if( res.status === 200) {
-                    console.log(`<---- (OK 200) localhost:4000/insertar/yacimiento_configuracion`)
+                    console.log(`<---- (OK 200) localhost:4000/modificar/proyecto`)
                 }
                 return res
             }).catch( err => err)
@@ -877,13 +900,13 @@ export class ProyectoEditar extends React.Component {
         // PARA NO ESCRIBIR THIS.STATE MUCHAS VECES
         const {
             configuracion_yacimiento , requisitos, etapas, fases, minerales, maquinarias, cargos, faseModal,
-            empleados, equipos, yacimientos, horarios, empleadosOriginales
+            empleados, equipos, yacimientos, horarios
         } = this.state
     
     
         return (
         <div>   
-             <MenuDashBoard title={"Crear Proyecto"}/>
+             <MenuDashBoard title={"Editar Proyecto"}/>
 
              <div>
                 <div className="SobreMineral">
@@ -919,6 +942,7 @@ export class ProyectoEditar extends React.Component {
                                             yacimientos.filter( y => y.ocupado !== 0 )
                                         )
                                     }
+                                    isDisabled
                                 />
                                 {!configuracion_yacimiento.yacimiento_id &&
                                     <p className="subtitulo-centrado" >Eliga un yacimiento para poder continuar</p>}
@@ -1230,7 +1254,7 @@ export class ProyectoEditar extends React.Component {
                                     </div>}
                                     
                                 </div>
-                                <p className="subtitulo-centrado">Equipos</p>
+                                <p className="subtitulo-centrado">{this.state.faseModal.equipos.length > 0 ? "Equipos" : "Sin equipos"}</p>
                                 <div> {/* MAPING DE MAQUINARIAS */}
                                     { this.state.faseModal.equipos &&
                                         faseModal.equipos.map(
@@ -1261,20 +1285,19 @@ export class ProyectoEditar extends React.Component {
                                                                 value: equipo.e_id_equipo,
                                                                 label: !!equipo.e_id_equipo ? 
                                                                     `${this.state.equipos
-                                                                        .filter( e => /*e.estado_id === 11 && */e.maquinaria_id === equipo.maquinaria_id)
+                                                                        .filter( e => e.maquinaria_id === equipo.maquinaria_id)
                                                                         .find( e => e.e_id_equipo === equipo.e_id_equipo).e_marca} - 
                                                                     ${this.state.equipos
-                                                                        .filter( e => /*e.estado_id === 11 && */e.maquinaria_id === equipo.maquinaria_id)
+                                                                        .filter( e => e.maquinaria_id === equipo.maquinaria_id)
                                                                         .find( e => e.e_id_equipo === equipo.e_id_equipo).e_modelo} - 
                                                                     ${this.state.equipos
-                                                                        .filter( e => /*e.estado_id === 11 && */e.maquinaria_id === equipo.maquinaria_id)
+                                                                        .filter( e => e.maquinaria_id === equipo.maquinaria_id)
                                                                         .find( e => e.e_id_equipo === equipo.e_id_equipo).e_serial}` 
                                                                     : "Equipo ..."
                                                             }}
                                                             options={
                                                                 cleanerEquipo.limpiarListaDropdown(
                                                                     equipos.filter( e => 
-                                                                        /*e.estado_id === 11 &&*/ 
                                                                         e.maquinaria_id === equipo.maquinaria_id &&
                                                                         !faseModal.equipos.find( e1 => e1.e_id_equipo === e.e_id_equipo) &&
                                                                         !this.state.etapas.find( etapa =>

@@ -1547,7 +1547,7 @@ app.post('/eliminar/proyecto', (req, res) => {
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
   console.log(`/eliminar/proyecto/${req.body.p_id_proyecto}`)
-  proy_id = req.body.p_id_proyecto
+  let proy_id = req.body.p_id_proyecto
   daoEmpleado.liberarEmpleadosProyecto(proy_id)
   .then((resp_bd) => {
     return daoEquipo.liberarEquiposProyecto(proy_id)

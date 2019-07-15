@@ -1756,10 +1756,10 @@ app.post('/modificar/proyecto', (req,res) => {
   })
 })
 
-app.post('/proyecto/realizar_solicitud', (req,res) => {
+app.post('/iniciar/proyecto', (req,res) => {
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
-  console.log(`/proyecto/realizar_solicitud ${req.body.p_id_proyecto}`)
+  console.log(`/iniciar/proyecto ${req.body.p_id_proyecto}`)
 
   let proy_id = req.body.p_id_proyecto ? req.body.p_id_proyecto : 0
   let requisitos = req.body.requisitos ? req.body.requisitos : []
@@ -1869,10 +1869,10 @@ app.post('/eliminar/proyecto', (req, res) => {
   })
 });
 
-app.post('/asignar-recursos/proyecto', (req,res) => {
+app.post('/activar/proyecto', (req,res) => {
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
-  console.log(`/asignar-recursos/proyecto/${req.body.p_id_proyecto}`)
+  console.log(`/activar/proyecto/${req.body.p_id_proyecto}`)
 
   let proy_id = req.body.p_id_proyecto ? req.body.p_id_proyecto : 0
   let requisitos = req.body.requisitos ? req.body.requisitos : []
@@ -1898,8 +1898,78 @@ app.post('/asignar-recursos/proyecto', (req,res) => {
     console.log(`STATUS ERROR: 500`)      
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
-    res.status(500).json({"resp": mensaje})
+    res.status(500).json(bd_err)
   })
+
+})
+
+app.post('/opcional/proyecto', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/opcional/proyecto/${req.body.p_id_proyecto}`)
+
+  let proy_id = req.body.p_id_proyecto ? req.body.p_id_proyecto : 0
+  if (proy_id === 0) {
+    res.status(500).json({"ErrorMessage" : "id proyecto invalido o vacio"})
+    return 0;
+  }
+
+  daoProyecto.actualizarEstado(proy_id,15)
+  .then((DATA_RESPUESTA) => {
+    console.log(`STATUS OK : 200`)
+    res.status(200).json({"resp" : "Proyecto iniciado exitosamente"})
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+    res.status(500).json(bd_err)
+  })
+
+})
+/******************************************** FASE **********************************************/
+
+app.post('/activar/fase', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/activar/fase/${req.body.f_id_fase}`)
+
+  let fase_id = req.body.f_id_fase ? req.body.f_id_fase : 0
+  if (fase_id === 0) {
+    res.status(500).json({"ErrorMessage" : "id fase invalido o vacio"})
+    return 0;
+  }
+
+  daoFase.modificarEstado(fase_id,8)
+  .then((resp_bd) => {
+    console.log(`STATUS OK : 200`)
+    res.status(200).json({"resp" : "fase iniciada exitosamente"})
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+    res.status(500).json(bd_err)
+  })
+
+})
+
+app.post('/finalizar/fase',(req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/finalizar/fase/${req.body.f_id_fase}`)
+
+  let fase_id = req.body.f_id_fase
+  if (fase_id === 0) {
+    res.status(500).json({"ErrorMessage" : "id fase invalido o vacio"})
+    return 0;
+  }
+  //cambiar el estatus de la fase (ponerlo a retornar id)
+  //despedir a la gente y a las maquinas de esa fase
+  //verificar que hay mas fases en esa etapa
+  //si no hay => cambiar estado de la etapa
+  //verificar que hay mas etapas
+  //si no hay => finalizar proyecto
 
 
 })

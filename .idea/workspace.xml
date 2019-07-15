@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d7ce102b-bdc5-4fc4-9682-e82a04b1e4dc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/queries/entrega/DELETE.SQL" beforeDir="false" afterPath="$PROJECT_DIR$/queries/entrega/DELETE.SQL" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/queries/entrega/INSERT_db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/queries/entrega/INSERT_db.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL" beforeDir="false" afterPath="$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/queries/entrega/REPORTES.SQL" beforeDir="false" afterPath="$PROJECT_DIR$/queries/entrega/REPORTES.SQL" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/queries/entrega/UPDATES.SQL" beforeDir="false" afterPath="$PROJECT_DIR$/queries/entrega/UPDATES.SQL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0ecd0efa-84fc-4c89-abc9-5233d674a220.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0ecd0efa-84fc-4c89-abc9-5233d674a220.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0ecd0efa-84fc-4c89-abc9-5233d674a220/storage_v2/_src_/database/miner_ucab.7zjnHA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0ecd0efa-84fc-4c89-abc9-5233d674a220/storage_v2/_src_/database/miner_ucab.7zjnHA/schema/public.abK9xQ.meta" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -71,7 +67,7 @@
         <entry file="file://$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
-              <caret line="2" column="88" lean-forward="true" selection-start-line="2" selection-start-column="88" selection-end-line="2" selection-end-column="115" />
+              <caret line="2" column="88" selection-start-line="2" selection-start-column="88" selection-end-line="2" selection-end-column="115" />
             </state>
           </provider>
         </entry>
@@ -286,7 +282,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="database.console.LAST_STATE" value="false" />
+    <property name="database.console.LAST_STATE" value="true" />
     <property name="database.data.extractors.current.id" value="Tab-separated (TSV)_id" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="database.main" />
@@ -359,14 +355,7 @@
       <workItem from="1562370947682" duration="595000" />
       <workItem from="1562523377352" duration="10056000" />
       <workItem from="1563049768435" duration="17714000" />
-      <workItem from="1563217133825" duration="5892000" />
-    </task>
-    <task id="LOCAL-00008" summary="Funcionalidad">
-      <created>1561407970950</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1561407970951</updated>
+      <workItem from="1563217133825" duration="6129000" />
     </task>
     <task id="LOCAL-00009" summary="Consultar mineral dropdown">
       <created>1561414778666</created>
@@ -704,11 +693,18 @@
       <option name="project" value="LOCAL" />
       <updated>1563067430134</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Inserts">
+      <created>1563223353717</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1563223353720</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="126341000" />
+    <option name="totallyTimeSpent" value="126578000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -733,7 +729,7 @@
       <window_info anchor="bottom" id="TypeScript" order="0" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32977304" />
-      <window_info anchor="bottom" id="Run" order="3" weight="0.35514018" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.35514018" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -743,7 +739,7 @@
       <window_info anchor="bottom" id="Database Changes" order="10" weight="0.32977304" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32977304" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5007153" side_tool="true" weight="0.25367156" />
-      <window_info active="true" anchor="bottom" id="Database Console" order="13" sideWeight="0.49928468" visible="true" weight="0.25367156" />
+      <window_info anchor="bottom" id="Database Console" order="13" sideWeight="0.49928468" weight="0.25367156" />
       <window_info anchor="bottom" id="Messages" order="14" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -770,7 +766,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="API inventario" />
     <MESSAGE value="Empiezo con horarios" />
     <MESSAGE value="Añadir horarios a lista" />
     <MESSAGE value="Unir jornadas en el mismo día" />
@@ -795,7 +790,8 @@
     <MESSAGE value="Empleados disponibles por periodo de tiempo" />
     <MESSAGE value="Presentación más solicitada por año" />
     <MESSAGE value="Intento de 9" />
-    <option name="LAST_COMMIT_MESSAGE" value="Intento de 9" />
+    <MESSAGE value="Inserts" />
+    <option name="LAST_COMMIT_MESSAGE" value="Inserts" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/frontend/src/pages/MineralAgregar.js">
@@ -1152,7 +1148,7 @@
     <entry file="file://$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
-          <caret line="2" column="88" lean-forward="true" selection-start-line="2" selection-start-column="88" selection-end-line="2" selection-end-column="115" />
+          <caret line="2" column="88" selection-start-line="2" selection-start-column="88" selection-end-line="2" selection-end-column="115" />
         </state>
       </provider>
     </entry>

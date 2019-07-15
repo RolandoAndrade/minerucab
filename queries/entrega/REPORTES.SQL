@@ -164,7 +164,9 @@ GROUP BY cliente_id, c_nombre, c_rif;
 
 /*Maquinaria mas utilizada en los proyectos por período de tiempo.*/
 
-SELECT E.proyecto_id "Codigo del proyecto", p_nombre "Nombre del proyecto", MIN(m_nombre) "Maquinaria", cantidad "Cantidad"
+SELECT E.proyecto_id "Código del proyecto",
+       p_nombre "Nombre del proyecto", MIN(m_nombre) "Maquinaria", cantidad "Cantidad", f_fecha_inicio "Inicio de uso",
+       f_fecha_fin "Fin de uso"
 FROM
     FASE F, FASE_CONFIGURACION FC, FASE_MAQU FM, ETAPA E, PROYECTO P, MAQUINARIA M,
     (SELECT MAX(cantidad) cantidad, proyecto_id
@@ -182,5 +184,7 @@ WHERE p_id_proyecto = E.proyecto_id AND
         FM.fase_configuracion_id = f_id_fase_configuracion AND
         maquinaria_id = M.m_id_maquinaria AND
         E.proyecto_id = X.proyecto_id AND
-        FM.f_cantidad= cantidad
-GROUP BY E.proyecto_id, p_nombre, cantidad;
+        FM.f_cantidad= cantidad AND
+    (f_fecha_inicio BETWEEN '2018-04-01' AND '2018-05-01' OR
+     f_fecha_fin BETWEEN '2018-04-01' AND '2018-05-01')
+GROUP BY E.proyecto_id, p_nombre, cantidad, f_fecha_inicio, f_fecha_fin;

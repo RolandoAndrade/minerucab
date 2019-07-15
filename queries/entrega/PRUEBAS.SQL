@@ -1,6 +1,7 @@
 SELECT * FROM fase_equi
 SELECT E.proyecto_id "Código del proyecto",
-       p_nombre "Nombre del proyecto", MIN(m_nombre) "Maquinaria", cantidad "Cantidad", f_fecha_inicio, f_fecha_fin
+       p_nombre "Nombre del proyecto", MIN(m_nombre) "Maquinaria", cantidad "Cantidad", f_fecha_inicio "Inicio de uso",
+       f_fecha_fin "Fin de uso"
 FROM
     FASE F, FASE_CONFIGURACION FC, FASE_MAQU FM, ETAPA E, PROYECTO P, MAQUINARIA M,
     (SELECT MAX(cantidad) cantidad, proyecto_id

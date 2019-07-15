@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="proyecto_mas_costoso" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a6bd1348-9eee-4a9c-a965-36b7fe8a7145">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.report.resource" value="/Reportes/proyecto_mas_costoso_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/Reportes/proyecto_mas_costoso"/>
+	<queryString>
+		<![CDATA[SELECT XXX.* FROM
+                 (SELECT PPP.p_nombre, E.salarios "Gastos en salarios", M.gastos "Gastos en equipo",
+                         viaticos "Viáticos", GA.monto "Gastos adicionales",
+                         coalesce(M.gastos,0)+coalesce(E.salarios+viaticos,0)+coalesce(GA.monto,0) "Total", E.mes, E.año
+                  FROM
+                  	 PROYECTO PPP INNER JOIN
+                      (SELECT SUM(f_salario) salarios, SUM(f_viatico) viaticos, proyecto_id,
+                              EXTRACT(MONTH FROM f_fecha_inicio) mes, EXTRACT(YEAR FROM f_fecha_inicio) año
+                       FROM fase_empl, etapa, fase
+                       WHERE fase_id = f_id_fase AND
+                               etapa_id = e_id_etapa
+                       GROUP BY proyecto_id, mes, año) E ON (PPP.p_id_proyecto=E.proyecto_id) FULL JOIN
+                      (SELECT SUM(f_costo_alquiler) gastos, proyecto_id, EXTRACT(MONTH FROM f_fecha_inicio) mes, EXTRACT(YEAR FROM f_fecha_inicio) año
+                       FROM fase_equi, fase, etapa
+                       WHERE fase_id = f_id_fase AND
+                               etapa_id = e_id_etapa
+                       GROUP BY proyecto_id, mes, año) M ON E.proyecto_id = M.proyecto_id
+                                                         FULL JOIN (SELECT SUM(g_monto) monto, proyecto_id,  EXTRACT(MONTH FROM f_fecha_inicio) mes, EXTRACT(YEAR FROM f_fecha_inicio) año
+                                                                    FROM gasto_adicional, fase, etapa
+                                                                    WHERE fase_id = f_id_fase AND
+                                                                            etapa_id = e_id_etapa
+                                                                    GROUP BY proyecto_id, mes, año) GA ON (GA.proyecto_id = E.proyecto_id)) XXX,
+                 (SELECT MAX(coalesce(M.gastos,0)+coalesce(E.salarios+viaticos,0)+coalesce(GA.monto,0)) total, E.mes, E.año
+                  FROM
+                      (SELECT SUM(f_salario) salarios, SUM(f_viatico) viaticos, proyecto_id,
+                              EXTRACT(MONTH FROM f_fecha_inicio) mes, EXTRACT(YEAR FROM f_fecha_inicio) año
+                       FROM fase_empl, etapa, fase
+                       WHERE fase_id = f_id_fase AND
+                               etapa_id = e_id_etapa
+                       GROUP BY proyecto_id, mes, año) E FULL JOIN
+                      (SELECT SUM(f_costo_alquiler) gastos, proyecto_id, EXTRACT(MONTH FROM f_fecha_inicio) mes, EXTRACT(YEAR FROM f_fecha_inicio) año
+                       FROM fase_equi, fase, etapa
+                       WHERE fase_id = f_id_fase AND
+                               etapa_id = e_id_etapa
+                       GROUP BY proyecto_id, mes, año) M ON E.proyecto_id = M.proyecto_id
+                                                         FULL JOIN (SELECT SUM(g_monto) monto, proyecto_id,  EXTRACT(MONTH FROM f_fecha_inicio) mes, EXTRACT(YEAR FROM f_fecha_inicio) año
+                                                                    FROM gasto_adicional, fase, etapa
+                                                                    WHERE fase_id = f_id_fase AND
+                                                                            etapa_id = e_id_etapa
+                                                                    GROUP BY proyecto_id, mes, año) GA ON (GA.proyecto_id = E.proyecto_id)
+                  GROUP BY E.mes, E.año) YYY
+WHERE YYY.mes=XXX.mes AND XXX.año=YYY.año AND XXX."Total"=YYY.total
+ORDER BY año, mes]]>
+	</queryString>
+	<field name="p_nombre" class="java.lang.String"/>
+	<field name="Gastos en salarios" class="java.math.BigDecimal"/>
+	<field name="Gastos en equipo" class="java.math.BigDecimal"/>
+	<field name="Viáticos" class="java.math.BigDecimal"/>
+	<field name="Gastos adicionales" class="java.math.BigDecimal"/>
+	<field name="Total" class="java.math.BigDecimal"/>
+	<field name="mes" class="java.lang.Integer"/>
+	<field name="año" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="554" height="79" forecolor="#FFFFFF" backcolor="#1E2547" uuid="25f6e1ca-ad73-4bad-90f2-ca59efbbc3c3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[PROYECTO MÁS COSTOSO POR MES]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="72" height="61" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="4440276b-5537-4a2a-9f54-a29f54c7589f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Año]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="72" y="0" width="69" height="61" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="f455ab9e-7df0-404e-83fe-e64adecdd37b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="141" y="0" width="69" height="61" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="51650943-9245-4b51-b58b-fc498fde0612"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre del proyecto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="210" y="0" width="69" height="61" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="30465a48-b1e2-4f77-9c04-96e0f4c8cdc8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Gastos en salarios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="279" y="0" width="69" height="61" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="68da78fc-d492-4c93-960a-19d42678715d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Gastos en viáticos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="348" y="0" width="69" height="61" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="0b139360-b7d6-4dab-b5ba-e35bb71064f8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Gastos en equipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="417" y="0" width="69" height="61" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="e338cb2c-03c2-4fe9-b359-28537d2c9cc9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Gastos adicionales]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="486" y="0" width="69" height="61" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="8b48e2e4-7376-4071-b162-ed208000b461"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="61" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="72" height="61" forecolor="#000000" backcolor="#E8E8E8" uuid="e307ea83-9560-4461-9d79-154835b39d00"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{año}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="72" y="0" width="69" height="61" forecolor="#000000" backcolor="#F7F7F7" uuid="6cd69e85-5588-4991-8f0b-654fc4203c27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="141" y="0" width="69" height="61" forecolor="#000000" backcolor="#E8E8E8" uuid="fe00d084-118d-4abd-ba4f-7e04b3f48f2b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{p_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="210" y="0" width="69" height="61" forecolor="#000000" backcolor="#F7F7F7" uuid="11ffccdb-92c3-4b02-967c-e7d6a072f932"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Gastos en salarios}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="279" y="0" width="69" height="61" forecolor="#000000" backcolor="#E8E8E8" uuid="b2c50d54-6b39-49b9-aaba-1f360649d07b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Viáticos}!=null?$F{Viáticos}:0]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="348" y="0" width="69" height="61" forecolor="#000000" backcolor="#F7F7F7" uuid="cfbd04a9-f7b7-464e-a9b2-046ba884df12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Gastos en equipo}!=null?$F{Gastos en equipo}:0]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="417" y="0" width="69" height="61" forecolor="#000000" backcolor="#E8E8E8" uuid="07a0d916-eedc-48a1-9cf6-a36e37c46b62"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Gastos adicionales}!=null?$F{Gastos adicionales}:0]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="486" y="0" width="69" height="61" forecolor="#000000" backcolor="#F7F7F7" uuid="6023a386-5c1c-495e-a128-7efbfc717f14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="15" width="276" height="25" forecolor="#FFFFFF" backcolor="#0C5242" uuid="28c31b63-dffd-4d80-b65a-3f031c8e119f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha de generación de reporte]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="277" y="15" width="275" height="25" forecolor="#F5F5F5" backcolor="#FBCC00" uuid="8fc1c009-dc79-436a-a507-d4a87e028907"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[NOW( )]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

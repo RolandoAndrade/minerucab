@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tipo_pago_preferido" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5bd92ae3-0e4d-4252-b15e-fa2e0b82ac4a">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/Reportes/tipo_pago_preferido"/>
+	<parameter name="fecha_inicio" class="java.sql.Date">
+		<defaultValueExpression><![CDATA[NOW()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha_fin" class="java.sql.Date">
+		<defaultValueExpression><![CDATA[NOW()]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT cliente_id "Codigo de cliente",
+       c_nombre "Nombre", c_rif "RIF",(CASE
+       WHEN COUNT(credito_id) = greatest(COUNT(credito_id), COUNT(debito_id), COUNT(transferencia_id), COUNT(cheque_id)) then 'Tarjeta de credito'
+       WHEN COUNT(debito_id) = greatest(COUNT(credito_id), COUNT(debito_id), COUNT(transferencia_id), COUNT(cheque_id)) then 'Tarjeta de debito'
+       WHEN COUNT(transferencia_id) = greatest(COUNT(credito_id), COUNT(debito_id), COUNT(transferencia_id), COUNT(cheque_id)) then 'Transferencia'
+       WHEN COUNT(cheque_id) = greatest(COUNT(credito_id), COUNT(debito_id), COUNT(transferencia_id), COUNT(cheque_id)) then 'Cheque'
+       END) "Tipo de pago preferido"
+FROM PEDI_TIPO, PEDIDO, CLIENTE
+WHERE pedido_id = p_id_pedido AND
+      cliente_id = c_id_cliente AND
+      p_fecha_pago BETWEEN $P{fecha_inicio} and $P{fecha_fin}
+GROUP BY cliente_id, c_nombre, c_rif]]>
+	</queryString>
+	<field name="Codigo de cliente" class="java.lang.Integer"/>
+	<field name="Nombre" class="java.lang.String"/>
+	<field name="RIF" class="java.lang.String"/>
+	<field name="Tipo de pago preferido" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="554" height="79" forecolor="#FFFFFF" backcolor="#1E2547" uuid="d22d035d-92d6-463b-8656-2b2fb6105148"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[TIPO DE PAGO PREFERIDO POR LOS CLIENTES]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="0" y="0" width="141" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="cbf2119f-9d4d-489d-ad60-015f061c659f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Código de cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="141" y="0" width="138" height="30" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="92dd3475-6dcb-4158-8657-012914d80b53"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="279" y="0" width="138" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="5c3e3727-c737-409d-8610-eed0686beeab"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[RIF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="417" y="0" width="138" height="30" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="12c08d77-b768-44c7-a110-b530976e8ddc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Tipo de pago preferido]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="1" width="141" height="30" backcolor="#E8E8E8" uuid="a5ca0fb8-871f-49ae-9ad1-702438049f5a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Codigo de cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="141" y="1" width="138" height="30" backcolor="#F7F7F7" uuid="713a1a04-546d-4a00-a267-bb09e170966c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="279" y="1" width="138" height="30" backcolor="#E8E8E8" uuid="50af05aa-399a-44f7-9a82-23abcad0fef7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{RIF}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="417" y="1" width="138" height="30" backcolor="#F7F7F7" uuid="fb54ec02-88d2-47eb-a3bb-942bb0b171a7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Tipo de pago preferido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="277" y="15" width="275" height="25" forecolor="#F5F5F5" backcolor="#FBCC00" uuid="cf55e9b8-898d-4d6f-ba7e-9cda04541d49"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[NOW( )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="15" width="276" height="25" forecolor="#FFFFFF" backcolor="#0C5242" uuid="f3532f2d-6b15-4516-942a-f9d58551f166"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha de generación de reporte]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

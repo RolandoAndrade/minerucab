@@ -70,8 +70,38 @@ const daoProyecto  = {
         DELETE FROM ETAPA
         WHERE proyecto_id = ${id}
         `
-
         return psql.query(qry)
+    },
+
+    obtenerProyectoDesdePedido(pedido_id) {
+        let query = `
+        SELECT P.p_id_proyecto
+        FROM PROYECTO P
+        WHERE P.pedido_id = ${pedido_id}`
+        console.log(`\nobtener Proyecto Desde Pedido:\n${query}`)
+        return psql.query(query)
+    },
+
+    actualizarEstado(proyecto_id,estado_id) {
+        let query = `
+        UPDATE FROM PROYECTO
+        SET estado_id = ${estado_id}
+        WHERE p_id_proyecto = ${proyecto_id};`
+        console.log(`\nActualizar Estado Proyecto:\n${query}`)
+        return psql.query(query)
+    },
+
+    tomarRecursos(proyecto_id, requisitos) {
+        let query = `
+        INSERT INTO INVENTARIO (i_id_inventario,i_cantidad,i_ingresado,i_fecha_modificacion,mineral_id,unidad_id,proyecto_id,solicitud_id,pedido_id)
+        VALUES `
+        let i = 0
+        requisitos.forEach((a) => {
+            i++
+            query += `(DEFAULT,${a.m_cantidad*1000},FALSE,now(),${a.mineral_id},6,${proyecto_id},NULL,NULL)${i < articulos.length ? ',' : ';' }`
+        })
+        console.log(`\nTomar Recursos:\n${query}`)
+        return psql.query(query) 
     }
 
 }

@@ -480,6 +480,72 @@ app.get('/consultarLista/solicitud', (req, res) => {
 
     })
 });
+
+app.post('/eliminar/solicitud', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/eliminar/solicitud/${req.body.s_id_solicitud}`)
+
+  let s_id_solicitud = req.body.s_id_solicitud
+  let proyecto_id = 0
+  let pedido_id = 0
+  daoSolicitud.obtenerProyectoPedidoDisparador(s_id_solicitud)
+  .then((req_bd) => {
+    proyecto_id = req_bd.rows[0].proyecto_id ? req_bd.rows[0].proyecto_id : 0
+    pedido_id = req_bd.rows[0].pedido_id ? req_bd.rows[0].pedido_id : 0
+    return daoSolicitud.eliminar(s_id_solicitud)
+  })
+  .then((resp_bd) => {
+    return daoProyecto.liberarEmpleadosProyecto(proyecto_id)
+  })
+  .then((resp_bd) => {
+    return daoProyecto.liberarEquiposProyecto(proyecto_id)
+  })
+  .then((resp_bd) => {
+    return daoProyecto.eliminar(proyecto_id)
+  })
+  .then((resp_bd) => {
+    return daoPedido.eliminar(pedido_id)
+  })
+  .then( ({rows}) => {
+    console.log(`STATUS OK : 200`)      
+    res.status(200).json({"resp" : "solitud eliminada exitosamente"})
+
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+    res.status(500).json(bd_err)
+  })
+})
+
+app.post('/atender/solicitud', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/atender/solicitud/${req.body.s_id_solicitud}`)
+
+  let s_id_solicitud = req.body.s_id_solicitud
+
+  daoSolicitud.obtenerArticulosSolicitados(s_id_solicitud)
+  .then((resp_bd) => {
+    let articulos = resp_bd.rows
+    return daoSolicitud.almacenarProductos(s_id_solicitud, articulos)
+  })
+  .then((resp_bd) => {
+    return daoSolicitud.atenderSolicitud(s_id_solicitud)
+  })
+  .then( ({rows}) => {
+    console.log(`STATUS OK : 200`)      
+    res.status(200).json({"resp" : "solitud de recursos registrada exitosamente"})
+
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+    res.status(500).json(bd_err)
+  }) 
+})
+
 /*
 app.post('/consultar/mineral', (req, res) => {
   
@@ -1690,10 +1756,10 @@ app.post('/modificar/proyecto', (req,res) => {
   })
 })
 
-app.post('/proyecto/realizar_solicitud', (req,res) => {
+app.post('/iniciar/proyecto', (req,res) => {
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
-  console.log(`/proyecto/realizar_solicitud ${req.body.p_id_proyecto}`)
+  console.log(`/iniciar/proyecto ${req.body.p_id_proyecto}`)
 
   let proy_id = req.body.p_id_proyecto ? req.body.p_id_proyecto : 0
   let requisitos = req.body.requisitos ? req.body.requisitos : []
@@ -1758,6 +1824,9 @@ app.post('/proyecto/realizar_solicitud', (req,res) => {
           return daoSolicitud.asignarVariosArticulos(resp_bd.rows[0].s_id_solicitud,lista_articulos)
         })
         .then((resp_bd) => {
+          return daoProyecto.actualizarEstado(proy_id,15)
+        })
+        .then((resp_bd) => {
           resolve("bien")
         })
       }
@@ -1799,6 +1868,111 @@ app.post('/eliminar/proyecto', (req, res) => {
     res.status(500).json(bd_err)
   })
 });
+
+app.post('/activar/proyecto', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/activar/proyecto/${req.body.p_id_proyecto}`)
+
+  let proy_id = req.body.p_id_proyecto ? req.body.p_id_proyecto : 0
+  let requisitos = req.body.requisitos ? req.body.requisitos : []
+
+  if (proy_id === 0) {
+    res.status(500).json({"ErrorMessage" : "id proyecto invalido o vacio"})
+    return 0;
+  }
+  if (requisitos.length === 0){
+    res.status(200).json({"resp" : "Proyecto sin requisitos, puede avanzar de estado"})
+    return 0;
+  }
+
+  daoProyecto.tomarRecursos(proy_id,requisitos)
+  .then((resp_bd) => {
+    return daoProyecto.actualizarEstado(proy_id,8)
+  })
+  .then((DATA_RESPUESTA) => {
+    console.log(`STATUS OK : 200`)
+    res.status(200).json({"resp" : "Recursos asignados exitosamente"})
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+    res.status(500).json(bd_err)
+  })
+
+})
+
+app.post('/opcional/proyecto', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/opcional/proyecto/${req.body.p_id_proyecto}`)
+
+  let proy_id = req.body.p_id_proyecto ? req.body.p_id_proyecto : 0
+  if (proy_id === 0) {
+    res.status(500).json({"ErrorMessage" : "id proyecto invalido o vacio"})
+    return 0;
+  }
+
+  daoProyecto.actualizarEstado(proy_id,15)
+  .then((DATA_RESPUESTA) => {
+    console.log(`STATUS OK : 200`)
+    res.status(200).json({"resp" : "Proyecto iniciado exitosamente"})
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+    res.status(500).json(bd_err)
+  })
+
+})
+/******************************************** FASE **********************************************/
+
+app.post('/activar/fase', (req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/activar/fase/${req.body.f_id_fase}`)
+
+  let fase_id = req.body.f_id_fase ? req.body.f_id_fase : 0
+  if (fase_id === 0) {
+    res.status(500).json({"ErrorMessage" : "id fase invalido o vacio"})
+    return 0;
+  }
+
+  daoFase.modificarEstado(fase_id,8)
+  .then((resp_bd) => {
+    console.log(`STATUS OK : 200`)
+    res.status(200).json({"resp" : "fase iniciada exitosamente"})
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+    res.status(500).json(bd_err)
+  })
+
+})
+
+app.post('/finalizar/fase',(req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/finalizar/fase/${req.body.f_id_fase}`)
+
+  let fase_id = req.body.f_id_fase
+  if (fase_id === 0) {
+    res.status(500).json({"ErrorMessage" : "id fase invalido o vacio"})
+    return 0;
+  }
+  //cambiar el estatus de la fase (ponerlo a retornar id)
+  //despedir a la gente y a las maquinas de esa fase
+  //verificar que hay mas fases en esa etapa
+  //si no hay => cambiar estado de la etapa
+  //verificar que hay mas etapas
+  //si no hay => finalizar proyecto
+
+
+})
 
 function error(bd_err)
 {
@@ -1875,20 +2049,36 @@ app.post('/eliminar/pedido', (req, res) => {
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
   console.log(`/eliminar/pedido/${req.body.p_id_pedido}`)
-  daoPedido.eliminar(req.body.p_id_pedido)
-    .then( (bd_response) => {
-      console.log(`STATUS OK : 200`)      
-      
-      res.status(200).json({"rowCount" : bd_response.rowCount})
+  
+  p_id_pedido = req.body.p_id_pedido
+  let proyecto_id = 0
+  daoProyecto.obtenerProyectoDesdePedido(p_id_pedido)
+  .then((resp_bd) => {
+    proyecto_id = resp_bd.rows.length > 0 ? resp_bd.rows[0].p_id_proyecto : 0
+    return daoProyecto.liberarEmpleadosProyecto(proyecto_id)
+  })
+  .then((resp_bd) => {
+    return daoProyecto.liberarEquiposProyecto(proyecto_id)
+  })
+  .then((resp_bd) => {
+    return daoProyecto.eliminar(proyecto_id)
+  })
+  .then((resp_bd) => {
+    return daoPedido.eliminar(p_id_pedido)
+  })
+  .then( (bd_response) => {
+    console.log(`STATUS OK : 200`)      
+    
+    res.status(200).json({"rowCount" : bd_response.rowCount})
 
-    })
-    .catch( (bd_err) => {
-      console.log(`STATUS ERROR: 500`)      
-      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
-      res.status(500).json(bd_err)
+    res.status(500).json(bd_err)
 
-    })
+  })
 });
 
 

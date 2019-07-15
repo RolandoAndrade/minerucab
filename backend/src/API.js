@@ -1511,7 +1511,6 @@ import {daoInventario} from "./DAOs/daoInventario";
 import {daoHorario} from "./DAOs/daoHorario";
 import {daoEtapa} from "./DAOs/daoEtapa";
 import {daoFase} from "./DAOs/daoFase";
-import { daoSolicitud } from "./DAOs/daoSolicitud";
 
 app.get('/consultarLista/proyecto', (req, res) => {
   

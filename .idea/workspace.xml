@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d7ce102b-bdc5-4fc4-9682-e82a04b1e4dc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0ecd0efa-84fc-4c89-abc9-5233d674a220.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0ecd0efa-84fc-4c89-abc9-5233d674a220.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0ecd0efa-84fc-4c89-abc9-5233d674a220/storage_v2/_src_/database/miner_ucab.7zjnHA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0ecd0efa-84fc-4c89-abc9-5233d674a220/storage_v2/_src_/database/miner_ucab.7zjnHA/schema/public.abK9xQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queries/entrega/INSERT_db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/queries/entrega/INSERT_db.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL" beforeDir="false" afterPath="$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -48,8 +49,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/queries/entrega/INSERT_db.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188880">
-              <caret line="12607" column="21" selection-start-line="12607" selection-start-column="12" selection-end-line="12607" selection-end-column="21" />
+            <state relative-caret-position="268">
+              <caret line="9447" column="17" lean-forward="true" selection-start-line="9447" selection-end-line="12633" selection-end-column="28" />
+              <folding>
+                <element signature="e#1348996#1441708#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -66,8 +70,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="88" selection-start-line="2" selection-start-column="88" selection-end-line="2" selection-end-column="115" />
+            <state>
+              <caret selection-end-line="9" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -102,8 +106,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/queries/entrega/REPORTES.SQL">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="165" selection-start-line="165" selection-end-line="165" />
+            <state relative-caret-position="135">
+              <caret line="155" column="28" selection-start-line="153" selection-start-column="7" selection-end-line="155" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -355,21 +359,7 @@
       <workItem from="1562370947682" duration="595000" />
       <workItem from="1562523377352" duration="10056000" />
       <workItem from="1563049768435" duration="17714000" />
-      <workItem from="1563217133825" duration="6129000" />
-    </task>
-    <task id="LOCAL-00009" summary="Consultar mineral dropdown">
-      <created>1561414778666</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1561414778666</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Consultar mineral dropdown">
-      <created>1561415220714</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1561415220714</updated>
+      <workItem from="1563217133825" duration="10168000" />
     </task>
     <task id="LOCAL-00011" summary="DROPS PARA MI">
       <created>1561417756513</created>
@@ -700,11 +690,25 @@
       <option name="project" value="LOCAL" />
       <updated>1563223353720</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Maquinaria mas utilizada en los proyectos por período de tiempo.">
+      <created>1563223575855</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1563223575855</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Fases que presentan retrasos">
+      <created>1563224483642</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1563224483642</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="126578000" />
+    <option name="totallyTimeSpent" value="130617000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -739,7 +743,7 @@
       <window_info anchor="bottom" id="Database Changes" order="10" weight="0.32977304" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32977304" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5007153" side_tool="true" weight="0.25367156" />
-      <window_info anchor="bottom" id="Database Console" order="13" sideWeight="0.49928468" weight="0.25367156" />
+      <window_info anchor="bottom" id="Database Console" order="13" sideWeight="0.49928468" weight="0.24432577" />
       <window_info anchor="bottom" id="Messages" order="14" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -766,7 +770,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Empiezo con horarios" />
     <MESSAGE value="Añadir horarios a lista" />
     <MESSAGE value="Unir jornadas en el mismo día" />
     <MESSAGE value="Detalle al seleccionar bloques lejanos" />
@@ -780,7 +783,6 @@
     <MESSAGE value="Merge" />
     <MESSAGE value="Añadido jasper reports" />
     <MESSAGE value="Empresa aliada a la que se le realizaron más compras" />
-    <MESSAGE value="Fases que presentan retrasos" />
     <MESSAGE value="Por ahora proyectos con su costo" />
     <MESSAGE value="Empleados disponibles" />
     <MESSAGE value="Proyecto más costoso por mes" />
@@ -791,7 +793,9 @@
     <MESSAGE value="Presentación más solicitada por año" />
     <MESSAGE value="Intento de 9" />
     <MESSAGE value="Inserts" />
-    <option name="LAST_COMMIT_MESSAGE" value="Inserts" />
+    <MESSAGE value="Maquinaria mas utilizada en los proyectos por período de tiempo." />
+    <MESSAGE value="Fases que presentan retrasos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fases que presentan retrasos" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/frontend/src/pages/MineralAgregar.js">
@@ -1110,13 +1114,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/queries/entrega/FOREIGN_db.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="156" column="21" selection-start-line="156" selection-start-column="21" selection-end-line="156" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/queries/entrega/DROP_db.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="73">
@@ -1131,10 +1128,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/queries/entrega/REPORTES.SQL">
+    <entry file="file://$PROJECT_DIR$/queries/entrega/FOREIGN_db.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="165" selection-start-line="165" selection-end-line="165" />
+        <state relative-caret-position="518">
+          <caret line="156" column="21" selection-start-line="156" selection-start-column="21" selection-end-line="156" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -1145,17 +1142,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/queries/entrega/REPORTES.SQL">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="155" column="28" selection-start-line="153" selection-start-column="7" selection-end-line="155" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="88" selection-start-line="2" selection-start-column="88" selection-end-line="2" selection-end-column="115" />
+        <state>
+          <caret selection-end-line="9" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/queries/entrega/INSERT_db.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188880">
-          <caret line="12607" column="21" selection-start-line="12607" selection-start-column="12" selection-end-line="12607" selection-end-column="21" />
+        <state relative-caret-position="268">
+          <caret line="9447" column="17" lean-forward="true" selection-start-line="9447" selection-end-line="12633" selection-end-column="28" />
+          <folding>
+            <element signature="e#1348996#1441708#0" />
+          </folding>
         </state>
       </provider>
     </entry>

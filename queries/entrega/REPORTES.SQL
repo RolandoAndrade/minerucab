@@ -187,3 +187,18 @@ WHERE p_id_proyecto = E.proyecto_id AND
     (f_fecha_inicio BETWEEN '2018-04-01' AND '2018-05-01' OR
      f_fecha_fin BETWEEN '2018-04-01' AND '2018-05-01')
 GROUP BY E.proyecto_id, p_nombre, cantidad, f_fecha_inicio, f_fecha_fin;
+
+/*Listado de empleados que han participado mas de 2 veces en proyectos en el mismo mes, indicando el total de participación, el proyecto y el mes. Se debe realizar la consulta por período de tiempo.*/
+
+SELECT E.e_nombre "Nombre del empleado", E.e_apellido, EXTRACT(MONTH FROM f_fecha_inicio) mes, EXTRACT(YEAR FROM f_fecha_inicio) año,
+       COUNT(*) "Total de participaciones", p_nombre "Nombre del proyecto"
+FROM EMPLEADO E, FASE_EMPL FE, FASE F, ETAPA ET, PROYECTO P
+WHERE E.e_id_empleado = FE.empleado_id AND
+        FE.fase_id = f_id_fase AND
+        etapa_id = e_id_etapa AND
+        proyecto_id = p_id_proyecto AND
+    (f_fecha_inicio BETWEEN '1998-10-10' AND NOW() OR
+     f_fecha_fin BETWEEN '1998-10-10' AND NOW())
+GROUP BY E.e_id_empleado, E.e_nombre, mes, año, proyecto_id, p_nombre
+HAVING COUNT(*)>1
+ORDER BY año, mes, E.e_id_empleado

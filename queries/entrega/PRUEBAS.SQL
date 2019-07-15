@@ -1,15 +1,35 @@
-SELECT E.e_nombre "Nombre del empleado", E.e_apellido, EXTRACT(MONTH FROM f_fecha_inicio) mes, EXTRACT(YEAR FROM f_fecha_inicio) año,
-       COUNT(*) "Total de participaciones", p_nombre "Nombre del proyecto"
-FROM EMPLEADO E, FASE_EMPL FE, FASE F, ETAPA ET, PROYECTO P
-WHERE E.e_id_empleado = FE.empleado_id AND
-      FE.fase_id = f_id_fase AND
-      etapa_id = e_id_etapa AND
-      proyecto_id = p_id_proyecto AND
-      (f_fecha_inicio BETWEEN '1998-10-10' AND NOW() OR
-       f_fecha_fin BETWEEN '1998-10-10' AND NOW())
-GROUP BY E.e_id_empleado, E.e_nombre, mes, año, proyecto_id, p_nombre
-HAVING COUNT(*)>1
-ORDER BY año, mes, E.e_id_empleado
-/*FECHA_INICIO = '10-10-2018'
-  FECHA_FIN = '10-10-2019
- */
+SELECT P.cliente_id "Codigo de cliente",
+       c_nombre "Nombre", c_rif "RIF", p_nombre "Nombre del producto", WW.cantidad,
+       EXTRACT(YEAR FROM p_fecha_solicitud)
+FROM PEDIDO P, CLIENTE, PEDI_PROD, PRODUCTO, (SELECT cliente_id, anio, MAX(cantidad) cantidad
+                                              FROM (SELECT producto_id, cliente_id,
+                                                           EXTRACT(YEAR FROM p_fecha_solicitud) anio,
+                                                           SUM(p_cantidad) cantidad
+                                                    FROM pedi_prod, pedido
+                                                    WHERE pedido_id = p_id_pedido
+                                                    GROUP BY anio, producto_id, cliente_id) X
+                                              GROUP BY anio, cliente_id) WW
+WHERE pedido_id = p_id_pedido AND
+        P.cliente_id = c_id_cliente AND
+        P.cliente_id = WW.cliente_id AND
+        producto_id = p_id_producto AND
+        EXTRACT(YEAR FROM p_fecha_solicitud) = WW.anio
+GROUP BY P.cliente_id, c_nombre, c_rif, p_nombre, WW.cantidad, EXTRACT(YEAR FROM p_fecha_solicitud)
+HAVING cantidad = SUM(p_cantidad)
+
+SELECT cliente_id, anio, MAX(cantidad) cantidad
+FROM (SELECT producto_id, cliente_id,
+             EXTRACT(YEAR FROM p_fecha_solicitud) anio,
+             SUM(p_cantidad) cantidad
+      FROM pedi_prod, pedido
+      WHERE pedido_id = p_id_pedido
+      GROUP BY anio, producto_id, cliente_id) X
+GROUP BY anio, cliente_id
+
+
+SELECT producto_id, cliente_id,
+       EXTRACT(YEAR FROM p_fecha_solicitud) anio,
+       SUM(p_cantidad) cantidad
+FROM pedi_prod, pedido
+WHERE pedido_id = p_id_pedido
+GROUP BY anio, producto_id, cliente_id

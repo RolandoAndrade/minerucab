@@ -143,7 +143,9 @@ WHERE pedido_id = p_id_pedido AND
         P.cliente_id = c_id_cliente AND
         P.cliente_id = WW.cliente_id AND
         producto_id = p_id_producto AND
-        EXTRACT(YEAR FROM p_fecha_solicitud) = anio;
+        EXTRACT(YEAR FROM p_fecha_solicitud) = WW.anio
+GROUP BY P.cliente_id, c_nombre, c_rif, p_nombre, WW.cantidad, EXTRACT(YEAR FROM p_fecha_solicitud)
+HAVING cantidad = SUM(p_cantidad);
 
 
 /*Tipo de pago preferido por los clientes*/

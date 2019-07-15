@@ -160,4 +160,27 @@ FROM PEDI_TIPO, PEDIDO, CLIENTE
 WHERE pedido_id = p_id_pedido AND
       cliente_id = c_id_cliente AND
       p_fecha_pago BETWEEN '1998-01-01' and now()
-GROUP BY cliente_id, c_nombre, c_rif
+GROUP BY cliente_id, c_nombre, c_rif;
+
+/*Maquinaria mas utilizada en los proyectos por período de tiempo.*/
+
+SELECT E.proyecto_id "Codigo del proyecto", p_nombre "Nombre del proyecto", MIN(m_nombre) "Maquinaria", cantidad "Cantidad"
+FROM
+    FASE F, FASE_CONFIGURACION FC, FASE_MAQU FM, ETAPA E, PROYECTO P, MAQUINARIA M,
+    (SELECT MAX(cantidad) cantidad, proyecto_id
+     FROM (SELECT proyecto_id, maquinaria_id, SUM(f_cantidad) cantidad
+           FROM FASE F, FASE_CONFIGURACION FC, FASE_MAQU FM, ETAPA E, PROYECTO P
+           WHERE F.fase_configuracion_id = FC.f_id_fase_configuracion AND
+                   FM.fase_configuracion_id = FC.f_id_fase_configuracion AND
+                   proyecto_id = P.p_id_proyecto AND
+                   E.e_id_etapa = etapa_id
+           GROUP BY proyecto_id, maquinaria_id) x
+     GROUP BY proyecto_id) X
+WHERE p_id_proyecto = E.proyecto_id AND
+        etapa_id = e_id_etapa AND
+        F.fase_configuracion_id = f_id_fase_configuracion AND
+        FM.fase_configuracion_id = f_id_fase_configuracion AND
+        maquinaria_id = M.m_id_maquinaria AND
+        E.proyecto_id = X.proyecto_id AND
+        FM.f_cantidad= cantidad
+GROUP BY E.proyecto_id, p_nombre, cantidad;

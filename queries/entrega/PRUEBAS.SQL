@@ -1,5 +1,6 @@
 SELECT * FROM fase_equi
-SELECT E.proyecto_id "Codigo del proyecto", p_nombre "Nombre del proyecto", m_nombre "Maquinaria", cantidad "Cantidad"
+SELECT E.proyecto_id "Código del proyecto",
+       p_nombre "Nombre del proyecto", MIN(m_nombre) "Maquinaria", cantidad "Cantidad", f_fecha_inicio, f_fecha_fin
 FROM
     FASE F, FASE_CONFIGURACION FC, FASE_MAQU FM, ETAPA E, PROYECTO P, MAQUINARIA M,
     (SELECT MAX(cantidad) cantidad, proyecto_id
@@ -17,8 +18,10 @@ WHERE p_id_proyecto = E.proyecto_id AND
       FM.fase_configuracion_id = f_id_fase_configuracion AND
       maquinaria_id = M.m_id_maquinaria AND
       E.proyecto_id = X.proyecto_id AND
-      FM.f_cantidad= cantidad;
-
+      FM.f_cantidad= cantidad AND
+      (f_fecha_inicio BETWEEN '2018-04-01' AND '2018-05-01' OR
+       f_fecha_fin BETWEEN '2018-04-01' AND '2018-05-01')
+GROUP BY E.proyecto_id, p_nombre, cantidad, f_fecha_inicio, f_fecha_fin;
 
 select * from fase_configuracion where f_id_fase_configuracion=7;
 SELECT * FROM fase_maqu;

@@ -1,1 +1,1 @@
-DELETE FROM pedi_prod WHERE pedido_id=pedido_id
+DELETE FROM fase_empl where 1=1

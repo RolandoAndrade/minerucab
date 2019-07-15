@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="maquinaria_mas_usada" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5785d7c8-3735-4155-bde5-47d71fbaf69b">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="fecha_inicio" class="java.sql.Date">
+		<defaultValueExpression><![CDATA[NOW()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha_fin" class="java.sql.Date">
+		<defaultValueExpression><![CDATA[NOW()]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT E.proyecto_id "Código del proyecto",
+       p_nombre "Nombre del proyecto", MIN(m_nombre) "Maquinaria", cantidad "Cantidad", f_fecha_inicio "Inicio de uso",
+       f_fecha_fin "Fin de uso"
+FROM
+    FASE F, FASE_CONFIGURACION FC, FASE_MAQU FM, ETAPA E, PROYECTO P, MAQUINARIA M,
+    (SELECT MAX(cantidad) cantidad, proyecto_id
+     FROM (SELECT proyecto_id, maquinaria_id, SUM(f_cantidad) cantidad
+           FROM FASE F, FASE_CONFIGURACION FC, FASE_MAQU FM, ETAPA E, PROYECTO P
+           WHERE F.fase_configuracion_id = FC.f_id_fase_configuracion AND
+                   FM.fase_configuracion_id = FC.f_id_fase_configuracion AND
+                   proyecto_id = P.p_id_proyecto AND
+                   E.e_id_etapa = etapa_id
+           GROUP BY proyecto_id, maquinaria_id) x
+     GROUP BY proyecto_id) X
+WHERE p_id_proyecto = E.proyecto_id AND
+        etapa_id = e_id_etapa AND
+        F.fase_configuracion_id = f_id_fase_configuracion AND
+        FM.fase_configuracion_id = f_id_fase_configuracion AND
+        maquinaria_id = M.m_id_maquinaria AND
+        E.proyecto_id = X.proyecto_id AND
+        FM.f_cantidad= cantidad AND
+    (f_fecha_inicio BETWEEN $P{fecha_inicio} AND $P{fecha_fin} OR
+     f_fecha_fin BETWEEN $P{fecha_inicio}  AND $P{fecha_fin} )
+GROUP BY E.proyecto_id, p_nombre, cantidad, f_fecha_inicio, f_fecha_fin]]>
+	</queryString>
+	<field name="Código del proyecto" class="java.lang.Integer"/>
+	<field name="Nombre del proyecto" class="java.lang.String"/>
+	<field name="Maquinaria" class="java.lang.String"/>
+	<field name="Cantidad" class="java.lang.Long"/>
+	<field name="Inicio de uso" class="java.sql.Date"/>
+	<field name="Fin de uso" class="java.sql.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="0" y="0" width="555" height="79" forecolor="#FFFFFF" backcolor="#1E2547" uuid="ee10caf2-0a62-4a24-b4e9-a65738e8ec18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA["MAQUINARIA MÁS UTILIZADA EN PROYECTOS ENTRE "+DATEFORMAT($P{fecha_inicio},"dd-MM-yyyy")+" Y "+DATEFORMAT($P{fecha_fin},"dd-MM-yyyy")]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="95" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="e6a62123-cd15-4765-a7a6-fa1dbef2e092"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Código del proyecto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="95" y="0" width="92" height="30" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="4abc1429-e7c2-4748-9ac8-6361cf3ef7d7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre del proyecto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="187" y="0" width="92" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="0a687edc-14b4-4a20-ba42-0128cfa5dc93"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Maquinaria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="279" y="0" width="92" height="30" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="06acb639-43d5-4e89-9400-93a9294f7009"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="371" y="0" width="92" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="f392f963-f8e6-4cfe-8960-8805219fa1ec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Inicio de uso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="463" y="0" width="92" height="30" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="3253f61a-1f8a-491d-93b9-10ace0498ac7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fin de uso]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="1" width="95" height="30" backcolor="#E8E8E8" uuid="4727c179-fd24-4f0c-bad1-6c991008963b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Código del proyecto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="95" y="1" width="92" height="30" backcolor="#F7F7F7" uuid="d68100da-55bf-4241-b881-b192924c6e33"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Nombre del proyecto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="187" y="1" width="92" height="30" backcolor="#E8E8E8" uuid="c4ac4433-d681-4f85-a408-bc75a7af525a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Maquinaria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="279" y="1" width="92" height="30" backcolor="#F7F7F7" uuid="bba1e0af-c1be-4bab-8d64-2b3adc3c0490"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="371" y="1" width="92" height="30" backcolor="#E8E8E8" uuid="787a9194-228f-470b-9632-33f23ea67352"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[DATEFORMAT($F{Inicio de uso},"dd-MM-yyyy")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="463" y="1" width="92" height="30" backcolor="#F7F7F7" uuid="d7c907c4-620d-4368-8717-a73ad62b4cae"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[DATEFORMAT($F{Fin de uso}, "dd-MM-yyyy")]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="15" width="276" height="25" forecolor="#FFFFFF" backcolor="#0C5242" uuid="e30febff-3cc1-48ed-adb5-c8d48727df56"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha de generación de reporte]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="277" y="15" width="275" height="25" forecolor="#F5F5F5" backcolor="#FBCC00" uuid="43f4d988-8ee5-45a1-9620-9c986609877c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[NOW( )]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

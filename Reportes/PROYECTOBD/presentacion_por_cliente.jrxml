@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="presentacion_por_cliente" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6d474b78-10f2-4226-b887-0f5f13f7eb5a">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[SELECT P.cliente_id "Codigo de cliente",
+       c_nombre "Nombre", c_rif "RIF", p_nombre "Nombre del producto", WW.cantidad,
+       EXTRACT(YEAR FROM p_fecha_solicitud)
+FROM PEDIDO P, CLIENTE, PEDI_PROD, PRODUCTO, (SELECT cliente_id, anio, MAX(cantidad) cantidad
+                                              FROM (SELECT producto_id, cliente_id,
+                                                           EXTRACT(YEAR FROM p_fecha_solicitud) anio,
+                                                           SUM(p_cantidad) cantidad
+                                                    FROM pedi_prod, pedido
+                                                    WHERE pedido_id = p_id_pedido
+                                                    GROUP BY anio, producto_id, cliente_id) X
+                                              GROUP BY anio, cliente_id) WW
+WHERE pedido_id = p_id_pedido AND
+        P.cliente_id = c_id_cliente AND
+        P.cliente_id = WW.cliente_id AND
+        producto_id = p_id_producto AND
+        EXTRACT(YEAR FROM p_fecha_solicitud) = WW.anio
+GROUP BY P.cliente_id, c_nombre, c_rif, p_nombre, WW.cantidad, EXTRACT(YEAR FROM p_fecha_solicitud)
+HAVING cantidad = SUM(p_cantidad)]]>
+	</queryString>
+	<field name="Codigo de cliente" class="java.lang.Integer"/>
+	<field name="Nombre" class="java.lang.String"/>
+	<field name="RIF" class="java.lang.String"/>
+	<field name="Nombre del producto" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Long"/>
+	<field name="date_part" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="554" height="79" forecolor="#FFFFFF" backcolor="#1E2547" uuid="221bda4f-727a-4e40-893b-71709df52bfe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[PRESENTACIÓN MÁS SOLICITADA DEL CLIENTE POR AÑO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="95" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="04f6b60a-1c5d-451b-b6f1-69bd4166c325"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Codigo de cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="95" y="0" width="92" height="30" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="2b04f973-3fb6-4a91-9012-6cecc8327b4c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="187" y="0" width="92" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="255dc179-7489-4ef5-86ee-5ef758c10da1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[RIF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="279" y="0" width="92" height="30" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="733508e1-1284-455b-a025-6288a45c1fd0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre del producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="371" y="0" width="92" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="9e5f25ad-fcbb-45ce-a989-646b733f2711"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Cantidad total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="463" y="0" width="92" height="30" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="ffd468dc-0407-457c-a497-e128f9a550ae"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Año]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="1" width="95" height="30" backcolor="#E8E8E8" uuid="61cad368-5532-4aff-8ca7-42fdb32946d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Codigo de cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="95" y="1" width="92" height="30" backcolor="#F7F7F7" uuid="1cdb4e00-3655-4fd1-bf10-feb9afc504b2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="187" y="1" width="92" height="30" backcolor="#E8E8E8" uuid="02f0582d-55b7-4117-9dfb-54b71dbb4f83"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{RIF}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="279" y="1" width="92" height="30" backcolor="#F7F7F7" uuid="b4c0ec2c-95ce-40c1-80f7-cb6fea074dcc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Nombre del producto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="371" y="1" width="92" height="30" backcolor="#E8E8E8" uuid="7e0f2797-5b19-40ba-a74a-3b4a706ae696"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="463" y="1" width="92" height="30" backcolor="#F7F7F7" uuid="71775878-81bd-4351-88ed-5359c2e093f6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{date_part}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="15" width="276" height="25" forecolor="#FFFFFF" backcolor="#0C5242" uuid="aca457d1-8650-4552-9244-49e60260cbb0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha de generación de reporte]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="277" y="15" width="275" height="25" forecolor="#F5F5F5" backcolor="#FBCC00" uuid="c4f15361-59a2-4a2e-87de-0936b3a84d30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[NOW( )]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

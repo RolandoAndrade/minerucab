@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mas_dos_proyectos_mes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4b7d72b0-7ea6-4944-9bd0-e1c237ae2a03">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<parameter name="fecha_inicio" class="java.sql.Date">
+		<defaultValueExpression><![CDATA[NOW()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha_fin" class="java.sql.Date">
+		<defaultValueExpression><![CDATA[NOW()]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT E.e_nombre "Nombre del empleado", E.e_apellido, EXTRACT(MONTH FROM f_fecha_inicio) mes, EXTRACT(YEAR FROM f_fecha_inicio) año,
+       COUNT(*) "Total de participaciones", p_nombre "Nombre del proyecto"
+FROM EMPLEADO E, FASE_EMPL FE, FASE F, ETAPA ET, PROYECTO P
+WHERE E.e_id_empleado = FE.empleado_id AND
+        FE.fase_id = f_id_fase AND
+        etapa_id = e_id_etapa AND
+        proyecto_id = p_id_proyecto AND
+    (f_fecha_inicio BETWEEN $P{fecha_inicio} AND $P{fecha_fin} OR
+     f_fecha_fin BETWEEN $P{fecha_inicio} AND $P{fecha_fin})
+GROUP BY E.e_id_empleado, E.e_nombre, mes, año, proyecto_id, p_nombre
+HAVING COUNT(*)>1
+ORDER BY año, mes, E.e_id_empleado]]>
+	</queryString>
+	<field name="Nombre del empleado" class="java.lang.String"/>
+	<field name="e_apellido" class="java.lang.String"/>
+	<field name="mes" class="java.lang.Integer"/>
+	<field name="año" class="java.lang.Integer"/>
+	<field name="Total de participaciones" class="java.lang.Long"/>
+	<field name="Nombre del proyecto" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="-4" y="0" width="560" height="79" forecolor="#FFFFFF" backcolor="#1E2547" uuid="9a67dfb4-ba57-48d3-8cc8-0f600dbdf6eb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["LISTADO DE EMPLEADOS QUE HAN PARTICIPADO MÁS DE DOS VECES EN UN MISMO MES EN PROYECTOS REALIZADOS ENTRE "+DATEFORMAT($P{fecha_inicio},"yyyy")+" Y "+DATEFORMAT($P{fecha_fin},"yyyy")]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="279" y="0" width="92" height="30" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="007c63c8-9e2b-41a1-878f-f81aa035dd89"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Año]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="95" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="f0a7eb3e-1f3a-4da3-9dbe-36e42e41ef1f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre del empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="95" y="0" width="92" height="30" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="a830fb28-b55e-43df-ae95-3ec60492f570"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Apellido del empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="187" y="0" width="92" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="af3aedcb-c3e9-4e19-adc6-c514cff60ba2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="371" y="0" width="92" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="09c93d0d-549b-491f-aae8-12ddd2231dc3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total de participaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="463" y="0" width="92" height="30" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="3c31e858-141e-4815-b738-15a73af87f42"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre del proyecto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="1" width="95" height="30" backcolor="#E8E8E8" uuid="84bb3b86-70a4-4962-adc1-272809b12f1c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Nombre del empleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="95" y="1" width="92" height="30" backcolor="#F7F7F7" uuid="2442b2bf-1941-457d-9a52-6d63b0cc5ee7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{e_apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="187" y="1" width="92" height="30" backcolor="#E8E8E8" uuid="0c41e9c9-45bd-49db-a666-cd4d99958fdf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="279" y="1" width="92" height="30" backcolor="#F7F7F7" uuid="85ba929b-8750-44e0-8db9-f5754812e899"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{año}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="371" y="1" width="92" height="30" backcolor="#E8E8E8" uuid="eca6a2cf-cbbe-4633-b6d2-09f1f0f9692f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Total de participaciones}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="463" y="1" width="92" height="30" backcolor="#F7F7F7" uuid="b25cca88-f3b0-46a8-91ef-51135f5386ce"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Nombre del proyecto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="15" width="276" height="25" forecolor="#FFFFFF" backcolor="#0C5242" uuid="78f08ab6-0ec3-4041-b163-dd2043d72640"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha de generación de reporte]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="277" y="15" width="275" height="25" forecolor="#F5F5F5" backcolor="#FBCC00" uuid="d3d5862e-0868-48d3-852c-0ddaa8dce82d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[NOW( )]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

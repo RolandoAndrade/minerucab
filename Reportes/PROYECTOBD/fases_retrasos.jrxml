@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fases_retrasos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ed35db8c-d2bc-4ad8-93ea-351dc80723da">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="fecha_inicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[NOW()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha_fin" class="java.sql.Date">
+		<defaultValueExpression><![CDATA[NOW( )]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT p_nombre "Proyecto",
+       e_nombre "Etapa atrasada",
+       e_orden "Número de etapa",
+       f_id_fase "Código de la fase",
+       f_nombre "Fase atrasada",
+       f_orden "Número de fase",
+       f_fecha_fin "Fecha de fin pautada"
+FROM FASE, FASE_CONFIGURACION, ETAPA, ETAPA_CONFIGURACION, PROYECTO
+WHERE fase_configuracion_id = f_id_fase_configuracion AND
+        etapa_id = e_id_etapa AND
+        proyecto_id = p_id_proyecto AND
+        etapa.etapa_configuracion_id = e_id_etapa_configuracion AND
+    (f_fecha_fin BETWEEN $P{fecha_inicio} AND $P{fecha_fin}) AND
+        fase.estado_id != 2]]>
+	</queryString>
+	<field name="Proyecto" class="java.lang.String"/>
+	<field name="Etapa atrasada" class="java.lang.String"/>
+	<field name="Número de etapa" class="java.lang.Integer"/>
+	<field name="Código de la fase" class="java.lang.Integer"/>
+	<field name="Fase atrasada" class="java.lang.String"/>
+	<field name="Número de fase" class="java.lang.Integer"/>
+	<field name="Fecha de fin pautada" class="java.sql.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="0" y="0" width="555" height="79" forecolor="#FFFFFF" backcolor="#1E2547" uuid="9890bda3-0a8c-4454-a988-209ceffbc191"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA["FASES QUE PRESENTAN RETRASOS QUE DEBÍAN TERMINAR ENTRE EL "+DATEFORMAT($P{fecha_inicio},"dd-MM-yyyy") + " Y "+DATEFORMAT($P{fecha_fin},"dd-MM-yyyy")]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="81" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="457b7228-d5a0-47d8-8d83-fbe7bd84ab13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Proyecto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="81" y="0" width="79" height="30" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="16cb3f5f-4910-4f0c-abb8-9d4b0b6a9854"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Etapa atrasada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="160" y="0" width="79" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="aa1081e8-e0ff-4501-95a1-0d90e17f34f4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Número de etapa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="239" y="0" width="79" height="30" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="d14deb01-d3bf-45ba-9b71-ea750ebdbb4a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Código de la fase]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="318" y="0" width="79" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="2fda68c7-995d-40ac-88cd-3f8f3d88631c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fase atrasada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="397" y="0" width="79" height="30" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="6b5146cd-48ec-4110-91f5-5f2271ecc894"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Número de fase]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="476" y="0" width="79" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="6d928bd9-ea9f-4f1f-86bc-2e4cf93c721f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha de fin pautada]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="1" width="81" height="30" backcolor="#E8E8E8" uuid="ed19a917-9c89-4f83-9357-732d8fb619f3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Proyecto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="81" y="1" width="79" height="30" backcolor="#F7F7F7" uuid="ed5c0bf0-a6ba-4d3a-8146-9233018483a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Etapa atrasada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="160" y="1" width="79" height="30" backcolor="#E8E8E8" uuid="bd73341f-75bb-4b3f-aa10-50d83e58fc3a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Número de etapa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="239" y="1" width="79" height="30" backcolor="#F7F7F7" uuid="60ca6500-4042-4658-8c9a-adfb5b49a117"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Código de la fase}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="318" y="1" width="79" height="30" backcolor="#E8E8E8" uuid="f087bd6b-808a-4d77-8c63-40fce5bdf6d3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Fase atrasada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="397" y="1" width="79" height="30" backcolor="#F7F7F7" uuid="d58c4df9-548a-42bf-8054-b41362e32440"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Número de fase}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="476" y="1" width="79" height="30" backcolor="#E8E8E8" uuid="3f9fefa1-a905-4756-bad1-4f645642990b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[DATEFORMAT($F{Fecha de fin pautada},"dd-MM-yyyy")]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="15" width="276" height="25" forecolor="#FFFFFF" backcolor="#0C5242" uuid="cf5c4fb6-c5ca-47fb-a570-37ea249e07b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha de generación de reporte]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="277" y="15" width="275" height="25" forecolor="#F5F5F5" backcolor="#FBCC00" uuid="37f28915-4541-4a42-b7fc-dea461a41c9d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[NOW( )]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

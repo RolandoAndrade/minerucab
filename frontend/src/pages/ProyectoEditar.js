@@ -876,15 +876,13 @@ export class ProyectoEditar extends React.Component {
 
     activarProyecto = () => {
         console.log(`----> activarProyecto : localhost:4000/activar/proyecto`)
-        /*
-        REVISION YEISSON
         return axios.post('http://127.0.0.1:4000/activar/proyecto',
             {
                 p_id_proyecto : this.state.configuracion_yacimiento.p_id_proyecto,
+                p_fecha_inicio : this.state.configuracion_yacimiento.p_fecha_inicio,
                 requisitos : this.state.requisitos.map( r => ({
                     ...r,
-                    m_cantidad : parseInt( r.m_cantidad ),
-
+                    m_cantidad : parseInt( r.m_cantidad )
                 }))
             })
             .then( (res) => {
@@ -894,20 +892,42 @@ export class ProyectoEditar extends React.Component {
                 }
                 return res
             }).catch( err => err)
-        */
-        
-       this.setState({
-        configuracion_yacimiento : {
-            ...this.state.configuracion_yacimiento,
-            estado_id : 8
-        }
-    })
-        
-        //location.reload()   
     }
 
     activarFase = (idFase) => {
-        console.log(`---> activarFase : ${idFase}`)
+        // F   ( 3 pendiente -> 8 activa -> 10 finalizada)
+        const faseModal = this.state.faseModal
+        /*
+        REVISSION YEISSON
+        console.log(`----> activarFase : localhost:4000/activar/fase`)
+        return axios.post('http://127.0.0.1:4000/activar/fase',
+            {
+                f_id_fase : faseModal.f_id_fase,
+                f_fecha_inicio : faseModal.f_fecha_inicio,
+                f_fecha_fin : faseModal.f_fecha_fin,
+                e_fecha_inicio : this.state.etapas.find( e => 
+                    e.fases.find( f => 
+                        f.f_id_fase === faseModal.f_id_fase
+                    )
+                ).e_fecha_inicio
+            })
+            .then( (res) => {
+                if( res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/activar/fase`)
+                    this.setState({
+                        faseModal : {
+                            ...this.state.faseModal,
+                            estado_id : 8,
+                            estado : "activo"
+                        }
+                    },
+                        () => this.guardarFase()
+                    )
+                }
+                return res
+            }).catch( err => err)
+        */
+
         this.setState({
             faseModal : {
                 ...this.state.faseModal,
@@ -917,6 +937,7 @@ export class ProyectoEditar extends React.Component {
         },
             () => this.guardarFase()
         )
+
     }
 
     finalizarFase = (idFase) => {
@@ -946,7 +967,42 @@ export class ProyectoEditar extends React.Component {
     }
 
     cerrarEtapa = (idEtapa) => {
-        console.log(`---> cerrarEtapa : ${idEtapa}`)
+        // REVISAR YEISSON
+        console.log(`----> cerrarEtapa : localhost:4000/finalizar/etapa`)
+        return axios.post('http://127.0.0.1:4000/finalizar/etapa',
+            {
+                e_id_etapa : idEtapa,
+                p_fecha_inicio : this.state.configuracion_yacimiento.p_fecha_inicio,
+                e_fecha_inicio : this.state.etapas.find( 
+                    e => e.e_id_etapa === idEtapa 
+                ).e_fecha_inicio
+            })
+            .then( (res) => {
+                if( res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/finalizar/etapa`)
+                    location.reload()
+                }
+                return res
+            }).catch( err => err)
+    }
+
+    activarEtapa = (idEtapa) => {
+        console.log(`----> activarEtapa : localhost:4000/activar/etapa`)
+        return axios.post('http://127.0.0.1:4000/activar/etapa',
+            {
+                e_id_etapa : idEtapa,
+                p_fecha_inicio : this.state.configuracion_yacimiento.p_fecha_inicio,
+                e_fecha_inicio : this.state.etapas.find( 
+                    e => e.e_id_etapa === idEtapa 
+                ).e_fecha_inicio
+            })
+            .then( (res) => {
+                if( res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/activar/etapa`)
+                    location.reload()
+                }
+                return res
+            }).catch( err => err)
     }
 
     esProyectoCerrable = () => {
@@ -1050,7 +1106,7 @@ export class ProyectoEditar extends React.Component {
                                     </div>
                                 : !!estado_id ?
                                     <div style={{margin : "5px auto"}}>
-                                        <Button variant="warning" className="mc-boton" 
+                                        <Button variant="success" className="mc-boton" 
                                             onClick={this.cerrarProyecto}
                                             disabled={ !this.esProyectoCerrable() }
                                         >
@@ -1200,6 +1256,7 @@ export class ProyectoEditar extends React.Component {
                                         }}
                                         esCerrable={ this.esEtapaCerrable(etapa.e_id_etapa) }
                                         cerrarEtapa={ this.cerrarEtapa }
+                                        activarEtapa={ this.activarEtapa }
                                         /* DROPDOWNs */
                                         maquinarias={maquinarias}
                                         cargos={cargos}

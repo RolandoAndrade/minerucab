@@ -1885,7 +1885,7 @@ INSERT INTO ACCION (a_id_accion,a_tabla,a_descripcion,a_tipo) VALUES
 (49,'rol','crear rol','c'),
 (50,'rol','consultar rol','r'),
 (51,'rol','modificar rol','u'),
-(52,'horario','eliminar rol','d'),
+(52,'rol','eliminar rol','d'),
 (53,'horario','crear horario','c'),
 (54,'horario','consultar horario','r'),
 (55,'horario','modificar horario','u'),
@@ -1981,7 +1981,8 @@ INSERT INTO ROL_ACCI (r_id_rol_acci,rol_id,accion_id) VALUES
 (73,1,53),
 (74,1,54),
 (75,1,55),
-(76,1,56);
+(76,1,56),
+(77,1,57);
 SELECT setval('rol_acci_r_id_rol_acci_seq', (SELECT MAX(r_id_rol_acci) from ROL_ACCI));
 
 /* INSERTS DE TABLA  HORARIO*/

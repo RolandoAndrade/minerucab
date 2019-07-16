@@ -21,7 +21,7 @@ export class EmpleadoEditar extends React.Component {
 
         this.state = {
             users: [],
-            lastIndex : 0,
+            lastIndex : 200,
             nuevo_empleado : {
                 e_id_empleado : 0,
                 e_cedula : "",
@@ -41,8 +41,6 @@ export class EmpleadoEditar extends React.Component {
                 parroquia_id : 0
             },
             lugares : [],
-            cargos : [],
-            roles : []
         }
     }
 
@@ -157,7 +155,8 @@ export class EmpleadoEditar extends React.Component {
                 ...this.state.nuevo_empleado,
                 lugar_id : this.state.lugar.parroquia_id,
                 e_genero : this.state.nuevo_empleado.e_genero === 1 || this.state.nuevo_empleado.e_genero === "m"
-                    ? "m" : "f"
+                    ? "m" : "f",
+                usuarios : this.state.users
             }
         )
         .then( (res) => {
@@ -442,6 +441,7 @@ export class EmpleadoEditar extends React.Component {
                                 />
                             </div>
                             <div className="ancho-mineral">
+                                {!!this.state.roles &&
                                 <DropdownV2
                                     placeholder="Rol ..."
                                     onChange={ event => 
@@ -450,7 +450,11 @@ export class EmpleadoEditar extends React.Component {
                                     options={
                                         cleanerRoles.limpiarListaDropdown(this.state.roles)
                                     }
-                                />
+                                    value={{
+                                        value: usuario.rol_id,
+                                        label: !!usuario.rol_id ? this.state.roles.find( r => r.r_id_rol === usuario.rol_id).r_nombre : "Rol ..."
+                                    }}
+                                />}
                             </div>
 
                         </div>

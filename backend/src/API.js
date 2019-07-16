@@ -828,7 +828,6 @@ app.post('/modificar/empleado', (req, res) => {
     return daoEmpleado.modificar( empleado )
   })
   .then((resp_bd) => {
-    let empleado_id = resp_bd.rows[0].e_id_empleado
     return new Promise((resolve,reject) => {
       if(empleado["usuarios"].length > 0) {
         daoEmpleado.asignarVariosUsuarios(empleado_id,empleado["usuarios"])

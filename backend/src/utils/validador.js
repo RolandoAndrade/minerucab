@@ -174,8 +174,22 @@ const validadorGestorProyecto = {
         return flag
     }
 }
+
+const validadorUsuarios = {
+    validarClaves (usuarios) {
+        if(!usuarios) return false
+        usuarios.forEach((u) => {
+            if(!u.u_clave || u.u_clave === "") {
+                return false
+            }
+        })
+        return true
+    }
+}
+
 export {
     validadorYacimientoConfiguracion,
     validadorProyecto,
-    validadorGestorProyecto
+    validadorGestorProyecto,
+    validadorUsuarios
 }

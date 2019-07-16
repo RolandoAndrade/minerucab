@@ -92,6 +92,7 @@ const daoProyecto  = {
     },
 
     tomarRecursos(proyecto_id, requisitos) {
+        console.log(`\nentrando a tomar recursos\n`)
         let query = `
         INSERT INTO INVENTARIO (i_id_inventario,i_cantidad,i_ingresado,i_fecha_modificacion,mineral_id,unidad_id,proyecto_id,solicitud_id,pedido_id)
         VALUES `

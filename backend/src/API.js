@@ -916,6 +916,48 @@ app.post('/modificar/empleado', (req, res) => {
     })
 });
 
+app.post('/login/usuario', (req,res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/login/usuario")
+
+  const correo = req.body.u_correo ? req.body.u_correo : ""
+  const clave = req.body.u_clave ? req.body.u_clave : ""
+  
+  let usuario = null
+  daoEmpleado.obtenerUsuario(correo,clave)
+  .then((resp_bd) => {
+    usuario = resp_bd.rowCount === 1 ? resp_bd.rows[0] : null
+    return new Promise((resolve,reject)=> {
+      if (!usuario) reject("credenciales de acceso invalidas")
+      else {
+        daoEmpleado.obtenerPermisos(usuario["rol_id"])
+        .then((resp_bd) => {
+          usuario["permisos"] = resp_bd.rows
+          resolve("bien!")
+        })
+      }
+    })
+  })
+  .then( (DATA_RESPUESTA) => {
+    console.log(`STATUS OK : 200`)      
+    
+    res.status(200).json({"usuario" : usuario})
+
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+    res.status(500).json(bd_err)
+
+  })
+
+
+
+})
+
 /* ****************************** LUGAR ****************************** */
 import {daoLugar} from './DAOs/daoLugar'
 
@@ -1768,6 +1810,7 @@ app.post('/iniciar/proyecto', (req,res) => {
     return 0;
   }
   if (requisitos.length === 0){
+    daoProyecto.actualizarEstado(proy_id,15)
     res.status(200).json({"resp" : "Proyecto sin requisitos, puede avanzar de etapa"})
     return 0;
   }

@@ -1873,7 +1873,19 @@ INSERT INTO ACCION (a_id_accion,a_tabla,a_descripcion,a_tipo) VALUES
 (37,'inventario','crear inventario','c'),
 (38,'inventario','consultar inventario','r'),
 (39,'inventario','modificar inventario','u'),
-(40,'inventario','eliminar inventario','d');
+(40,'inventario','eliminar inventario','d'),
+(41,'compania','crear aliado','c'),
+(42,'compania','consultar aliado','r'),
+(43,'compania','modificar aliado','u'),
+(44,'compania','eliminar aliado','d'),
+(45,'configuracion_yacimiento','crear configuracion de yacimiento','c'),
+(46,'configuracion_yacimiento','consultar configuracion de yacimiento','r'),
+(47,'configuracion_yacimiento','modificar configuracion de yacimiento','u'),
+(48,'configuracion_yacimiento','eliminar configuracion de yacimiento','d'),
+(49,'rol','crear rol','c'),
+(50,'rol','consultar rol','r'),
+(51,'rol','modificar rol','u'),
+(52,'rol','eliminar rol','d');
 SELECT setval('accion_a_id_accion_seq', (SELECT MAX(a_id_accion) from ACCION));
 
 /* INSERTS DE TABLA  ROL*/

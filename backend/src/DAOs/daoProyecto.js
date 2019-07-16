@@ -105,7 +105,7 @@ const daoProyecto  = {
         return psql.query(query) 
     },
 
-    almacenarExplotado(proyecto_id, articulos) {
+    almacenarExplotado(proyecto_id, y_cantidad, mineral_id) {
         let query = `
         INSERT INTO INVENTARIO (i_id_inventario,i_cantidad,i_ingresado,i_fecha_modificacion,mineral_id,unidad_id,proyecto_id,solicitud_id,pedido_id)
         VALUES (DEFAULT,${y_cantidad*1000},TRUE,now(),${mineral_id},6,${proyecto_id},NULL,NULL);`

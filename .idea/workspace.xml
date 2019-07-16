@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d7ce102b-bdc5-4fc4-9682-e82a04b1e4dc" name="Default Changelist" comment="" />
+    <list default="true" id="d7ce102b-bdc5-4fc4-9682-e82a04b1e4dc" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/src/DAOs/daoRol.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0ecd0efa-84fc-4c89-abc9-5233d674a220.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0ecd0efa-84fc-4c89-abc9-5233d674a220.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/API.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/API.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Pagos,js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/CrearRol.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/routers/AppRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/routers/AppRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/components/_Containers.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/components/_Containers.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL" beforeDir="false" afterPath="$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,28 +43,65 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/queries/entrega/DROP_db.sql">
+        <entry file="file://$PROJECT_DIR$/backend/src/API.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1275">
-              <caret line="85" column="26" selection-start-line="85" selection-start-column="25" selection-end-line="85" selection-end-column="26" />
+            <state relative-caret-position="369">
+              <caret line="1932" column="21" selection-start-line="1932" selection-start-column="21" selection-end-line="1932" selection-end-column="21" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/queries/entrega/INSERT_db.sql">
+        <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoHorario.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141705">
-              <caret line="9447" column="17" selection-start-line="9447" selection-end-line="12633" selection-end-column="28" />
+            <state relative-caret-position="30">
+              <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/frontend/src/pages/CrearRol.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="67" column="5" lean-forward="true" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/queries/entrega/DELETE.SQL">
+        <entry file="file://$PROJECT_DIR$/frontend/src/pages/Proyecto.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-855">
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/pages/ProyectoAgregar.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2520">
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoRol.js">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret selection-end-column="31" />
+              <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="14" selection-end-column="91" />
             </state>
           </provider>
         </entry>
@@ -63,44 +109,44 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="22" lean-forward="true" selection-end-line="17" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/queries/entrega/UPDATES.SQL">
-          <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret selection-end-line="8" selection-end-column="51" />
+              <caret selection-end-line="2" selection-end-column="79" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/queries/entrega/CREATE_db.sql">
+        <entry file="file://$PROJECT_DIR$/frontend/src/routers/AppRouter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5670">
-              <caret line="378" column="45" selection-start-line="370" selection-start-column="4" selection-end-line="370" selection-end-column="14" />
+            <state relative-caret-position="189">
+              <caret line="89" column="58" selection-start-line="89" selection-start-column="58" selection-end-line="89" selection-end-column="58" />
+              <folding>
+                <element signature="e#339#374#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/queries/entrega/FOREIGN_db.sql">
+        <entry file="file://$PROJECT_DIR$/frontend/src/pages/CrearVenta.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2340">
-              <caret line="156" column="21" selection-start-line="156" selection-start-column="21" selection-end-line="156" selection-end-column="21" />
+            <state relative-caret-position="1305">
+              <caret line="96" column="6" selection-start-line="96" selection-start-column="6" selection-end-line="96" selection-end-column="6" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/queries/entrega/REPORTES.SQL">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/pages/EmpleadoAgregar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="147" column="34" selection-start-line="147" selection-start-column="34" selection-end-line="147" selection-end-column="34" />
+            <state relative-caret-position="285">
+              <caret line="88" column="9" lean-forward="true" selection-start-line="81" selection-start-column="8" selection-end-line="88" selection-end-column="9" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -116,9 +162,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>horario</find>
-      <find>proyec</find>
-      <find>consultar</find>
       <find>compania_id</find>
       <find>ETAPA</find>
       <find>PROYEC</find>
@@ -146,6 +189,9 @@
       <find>p_id_proyec</find>
       <find>DEFAULT</find>
       <find>fase_empl</find>
+      <find>consultar</find>
+      <find>modificar</find>
+      <find>eliminar</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -181,9 +227,7 @@
         <option value="$PROJECT_DIR$/frontend/src/components/DashBoardSimple.js" />
         <option value="$PROJECT_DIR$/frontend/src/pages/AgregarHorario.js" />
         <option value="$PROJECT_DIR$/frontend/src/components/Scheduler.js" />
-        <option value="$PROJECT_DIR$/backend/src/API.js" />
         <option value="$PROJECT_DIR$/frontend/src/pages/EditarHorario.js" />
-        <option value="$PROJECT_DIR$/frontend/src/routers/AppRouter.js" />
         <option value="$PROJECT_DIR$/backend/src/DAOs/daoInventario.js" />
         <option value="$PROJECT_DIR$/frontend/src/utils/cleaner.js" />
         <option value="$PROJECT_DIR$/queries/entrega/DROP_db.sql" />
@@ -191,8 +235,12 @@
         <option value="$PROJECT_DIR$/queries/entrega/DELETE.SQL" />
         <option value="$PROJECT_DIR$/queries/entrega/INSERT_db.sql" />
         <option value="$PROJECT_DIR$/queries/entrega/UPDATES.SQL" />
-        <option value="$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL" />
         <option value="$PROJECT_DIR$/queries/entrega/REPORTES.SQL" />
+        <option value="$PROJECT_DIR$/frontend/src/routers/AppRouter.js" />
+        <option value="$PROJECT_DIR$/backend/src/DAOs/daoRol.js" />
+        <option value="$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL" />
+        <option value="$PROJECT_DIR$/backend/src/API.js" />
+        <option value="$PROJECT_DIR$/frontend/src/pages/CrearRol.js" />
       </list>
     </option>
   </component>
@@ -236,13 +284,62 @@
             <path>
               <item name="ProyectoBD1" type="b2602c69:ProjectViewProjectNode" />
               <item name="ProyectoBD1" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="DAOs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ProyectoBD1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ProyectoBD1" type="462c0819:PsiDirectoryNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ProyectoBD1" type="b2602c69:ProjectViewProjectNode" />
               <item name="ProyectoBD1" type="462c0819:PsiDirectoryNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ProyectoBD1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ProyectoBD1" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ProyectoBD1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ProyectoBD1" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ProyectoBD1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ProyectoBD1" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ProyectoBD1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ProyectoBD1" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ProyectoBD1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ProyectoBD1" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ProyectoBD1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ProyectoBD1" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="routers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ProyectoBD1" type="b2602c69:ProjectViewProjectNode" />
@@ -297,7 +394,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="npm.start">
+  <component name="RunManager" selected="npm.dev-server">
     <configuration name="dev-server" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/frontend/package.json" />
       <command value="run" />
@@ -320,8 +417,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.start" />
         <item itemvalue="npm.dev-server" />
+        <item itemvalue="npm.start" />
       </list>
     </recent_temporary>
   </component>
@@ -354,6 +451,10 @@
       <workItem from="1563049768435" duration="17714000" />
       <workItem from="1563217133825" duration="11044000" />
       <workItem from="1563231775178" duration="518000" />
+      <workItem from="1563232917164" duration="59000" />
+      <workItem from="1563234322596" duration="736000" />
+      <workItem from="1563240297915" duration="1407000" />
+      <workItem from="1563272104745" duration="2587000" />
     </task>
     <task id="LOCAL-00013" summary="Dao pedido">
       <created>1561422987231</created>
@@ -702,7 +803,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="132011000" />
+    <option name="totallyTimeSpent" value="136800000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -715,8 +816,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-2" y="-2" width="1444" height="872" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3190272" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.33619457" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -736,7 +838,7 @@
       <window_info anchor="bottom" id="Database Changes" order="10" weight="0.32977304" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32977304" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5007153" side_tool="true" weight="0.25367156" />
-      <window_info active="true" anchor="bottom" id="Database Console" order="13" sideWeight="0.49928468" visible="true" weight="0.24432577" />
+      <window_info anchor="bottom" id="Database Console" order="13" sideWeight="0.49928468" visible="true" weight="0.24432577" />
       <window_info anchor="bottom" id="Messages" order="14" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -791,65 +893,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Arreglado error en presentacion" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/frontend/src/pages/MineralAgregar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-945">
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/pages/YacimientoAgregar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="231" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/Loader.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/pages/Yacimiento.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="280" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/pages/HorarioCrear.js" />
-    <entry file="file://$PROJECT_DIR$/frontend/src/pages/Empleado.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/queries/playground/PEDIDO.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="17" selection-start-line="1" selection-end-line="5" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/pages/EmpleadoAgregar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4710">
-          <caret line="328" column="14" selection-start-line="323" selection-start-column="12" selection-end-line="328" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/pages/Cliente.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1002,13 +1045,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoHorario.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="45" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/components/Scheduler.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -1029,32 +1065,12 @@
     <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoTipoYacimiento.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/pages/CrearVenta.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1305">
-          <caret line="96" column="6" selection-start-line="96" selection-start-column="6" selection-end-line="96" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/pages/EditarHorario.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="705">
           <caret line="55" column="17" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/routers/AppRouter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="86" column="12" selection-start-line="86" selection-start-column="12" selection-end-line="86" selection-end-column="12" />
-          <folding>
-            <element signature="e#339#374#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1083,23 +1099,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/src/API.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26340">
-          <caret line="1765" column="8" selection-start-line="1765" selection-start-column="8" selection-end-line="1765" selection-end-column="8" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/src/reportes.js" />
     <entry file="file://$PROJECT_DIR$/backend/src/index.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="das://0ecd0efa-84fc-4c89-abc9-5233d674a220/database/miner_ucab/schema/public/table/empleado.sql">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="das://0ecd0efa-84fc-4c89-abc9-5233d674a220/database/miner_ucab/schema/public/table/empleado.sql" />
     <entry file="file://$PROJECT_DIR$/queries/entrega/DROP_db.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1275">
@@ -1142,17 +1146,121 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL">
+    <entry file="file://$PROJECT_DIR$/queries/entrega/REPORTES.SQL">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="22" lean-forward="true" selection-end-line="17" selection-end-column="33" />
+        <state relative-caret-position="2205">
+          <caret line="147" column="34" selection-start-line="147" selection-start-column="34" selection-end-line="147" selection-end-column="34" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/queries/entrega/REPORTES.SQL">
+    <entry file="file://$PROJECT_DIR$/frontend/src/app.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/routers/PrivateRoute.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="147" column="34" selection-start-line="147" selection-start-column="34" selection-end-line="147" selection-end-column="34" />
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/pages/MineralAgregar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1755">
+          <caret line="128" selection-start-line="128" selection-end-line="143" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/pages/CrearVenta.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1305">
+          <caret line="96" column="6" selection-start-line="96" selection-start-column="6" selection-end-line="96" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoHorario.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="2" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/routers/AppRouter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="89" column="58" selection-start-line="89" selection-start-column="58" selection-end-line="89" selection-end-column="58" />
+          <folding>
+            <element signature="e#339#374#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/src/API.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="1932" column="21" selection-start-line="1932" selection-start-column="21" selection-end-line="1932" selection-end-column="21" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/pages/Proyecto.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-855">
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/pages/ProyectoAgregar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2520">
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/pages/EmpleadoAgregar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="88" column="9" lean-forward="true" selection-start-line="81" selection-start-column="8" selection-end-line="88" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoRol.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="14" selection-end-column="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/pages/CrearRol.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="67" column="5" lean-forward="true" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

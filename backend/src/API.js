@@ -1271,6 +1271,7 @@ import {daoInventario} from "./DAOs/daoInventario";
 import {daoHorario} from "./DAOs/daoHorario";
 import {daoEtapa} from "./DAOs/daoEtapa";
 import {daoFase} from "./DAOs/daoFase";
+import {daoRol} from "./DAOs/daoRol";
 
 app.get('/consultarLista/proyecto', (req, res) => {
   
@@ -1853,6 +1854,127 @@ app.post('/eliminar/horario', (req, res) => {
   console.log(`----------------------> ${getAhora()}`)
   console.log(req.body)
   daoHorario.eliminarJornadas(req.body.horario_id)
+      .then( (bd_response) => {
+        console.log(`STATUS OK : 200`)
+        daoHorario.eliminar(req.body.horario_id).then((bd_response)=>{
+          console.log(`STATUS OK : 200`)
+          res.status(200).json({"rows" : bd_response.rows});
+      }).catch((e)=>error(e))})
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+        res.status(500).json(bd_err)
+
+      })
+});
+
+/* ****************************** ROL ****************************** */
+app.get('/consultarLista/roles', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/roles")
+
+  daoRol.consultarTodos()
+      .then( ({rows}) => {
+        console.log(rows);
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/consultar/rol', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultar/rol/${req.body.r_id_rol}`)
+  daoRol.consultar(req.body.r_id_rol)
+      .then( ({rows}) => {
+        console.log(`STATUS OK : 200`)
+
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/insertar/rol', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(req.body)
+  daoRol.insertar(req.body)
+      .then( (bd_response) => {
+        console.log(`STATUS OK : 200`)
+        res.status(200).json({"rows" : bd_response.rows})
+        let rol_id=bd_response.rows[0].r_id_rol;
+        let permisos = req.body.permisos;
+        let accion_id=1;
+        try
+        {
+          for (let i in permisos)
+          {
+            if(permisos[i])
+            {
+              daoRol.insertarAccion({rol_id,accion_id})
+            }
+            accion_id++;
+          }
+        }
+        catch (e)
+        {
+          console.log("Error")
+        }
+      })
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+        res.status(500).json(bd_err)
+
+      })
+});
+
+
+app.post('/editar/rol', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(req.body)
+  daoRol.modificar(req.body.horario_id)
+      .then( (bd_response) => {
+        console.log(`STATUS OK : 200`)
+        daoHorario.modificar(req.body).then((bd_response)=>{
+          res.status(200).json({"rowCount" : bd_response.rowCount})
+          })
+      })
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/eliminar/rol', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(req.body)
+  daoRol.eliminar(req.body.horario_id)
       .then( (bd_response) => {
         console.log(`STATUS OK : 200`)
         daoHorario.eliminar(req.body.horario_id).then((bd_response)=>{

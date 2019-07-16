@@ -43,6 +43,7 @@ import {EditarHorario} from "../pages/EditarHorario";
 import {Pagos} from "../pages/Pagos";
 import {Facturita} from "../pages/Facturita";
 import {InventarioMovs} from "../pages/InventarioMovs";
+import {CrearRol} from "../pages/CrearRol";
 
 export const history = createHistory(); // PARA LLEVAR EL CONTROL DE PAGINAS VISITADAS POR USER
 
@@ -84,6 +85,9 @@ const AppRouter = () => (
         
 
         <PublicRoute path="/inventario" component={InventarioMovs} />
+
+
+        <PublicRoute path="/crear/rol" component={CrearRol} />
         {/* 
           PAGINAS QUE CARGAN LOGEADOS 
           <PrivateRoute path="/dashboard" component={Dashboard} />

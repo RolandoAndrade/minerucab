@@ -20,6 +20,10 @@
   z-index: 0;
 }
 
+.WideContainer.Vertical
+{
+  flex-direction: column;
+}
 .FormContainer
 {
   width: 90%;
@@ -28,7 +32,15 @@
   margin-bottom: 50px;
 }
 
+.FormContainer.Edit
+{
+  margin:5px;
+}
 
+.FormContainer.More
+{
+  margin:15px;
+}
 .Container-80p
 {
   margin: 0 auto;

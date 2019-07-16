@@ -5,6 +5,7 @@ import {Redirect} from 'react-router-dom';
 import {Modal, Button} from 'react-bootstrap';
 import MaterialTable from 'material-table';
 
+import { tengoPermiso } from "../utils/tengoPermiso";
 import {cleanerCliente, cleanerCompania, cleanerInventario} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
 

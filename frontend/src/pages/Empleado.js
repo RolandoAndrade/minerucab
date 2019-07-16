@@ -5,6 +5,7 @@ import {Redirect} from 'react-router-dom';
 import {Modal, Button} from 'react-bootstrap';
 import MaterialTable from 'material-table';
 
+import { tengoPermiso } from "../utils/tengoPermiso";
 import {cleanerEmpleado} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
 
@@ -259,11 +260,15 @@ export class Empleado extends React.Component {
             </Modal.Body>
             
             <Modal.Footer className="mc-footer">
-              <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleModificar}>
+              <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleModificar}
+                disabled={ !tengoPermiso(11) }
+              >
                 Modificar
               </Button>
 
-              <Button variant="danger" className="mc-boton" onClick={this.handleEliminar}>
+              <Button variant="danger" className="mc-boton" onClick={this.handleEliminar}
+                disabled={ !tengoPermiso(12) }
+              >
                 Eliminar
               </Button>
             </Modal.Footer>

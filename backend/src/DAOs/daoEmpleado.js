@@ -59,7 +59,7 @@ const daoEmpleado = {
                 ${cargo_id ? cargo_id : 'NULL' },
                 ${lugar_id ? lugar_id : 'NULL' },
                 ${estado_id ? estado_id : 'NULL' }
-            )
+            ) RETURNING (e_id_empleado);
         `)
     },
 
@@ -123,28 +123,24 @@ const daoEmpleado = {
         return psql.query(query)
     },
 
-    obtenerUsuario(u_correo, u_clave){
-        const query = `
-        SELECT * FROM USUARIO
-        WHERE u_correo = '${u_correo}'
-        AND u_clave = '${u_clave}'
-        `
-        console.log(query)
-        return psql.query(query)
+    consultarUsuarios(empleado_id) {
+        return psql.query(`
+            SELECT * 
+            FROM USUARIO
+            WHERE empleado_id = ${empleado_id}
+        `)
     },
 
-    obtenerPermisos(rol_id) {
-        const query = `
-        SELECT A.*
-        FROM ACCION A, ROL_ACCI R
-        WHERE A.a_id_accion = R.accion_id
-        AND R.rol_id = ${rol_id}
-        `
+    asignarVariosUsuarios ( empleado_id, usuarios) {
+        let query = `INSERT INTO USUARIO (u_id_usuario,u_correo,u_clave,empleado_id,rol_id) VALUES`
+        let i = 0
+        usuarios.forEach( g => {
+            i++;
+            query =  query + `(DEFAULT,${u.u_correo},${u.u_clave},${empleado_id},${u.rol_id})${i < usuarios.length ? ',' : ';' }`
+        })
         console.log(query)
         return psql.query(query)
     }
-
-
 }
 
 export {daoEmpleado}

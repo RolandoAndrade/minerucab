@@ -1,6 +1,6 @@
 /* DEPENDENCIAS */
 import {daoPedido} from "./DAOs/daoPedido";
-import {validadorYacimientoConfiguracion, validadorProyecto, validadorGestorProyecto} from "./utils/validador"
+import {validadorYacimientoConfiguracion, validadorProyecto, validadorGestorProyecto, validadorUsuarios} from "./utils/validador"
 
 const express = require('express');
 const app = express();
@@ -832,20 +832,26 @@ app.post('/consultar/empleado', (req, res) => {
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
   console.log(`/consultar/empleado/${req.body.e_id_empleado}`)
+
+  let empleado_id = req.body.e_id_empleado
+  let empleado = null
   daoEmpleado.consultar(req.body.e_id_empleado)
-    .then( ({rows}) => {
-      console.log(`STATUS OK : 200`)      
+  .then((resp_bd) => {
+    empleado = resp_bd.rows[0]
+    return daoEmpleado.consultarUsuarios(empleado_id)
+  })
+  .then((resp_bd) => {
+    console.log(`STATUS OK : 200`)      
+    empleado["usuarios"] = resp_bd.rows
+    res.status(200).json({"rows" : empleado})
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
-      res.status(200).json({"rows" : rows})
+    res.status(500).json(bd_err)
 
-    })
-    .catch( (bd_err) => {
-      console.log(`STATUS ERROR: 500`)      
-      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
-
-      res.status(500).json(bd_err)
-
-    })
+  })
 });
 
 app.post('/eliminar/empleado', (req, res) => {
@@ -876,20 +882,59 @@ app.post('/insertar/empleado', (req, res) => {
   console.log(`/insertar/empleado/`)
   console.log(req.body)
 
-  daoEmpleado.insertar( req.body )
-    .then( (bd_response) => {
-      console.log(`STATUS OK : 200`)      
-      
-      res.status(200).json({"rowCount" : bd_response.rowCount})
+  let empleado = req.body
+  let mensaje = ""
 
-    })
-    .catch( (bd_err) => {
-      console.log(`STATUS ERROR: 500`)      
-      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+  if(!validadorUsuarios.validarClaves(empleado["usuarios"])){
+    res.status(500).json({"ErrorMessage" : "Claves vacias o nulas"})
+    return 0;
+  }
 
-      res.status(500).json(bd_err)
+  (new Promise((resolve,reject) => {
+    if(empleado["usuarios"].length > 0) {
+      daoUsuario.validarNombreUsuario(0,empleado["usuarios"])
+      .then((resp_bd) => {
+        if(resp_bd.rowCount) {
+          mensaje = "correo ya usado por otro usuario"
+          reject("correo ya usado por otro usuario")
+        }else {
+          resolve("correos validos")
+        }
+      })
+    }else {
+      resolve("correos validos")
+    }    
+  }))
+  .then((DATA_RESPUESTA) => {
+    return daoEmpleado.insertar( empleado )
+  })
+  .then((resp_bd) => {
+    let empleado_id = resp_bd.rows[0].e_id_empleado
+    return new Promise((resolve,reject) => {
+      if(empleado["usuarios"].length > 0) {
+        daoEmpleado.asignarVariosUsuarios(empleado_id,empleado["usuarios"])
+        .then((resp_bd) => {
+          resolve("bien")
+        })
+      }else{
+        resolve("bien")
+      }
+    })   
+    
+  })  
+  .then( (DATA_RESPUESTA) => {
+    console.log(`STATUS OK : 200`)    
+    
+    res.status(200).json({"resp" : "Empleado insertado exitosamente"})
 
-    })
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+    res.status(500).json({"Error":mensaje})
+
+  })
 });
 
 app.post('/modificar/empleado', (req, res) => {
@@ -899,21 +944,64 @@ app.post('/modificar/empleado', (req, res) => {
   console.log(`/modificar/empleado/${req.body.e_id_empleado}`)
   console.log(req.body)
 
+  let empleado = req.body
+  let empleado_id = req.body.e_id_empleado
+  let mensaje = ""
 
-  daoEmpleado.modificar( req.body )
-    .then( (bd_response) => {
-      console.log(`STATUS OK : 200`)      
-      
-      res.status(200).json({"rowCount" : bd_response.rowCount})
+  if(!validadorUsuarios.validarClaves(empleado["usuarios"])){
+    res.status(500).json({"ErrorMessage" : "Claves vacias o nulas"})
+    return 0;
+  }
 
-    })
-    .catch( (bd_err) => {
-      console.log(`STATUS ERROR: 500`)      
-      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+  (new Promise((resolve,reject) => {
+    if(empleado["usuarios"].length > 0) {
+      daoUsuario.validarNombreUsuario(empleado_id, empleado["usuarios"])
+      .then((resp_bd) => {
+        if(resp_bd.rowCount) {
+          mensaje = "correo ya usado por otro usuario"
+          reject("correo ya usado por otro usuario")
+        }else {
+          resolve("correos validos")
+        }
+      })
+    }else {
+      resolve("correos validos")
+    }    
+  }))
+  .then((DATA_RESPUESTA) => {
+    return daoUsuario.eliminarUsuariosEmpleado(empleado_id)
+  })
+  .then((resp_bd) => {
+    return daoEmpleado.modificar( empleado )
+  })
+  .then((resp_bd) => {
+    let empleado_id = resp_bd.rows[0].e_id_empleado
+    return new Promise((resolve,reject) => {
+      if(empleado["usuarios"].length > 0) {
+        daoEmpleado.asignarVariosUsuarios(empleado_id,empleado["usuarios"])
+        .then((resp_bd) => {
+          resolve("bien")
+        })
+      }else{
+        resolve("bien")
+      }
+    })   
+    
+  })  
+  .then( (DATA_RESPUESTA) => {
+    console.log(`STATUS OK : 200`)    
+    
+    res.status(200).json({"resp" : "Empleado modificado exitosamente"})
 
-      res.status(500).json(bd_err)
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
-    })
+    res.status(500).json({"Error":mensaje})
+
+  })
+
 });
 
 app.post('/login/usuario', (req,res) => {
@@ -926,13 +1014,13 @@ app.post('/login/usuario', (req,res) => {
   const clave = req.body.u_clave ? req.body.u_clave : ""
   
   let usuario = null
-  daoEmpleado.obtenerUsuario(correo,clave)
+  daoUsuario.obtenerUsuario(correo,clave)
   .then((resp_bd) => {
     usuario = resp_bd.rowCount === 1 ? resp_bd.rows[0] : null
     return new Promise((resolve,reject)=> {
       if (!usuario) reject("credenciales de acceso invalidas")
       else {
-        daoEmpleado.obtenerPermisos(usuario["rol_id"])
+        daoUsuario.obtenerPermisos(usuario["rol_id"])
         .then((resp_bd) => {
           usuario["permisos"] = resp_bd.rows
           resolve("bien!")
@@ -953,7 +1041,6 @@ app.post('/login/usuario', (req,res) => {
     res.status(500).json(bd_err)
 
   })
-
 
 
 })
@@ -1553,6 +1640,7 @@ import {daoInventario} from "./DAOs/daoInventario";
 import {daoHorario} from "./DAOs/daoHorario";
 import {daoEtapa} from "./DAOs/daoEtapa";
 import {daoFase} from "./DAOs/daoFase";
+import { daoUsuario } from "./DAOs/daoUsuario";
 
 app.get('/consultarLista/proyecto', (req, res) => {
   
@@ -1841,15 +1929,19 @@ app.post('/iniciar/proyecto', (req,res) => {
     comprables = resp_bd.rows
     console.log(`\n\n:Lista comprables: \n${JSON.stringify(comprables)}`)
     return new Promise((resolve, reject) => {
-      lista_compra.forEach((arti, index) => {
-        console.log(`\naqui ${index}\n`)
-        let c = comprables.find( (d) => d.mineral_id === arti.m_id_mineral )
-        console.log(`\naalla ${index}\n`)
-        if (c) console.log(`\n\n:ariculo : \n${JSON.stringify({...c,"p_cantidad": Math.ceil(arti.m_cantidad/c.p_peso)})}`)
-        if (c) lista_articulos.push({...c,"p_cantidad": Math.ceil(arti.m_cantidad/c.p_peso)})
-        else mensaje += `m_id_minera: ${arti.m_id_mineral} `
-        if (index === lista_compra.length - 1) resolve("bien")
-      })
+      if(lista_compra.length > 0){
+        lista_compra.forEach((arti, index) => {
+          console.log(`\naqui ${index}\n`)
+          let c = comprables.find( (d) => d.mineral_id === arti.m_id_mineral )
+          console.log(`\naalla ${index}\n`)
+          if (c) console.log(`\n\n:ariculo : \n${JSON.stringify({...c,"p_cantidad": Math.ceil(arti.m_cantidad/c.p_peso)})}`)
+          if (c) lista_articulos.push({...c,"p_cantidad": Math.ceil(arti.m_cantidad/c.p_peso)})
+          else mensaje += `m_id_minera: ${arti.m_id_mineral} `
+          if (index === lista_compra.length - 1) resolve("bien")
+        })
+      }else{
+        resolve("bien")
+      }        
     })
   })
   .then((DATA_RESPUESTA) =>{
@@ -1860,7 +1952,7 @@ app.post('/iniciar/proyecto', (req,res) => {
         console.log(`\n\nNO SE PUEDE REALIZAR LA SOLICITUD`)
         mensaje = `Los siguientes minerales no pueden ser comprados por falta de productos: ${mensaje}`
         reject("Hay minerales no comprables, registre producto apara continuar")
-      }else{
+      }else if (lista_articulos.length > 0) {
         daoSolicitud.insertar(proy_id)
         .then((resp_bd) => {
           return daoSolicitud.asignarVariosArticulos(resp_bd.rows[0].s_id_solicitud,lista_articulos)
@@ -1869,14 +1961,18 @@ app.post('/iniciar/proyecto', (req,res) => {
           return daoProyecto.actualizarEstado(proy_id,15)
         })
         .then((resp_bd) => {
+          mensaje = "Solitud registrada exitosamente"
           resolve("bien")
         })
+      }else {
+        mensaje = "No hubo necesidad de solicitud, hay suficientes minerales en el inventario"
+        resolve("bien")
       }
     })
   })
   .then((DATA_RESPUESTA) => {
     console.log(`STATUS OK : 200`)
-    res.status(200).json({"resp" : "Solitud registrada exitosamente"})
+    res.status(200).json({"resp" : mensaje})
   })
   .catch( (bd_err) => {
     console.log(`STATUS ERROR: 500`)      
@@ -1918,19 +2014,50 @@ app.post('/activar/proyecto', (req,res) => {
 
   let proy_id = req.body.p_id_proyecto ? req.body.p_id_proyecto : 0
   let requisitos = req.body.requisitos ? req.body.requisitos : []
-
+  let activable = true
+  let inventario = []
   if (proy_id === 0) {
     res.status(500).json({"ErrorMessage" : "id proyecto invalido o vacio"})
     return 0;
   }
   if (requisitos.length === 0){
+    daoProyecto.actualizarEstado(proy_id,8)
     res.status(200).json({"resp" : "Proyecto sin requisitos, puede avanzar de estado"})
     return 0;
   }
 
-  daoProyecto.tomarRecursos(proy_id,requisitos)
+  daoInventario.consultarRequisitos(requisitos)
   .then((resp_bd) => {
-    return daoProyecto.actualizarEstado(proy_id,8)
+    inventario = resp_bd.rows
+    console.log(`\n\n:Lista inventario: \n${JSON.stringify(inventario)}`)
+    return new Promise((resolve,reject) => {
+      requisitos.forEach((m, index) =>{
+        let n = inventario.find((s) => s.m_id_mineral === m.m_id_mineral )
+        if (!n.cantidad_actual) activable = false
+        else if (m.m_cantidad*1000 > n.cantidad_actual) activable = false
+        if (index === requisitos.length - 1) resolve("bien")
+      })
+    })    
+  })
+  .then((DATA_RESPUESTA) => {
+    return new Promise ((resolve,reject) => {
+      if (activable){
+        console.log(`\nEl proyecto es activable\n\n`)
+        daoProyecto.tomarRecursos(proy_id,requisitos)
+        .then((resp_bd) => {
+          console.log(`\nEntrndo a actualizar proyecto\n\n`)
+          return daoProyecto.actualizarEstado(proy_id,8)
+        })
+        .then((resp_bd) => {
+          resolve("bien!")
+        })
+      }else{
+        console.log(`No hay minerales suficientes en el inventario para satisfacer 
+        los requisitos del proyecto`)
+        reject(`No hay minerales suficientes en el inventario para satisfacer 
+        los requisitos del proyecto`)
+      }
+    })
   })
   .then((DATA_RESPUESTA) => {
     console.log(`STATUS OK : 200`)
@@ -1959,7 +2086,7 @@ app.post('/opcional/proyecto', (req,res) => {
   daoProyecto.actualizarEstado(proy_id,15)
   .then((DATA_RESPUESTA) => {
     console.log(`STATUS OK : 200`)
-    res.status(200).json({"resp" : "Proyecto iniciado exitosamente"})
+    res.status(200).json({"resp" : "Proyecto cerrado exitosamente"})
   })
   .catch( (bd_err) => {
     console.log(`STATUS ERROR: 500`)      
@@ -1978,8 +2105,8 @@ app.post('/activar/fase', (req,res) => {
   console.log(`/activar/fase/${req.body.f_id_fase}`)
 
   const fase_id = req.body.f_id_fase ? req.body.f_id_fase : 0
-  const inicio_fase = req.body.f_fecha_inicio ? req.body.f_fecha_inicio : null
-  const inicio_etapa = req.body.e_fecha_inicio ? req.body.e_fecha_inicio : null
+  const inicio_fase = req.body.f_fecha_inicio ? req.body.f_fecha_inicio : "error"
+  const inicio_etapa = req.body.e_fecha_inicio ? req.body.e_fecha_inicio : "error"
 
   const m = validadorGestorProyecto.validarActivarFase(inicio_etapa, inicio_fase, fase_id)
   if (m !== "") {
@@ -2013,8 +2140,8 @@ app.post('/finalizar/fase',(req,res) => {
   console.log(`/finalizar/fase/${req.body.f_id_fase}`)
 
   const fase_id = req.body.f_id_fase ? req.body.f_id_fase : 0
-  const inicio_fase = req.body.f_fecha_inicio ? req.body.f_fecha_inicio : null
-  const fin_fase = req.body.f_fecha_fin ? req.body.f_fecha_fin : null
+  const inicio_fase = req.body.f_fecha_inicio ? req.body.f_fecha_inicio : "error"
+  const fin_fase = req.body.f_fecha_fin ? req.body.f_fecha_fin : "error"
 
   const m = validadorGestorProyecto.validarFinalizarFase(inicio_fase, fin_fase, fase_id)
   if (m !== "") {
@@ -2056,8 +2183,8 @@ app.post('/activar/etapa',(req,res) => {
   console.log(`/activar/etapa/${req.body.e_id_etapa}`)
 
   const etapa_id = req.body.e_id_etapa ? req.body.e_id_etapa : 0
-  const inicio_proyecto = req.body.p_fecha_inicio ? req.body.p_fecha_inicio : null
-  const inicio_etapa = req.body.e_fecha_inicio ? req.body.e_fecha_inicio : null
+  const inicio_proyecto = req.body.p_fecha_inicio ? req.body.p_fecha_inicio : "error"
+  const inicio_etapa = req.body.e_fecha_inicio ? req.body.e_fecha_inicio : "error"
 
   const m = validadorGestorProyecto.validarActivaEtapa(inicio_proyecto, inicio_etapa, etapa_id)
   if (m !== "") {
@@ -2088,7 +2215,7 @@ app.post('/finalizar/etapa',(req,res) => {
   console.log(`----------------------> ${getAhora()}`)
   console.log(`/finalizar/etapa/${req.body.e_id_etapa}`)
 
-  let etapa_id = req.body.f_id_etapa
+  let etapa_id = req.body.e_id_etapa
   
   if (etapa_id === 0) {
     res.status(500).json({"ErrorMessage" : "id etapa invalido o vacio"})
@@ -2098,7 +2225,7 @@ app.post('/finalizar/etapa',(req,res) => {
   daoEtapa.modificarEstado(etapa_id,10)
   .then((resp_bd) => {
     console.log(`STATUS OK : 200`)
-    res.status(200).json({"resp" : "fase finalizada exitosamente"})
+    res.status(200).json({"resp" : "Etapa finalizada exitosamente"})
   })
   .catch( (bd_err) => {
     console.log(`STATUS ERROR: 500`)      

@@ -1286,13 +1286,13 @@ export class ProyectoEditar extends React.Component {
                         }
                     </div>
                 </div>
-                <div>
+                <div>{ !!permisoModificar && 
                     <GuardarCancelar
                         position="center"
                         storeData={ estado_id === 3 ? this.guardarBD : this.goProyecto}
                         success={this.goProyecto}
                         decline={this.goProyecto}
-                    />
+                    />}
                 </div> 
 
                 {this.state.goProyecto && <Redirect to="/proyecto" /> }

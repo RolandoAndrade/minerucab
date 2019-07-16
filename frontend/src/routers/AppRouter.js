@@ -57,37 +57,37 @@ const AppRouter = () => (
         {/* PAGINAS QUE CARGAN DESLOGEADO */}
         <PublicRoute path="/" component={Home} exact={true} />
         <PrivateRoute path="/dashboard" component={MainPanel} />
-        <PrivateRoute path="/cliente" component={Cliente} />
-        <PrivateRoute path="/mineral" component={Mineral} />
-        <PrivateRoute path="/empleado" component={Empleado} />
-        <PrivateRoute path="/yacimiento" component={Yacimiento} />
-        <PrivateRoute path="/proyecto" component={Proyecto} />
-        <PrivateRoute path="/solicitud" component={Solicitud} />
-        <PrivateRoute path="/yacimiento-configuracion" component={ConfiguracionYacimiento} />
-        <PrivateRoute path="/crear/cliente" component={ClienteAgregar} />
-        <PrivateRoute path="/crear/empleado" component={EmpleadoAgregar} />
-        <PrivateRoute path="/crear/mineral" component={MineralAgregar} />
-        <PrivateRoute path="/crear/yacimiento" component={YacimientoAgregar} />
-        <PrivateRoute path="/crear/yacimiento-configuracion" component={ConfiguracionYacimientoAgregar} />
-        <PrivateRoute path="/crear/proyecto" component={ProyectoAgregar} />
-        <PrivateRoute path="/editar/cliente/:id" component={ClienteEditar} />
-        <PrivateRoute path="/editar/mineral/:id" component={MineralEditar} />
-        <PrivateRoute path="/editar/empleado/:id" component={EmpleadoEditar} />
-        <PrivateRoute path="/editar/yacimiento/:id" component={YacimientoEditar} />
-        <PrivateRoute path="/editar/yacimiento-configuracion/:id" component={ConfiguracionYacimientoEditar} />
-        <PrivateRoute path="/editar/proyecto/:id" component={ProyectoEditar} />
-        <PrivateRoute path="/crear/pedido" component={CrearVenta} />
-        <PrivateRoute path="/aliado" component={Aliado} />
-        <PrivateRoute path="/pedido" component={Pedido} />
+        <PrivateRoute permisoPagina={1} path="/crear/mineral" component={MineralAgregar} />
+        <PrivateRoute permisoPagina={2} path="/mineral" component={Mineral} />
+        <PrivateRoute permisoPagina={3} path="/editar/mineral/:id" component={MineralEditar} />
+        <PrivateRoute permisoPagina={9} path="/crear/empleado" component={EmpleadoAgregar} />
+        <PrivateRoute permisoPagina={10} path="/empleado" component={Empleado} />
+        <PrivateRoute permisoPagina={11} path="/editar/empleado/:id" component={EmpleadoEditar} />
+        <PrivateRoute permisoPagina={17} path="/crear/pedido" component={CrearVenta} />
+        <PrivateRoute permisoPagina={18} path="/pedido" component={Pedido} />
+        <PrivateRoute permisoPagina={21} path="/crear/cliente" component={ClienteAgregar} />
+        <PrivateRoute permisoPagina={22} path="/cliente" component={Cliente} />
+        <PrivateRoute permisoPagina={23} path="/editar/cliente/:id" component={ClienteEditar} />
+        <PrivateRoute permisoPagina={25} path="/crear/proyecto" component={ProyectoAgregar} />
+        <PrivateRoute permisoPagina={26} path="/proyecto" component={Proyecto} />
+        <PrivateRoute permisoPagina={27} path="/editar/proyecto/:id" component={ProyectoEditar} />
+        <PrivateRoute permisoPagina={29} path="/crear/yacimiento" component={YacimientoAgregar} />
+        <PrivateRoute permisoPagina={30} path="/yacimiento" component={Yacimiento} />
+        <PrivateRoute permisoPagina={31} path="/editar/yacimiento/:id" component={YacimientoEditar} />
+        <PrivateRoute permisoPagina={34} path="/solicitud" component={Solicitud} />
+        <PrivateRoute permisoPagina={42} path="/aliado" component={Aliado} />
+        <PrivateRoute permisoPagina={45} path="/crear/yacimiento-configuracion" component={ConfiguracionYacimientoAgregar} />
+        <PrivateRoute permisoPagina={46} path="/yacimiento-configuracion" component={ConfiguracionYacimiento} />
+        <PrivateRoute permisoPagina={47} path="/editar/yacimiento-configuracion/:id" component={ConfiguracionYacimientoEditar} />
 
-        <PrivateRoute path="/horario" component={Horario} />
-        <PrivateRoute path="/crear/horario" component={AgregarHorario} />
-        <PrivateRoute path="/editar/horario/:id" component={EditarHorario} />
-        <PrivateRoute path="/pago/:id" component={Pagos} />
-        <PrivateRoute path="/factura/:id" component={Facturita} />
+        <PrivateRoute permisoPagina={53} path="/crear/horario" component={AgregarHorario} />
+        <PrivateRoute permisoPagina={54} path="/horario" component={Horario} />
+        <PrivateRoute permisoPagina={55} path="/editar/horario/:id" component={EditarHorario} />
+        <PrivateRoute permisoPagina={18} path="/pago/:id" component={Pagos} />
+        <PrivateRoute permisoPagina={18} path="/factura/:id" component={Facturita} />
         
 
-        <PrivateRoute path="/inventario" component={InventarioMovs} />
+        <PrivateRoute permisoPagina={38} path="/inventario" component={InventarioMovs} />
         {/* 
           PAGINAS QUE CARGAN LOGEADOS 
           <PrivateRoute path="/dashboard" component={Dashboard} />

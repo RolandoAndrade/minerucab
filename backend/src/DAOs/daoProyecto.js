@@ -84,7 +84,7 @@ const daoProyecto  = {
 
     actualizarEstado(proyecto_id,estado_id) {
         let query = `
-        UPDATE FROM PROYECTO
+        UPDATE PROYECTO
         SET estado_id = ${estado_id}
         WHERE p_id_proyecto = ${proyecto_id};`
         console.log(`\nActualizar Estado Proyecto:\n${query}`)
@@ -98,7 +98,7 @@ const daoProyecto  = {
         let i = 0
         requisitos.forEach((a) => {
             i++
-            query += `(DEFAULT,${a.m_cantidad*1000},FALSE,now(),${a.mineral_id},6,${proyecto_id},NULL,NULL)${i < articulos.length ? ',' : ';' }`
+            query += `(DEFAULT,${a.m_cantidad*1000},FALSE,now(),${a.mineral_id},6,${proyecto_id},NULL,NULL)${i < requisitos.length ? ',' : ';' }`
         })
         console.log(`\nTomar Recursos:\n${query}`)
         return psql.query(query) 

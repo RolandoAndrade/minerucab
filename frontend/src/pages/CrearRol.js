@@ -72,8 +72,8 @@ export class CrearRol extends React.Component {
     }
 
     handleGuardar = () => {
-        console.log(`----> localhost:4000/editar/rol`)
-        return axios.post('http://127.0.0.1:4000/editar/rol', this.state)
+        console.log(`----> localhost:4000/insertar/rol`)
+        return axios.post('http://127.0.0.1:4000/insertar/rol', this.state)
     }
 
     handleChange = (target) => {

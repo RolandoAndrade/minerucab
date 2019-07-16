@@ -5,6 +5,7 @@ import {Redirect} from 'react-router-dom';
 import {Modal, Button} from 'react-bootstrap';
 import MaterialTable from 'material-table';
 
+import { tengoPermiso } from "../utils/tengoPermiso";
 import {cleanerPedido, cleanerYacimiento} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
 import Swal from "sweetalert2";
@@ -370,17 +371,23 @@ export class Pedido extends React.Component {
 
                     <Modal.Footer className="mc-footer">
                         {this.state.consultarPedido.e_nombre=="no pagado"?
-                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handlePagar}>
+                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handlePagar}
+                            disabled={ !tengoPermiso(19) }
+                        >
                             Pagar
                         </Button>
                         :""}
                         {this.state.consultarPedido.e_nombre=="iniciado"?
-                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleAsignar}>
+                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleAsignar}
+                            disabled={ !tengoPermiso(19) }
+                        >
                             Dar recursos
                         </Button>
                         :""}
                         {this.state.consultarPedido.e_nombre=="pagado"?
-                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleEntregar}>
+                        <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleEntregar}
+                            disabled={ !tengoPermiso(19) }
+                        >
                             Entregar
                         </Button>
                         :""}
@@ -389,7 +396,9 @@ export class Pedido extends React.Component {
                             Ver factura
                         </Button>
                         :""}
-                        <Button variant="danger" className="mc-boton" onClick={this.handleEliminar}>
+                        <Button variant="danger" className="mc-boton" onClick={this.handleEliminar}
+                            disabled={ !tengoPermiso(20) }
+                        >
                             Eliminar
                         </Button>
                     </Modal.Footer>

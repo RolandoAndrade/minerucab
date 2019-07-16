@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d7ce102b-bdc5-4fc4-9682-e82a04b1e4dc" name="Default Changelist" comment="Recuperar información de horario" />
+    <list default="true" id="d7ce102b-bdc5-4fc4-9682-e82a04b1e4dc" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,95 +34,73 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoHorario.js">
+        <entry file="file://$PROJECT_DIR$/queries/entrega/DROP_db.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="45" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="45" />
+            <state relative-caret-position="1275">
+              <caret line="85" column="26" selection-start-line="85" selection-start-column="25" selection-end-line="85" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/components/Scheduler.js">
+        <entry file="file://$PROJECT_DIR$/queries/entrega/INSERT_db.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+            <state relative-caret-position="141705">
+              <caret line="9447" column="17" selection-start-line="9447" selection-end-line="12633" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoPediEsta.js">
+        <entry file="file://$PROJECT_DIR$/queries/entrega/DELETE.SQL">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="56" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="56" />
+            <state>
+              <caret selection-end-column="31" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoProyecto.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoTipoYacimiento.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/src/API.js">
+        <entry file="file://$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23970">
-              <caret line="1617" column="8" selection-start-line="1617" selection-start-column="8" selection-end-line="1617" selection-end-column="8" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state relative-caret-position="90">
+              <caret line="6" column="22" lean-forward="true" selection-end-line="17" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/pages/CrearVenta.js">
+        <entry file="file://$PROJECT_DIR$/queries/entrega/UPDATES.SQL">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1305">
-              <caret line="96" column="6" selection-start-line="96" selection-start-column="6" selection-end-line="96" selection-end-column="6" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
+            <state>
+              <caret selection-end-line="8" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/pages/EditarHorario.js">
+        <entry file="file://$PROJECT_DIR$/queries/entrega/CREATE_db.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="705">
-              <caret line="55" column="17" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="5670">
+              <caret line="378" column="45" selection-start-line="370" selection-start-column="4" selection-end-line="370" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/queries/entrega/FOREIGN_db.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2340">
+              <caret line="156" column="21" selection-start-line="156" selection-start-column="21" selection-end-line="156" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/frontend/src/utils/cleaner.js">
+        <entry file="file://$PROJECT_DIR$/queries/entrega/REPORTES.SQL">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="672">
-              <caret line="267" column="20" selection-start-line="267" selection-start-column="20" selection-end-line="267" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/routers/AppRouter.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="80" column="12" selection-start-line="80" selection-start-column="12" selection-end-line="80" selection-end-column="12" />
-              <folding>
-                <element signature="e#339#374#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="486">
+              <caret line="147" column="34" selection-start-line="147" selection-start-column="34" selection-end-line="147" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -138,28 +116,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cantidad</find>
-      <find>Compa</find>
-      <find>componentDidMount</find>
-      <find>cleaner</find>
-      <find>CREATE</find>
-      <find>;</find>
-      <find>PRESEN</find>
-      <find>PRODU</find>
-      <find>Loader</find>
-      <find>PRODUCTO</find>
-      <find>unidad</find>
-      <find>tonelada</find>
-      <find>pedi_pro</find>
-      <find>produc</find>
-      <find>monetaria</find>
-      <find>pedi_esta</find>
-      <find>estado</find>
-      <find>e_id</find>
-      <find>pedi_es</find>
       <find>horario</find>
       <find>proyec</find>
       <find>consultar</find>
+      <find>compania_id</find>
+      <find>ETAPA</find>
+      <find>PROYEC</find>
+      <find>EMPL</find>
+      <find>proyecto_id</find>
+      <find>null</find>
+      <find>06</find>
+      <find>generado</find>
+      <find>generador.js</find>
+      <find>02-30</find>
+      <find>maqu</find>
+      <find>gast</find>
+      <find>gasto</find>
+      <find>etapa</find>
+      <find>pedido_id</find>
+      <find>cliente_id</find>
+      <find>e_no</find>
+      <find>pedido</find>
+      <find>pedi_tipo</find>
+      <find>pedi_prod</find>
+      <find>P_ID_PROYEC</find>
+      <find>f_id_fase_confi</find>
+      <find>fase</find>
+      <find>EMPLEADO</find>
+      <find>p_id_proyec</find>
+      <find>DEFAULT</find>
+      <find>fase_empl</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -171,13 +157,11 @@
       <list>
         <option value="$PROJECT_DIR$/frontend/package.json" />
         <option value="$PROJECT_DIR$/queries/playground/MINERAL.sql" />
-        <option value="$PROJECT_DIR$/queries/entrega/INSERT_db.sql" />
         <option value="$PROJECT_DIR$/frontend/src/components/Dropdown.js" />
         <option value="$PROJECT_DIR$/frontend/src/styles/components/_Labels.scss" />
         <option value="$PROJECT_DIR$/frontend/src/components/InputText.js" />
         <option value="$PROJECT_DIR$/frontend/src/pages/EmpleadoAgregar.js" />
         <option value="$PROJECT_DIR$/frontend/src/styles/components/_Containers.scss" />
-        <option value="$PROJECT_DIR$/queries/entrega/DROP_db.sql" />
         <option value="$PROJECT_DIR$/frontend/src/styles/components/_LoadingSpinner.scss" />
         <option value="$PROJECT_DIR$/queries/playground/CLIENTE.sql" />
         <option value="$PROJECT_DIR$/frontend/src/styles/components/_HeaderHome.scss" />
@@ -194,7 +178,6 @@
         <option value="$PROJECT_DIR$/frontend/src/pages/EmpleadoEditar.js" />
         <option value="$PROJECT_DIR$/backend/src/DAOs/daoJornada.js" />
         <option value="$PROJECT_DIR$/backend/src/DAOs/daoHorario.js" />
-        <option value="$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL" />
         <option value="$PROJECT_DIR$/frontend/src/components/DashBoardSimple.js" />
         <option value="$PROJECT_DIR$/frontend/src/pages/AgregarHorario.js" />
         <option value="$PROJECT_DIR$/frontend/src/components/Scheduler.js" />
@@ -203,6 +186,13 @@
         <option value="$PROJECT_DIR$/frontend/src/routers/AppRouter.js" />
         <option value="$PROJECT_DIR$/backend/src/DAOs/daoInventario.js" />
         <option value="$PROJECT_DIR$/frontend/src/utils/cleaner.js" />
+        <option value="$PROJECT_DIR$/queries/entrega/DROP_db.sql" />
+        <option value="$PROJECT_DIR$/backend/src/reportes.js" />
+        <option value="$PROJECT_DIR$/queries/entrega/DELETE.SQL" />
+        <option value="$PROJECT_DIR$/queries/entrega/INSERT_db.sql" />
+        <option value="$PROJECT_DIR$/queries/entrega/UPDATES.SQL" />
+        <option value="$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL" />
+        <option value="$PROJECT_DIR$/queries/entrega/REPORTES.SQL" />
       </list>
     </option>
   </component>
@@ -211,15 +201,6 @@
       <expand />
       <select />
     </treeState>
-  </component>
-  <component name="ProjectConfigurationFiles">
-    <option name="files">
-      <list>
-        <option value="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" />
-        <option value="$PROJECT_DIR$/.idea/sqldialects.xml" />
-        <option value="$PROJECT_DIR$/.idea/dataSources.xml" />
-      </list>
-    </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-2" />
@@ -233,6 +214,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -250,13 +232,6 @@
               <item name="ProyectoBD1" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProyectoBD1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProyectoBD1" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="DAOs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ProyectoBD1" type="b2602c69:ProjectViewProjectNode" />
@@ -292,17 +267,10 @@
               <item name="queries" type="462c0819:PsiDirectoryNode" />
               <item name="entrega" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="ProyectoBD1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProyectoBD1" type="462c0819:PsiDirectoryNode" />
-              <item name="queries" type="462c0819:PsiDirectoryNode" />
-              <item name="playground" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -311,7 +279,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="database.console.LAST_STATE" value="false" />
+    <property name="database.console.LAST_STATE" value="true" />
     <property name="database.data.extractors.current.id" value="Tab-separated (TSV)_id" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="database.main" />
@@ -379,90 +347,13 @@
       <workItem from="1561954157678" duration="68000" />
       <workItem from="1561962316440" duration="195000" />
       <workItem from="1561970201449" duration="77000" />
-    </task>
-    <task id="LOCAL-00001" summary="Algunos cambios para probar mineral">
-      <created>1561391607209</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1561391607209</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Dropdown con rellenado automático">
-      <created>1561394170869</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1561394170869</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Vista general solicitud">
-      <created>1561397571598</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1561397571606</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Añadir mineral">
-      <created>1561399789661</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1561399789667</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Color gris input autorrellenado">
-      <created>1561401037920</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1561401037920</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Identificar y remover los propios">
-      <created>1561404393741</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1561404393741</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Arreglado fallo de overlaping de Dropdowns">
-      <created>1561405822348</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1561405822348</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Funcionalidad">
-      <created>1561407970950</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1561407970951</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Consultar mineral dropdown">
-      <created>1561414778666</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1561414778666</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Consultar mineral dropdown">
-      <created>1561415220714</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1561415220714</updated>
-    </task>
-    <task id="LOCAL-00011" summary="DROPS PARA MI">
-      <created>1561417756513</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1561417756514</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Llenar dropdown de cliente">
-      <created>1561419619799</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1561419619799</updated>
+      <workItem from="1562334720112" duration="8362000" />
+      <workItem from="1562345644847" duration="17756000" />
+      <workItem from="1562370947682" duration="595000" />
+      <workItem from="1562523377352" duration="10056000" />
+      <workItem from="1563049768435" duration="17714000" />
+      <workItem from="1563217133825" duration="11044000" />
+      <workItem from="1563231775178" duration="518000" />
     </task>
     <task id="LOCAL-00013" summary="Dao pedido">
       <created>1561422987231</created>
@@ -681,11 +572,137 @@
       <option name="project" value="LOCAL" />
       <updated>1561927935212</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Añadido jasper reports">
+      <created>1562336123958</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1562336123958</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Empresa aliada a la que se le realizaron más compras">
+      <created>1562340004183</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1562340004183</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Fases que presentan retrasos">
+      <created>1562361609096</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1562361609096</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Por ahora proyectos con su costo">
+      <created>1562367928832</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1562367928832</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Empleados disponibles">
+      <created>1562525296037</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1562525296038</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Tipo de pago preferido">
+      <created>1562546160994</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1562546161003</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Proyecto más costoso por mes">
+      <created>1563054476187</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1563054476202</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Tipo de pago preferido">
+      <created>1563056279829</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1563056279829</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Top 10 mejores clientes">
+      <created>1563056801987</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1563056801988</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Listado de etapas y fases del proyecto">
+      <created>1563057561940</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1563057561941</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Empleados disponibles por periodo de tiempo">
+      <created>1563062241940</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1563062241940</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Presentación más solicitada por año">
+      <created>1563065308633</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1563065308647</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Intento de 9">
+      <created>1563067430134</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1563067430134</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Inserts">
+      <created>1563223353717</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1563223353720</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Maquinaria mas utilizada en los proyectos por período de tiempo.">
+      <created>1563223575855</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1563223575855</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Fases que presentan retrasos">
+      <created>1563224483642</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1563224483642</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Listado de empleados que han participado mas de 2 veces en proyectos en el mismo mes, indicando el total de participación, el proyecto y el mes. Se debe realizar la consulta por período de tiempo.">
+      <created>1563227669273</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1563227669273</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Arreglado error en presentacion">
+      <created>1563232287295</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1563232287296</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65966000" />
+    <option name="totallyTimeSpent" value="132011000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -699,7 +716,7 @@
   <component name="ToolWindowManager">
     <frame x="-2" y="-2" width="1444" height="872" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28898427" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3190272" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -718,8 +735,8 @@
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32977304" />
       <window_info anchor="bottom" id="Database Changes" order="10" weight="0.32977304" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32977304" />
-      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
-      <window_info anchor="bottom" id="Database Console" order="13" weight="0.32977304" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5007153" side_tool="true" weight="0.25367156" />
+      <window_info active="true" anchor="bottom" id="Database Console" order="13" sideWeight="0.49928468" visible="true" weight="0.24432577" />
       <window_info anchor="bottom" id="Messages" order="14" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -729,7 +746,7 @@
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info anchor="right" id="Maven" order="7" weight="0.3297568" />
-      <window_info anchor="right" id="Database" order="8" />
+      <window_info anchor="right" id="Database" order="8" weight="0.3297568" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -746,22 +763,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Arreglo, amarillo más oscuro" />
-    <MESSAGE value="Arreglo, secciones menú" />
-    <MESSAGE value="API producto" />
-    <MESSAGE value="Presentación correspondiente al mineral seleccionado" />
-    <MESSAGE value="Recuperar el pedido insertado" />
-    <MESSAGE value="Crear pediprod al insertar pedido" />
-    <MESSAGE value="Crear pediesta en request" />
-    <MESSAGE value="Cosultar todos dao Pedido" />
-    <MESSAGE value="Consultar pedido" />
-    <MESSAGE value="Añadida ruta a pedido" />
-    <MESSAGE value="Mostrar tabla de pedidos" />
-    <MESSAGE value="Dao Inventario" />
-    <MESSAGE value="API inventario" />
-    <MESSAGE value="Empiezo con horarios" />
-    <MESSAGE value="Añadir horarios a lista" />
-    <MESSAGE value="Unir jornadas en el mismo día" />
     <MESSAGE value="Detalle al seleccionar bloques lejanos" />
     <MESSAGE value="Recuperar datos de horario" />
     <MESSAGE value="Insertar horario" />
@@ -771,91 +772,25 @@
     <MESSAGE value="Ids para rellenar horario" />
     <MESSAGE value="Recuperar información de horario" />
     <MESSAGE value="Merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge" />
+    <MESSAGE value="Añadido jasper reports" />
+    <MESSAGE value="Empresa aliada a la que se le realizaron más compras" />
+    <MESSAGE value="Por ahora proyectos con su costo" />
+    <MESSAGE value="Empleados disponibles" />
+    <MESSAGE value="Proyecto más costoso por mes" />
+    <MESSAGE value="Tipo de pago preferido" />
+    <MESSAGE value="Top 10 mejores clientes" />
+    <MESSAGE value="Listado de etapas y fases del proyecto" />
+    <MESSAGE value="Empleados disponibles por periodo de tiempo" />
+    <MESSAGE value="Presentación más solicitada por año" />
+    <MESSAGE value="Intento de 9" />
+    <MESSAGE value="Inserts" />
+    <MESSAGE value="Maquinaria mas utilizada en los proyectos por período de tiempo." />
+    <MESSAGE value="Fases que presentan retrasos" />
+    <MESSAGE value="Listado de empleados que han participado mas de 2 veces en proyectos en el mismo mes, indicando el total de participación, el proyecto y el mes. Se debe realizar la consulta por período de tiempo." />
+    <MESSAGE value="Arreglado error en presentacion" />
+    <option name="LAST_COMMIT_MESSAGE" value="Arreglado error en presentacion" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/MainDashBoard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoCargo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/pages/Mineral.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-300">
-          <caret line="7" column="17" lean-forward="true" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/Dropdown.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="55" column="20" lean-forward="true" selection-start-line="55" selection-start-column="20" selection-end-line="55" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/queries/playground/PROYECTO.sql">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/queries/entrega/FOREIGN_db.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-210">
-          <caret line="152" selection-start-line="152" selection-end-line="152" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/queries/playground/CLIENTE.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="37" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/queries/playground/MINERAL.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoEmpleado.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-180" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/queries/entrega/INSERT_db.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22785">
-          <caret line="1519" column="24" selection-start-line="1519" selection-start-column="20" selection-end-line="1519" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoInventario.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="49" selection-start-line="19" selection-start-column="49" selection-end-line="19" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/pages/Proyecto.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/pages/MineralAgregar.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-945">
@@ -902,13 +837,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="17" selection-start-line="1" selection-end-line="5" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/queries/entrega/CREATE_db.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3765">
-          <caret line="251" column="10" selection-start-line="251" selection-start-column="4" selection-end-line="251" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -981,13 +909,6 @@
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" selection-start-line="24" selection-end-line="24" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -1108,16 +1029,6 @@
     <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoTipoYacimiento.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/src/API.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23970">
-          <caret line="1617" column="8" selection-start-line="1617" selection-start-column="8" selection-end-line="1617" selection-end-column="8" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/pages/CrearVenta.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1305">
@@ -1140,8 +1051,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/routers/AppRouter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="80" column="12" selection-start-line="80" selection-start-column="12" selection-end-line="80" selection-end-column="12" />
+        <state relative-caret-position="720">
+          <caret line="86" column="12" selection-start-line="86" selection-start-column="12" selection-end-line="86" selection-end-column="12" />
           <folding>
             <element signature="e#339#374#0" expanded="true" />
           </folding>
@@ -1150,8 +1061,98 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/utils/cleaner.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="267" column="20" selection-start-line="267" selection-start-column="20" selection-end-line="267" selection-end-column="20" />
+        <state relative-caret-position="582">
+          <caret line="308" column="20" selection-start-line="308" selection-start-column="20" selection-end-line="308" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/package.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queries/playground/CLIENTE.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="37" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queries/playground/MINERAL.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/src/API.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26340">
+          <caret line="1765" column="8" selection-start-line="1765" selection-start-column="8" selection-end-line="1765" selection-end-column="8" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/src/reportes.js" />
+    <entry file="file://$PROJECT_DIR$/backend/src/index.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="das://0ecd0efa-84fc-4c89-abc9-5233d674a220/database/miner_ucab/schema/public/table/empleado.sql">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queries/entrega/DROP_db.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1275">
+          <caret line="85" column="26" selection-start-line="85" selection-start-column="25" selection-end-line="85" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queries/entrega/INSERT_db.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141705">
+          <caret line="9447" column="17" selection-start-line="9447" selection-end-line="12633" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queries/entrega/DELETE.SQL">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queries/entrega/UPDATES.SQL">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="8" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queries/entrega/CREATE_db.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5670">
+          <caret line="378" column="45" selection-start-line="370" selection-start-column="4" selection-end-line="370" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queries/entrega/FOREIGN_db.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2340">
+          <caret line="156" column="21" selection-start-line="156" selection-start-column="21" selection-end-line="156" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="22" lean-forward="true" selection-end-line="17" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queries/entrega/REPORTES.SQL">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="147" column="34" selection-start-line="147" selection-start-column="34" selection-end-line="147" selection-end-column="34" />
         </state>
       </provider>
     </entry>

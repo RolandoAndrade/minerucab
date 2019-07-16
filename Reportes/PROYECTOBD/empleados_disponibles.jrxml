@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="empleados_disponibles" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a54e21-db75-4563-8207-a40c51922ab7">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/Reportes/empleados_disponibles"/>
+	<parameter name="fecha_inicio" class="java.sql.Date">
+		<defaultValueExpression><![CDATA[NOW()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha_fin" class="java.sql.Date">
+		<defaultValueExpression><![CDATA[NOW()]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT e_nombre "Nombre",e_segundo_nombre "Segundo Nombre", e_apellido "Apellido", e_segundo_apellido "Segundo Apellido"
+FROM EMPLEADO
+WHERE e_id_empleado NOT IN (SELECT empleado_id
+                            FROM FASE_EMPL, FASE
+                            WHERE fase_id = f_id_fase AND
+                                ((f_fecha_inicio BETWEEN $P{fecha_inicio} AND $P{fecha_fin}) OR
+                                 (f_fecha_fin BETWEEN $P{fecha_inicio} AND $P{fecha_fin})))]]>
+	</queryString>
+	<field name="Nombre" class="java.lang.String"/>
+	<field name="Segundo Nombre" class="java.lang.String"/>
+	<field name="Apellido" class="java.lang.String"/>
+	<field name="Segundo Apellido" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="0" y="0" width="555" height="79" forecolor="#FFFFFF" backcolor="#1E2547" uuid="4c2d323a-55a7-4494-baa8-9b93195a9e8e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA["LISTA DE EMPLEADOS DISPONIBLES PARA PROYECTOS ENTRE "+DATEFORMAT($P{fecha_inicio},"dd-MM-yyyy")+" Y "+DATEFORMAT($P{fecha_fin},"dd-MM-yyyy")]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="141" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="6a3c05e2-3901-47fe-ae00-6d60f3995479"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="141" y="0" width="138" height="30" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="a8bb800a-f7dd-4cc0-af55-e3685feb0fdb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Segundo Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="279" y="0" width="138" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="59d11b27-08bd-46c4-9d73-a1b0dcba6d64"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="417" y="0" width="138" height="30" forecolor="#FFFFFF" backcolor="#26C2FF" uuid="ab3b0309-eb4c-4414-934e-b9c3d7b0c997"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Segundo Apellido]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="1" width="141" height="30" backcolor="#E8E8E8" uuid="11c4e13d-3b5b-4e46-bcb0-cec092775d9d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="141" y="1" width="138" height="30" backcolor="#F7F7F7" uuid="c080b5c8-73b6-4f9c-aa50-032311ffd38a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Segundo Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="279" y="1" width="138" height="30" backcolor="#E8E8E8" uuid="a022f875-b3ab-420f-8d0f-131cbfd41b92"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="417" y="1" width="138" height="30" backcolor="#F7F7F7" uuid="aa2908ac-43e5-4c89-98cc-1662db7e9e7b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Segundo Apellido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="277" y="15" width="275" height="25" forecolor="#F5F5F5" backcolor="#FBCC00" uuid="078ce646-b5b6-4606-8fea-d1b8dd6659b9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[NOW( )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="15" width="276" height="25" forecolor="#FFFFFF" backcolor="#0C5242" uuid="96496ab5-d41b-41e5-b16e-d92f2e366ea0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha de generación de reporte]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

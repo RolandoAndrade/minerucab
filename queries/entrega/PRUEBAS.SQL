@@ -1,30 +1,35 @@
-SELECT * FROM pedi_prod;
+SELECT P.cliente_id "Codigo de cliente",
+       c_nombre "Nombre", c_rif "RIF", p_nombre "Nombre del producto", WW.cantidad,
+       EXTRACT(YEAR FROM p_fecha_solicitud)
+FROM PEDIDO P, CLIENTE, PEDI_PROD, PRODUCTO, (SELECT cliente_id, anio, MAX(cantidad) cantidad
+                                              FROM (SELECT producto_id, cliente_id,
+                                                           EXTRACT(YEAR FROM p_fecha_solicitud) anio,
+                                                           SUM(p_cantidad) cantidad
+                                                    FROM pedi_prod, pedido
+                                                    WHERE pedido_id = p_id_pedido
+                                                    GROUP BY anio, producto_id, cliente_id) X
+                                              GROUP BY anio, cliente_id) WW
+WHERE pedido_id = p_id_pedido AND
+        P.cliente_id = c_id_cliente AND
+        P.cliente_id = WW.cliente_id AND
+        producto_id = p_id_producto AND
+        EXTRACT(YEAR FROM p_fecha_solicitud) = WW.anio
+GROUP BY P.cliente_id, c_nombre, c_rif, p_nombre, WW.cantidad, EXTRACT(YEAR FROM p_fecha_solicitud)
+HAVING cantidad = SUM(p_cantidad)
 
-SELECT * FROM pedi_esta
-
-SELECT PE.p_id_pedido, PE.p_fecha_solicitud, C.c_nombre , PO.p_nombre,
-       PEPO.p_cantidad, PEPO.p_precio_unitario,
-       (PEPO.p_cantidad*PEPO.p_precio_unitario*1.16) total, EN.e_nombre
-FROM PEDIDO PE, PEDI_PROD PEPO, PRODUCTO PO, CLIENTE C, (SELECT e_nombre, M.pedido_id
-                                                         FROM ESTADO, PEDI_ESTA, (SELECT MAX(p_id_pedi_esta) q, pedido_id
-                                                                                  FROM PEDI_ESTA, ESTADO
-                                                                                  WHERE estado_id=e_id_estado
-                                                                                      GROUP BY pedido_id) M
-                                                         WHERE
-                                                                 p_id_pedi_esta=M.q AND
-                                                                 estado_id=e_id_estado) EN
-WHERE PE.p_id_pedido = PEPO.pedido_id AND
-        EN.pedido_id=PE.p_id_pedido AND
-        PO.p_id_producto = PEPO.producto_id AND
-        C.c_id_cliente = PE.cliente_id;
-
-SELECT p_id_pedi_esta, e_nombre, pedido_id
-FROM PEDI_ESTA, ESTADO
-WHERE estado_id=e_id_estado
-
-select * from INVENTARIO
+SELECT cliente_id, anio, MAX(cantidad) cantidad
+FROM (SELECT producto_id, cliente_id,
+             EXTRACT(YEAR FROM p_fecha_solicitud) anio,
+             SUM(p_cantidad) cantidad
+      FROM pedi_prod, pedido
+      WHERE pedido_id = p_id_pedido
+      GROUP BY anio, producto_id, cliente_id) X
+GROUP BY anio, cliente_id
 
 
-SELECT SUM(i_cantidad) FROM INVENTARIO
-WHERE mineral_id = 10 AND
-        i_ingresado = TRUE
+SELECT producto_id, cliente_id,
+       EXTRACT(YEAR FROM p_fecha_solicitud) anio,
+       SUM(p_cantidad) cantidad
+FROM pedi_prod, pedido
+WHERE pedido_id = p_id_pedido
+GROUP BY anio, producto_id, cliente_id

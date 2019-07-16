@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="aliados_mas_compras" pageWidth="595" pageHeight="400" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f9275f4a-8ae9-496c-b7eb-94406b3f3af2">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT c_id_compania "Código de la empresa", c_rif "RIF", c_nombre "Nombre de la empresa",
+       c_nacionalizado "¿Está nacionalizada?", c_fecha_nacional "Fecha de nacionalización",
+       c_fecha_apertura "Fecha de inauguración", c_capacidad_maxima_anual "Producción anual",
+       u_nombre "Unidad de producción", E.l_nombre "Estado" , M.l_nombre "Municipio",P.l_nombre "Parroquia",
+       compras "Compras realizadas"
+FROM
+    COMPANIA C, UNIDAD, LUGAR P, LUGAR M, LUGAR E,
+    (SELECT compania_id compania, COUNT(*) compras
+     FROM PROD_COMP
+     GROUP BY compania_id
+     HAVING COUNT(*) =
+            (SELECT MAX(compras)
+             FROM    (SELECT compania_id, COUNT(*) compras
+                      FROM PROD_COMP
+                      GROUP BY compania_id) q
+            )) Q
+WHERE c_id_compania = compania AND
+        unidad_id = u_id_unidad AND
+        C.lugar_id = P.l_id_lugar AND
+        P.lugar_id = M.l_id_lugar AND
+        M.lugar_id = E.l_id_lugar;]]>
+	</queryString>
+	<field name="Código de la empresa" class="java.lang.Integer"/>
+	<field name="RIF" class="java.lang.String"/>
+	<field name="Nombre de la empresa" class="java.lang.String"/>
+	<field name="¿Está nacionalizada?" class="java.lang.Boolean"/>
+	<field name="Fecha de nacionalización" class="java.sql.Date"/>
+	<field name="Fecha de inauguración" class="java.sql.Date"/>
+	<field name="Producción anual" class="java.math.BigDecimal"/>
+	<field name="Unidad de producción" class="java.lang.String"/>
+	<field name="Estado" class="java.lang.String"/>
+	<field name="Municipio" class="java.lang.String"/>
+	<field name="Parroquia" class="java.lang.String"/>
+	<field name="Compras realizadas" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="554" height="79" forecolor="#FFFFFF" backcolor="#1E2547" uuid="d7f20c44-eb2e-4604-a0a0-1ec84c45e790"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[EMPRESA ALIADA A LA QUE SE REALIZARON MÁS COMPRAS.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="157" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="125" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="50b15851-392c-413b-970d-e1ad4ed1c750"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Código de la empresa:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="32" width="125" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="3973021f-8267-415f-bcd9-9bccdeaa1d2e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[RIF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="277" y="32" width="130" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="67d14474-05f7-46e1-98be-a8e4c296b3bb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha de inauguración]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="125" y="0" width="149" height="30" forecolor="#000000" backcolor="#E8E8E8" uuid="d30a55d9-f335-453f-815b-bbd2f8f95e00"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Código de la empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="125" y="32" width="149" height="30" backcolor="#E8E8E8" uuid="270b94ec-c64a-4b32-94d3-a2742f82c56e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{RIF}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="407" y="0" width="149" height="30" forecolor="#000000" backcolor="#E8E8E8" uuid="af6817cf-05a8-4530-ad8c-384a68d983c4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Nombre de la empresa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="277" y="0" width="130" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="5726579f-1e01-426b-b876-4a17d985d6e5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre de la empresa:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="407" y="32" width="149" height="28" backcolor="#E8E8E8" uuid="8a058c68-1122-44b7-84a8-3b6605f52db7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[DATEFORMAT($F{Fecha de inauguración},"dd-MM-yy")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="64" width="125" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="975cd528-206e-486d-ad85-5497c30ae456"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[¿Está nacionalizada?]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="125" y="64" width="149" height="30" backcolor="#E8E8E8" uuid="278e41a3-b9bc-4d11-82ad-a4fbe536b67f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{¿Está nacionalizada?}?"Sí":"No"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="277" y="65" width="130" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="da3a031d-09ac-4974-b694-f43f3ee88462"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Fecha de nacionalización:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="407" y="65" width="149" height="30" forecolor="#000000" backcolor="#E8E8E8" uuid="2e66d6d4-3aa0-405a-9548-972d50fa88eb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[DATEFORMAT($F{Fecha de nacionalización},"dd-MM-YY")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="97" width="125" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="789abd3f-e11c-465b-9854-7b635f67c3e1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Producción anual:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="125" y="97" width="149" height="30" backcolor="#E8E8E8" uuid="c71ae090-2322-4403-adbc-8cc378961310"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Producción anual}+" "+$F{Unidad de producción}+"s"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="277" y="98" width="130" height="30" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="a10f32b4-cec7-4469-94ca-bedb62feed65"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Compras realizadas:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="407" y="98" width="149" height="30" forecolor="#000000" backcolor="#E8E8E8" uuid="df45d188-6761-46d0-937d-227b5e190aa0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Compras realizadas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="132" width="125" height="25" forecolor="#FFFFFF" backcolor="#1CA1CD" uuid="4658dd38-ffd4-40dd-9004-df89de8088c5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Dirección:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="125" y="132" width="431" height="25" forecolor="#000000" backcolor="#E8E8E8" uuid="8572c317-7092-4ee8-bbf7-1a273e67364d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Estado "+$F{Estado}+", municipio "+$F{Municipio}+", parroquia "+$F{Parroquia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="89" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="29" width="276" height="25" forecolor="#FFFFFF" backcolor="#0C5242" uuid="c201a3c8-b820-4656-bfb9-8aba67f686d1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha de generación de reporte]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="277" y="29" width="275" height="25" forecolor="#F5F5F5" backcolor="#FBCC00" uuid="4ace8d9e-8447-4910-8523-11c12815a710"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[NOW( )]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

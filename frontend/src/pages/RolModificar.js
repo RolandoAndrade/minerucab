@@ -6,12 +6,13 @@ import {MenuDashBoard} from "../components/MenuDashBoard";
 import {InputText} from "../components/InputText";
 import {GuardarCancelar} from "../components/GuardarCancelar";
 
-export class CrearRol extends React.Component {
+export class RolModificar extends React.Component {
     constructor(props){
         super(props);
 
         this.state = {
             r_nombre: "",
+            loaded: false,
             permisos: {
                 crear_mineral: false,
                 consultar_mineral: false,
@@ -68,7 +69,33 @@ export class CrearRol extends React.Component {
     }
 
     componentDidMount = () => {
+        const id = parseInt(this.props.location.pathname.split("/")[3]);
+        axios.post('http://127.0.0.1:4000/consultar/rol',
+            {r_id_rol : id }
+        )
+            .then( (res) => {
+                if(res.status === 200)
+                    console.log(`<---- (OK 200) localhost:4000/consultar/rol`)
 
+                let x=res.data.rows;
+
+                for(let i=0;i<x.length;i++)
+                {
+                    let s = (x[i].a_descripcion).split(" ").join("_");
+                    console.log(s);
+                    this.setState({
+                        ...this.state,
+                        permisos:{
+                            ...this.state.permisos,
+                            [s]: true
+                        }
+                        
+                    });
+                }
+                console.log(this.state);
+                this.setState({r_nombre: x[0].r_nombre,loaded: true, r_id_rol: id})
+
+            })
     }
 
     handleGuardar = () => {
@@ -79,7 +106,7 @@ export class CrearRol extends React.Component {
     handleChange = (target) => {
         target=target.target||target;
         this.setState({
-                [target.name] : target.value
+            [target.name] : target.value
         })
     };
 
@@ -96,16 +123,20 @@ export class CrearRol extends React.Component {
 
 
     render = () => (
+
         <div>
-            <MenuDashBoard title="Crear Rol"/>
+
+            <MenuDashBoard title="Editar Rol"/>
             <div className="RowContainer" style={{margin: "5% 0"}}>
                 <InputText
-                        id="CrearRol"
-                        label="Nombre"
-                        name="r_nombre"
-                        onChange={this.handleChange}
-                        value={this.state.r_nombre}/>
+                    id="CrearRol"
+                    label="Nombre"
+                    name="r_nombre"
+                    value={this.state.r_nombre}
+                    onChange={this.handleChange}
+                    value={this.state.r_nombre}/>
             </div>
+            {this.state.loaded&&
             <div className="RowContainer" style={{margin: "5% 0"}}>
                 <div className="WideContainer.Vertical" style={{width: "30%", textAlign: "center", justifyContent:"center"}}>
                     <div className="FormContainer.Edit">
@@ -156,7 +187,7 @@ export class CrearRol extends React.Component {
                     <div className="FormContainer.Edit.More" style={{margin: "10px"}}>
                         Consultar solicitud
                     </div>
-                     <div className="FormContainer.Edit.More" style={{margin: "10px"}}>
+                    <div className="FormContainer.Edit.More" style={{margin: "10px"}}>
                         Modificar mineral
                     </div>
                     <div className="FormContainer.Edit.More" style={{margin: "10px"}}>
@@ -205,7 +236,7 @@ export class CrearRol extends React.Component {
                         Eliminar solicitud
                     </div>
                 </div>
-                                <div className="WideContainer.Vertical" style={{width: "30%"}}>
+                <div className="WideContainer.Vertical" style={{width: "30%"}}>
                     <div className="FormContainer.Edit">
                         <form action="">
                             <label className="form-switch">
@@ -628,7 +659,7 @@ export class CrearRol extends React.Component {
                         <img src="resources/img/Rol.png" alt="" width="80%" style={{margin: "0 auto"}}/>
                     </div>
                 </div>
-            </div>
+            </div>}
 
 
             <GuardarCancelar

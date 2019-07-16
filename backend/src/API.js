@@ -1953,12 +1953,30 @@ app.post('/editar/rol', (req, res) => {
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
   console.log(req.body)
-  daoRol.modificar(req.body.horario_id)
+  daoRol.modificar(req.body)
       .then( (bd_response) => {
         console.log(`STATUS OK : 200`)
-        daoHorario.modificar(req.body).then((bd_response)=>{
+        daoRol.eliminarAccion(req.body).then((bd_response)=>{
+          let rol_id=req.body.r_id_rol;
+          let permisos = req.body.permisos;
+          let accion_id=1;
+          try
+          {
+            for (let i in permisos)
+            {
+              if(permisos[i])
+              {
+                daoRol.insertarAccion({rol_id,accion_id})
+              }
+              accion_id++;
+            }
+          }
+          catch (e)
+          {
+            console.log("Error")
+          }
           res.status(200).json({"rowCount" : bd_response.rowCount})
-          })
+        })
       })
       .catch( (bd_err) => {
         console.log(`STATUS ERROR: 500`)

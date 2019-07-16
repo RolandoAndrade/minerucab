@@ -1626,7 +1626,7 @@ INSERT INTO SECT_MINE (s_id_sect_mine,mineral_id,sector_uso_id) VALUES (8,15,7);
 INSERT INTO SECT_MINE (s_id_sect_mine,mineral_id,sector_uso_id) VALUES (9,1,2);
 SELECT setval('sect_mine_s_id_sect_mine_seq', (SELECT MAX(s_id_sect_mine) from SECT_MINE));
 
-/* INSERTS DE TABLA  TIPO_YACIMIENTO*/
+/* INSERTS DE TABLA  TIPO_YACIMIENTO*/  
 INSERT INTO TIPO_YACIMIENTO (t_id_tipo_yacimiento,t_nombre) VALUES (1,'autoctono');
 INSERT INTO TIPO_YACIMIENTO (t_id_tipo_yacimiento,t_nombre) VALUES (2,'aloctono');
 INSERT INTO TIPO_YACIMIENTO (t_id_tipo_yacimiento,t_nombre) VALUES (3,'magmático');
@@ -1889,8 +1889,7 @@ INSERT INTO ACCION (a_id_accion,a_tabla,a_descripcion,a_tipo) VALUES
 (53,'horario','crear horario','c'),
 (54,'horario','consultar horario','r'),
 (55,'horario','modificar horario','u'),
-(55,'horario','modificar horario','d');
-
+(56,'horario','modificar horario','d');
 SELECT setval('accion_a_id_accion_seq', (SELECT MAX(a_id_accion) from ACCION));
 
 /* INSERTS DE TABLA  ROL*/
@@ -1963,19 +1962,23 @@ INSERT INTO ROL_ACCI (r_id_rol_acci,rol_id,accion_id) VALUES
 (57,5,34),
 (58,5,21),
 (59,5,22),
-(60,5,17)
-(61,1,41)
-(62,1,42)
-(63,1,43)
-(64,1,44)
-(65,1,45)
-(66,1,46)
-(67,1,47)
-(68,1,48)
-(69,1,49)
-(70,1,50)
-(71,1,51)
-(72,1,52);
+(60,5,17),
+(61,1,41),
+(62,1,42),
+(63,1,43),
+(64,1,44),
+(65,1,45),
+(66,1,46),
+(67,1,47),
+(68,1,48),
+(69,1,49),
+(70,1,50),
+(71,1,51),
+(72,1,52),
+(73,1,53),
+(74,1,54),
+(75,1,55),
+(76,1,56);
 SELECT setval('rol_acci_r_id_rol_acci_seq', (SELECT MAX(r_id_rol_acci) from ROL_ACCI));
 
 /* INSERTS DE TABLA  HORARIO*/

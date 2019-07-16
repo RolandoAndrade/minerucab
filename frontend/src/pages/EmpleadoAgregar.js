@@ -19,12 +19,7 @@ export class EmpleadoAgregar extends React.Component {
         super(props);
 
         this.state = {
-            users: [{
-                u_id_usuario : 0,
-                u_correo : "",
-                u_clave : "",
-                rol_id : ""
-            }],
+            users: [],
             lastIndex : 0,
             nuevo_empleado : {
                 e_id_empleado : 0,
@@ -103,32 +98,28 @@ export class EmpleadoAgregar extends React.Component {
         })
     }
 
-
-    addUser = () =>
-    {
-        let newUsers= this.state.users;
-        newUsers.push({
-            u_id_usuario : this.state.lastIndex +1,
-            u_correo : "",
-            u_clave : ""
-        });
-
-        this.setState(
-            {
-                users: newUsers,
-                lastIndex : this.state.lastIndex +1
-            }
-        )
+    addUser = () => {
+        console.log(`new users = users [ ${this.state.lastIndex + 1} ]`)
+        this.setState( (prev) => ({
+            users:[
+                ...prev.users, 
+                {
+                    u_id_usuario : prev.lastIndex + 1,
+                    u_correo : null,
+                    u_clave : null,
+                    rol_id : 0
+                }
+            ],
+            lastIndex : prev.lastIndex + 1
+        }))
     }
 
-    removeUser = (id) =>
-    {
-        const newUsers = this.state.users.filter( u => u.u_id_usuario !== id)
-        this.setState(
-            {
-                users: newUsers
-            }
-        )
+    removeUser = (id) => {
+        console.log(`quitar usuario[ ${id} ]`)
+        const usuarioNuevo = this.state.users.filter( (u) => u.u_id_usuario !== id)
+        this.setState({
+            users : usuarioNuevo
+        })
     }
 
     handleChange = (target) => {
@@ -140,7 +131,35 @@ export class EmpleadoAgregar extends React.Component {
                 [target.name] : target.value
             }
         })
-      }
+    }
+
+    changeUser = (opcion , id) => {
+        if (opcion.label) {
+            console.log(`Users[ ${id} ].rol_id <-- ${opcion.value} (${opcion.label})`)
+            const nuevosRequisitos = this.state.requisitos.map( req => {
+                    if (req.m_id_mine_yaci === id){
+                        req.mineral_id = opcion.value
+                    }
+                    return req
+                })
+            this.setState({
+                requisitos : nuevosRequisitos
+            })
+        } else {
+            console.log(`requisito[ ${id} ].m_cantidad <-- ${opcion.target.value}`)
+            const nuevosRequisitos = this.state.requisitos.map( req => {
+                if (req.m_id_mine_yaci === id){
+                    req.m_cantidad = opcion.target.value
+                }
+                return req
+            })
+            this.setState({
+                requisitos : nuevosRequisitos
+            })
+        }
+        
+    }
+
 
     handleChangeLugar = (target) => {
         console.log(`lugar.${target.name} = ${target.value}`)
@@ -278,40 +297,62 @@ export class EmpleadoAgregar extends React.Component {
                     Usuarios asociados al empleado (SEGUNDA ENTREGA)
                 </div>
                 {
-                    this.state.users.map( (u,i)=>
-                    {
-                        return(
-                            <div className="RowContainer Container-90p" key={i}
-                                 style={
-                                     {
-                                         position: "relative",
-                                         zIndex: this.state.users.length-i
-                                     }}>
-                                <div className="WideContainer" style={{justifyContent: "right", width: "30%"}}>
-                                    <i className="zmdi zmdi-close-circle-o LabelIcon" onClick={()=>this.removeUser(u.u_id_usuario)}></i>
-                                </div>
-                                <div className="WideContainer">
-                                    <InputText styles={{width:"95%"}}  id={"CrearEmpleadoUsuarioCorreo"+i} label="Correo electrónico"/>
-                                </div>
-                                <div className="WideContainer">
-                                    <InputText styles={{width:"95%"}} id={"CrearEmpleadoUsuarioContra"+i} label="Contraseña inicial"/>
-                                </div>
-                                <div className="WideContainer">
-                                    <Dropdown id={"CrearEmpleadoRol"+i}
-                                              name={`user_${u.u_id_usuario}`}
-                                              retrieveData={this.handleChangeLugar}
-                                              placeholder="Cargo..."
-                                              options={[
-                                                  {text:"Opción 1",id:1},
-                                                  {text:"Opción 2",id:2},
-                                                  {text:"Opción 3",id:3},
-                                                  {text:"Opción 4",id:4},
-                                                  {text:"Opción 5",id:5}]}
-                                    />
-                                </div>
+                    this.state.users.map( (usuario,i)=>
+                    (
+                        <div key={usuario.u_id_usuario} className="cargoHorizontal">
+                            <div>
+                                <i 
+                                    className="zmdi zmdi-close-circle-o LabelIcon pegar-derecha"
+                                    onClick={() => this.removeUser(
+                                        usuario.u_id_usuario
+                                    )}
+                                >
+                                </i>
                             </div>
-                        )
-                    })
+                            <div className="ancho-cantidad">
+                                <InputText 
+                                    id={`Correo_${usuario.u_id_usuario}_`}
+                                    label="Correo"
+                                    type="text"
+                                    name="u_correo"
+                                    value={usuario.u_correo}
+                                    onChange= { (event) =>
+                                        this.changeUsuario(event, usuario.u_id_usuario)
+                                    }
+                                />
+                            </div>
+                            <div className="ancho-cantidad">
+                                <InputText 
+                                    id={`Clave_${usuario.u_id_usuario}_`}
+                                    label="Clave"
+                                    type="text"
+                                    name="u_clave"
+                                    value={usuario.u_clave}
+                                    onChange= { (event) =>
+                                        this.changeUsuario(event, usuario.u_id_usuario)
+                                    }
+                                />
+                            </div>
+                            <div className="ancho-mineral">
+                                <DropdownV2
+                                    placeholder="Rol ..."
+                                    onChange={ event => 
+                                        this.changeUser(event , usuario.u_id_usuario)
+                                    }
+                                    options={
+                                        cleanerMineral.limpiarListaDropdown(
+                                            minerales.filter( m => 
+                                                !requisitos.find( r => r.mineral_id === m.m_id_mineral ) &&
+                                                m.m_id_mineral !== configuracion_yacimiento.mineral_id
+                                            )
+                                        )
+                                    }
+                                />
+                            </div>
+
+                        </div>
+                        
+                    ))
                 }
             </div>
 

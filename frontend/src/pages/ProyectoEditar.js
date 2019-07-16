@@ -897,12 +897,10 @@ export class ProyectoEditar extends React.Component {
     activarFase = (idFase) => {
         // F   ( 3 pendiente -> 8 activa -> 10 finalizada)
         const faseModal = this.state.faseModal
-        /*
-        REVISSION YEISSON
         console.log(`----> activarFase : localhost:4000/activar/fase`)
         return axios.post('http://127.0.0.1:4000/activar/fase',
             {
-                f_id_fase : faseModal.f_id_fase,
+                f_id_fase : idFase,
                 f_fecha_inicio : faseModal.f_fecha_inicio,
                 f_fecha_fin : faseModal.f_fecha_fin,
                 e_fecha_inicio : this.state.etapas.find( e => 
@@ -926,31 +924,32 @@ export class ProyectoEditar extends React.Component {
                 }
                 return res
             }).catch( err => err)
-        */
-
-        this.setState({
-            faseModal : {
-                ...this.state.faseModal,
-                estado_id : 8,
-                estado : "activo"
-            }
-        },
-            () => this.guardarFase()
-        )
-
     }
 
     finalizarFase = (idFase) => {
-        console.log(`---> finalizarFase : ${idFase}`)
-        this.setState({
-            faseModal : {
-                ...this.state.faseModal,
-                estado_id : 10,
-                estado : "finalizado"
-            }
-        }, 
-            () => this.guardarFase()
-        )
+        const faseModal = this.state.faseModal
+        console.log(`----> finalizarFase : localhost:4000/finalizar/fase`)
+        return axios.post('http://127.0.0.1:4000/finalizar/fase',
+            {
+                f_id_fase : idFase,
+                f_fecha_inicio : faseModal.f_fecha_inicio,
+                f_fecha_fin : faseModal.f_fecha_fin,
+            })
+            .then( (res) => {
+                if( res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/finalizar/fase`)
+                    this.setState({
+                        faseModal : {
+                            ...this.state.faseModal,
+                            estado_id : 10,
+                            estado : "finalizado"
+                        }
+                    },
+                        () => this.guardarFase()
+                    )
+                }
+                return res
+            }).catch( err => err)
         
     }
 
@@ -1337,6 +1336,7 @@ export class ProyectoEditar extends React.Component {
                                     name="f_fecha_inicio"
                                     value={faseModal.f_fecha_inicio}
                                     onChange={this.changeInfoFase}
+                                    disabled={faseModal.estado_id === 8}
                                 />
                                 <p style={{textAlign : "center"}}>Fecha Fin</p>
                                 <InputDate 

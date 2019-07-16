@@ -52,7 +52,28 @@ export class CrearRol extends React.Component {
                 crear_inventario: false,
                 consultar_inventario: false,
                 modificar_inventario: false,
-                eliminar_inventario: false
+                eliminar_inventario: false,
+
+
+                crear_aliado: false,
+                consultar_aliado: false,
+                modificar_aliado:false,
+                eliminar_aliado:false,
+
+                crear_configuracion_de_yacimiento: false,
+                consultar_configuracion_de_yacimiento: false,
+                modificar_configuracion_de_yacimiento: false,
+                eliminar_configuracion_de_yacimiento: false,
+
+                crear_rol: false,
+                consultar_rol: false,
+                modificar_rol: false,
+                eliminar_rol: false,
+
+                eliminar_horario: false,
+                crear_horario: false,
+                consultar_horario: false,
+                modificar_horario: false
             },
             goEmpleado: false
         }

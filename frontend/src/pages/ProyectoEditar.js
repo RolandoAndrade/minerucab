@@ -855,7 +855,8 @@ export class ProyectoEditar extends React.Component {
     // MANEJO DE ESTADOS -- GESTION DEL PROYECTO
     solicitarRecursos = () => {
         console.log(`----> solicitarRecursos : localhost:4000/iniciar/proyecto`)
-        
+        /*
+        REVISION YEISSON
         return axios.post('http://127.0.0.1:4000/iniciar/proyecto',
             {
                 p_id_proyecto : this.state.configuracion_yacimiento.p_id_proyecto,
@@ -867,25 +868,49 @@ export class ProyectoEditar extends React.Component {
             .then( (res) => {
                 if( res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/iniciar/proyecto`)
-                    this.setState({
-                        configuracion_yacimiento : {
-                            ...this.state.configuracion_yacimiento,
-                            estado_id : 15
-                        }
-                    })
+                    location.reload()
                 }
                 return res
             }).catch( err => err)
-    }
+        */
 
-    activarProyecto = () => {
-        console.log(`---> activarProyecto : ${this.state.configuracion_yacimiento.p_id_proyecto}`)
         this.setState({
             configuracion_yacimiento : {
                 ...this.state.configuracion_yacimiento,
-                estado_id : 8
+                estado_id : 15
             }
         })
+    }
+
+    activarProyecto = () => {
+        console.log(`----> activarProyecto : localhost:4000/activar/proyecto`)
+        /*
+        REVISION YEISSON
+        return axios.post('http://127.0.0.1:4000/activar/proyecto',
+            {
+                p_id_proyecto : this.state.configuracion_yacimiento.p_id_proyecto,
+                requisitos : this.state.requisitos.map( r => ({
+                    ...r,
+                    m_cantidad : parseInt( r.m_cantidad ),
+
+                }))
+            })
+            .then( (res) => {
+                if( res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/activar/proyecto`)
+                    location.reload()
+                }
+                return res
+            }).catch( err => err)
+        */
+        
+       this.setState({
+        configuracion_yacimiento : {
+            ...this.state.configuracion_yacimiento,
+            estado_id : 8
+        }
+    })
+        
         //location.reload()   
     }
 

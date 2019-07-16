@@ -96,7 +96,23 @@ const daoFase = {
         return psql.query(`
         UPDATE FASE
         SET estado_id = ${estado_id}
-        WHERE f_fase = ${f_id_fase}
+        WHERE f_id_fase = ${f_id_fase}
+        `)
+    },
+
+    modificarFechaInicio(f_id_fase, f_fecha_inicio) {
+        return psql.query(`
+        UPDATE FASE
+        SET f_fecha_inicio = '${f_fecha_inicio}'
+        WHERE f_id_fase = ${f_id_fase}
+        `)
+    },
+
+    modificarFechaFin(f_id_fase, f_fecha_fin) {
+        return psql.query(`
+        UPDATE FASE
+        SET f_fecha_fin = '${f_fecha_fin}'
+        WHERE f_id_fase = ${f_id_fase}
         `)
     }
 }

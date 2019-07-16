@@ -34,6 +34,14 @@ const daoEtapa = {
         SET estado_id = ${estado_id}
         WHERE e_id_etapa = ${e_id_etapa}
         `)
+    },
+
+    modificarFechaInicio(e_id_etapa, e_fecha_inicio) {
+        return psql.query(`
+        UPDATE ETAPA
+        SET e_fecha_inicio = '${e_fecha_inicio}'
+        WHERE e_id_etapa = ${e_id_etapa}
+        `)
     }
 }
 

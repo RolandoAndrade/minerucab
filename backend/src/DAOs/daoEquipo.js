@@ -41,6 +41,18 @@ const daoEquipo = {
         `
         console.log(query)
         return psql.query(query)
+    },
+
+    liberarEquiposFase(fase_id){
+        let query = `
+            UPDATE EQUIPO
+            SET estado_id = 11
+            WHERE e_id_equipo IN (
+            SELECT equipo_id FROM FASE_EQUI
+            WHERE fase_id = ${fase_id});
+        `
+        console.log(query)
+        return psql.query(query)
     }
 }
 

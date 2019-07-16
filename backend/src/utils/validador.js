@@ -127,7 +127,55 @@ const validadorProyecto = {
     }
 }
 
+const validadorGestorProyecto = {
+
+    validarActivarFase (inicio_etapa, inicio_fase, fase_id) {
+        let flag = ""
+        try {
+            if((new Date(inicio_fase)).getTime() < (new Date(inicio_etapa)).getTime()) 
+                flag += `Fecha de inicio de fase menor a la de la etapa\n`
+        }
+        catch(e){
+            flag += `Formato de fecha invalida`
+        }
+
+        if(fase_id <= 0) flag += `ID fase invalido o vacio\n`
+
+        return flag
+    },
+
+    validarFinalizarFase (inicio_fase, final_fase, fase_id) {
+        let flag = ""
+        try {
+            if((new Date(final_fase)).getTime() < (new Date(inicio_fase)).getTime()) 
+                flag += `Fecha de inicio de fase menor a la de la etapa\n`
+        }
+        catch(e){
+            flag += `Formato de fecha invalida\n`
+        }
+
+        if(fase_id <= 0) flag += `ID fase invalido o vacio\n`
+
+        return flag
+    },
+
+    validarActivaEtapa (inicio_proyecto, inicio_etapa, etapa_id) {
+        let flag = ""
+        try {
+            if((new Date(inicio_etapa)).getTime() < (new Date(inicio_proyecto)).getTime()) 
+                flag += `Fecha de inicio de etapa menor a la del proyecto\n`
+        }
+        catch(e){
+            flag += `Formato de fecha invalida`
+        }
+
+        if(etapa_id <= 0) flag += `ID etapa invalido o vacio\n`
+
+        return flag
+    }
+}
 export {
     validadorYacimientoConfiguracion,
-    validadorProyecto
+    validadorProyecto,
+    validadorGestorProyecto
 }

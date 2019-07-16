@@ -1,6 +1,6 @@
 /* DEPENDENCIAS */
 import {daoPedido} from "./DAOs/daoPedido";
-import {validadorYacimientoConfiguracion, validadorProyecto} from "./utils/validador"
+import {validadorYacimientoConfiguracion, validadorProyecto, validadorGestorProyecto} from "./utils/validador"
 
 const express = require('express');
 const app = express();
@@ -1926,6 +1926,7 @@ app.post('/opcional/proyecto', (req,res) => {
   })
 
 })
+
 /******************************************** FASE **********************************************/
 
 app.post('/activar/fase', (req,res) => {
@@ -1933,13 +1934,23 @@ app.post('/activar/fase', (req,res) => {
   console.log(`----------------------> ${getAhora()}`)
   console.log(`/activar/fase/${req.body.f_id_fase}`)
 
-  let fase_id = req.body.f_id_fase ? req.body.f_id_fase : 0
-  if (fase_id === 0) {
-    res.status(500).json({"ErrorMessage" : "id fase invalido o vacio"})
+  const fase_id = req.body.f_id_fase ? req.body.f_id_fase : 0
+  const inicio_fase = req.body.f_fecha_inicio ? req.body.f_fecha_inicio : null
+  const inicio_etapa = req.body.e_fecha_inicio ? req.body.e_fecha_inicio : null
+
+  const m = validadorGestorProyecto.validarActivarFase(inicio_etapa, inicio_fase, fase_id)
+  if (m !== "") {
+    console.log(`\n\nSTATUS ERROR: 500`)      
+    console.error(`\n\nERROR: ${m}`)
+
+    res.status(500).json({"ErrorMessage" : m})
     return 0;
   }
 
-  daoFase.modificarEstado(fase_id,8)
+  daoFase.modificarFechaInicio(fase_id, inicio_fase)
+  .then((resp_bd) => {
+    return daoFase.modificarEstado(fase_id,8)
+  })
   .then((resp_bd) => {
     console.log(`STATUS OK : 200`)
     res.status(200).json({"resp" : "fase iniciada exitosamente"})
@@ -1958,20 +1969,103 @@ app.post('/finalizar/fase',(req,res) => {
   console.log(`----------------------> ${getAhora()}`)
   console.log(`/finalizar/fase/${req.body.f_id_fase}`)
 
-  let fase_id = req.body.f_id_fase
-  if (fase_id === 0) {
-    res.status(500).json({"ErrorMessage" : "id fase invalido o vacio"})
+  const fase_id = req.body.f_id_fase ? req.body.f_id_fase : 0
+  const inicio_fase = req.body.f_fecha_inicio ? req.body.f_fecha_inicio : null
+  const fin_fase = req.body.f_fecha_fin ? req.body.f_fecha_fin : null
+
+  const m = validadorGestorProyecto.validarFinalizarFase(inicio_fase, fin_fase, fase_id)
+  if (m !== "") {
+    console.log(`\n\nSTATUS ERROR: 500`)      
+    console.error(`\n\nERROR: ${m}`)
+
+    res.status(500).json({"ErrorMessage" : m})
     return 0;
   }
-  //cambiar el estatus de la fase (ponerlo a retornar id)
-  //despedir a la gente y a las maquinas de esa fase
-  //verificar que hay mas fases en esa etapa
-  //si no hay => cambiar estado de la etapa
-  //verificar que hay mas etapas
-  //si no hay => finalizar proyecto
 
+  daoEmpleado.liberarEmpleadosFase(fase_id)
+  .then((resp_bd) => {
+    return daoEquipo.liberarEquiposFase(fase_id)
+  })
+  .then((resp_bd) => {
+    return daoFase.modificarEstado(fase_id,10)
+  })
+  .then((resp_bd) => {
+    return daoFase.modificarFechaFin(fase_id, fin_fase)
+  })
+  .then((resp_bd) => {
+    console.log(`STATUS OK : 200`)
+    res.status(200).json({"resp" : "fase finalizada exitosamente"})
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+    res.status(500).json(bd_err)
+  })
 
 })
+
+/*************************************** ETAPA **********************************/
+
+app.post('/activar/etapa',(req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/activar/etapa/${req.body.e_id_etapa}`)
+
+  const etapa_id = req.body.e_id_etapa ? req.body.e_id_etapa : 0
+  const inicio_proyecto = req.body.p_fecha_inicio ? req.body.p_fecha_inicio : null
+  const inicio_etapa = req.body.e_fecha_inicio ? req.body.e_fecha_inicio : null
+
+  const m = validadorGestorProyecto.validarActivaEtapa(inicio_proyecto, inicio_etapa, etapa_id)
+  if (m !== "") {
+    console.log(`\n\nSTATUS ERROR: 500`)      
+    console.error(`\n\nERROR: ${m}`)
+
+    res.status(500).json({"ErrorMessage" : m})
+    return 0;
+  }
+  daoEtapa.modificarFechaInicio(etapa_id,inicio_etapa)
+  .then((resp_bd) => {
+    return daoEtapa.modificarEstado(etapa_id,8)
+  })  
+  .then((resp_bd) => {
+    console.log(`STATUS OK : 200`)
+    res.status(200).json({"resp" : "Etapa iniciada exitosamente"})
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+    res.status(500).json(bd_err)
+  })
+})
+
+app.post('/finalizar/etapa',(req,res) => {
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/finalizar/etapa/${req.body.e_id_etapa}`)
+
+  let etapa_id = req.body.f_id_etapa
+  
+  if (etapa_id === 0) {
+    res.status(500).json({"ErrorMessage" : "id etapa invalido o vacio"})
+    return 0;
+  }
+
+  daoEtapa.modificarEstado(etapa_id,10)
+  .then((resp_bd) => {
+    console.log(`STATUS OK : 200`)
+    res.status(200).json({"resp" : "fase finalizada exitosamente"})
+  })
+  .catch( (bd_err) => {
+    console.log(`STATUS ERROR: 500`)      
+    console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+    res.status(500).json(bd_err)
+  })
+
+})
+
 
 function error(bd_err)
 {
@@ -2080,7 +2174,6 @@ app.post('/eliminar/pedido', (req, res) => {
   })
 });
 
-
 app.post('/editarEstado/pedido', (req, res) => {
 
   console.log("\n\n");
@@ -2143,7 +2236,6 @@ app.post('/insertar/tipo', (req, res) => {
   }
   
 });
-
 
 app.post('/insertar/pedi_tipo', (req, res) => {
 

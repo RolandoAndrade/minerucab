@@ -294,6 +294,18 @@ const cleanerHorario = {
     }
 }
 
+const cleanerRoles = {
+    limpiarLista(  r ) {
+        if ( r === undefined ||  r.length == 0)
+            return []
+        else
+            return  r.map( p => ({
+                "r_id_rol" : p.r_id_rol,
+                "r_nombre" : p.r_nombre
+            }))
+    }
+}
+
 export {
     cleanerMineral, 
     cleanerCliente, 
@@ -309,5 +321,6 @@ export {
     cleanerCompania,
     cleanerPedido,
     cleanerHorario,
-    cleanerInventario
+    cleanerInventario,
+    cleanerRoles
 }

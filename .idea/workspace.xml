@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d7ce102b-bdc5-4fc4-9682-e82a04b1e4dc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/RolModificar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/Rol.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/API.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/API.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Cliente.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Cliente.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Mineral.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Mineral.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MineralAgregar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MineralAgregar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MineralEditar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MineralEditar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/routers/AppRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/routers/AppRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/utils/cleaner.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/cleaner.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -52,7 +57,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/src/API.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="819">
+            <state relative-caret-position="1099">
               <caret line="1932" column="21" selection-start-line="1932" selection-start-column="21" selection-end-line="1932" selection-end-column="21" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
@@ -62,28 +67,43 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoRol.js">
+        <entry file="file://$PROJECT_DIR$/frontend/src/pages/RolModificar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="14" selection-end-column="91" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="2" selection-end-column="59" />
+            <state relative-caret-position="240">
+              <caret line="84" column="35" lean-forward="true" selection-start-line="84" selection-start-column="35" selection-end-line="84" selection-end-column="35" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/frontend/src/pages/RolModificar.js">
+        <entry file="file://$PROJECT_DIR$/frontend/src/pages/Rol.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="83" column="25" lean-forward="true" selection-start-line="83" selection-start-column="25" selection-end-line="83" selection-end-column="25" />
+            <state relative-caret-position="582">
+              <caret line="263" column="78" selection-start-line="263" selection-start-column="78" selection-end-line="263" selection-end-column="78" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/utils/cleaner.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="303" column="39" selection-start-line="303" selection-start-column="39" selection-end-line="303" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/pages/Aliado.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret selection-end-line="259" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -94,22 +114,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/routers/AppRouter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="609">
-              <caret line="91" column="42" selection-start-line="91" selection-start-column="42" selection-end-line="91" selection-end-column="42" />
+            <state relative-caret-position="579">
+              <caret line="90" column="46" selection-start-line="90" selection-start-column="46" selection-end-line="90" selection-end-column="46" />
               <folding>
                 <element signature="e#339#374#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/pages/MineralEditar.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -119,7 +127,7 @@
         <entry file="file://$PROJECT_DIR$/frontend/src/pages/Horario.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+              <caret line="20" selection-start-line="20" selection-end-line="20" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -128,10 +136,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/pages/EditarHorario.js">
+        <entry file="file://$PROJECT_DIR$/frontend/src/pages/Mineral.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="72" />
+            <state>
+              <caret selection-end-line="309" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -142,8 +150,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/pages/EmpleadoAgregar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="88" column="9" lean-forward="true" selection-start-line="81" selection-start-column="8" selection-end-line="88" selection-end-column="9" />
+            <state relative-caret-position="1110">
+              <caret line="88" column="9" selection-start-line="81" selection-start-column="8" selection-end-line="88" selection-end-column="9" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -162,7 +170,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>compania_id</find>
       <find>ETAPA</find>
       <find>PROYEC</find>
       <find>EMPL</find>
@@ -192,6 +199,7 @@
       <find>consultar</find>
       <find>modificar</find>
       <find>eliminar</find>
+      <find>minerales</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -229,7 +237,6 @@
         <option value="$PROJECT_DIR$/frontend/src/components/Scheduler.js" />
         <option value="$PROJECT_DIR$/frontend/src/pages/EditarHorario.js" />
         <option value="$PROJECT_DIR$/backend/src/DAOs/daoInventario.js" />
-        <option value="$PROJECT_DIR$/frontend/src/utils/cleaner.js" />
         <option value="$PROJECT_DIR$/queries/entrega/DROP_db.sql" />
         <option value="$PROJECT_DIR$/backend/src/reportes.js" />
         <option value="$PROJECT_DIR$/queries/entrega/DELETE.SQL" />
@@ -240,8 +247,10 @@
         <option value="$PROJECT_DIR$/backend/src/API.js" />
         <option value="$PROJECT_DIR$/frontend/src/pages/CrearRol.js" />
         <option value="$PROJECT_DIR$/queries/entrega/PRUEBAS.SQL" />
-        <option value="$PROJECT_DIR$/frontend/src/routers/AppRouter.js" />
         <option value="$PROJECT_DIR$/frontend/src/pages/RolModificar.js" />
+        <option value="$PROJECT_DIR$/frontend/src/utils/cleaner.js" />
+        <option value="$PROJECT_DIR$/frontend/src/routers/AppRouter.js" />
+        <option value="$PROJECT_DIR$/frontend/src/pages/Rol.js" />
       </list>
     </option>
   </component>
@@ -262,7 +271,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -369,6 +377,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -456,13 +465,7 @@
       <workItem from="1563234322596" duration="736000" />
       <workItem from="1563240297915" duration="1407000" />
       <workItem from="1563272104745" duration="4520000" />
-    </task>
-    <task id="LOCAL-00014" summary="Arreglo, ir a dashboard al hacer click">
-      <created>1561672616750</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1561672616750</updated>
+      <workItem from="1563280035588" duration="896000" />
     </task>
     <task id="LOCAL-00015" summary="Arreglo, amarillo más oscuro">
       <created>1561672722545</created>
@@ -800,11 +803,18 @@
       <option name="project" value="LOCAL" />
       <updated>1563274957898</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Modificar Rol">
+      <created>1563280118937</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1563280118938</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="138733000" />
+    <option name="totallyTimeSpent" value="139629000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -817,9 +827,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-2" y="-2" width="1444" height="872" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.33619457" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.34120172" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -866,7 +875,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Recuperar datos de horario" />
     <MESSAGE value="Insertar horario" />
     <MESSAGE value="Insertar jornadas" />
     <MESSAGE value="Listo AGREGAR HORARIO" />
@@ -891,27 +899,10 @@
     <MESSAGE value="Listado de empleados que han participado mas de 2 veces en proyectos en el mismo mes, indicando el total de participación, el proyecto y el mes. Se debe realizar la consulta por período de tiempo." />
     <MESSAGE value="Arreglado error en presentacion" />
     <MESSAGE value="Crear Rol" />
-    <option name="LAST_COMMIT_MESSAGE" value="Crear Rol" />
+    <MESSAGE value="Modificar Rol" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modificar Rol" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/frontend/node_modules/@types/react/index.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="445" column="8" selection-start-line="445" selection-start-column="8" selection-end-line="445" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/pages/EmpleadoEditar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="138" column="25" selection-start-line="138" selection-start-column="21" selection-end-line="138" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoJornada.js" />
     <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoEstado.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -1036,13 +1027,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoTipoYacimiento.js">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/utils/cleaner.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="582">
-          <caret line="308" column="20" selection-start-line="308" selection-start-column="20" selection-end-line="308" selection-end-column="20" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/package.json">
       <provider selected="true" editor-type-id="text-editor" />
@@ -1172,19 +1156,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/pages/EmpleadoAgregar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="88" column="9" lean-forward="true" selection-start-line="81" selection-start-column="8" selection-end-line="88" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/src/DAOs/daoRol.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="180">
           <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="14" selection-end-column="91" />
         </state>
       </provider>
@@ -1193,6 +1167,36 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret selection-end-line="2" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/pages/MineralEditar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/pages/EditarHorario.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="72" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/pages/EmpleadoAgregar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1110">
+          <caret line="88" column="9" selection-start-line="81" selection-start-column="8" selection-end-line="88" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1206,10 +1210,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/pages/MineralEditar.js">
+    <entry file="file://$PROJECT_DIR$/frontend/src/pages/RolModificar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
+        <state relative-caret-position="240">
+          <caret line="84" column="35" lean-forward="true" selection-start-line="84" selection-start-column="35" selection-end-line="84" selection-end-column="35" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -1219,17 +1223,27 @@
     <entry file="file://$PROJECT_DIR$/frontend/src/pages/Horario.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/pages/EditarHorario.js">
+    <entry file="file://$PROJECT_DIR$/frontend/src/pages/Mineral.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="72" />
+        <state>
+          <caret selection-end-line="309" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/pages/Aliado.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="259" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -1238,7 +1252,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/src/API.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="819">
+        <state relative-caret-position="1099">
           <caret line="1932" column="21" selection-start-line="1932" selection-start-column="21" selection-end-line="1932" selection-end-column="21" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
@@ -1246,20 +1260,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/utils/cleaner.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="303" column="39" selection-start-line="303" selection-start-column="39" selection-end-line="303" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/routers/AppRouter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="91" column="42" selection-start-line="91" selection-start-column="42" selection-end-line="91" selection-end-column="42" />
+        <state relative-caret-position="579">
+          <caret line="90" column="46" selection-start-line="90" selection-start-column="46" selection-end-line="90" selection-end-column="46" />
           <folding>
             <element signature="e#339#374#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/pages/RolModificar.js">
+    <entry file="file://$PROJECT_DIR$/frontend/src/pages/Rol.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="83" column="25" lean-forward="true" selection-start-line="83" selection-start-column="25" selection-end-line="83" selection-end-column="25" />
+        <state relative-caret-position="582">
+          <caret line="263" column="78" selection-start-line="263" selection-start-column="78" selection-end-line="263" selection-end-column="78" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

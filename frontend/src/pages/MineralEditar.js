@@ -25,7 +25,7 @@ export class MineralEditar extends React.Component {
             m_nombre : "",
             m_descripcion : ""
         },
-        compuestos : [],
+        permisos : [],
         posiblesCompuestos : [],
         por_componer : null,
         porcentaje : "",
@@ -64,7 +64,7 @@ export class MineralEditar extends React.Component {
                     "m_fecha_nacionalizacion" : mineral.m_fecha_nacionalizacion ? mineral.m_fecha_nacionalizacion.split('T')[0] : "",
                     "m_descripcion" : mineral.m_descripcion || ""
                 },
-                compuestos : []
+                permisos : []
             })
 
             return mineral
@@ -79,7 +79,7 @@ export class MineralEditar extends React.Component {
                 console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral/hijos`)
         
                 this.setState({
-                    compuestos : res.data.rows
+                    permisos : res.data.rows
                 })
             })
             return mineral
@@ -122,8 +122,8 @@ export class MineralEditar extends React.Component {
     this.handleCloseModal()
 
     this.setState( (prev) => ({
-        compuestos : [
-            ...prev.compuestos,
+        permisos : [
+            ...prev.permisos,
             { ...this.state.minerales.find( m => m.m_id_mineral === idCompuesto) }
         ],
         modificado : true
@@ -131,9 +131,9 @@ export class MineralEditar extends React.Component {
   }
 
   handleDescomponer = (idDescomponer) => {
-    const compuestosNuevo = this.state.compuestos.filter( (c) => c.m_id_mineral !== idDescomponer )
+    const compuestosNuevo = this.state.permisos.filter( (c) => c.m_id_mineral !== idDescomponer )
     this.setState({
-        compuestos : compuestosNuevo,
+        permisos : compuestosNuevo,
         modificado : true
     })
   }
@@ -141,7 +141,7 @@ export class MineralEditar extends React.Component {
   handleGuardar = () => {
     const nuevo_mineral = {
         ...this.state.nuevo_mineral,
-        compuestos: this.state.compuestos.map( c => ({
+        permisos: this.state.permisos.map(c => ({
             "m_id_mineral" : c.m_id_mineral,
             "m_nombre" : c.m_nombre
           })),
@@ -285,7 +285,7 @@ export class MineralEditar extends React.Component {
                     />
                 </div>
                 <div>
-                    {this.state.compuestos.map( (compuesto, i) => (
+                    {this.state.permisos.map( (compuesto, i) => (
                         <div className="compuesto" key={i}>
                             <span>{compuesto.m_nombre}</span>
                             <img
@@ -309,7 +309,7 @@ export class MineralEditar extends React.Component {
                     />
             {this.state.goMineral && <Redirect push to="/mineral" /> }
 
-            {this.state.compuestos &&
+            {this.state.permisos &&
             <Modal 
                 size="lg"
                 show={this.state.openComponer} 
@@ -365,7 +365,7 @@ export class MineralEditar extends React.Component {
                         ]}
                         data={cleanerMineral.limpiarLista( 
                                 this.state.posiblesCompuestos.filter( 
-                                    pc => !this.state.compuestos.find( c => c.m_id_mineral === pc.m_id_mineral)
+                                    pc => !this.state.permisos.find(c => c.m_id_mineral === pc.m_id_mineral)
                                 )
                             )}
                         title={null}

@@ -54,7 +54,7 @@ export class Cliente extends React.Component {
   handleModificar = () => {
     console.log(`modificarCliente(${this.state.consultarCliente.c_id_cliente})`)
     this.setState({
-      modificarMineral : this.state.consultarCliente.c_id_cliente
+      modificarRol : this.state.consultarCliente.c_id_cliente
     })
   }
 
@@ -257,8 +257,8 @@ export class Cliente extends React.Component {
           </Modal>
           }
 
-          {!!this.state.modificarMineral 
-            && <Redirect push to={`/editar/cliente/${this.state.modificarMineral}`} />
+          {!!this.state.modificarRol
+            && <Redirect push to={`/editar/cliente/${this.state.modificarRol}`} />
           }
           {this.state.agregarPresionado && <Redirect push to="/crear/cliente" />}
       </div>

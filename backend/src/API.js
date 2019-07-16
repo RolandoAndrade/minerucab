@@ -301,8 +301,8 @@ app.post('/insertar/mineral', (req, res) => {
 
     })
     .then( (bd_response) => {
-        if (req.body.compuestos.length !== 0 ){
-          daoMineral.insertarCompuestos( bd_response.rows[0].m_id_mineral , req.body.compuestos)
+        if (req.body.permisos.length !== 0 ){
+          daoMineral.insertarCompuestos( bd_response.rows[0].m_id_mineral , req.body.permisos)
             .then( (bd_response) => {
               console.log(`STATUS OK : 200`) 
               // CUANDO SI TIENE COMPUESTOS
@@ -368,7 +368,7 @@ app.post('/modificar/mineral', (req, res) => {
           })
         .then( () => {
 
-            daoMineral.insertarCompuestos( req.body.m_id_mineral , req.body.compuestos)
+            daoMineral.insertarCompuestos( req.body.m_id_mineral , req.body.permisos)
             .then( (bd_response) => {
               console.log(`STATUS OK : 200`) 
               res.status(200).json({"rowCount" : bd_response.rowCount})
@@ -1989,23 +1989,24 @@ app.post('/editar/rol', (req, res) => {
 
 app.post('/eliminar/rol', (req, res) => {
 
+
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
-  console.log(req.body)
-  daoRol.eliminar(req.body.horario_id)
-      .then( (bd_response) => {
-        console.log(`STATUS OK : 200`)
-        daoHorario.eliminar(req.body.horario_id).then((bd_response)=>{
-          console.log(`STATUS OK : 200`)
-          res.status(200).json({"rows" : bd_response.rows});
-      }).catch((e)=>error(e))})
-      .catch( (bd_err) => {
-        console.log(`STATUS ERROR: 500`)
-        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+  console.log(`/eliminar/pedido/${req.body.r_id_rol}`)
+  daoRol.eliminar(req.body.r_id_rol)
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)      
+      
+      res.status(200).json({"rowCount" : bd_response.rowCount})
 
-        res.status(500).json(bd_err)
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)      
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
-      })
+      res.status(500).json(bd_err)
+
+    })
 });
 
 

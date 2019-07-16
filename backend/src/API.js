@@ -2021,11 +2021,7 @@ app.post('/activar/proyecto', (req,res) => {
     return 0;
   }
   if (requisitos.length === 0){
-<<<<<<< HEAD
-    daoProyecto.actualizarEstado(proy_id,15)
-=======
     daoProyecto.actualizarEstado(proy_id,8)
->>>>>>> f/yacimiento
     res.status(200).json({"resp" : "Proyecto sin requisitos, puede avanzar de estado"})
     return 0;
   }

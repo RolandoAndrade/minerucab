@@ -966,7 +966,6 @@ export class ProyectoEditar extends React.Component {
     }
 
     cerrarEtapa = (idEtapa) => {
-        // REVISAR YEISSON
         console.log(`----> cerrarEtapa : localhost:4000/finalizar/etapa`)
         return axios.post('http://127.0.0.1:4000/finalizar/etapa',
             {
@@ -1016,7 +1015,18 @@ export class ProyectoEditar extends React.Component {
     }
 
     cerrarProyecto = () => {
-        console.log(`---> cerrarProyecto : ${this.state.configuracion_yacimiento.p_id_proyecto}`)
+        console.log(`----> cerrarProyecto : localhost:4000/finalizar/proyecto`)
+        return axios.post('http://127.0.0.1:4000/finalizar/proyecto',
+            {
+                p_id_proyecto : this.state.configuracion_yacimiento.p_id_proyecto
+            })
+            .then( (res) => {
+                if( res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/finalizar/proyecto`)
+                    location.reload()
+                }
+                return res
+            }).catch( err => err)
     }
 
 
@@ -1103,7 +1113,7 @@ export class ProyectoEditar extends React.Component {
                                             Activar Proyecto
                                         </Button>
                                     </div>
-                                : !!estado_id ?
+                                : !!estado_id && estado_id === 8?
                                     <div style={{margin : "5px auto"}}>
                                         <Button variant="success" className="mc-boton" 
                                             onClick={this.cerrarProyecto}

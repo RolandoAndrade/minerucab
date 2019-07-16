@@ -1924,6 +1924,7 @@ app.post('/activar/proyecto', (req,res) => {
     return 0;
   }
   if (requisitos.length === 0){
+    daoProyecto.actualizarEstado(proy_id,15)
     res.status(200).json({"resp" : "Proyecto sin requisitos, puede avanzar de estado"})
     return 0;
   }
@@ -1945,10 +1946,10 @@ app.post('/activar/proyecto', (req,res) => {
 
 })
 
-app.post('/opcional/proyecto', (req,res) => {
+app.post('/finalizar/proyecto', (req,res) => {
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
-  console.log(`/opcional/proyecto/${req.body.p_id_proyecto}`)
+  console.log(`/finalizar/proyecto/${req.body.p_id_proyecto}`)
 
   let proy_id = req.body.p_id_proyecto ? req.body.p_id_proyecto : 0
   if (proy_id === 0) {
@@ -1956,7 +1957,7 @@ app.post('/opcional/proyecto', (req,res) => {
     return 0;
   }
 
-  daoProyecto.actualizarEstado(proy_id,15)
+  daoProyecto.actualizarEstado(proy_id,10)
   .then((DATA_RESPUESTA) => {
     console.log(`STATUS OK : 200`)
     res.status(200).json({"resp" : "Proyecto iniciado exitosamente"})
@@ -2088,7 +2089,7 @@ app.post('/finalizar/etapa',(req,res) => {
   console.log(`----------------------> ${getAhora()}`)
   console.log(`/finalizar/etapa/${req.body.e_id_etapa}`)
 
-  let etapa_id = req.body.f_id_etapa
+  let etapa_id = req.body.e_id_etapa
   
   if (etapa_id === 0) {
     res.status(500).json({"ErrorMessage" : "id etapa invalido o vacio"})

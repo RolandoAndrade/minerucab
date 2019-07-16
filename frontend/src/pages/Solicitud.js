@@ -109,7 +109,7 @@ export class Solicitud extends React.Component {
     
   render = () => (
     <div>
-        <MenuDashBoard title={"Empleados"}/>
+        <MenuDashBoard title={"Solicitudes"}/>
 
         <div className="ConsultarLista">
           { this.state.solicitudes &&

@@ -76,6 +76,7 @@ export class HomeHeader extends React.Component {
                 if( res.status === 200) {
                     console.log(`<---- (OK 200) localhost:4000/login/usuario`)
                     localStorage.setItem("user", JSON.stringify( res.data.usuario ) )
+                    location.reload()
                 }
                 return res
             })

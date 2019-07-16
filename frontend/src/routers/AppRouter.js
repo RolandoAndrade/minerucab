@@ -56,38 +56,38 @@ const AppRouter = () => (
 
         {/* PAGINAS QUE CARGAN DESLOGEADO */}
         <PublicRoute path="/" component={Home} exact={true} />
-        <PublicRoute path="/dashboard" component={MainPanel} />
-        <PublicRoute path="/cliente" component={Cliente} />
-        <PublicRoute path="/mineral" component={Mineral} />
-        <PublicRoute path="/empleado" component={Empleado} />
-        <PublicRoute path="/yacimiento" component={Yacimiento} />
-        <PublicRoute path="/proyecto" component={Proyecto} />
-        <PublicRoute path="/solicitud" component={Solicitud} />
-        <PublicRoute path="/yacimiento-configuracion" component={ConfiguracionYacimiento} />
-        <PublicRoute path="/crear/cliente" component={ClienteAgregar} />
-        <PublicRoute path="/crear/empleado" component={EmpleadoAgregar} />
-        <PublicRoute path="/crear/mineral" component={MineralAgregar} />
-        <PublicRoute path="/crear/yacimiento" component={YacimientoAgregar} />
-        <PublicRoute path="/crear/yacimiento-configuracion" component={ConfiguracionYacimientoAgregar} />
-        <PublicRoute path="/crear/proyecto" component={ProyectoAgregar} />
-        <PublicRoute path="/editar/cliente/:id" component={ClienteEditar} />
-        <PublicRoute path="/editar/mineral/:id" component={MineralEditar} />
-        <PublicRoute path="/editar/empleado/:id" component={EmpleadoEditar} />
-        <PublicRoute path="/editar/yacimiento/:id" component={YacimientoEditar} />
-        <PublicRoute path="/editar/yacimiento-configuracion/:id" component={ConfiguracionYacimientoEditar} />
-        <PublicRoute path="/editar/proyecto/:id" component={ProyectoEditar} />
-        <PublicRoute path="/crear/pedido" component={CrearVenta} />
-        <PublicRoute path="/aliado" component={Aliado} />
-        <PublicRoute path="/pedido" component={Pedido} />
+        <PrivateRoute path="/dashboard" component={MainPanel} />
+        <PrivateRoute path="/cliente" component={Cliente} />
+        <PrivateRoute path="/mineral" component={Mineral} />
+        <PrivateRoute path="/empleado" component={Empleado} />
+        <PrivateRoute path="/yacimiento" component={Yacimiento} />
+        <PrivateRoute path="/proyecto" component={Proyecto} />
+        <PrivateRoute path="/solicitud" component={Solicitud} />
+        <PrivateRoute path="/yacimiento-configuracion" component={ConfiguracionYacimiento} />
+        <PrivateRoute path="/crear/cliente" component={ClienteAgregar} />
+        <PrivateRoute path="/crear/empleado" component={EmpleadoAgregar} />
+        <PrivateRoute path="/crear/mineral" component={MineralAgregar} />
+        <PrivateRoute path="/crear/yacimiento" component={YacimientoAgregar} />
+        <PrivateRoute path="/crear/yacimiento-configuracion" component={ConfiguracionYacimientoAgregar} />
+        <PrivateRoute path="/crear/proyecto" component={ProyectoAgregar} />
+        <PrivateRoute path="/editar/cliente/:id" component={ClienteEditar} />
+        <PrivateRoute path="/editar/mineral/:id" component={MineralEditar} />
+        <PrivateRoute path="/editar/empleado/:id" component={EmpleadoEditar} />
+        <PrivateRoute path="/editar/yacimiento/:id" component={YacimientoEditar} />
+        <PrivateRoute path="/editar/yacimiento-configuracion/:id" component={ConfiguracionYacimientoEditar} />
+        <PrivateRoute path="/editar/proyecto/:id" component={ProyectoEditar} />
+        <PrivateRoute path="/crear/pedido" component={CrearVenta} />
+        <PrivateRoute path="/aliado" component={Aliado} />
+        <PrivateRoute path="/pedido" component={Pedido} />
 
-        <PublicRoute path="/horario" component={Horario} />
-        <PublicRoute path="/crear/horario" component={AgregarHorario} />
-        <PublicRoute path="/editar/horario/:id" component={EditarHorario} />
-        <PublicRoute path="/pago/:id" component={Pagos} />
-        <PublicRoute path="/factura/:id" component={Facturita} />
+        <PrivateRoute path="/horario" component={Horario} />
+        <PrivateRoute path="/crear/horario" component={AgregarHorario} />
+        <PrivateRoute path="/editar/horario/:id" component={EditarHorario} />
+        <PrivateRoute path="/pago/:id" component={Pagos} />
+        <PrivateRoute path="/factura/:id" component={Facturita} />
         
 
-        <PublicRoute path="/inventario" component={InventarioMovs} />
+        <PrivateRoute path="/inventario" component={InventarioMovs} />
         {/* 
           PAGINAS QUE CARGAN LOGEADOS 
           <PrivateRoute path="/dashboard" component={Dashboard} />

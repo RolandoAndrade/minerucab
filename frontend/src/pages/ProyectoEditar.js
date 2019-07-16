@@ -12,6 +12,7 @@ import {GuardarCancelar} from "../components/GuardarCancelar";
 import {MenuDashBoard} from "../components/MenuDashBoard";
 import {Etapa} from "../components/Etapa";
 
+import { tengoPermiso } from "../utils/tengoPermiso"
 import {    cleanerMineral, cleanerCargo, cleanerMaquinaria, 
             cleanerYacimiento, cleanerEmpleado, cleanerHorario, 
             cleanerEquipo
@@ -1090,6 +1091,8 @@ export class ProyectoEditar extends React.Component {
         } = this.state
 
         const estado_id = configuracion_yacimiento.estado_id
+
+        const permisoModificar = tengoPermiso( 27 )
     
         return (
         <div>   
@@ -1103,13 +1106,13 @@ export class ProyectoEditar extends React.Component {
                             <div className="confYacimientoIzq">
                                 { !!estado_id && estado_id === 3 ?
                                     <div style={{margin : "5px auto"}}>
-                                        <Button variant="warning" className="mc-boton" onClick={this.solicitarRecursos}>
+                                        <Button disbaled={!permisoModificar} variant="warning" className="mc-boton" onClick={this.solicitarRecursos}>
                                             Solicitar Recursos
                                         </Button>
                                     </div> 
                                 : !!estado_id && estado_id === 15 ?
                                     <div style={{margin : "5px auto"}}>
-                                        <Button variant="warning" className="mc-boton" onClick={this.activarProyecto}>
+                                        <Button disbaled={!permisoModificar} variant="warning" className="mc-boton" onClick={this.activarProyecto}>
                                             Activar Proyecto
                                         </Button>
                                     </div>
@@ -1117,7 +1120,7 @@ export class ProyectoEditar extends React.Component {
                                     <div style={{margin : "5px auto"}}>
                                         <Button variant="success" className="mc-boton" 
                                             onClick={this.cerrarProyecto}
-                                            disabled={ !this.esProyectoCerrable() }
+                                            disabled={!permisoModificar ||  !this.esProyectoCerrable()}
                                         >
                                             Cerrar Proyecto 
                                         </Button>
@@ -1129,7 +1132,7 @@ export class ProyectoEditar extends React.Component {
                                     name="p_nombre"
                                     value={configuracion_yacimiento.p_nombre}
                                     onChange={this.changeInfo}
-                                    disabled={estado_id !== 3}
+                                    disabled={!permisoModificar || estado_id !== 3}
                                 />
                                 <div>
                                     <p style={{textAlign : "center"}}>Fecha de Inicio</p>
@@ -1137,7 +1140,7 @@ export class ProyectoEditar extends React.Component {
                                         name="p_fecha_inicio"
                                         value={configuracion_yacimiento.p_fecha_inicio}
                                         onChange={this.changeInfo}
-                                        disabled={estado_id !== 3}
+                                        disabled={!permisoModificar || estado_id !== 3}
                                     />
                                 </div>
                                 <DropdownV2
@@ -1346,7 +1349,7 @@ export class ProyectoEditar extends React.Component {
                                     name="f_fecha_inicio"
                                     value={faseModal.f_fecha_inicio}
                                     onChange={this.changeInfoFase}
-                                    disabled={faseModal.estado_id === 8}
+                                    disabled={!permisoModificar || faseModal.estado_id === 8}
                                 />
                                 <p style={{textAlign : "center"}}>Fecha Fin</p>
                                 <InputDate 
@@ -1404,7 +1407,7 @@ export class ProyectoEditar extends React.Component {
                                                                         .find( e => e.e_id_empleado === empleado.e_id_empleado).e_apellido}` 
                                                                     : "Empleado ..."
                                                             }}
-                                                            isDisabled={estado_id !== 3}
+                                                            isDisabled={!permisoModificar || estado_id !== 3}
                                                             options={
                                                                 cleanerEmpleado.limpiarListaDropdown(
                                                                     empleados.filter( e => 
@@ -1429,7 +1432,7 @@ export class ProyectoEditar extends React.Component {
                                                             min="0"
                                                             name="f_salario"
                                                             value={empleado.f_salario}
-                                                            disabled={estado_id !== 3}
+                                                            disabled={!permisoModificar || estado_id !== 3}
                                                             onChange= { (event) =>
                                                                 this.changeEmpleado(event, empleado.idEspecial)
                                                             }
@@ -1443,7 +1446,7 @@ export class ProyectoEditar extends React.Component {
                                                             min="0"
                                                             name="f_viatico"
                                                             value={empleado.f_viatico}
-                                                            disabled={estado_id !== 3}
+                                                            disabled={!permisoModificar || estado_id !== 3}
                                                             onChange= { (event) =>
                                                                 this.changeEmpleado(event, empleado.idEspecial)
                                                             }
@@ -1456,7 +1459,7 @@ export class ProyectoEditar extends React.Component {
                                                                 value: empleado.horario_id,
                                                                 label: !!empleado.horario_id ? horarios.find( h => h.h_id_horario === empleado.horario_id).h_nombre : "Horario ..."
                                                             }}
-                                                            isDisabled={estado_id !== 3}
+                                                            isDisabled={!permisoModificar || estado_id !== 3}
                                                             options={
                                                                 cleanerHorario.limpiarListaDropdown(
                                                                     horarios
@@ -1518,7 +1521,7 @@ export class ProyectoEditar extends React.Component {
                                                                         .find( e => e.e_id_equipo === equipo.e_id_equipo).e_serial}` 
                                                                     : "Equipo ..."
                                                             }}
-                                                            isDisabled={estado_id !== 3}
+                                                            isDisabled={!permisoModificar || estado_id !== 3}
                                                             options={
                                                                 cleanerEquipo.limpiarListaDropdown(
                                                                     equipos.filter( e => 
@@ -1542,7 +1545,7 @@ export class ProyectoEditar extends React.Component {
                                                             min="0"
                                                             name="f_costo_alquiler"
                                                             value={equipo.f_costo_alquiler}
-                                                            disabled={estado_id !== 3}
+                                                            disabled={!permisoModificar || estado_id !== 3}
                                                             onChange= { (event) =>
                                                                 this.changeEquipo(event, equipo.idEspecial)
                                                             }

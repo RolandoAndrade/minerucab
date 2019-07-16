@@ -70,7 +70,7 @@ const AppRouter = () => (
         <PrivateRoute permisoPagina={23} path="/editar/cliente/:id" component={ClienteEditar} />
         <PrivateRoute permisoPagina={25} path="/crear/proyecto" component={ProyectoAgregar} />
         <PrivateRoute permisoPagina={26} path="/proyecto" component={Proyecto} />
-        <PrivateRoute permisoPagina={27} path="/editar/proyecto/:id" component={ProyectoEditar} />
+        <PrivateRoute permisoPagina={26} path="/editar/proyecto/:id" component={ProyectoEditar} />
         <PrivateRoute permisoPagina={29} path="/crear/yacimiento" component={YacimientoAgregar} />
         <PrivateRoute permisoPagina={30} path="/yacimiento" component={Yacimiento} />
         <PrivateRoute permisoPagina={31} path="/editar/yacimiento/:id" component={YacimientoEditar} />

@@ -736,22 +736,24 @@ app.post('/insertar/empleado', (req, res) => {
   let empleado = req.body
   let mensaje = ""
 
-  if(!validadorUsuarios.validarClaves(empleado["usuarios"])){
+  if(!validadorUsuarios.validarClaves(empleado.usuarios)){
     res.status(500).json({"ErrorMessage" : "Claves vacias o nulas"})
     return 0;
   }
 
   (new Promise((resolve,reject) => {
     if(empleado["usuarios"].length > 0) {
-      daoUsuario.validarNombreUsuario(0,empleado["usuarios"])
-      .then((resp_bd) => {
-        if(resp_bd.rowCount) {
-          mensaje = "correo ya usado por otro usuario"
-          reject("correo ya usado por otro usuario")
-        }else {
-          resolve("correos validos")
-        }
-      })
+
+    daoUsuario.validarNombreUsuario(0,empleado.usuarios)
+    .then((resp_bd) => {
+      if(resp_bd.rowCount) {
+        mensaje = "correo ya usado por otro usuario"
+
+        reject("correo ya usado por otro usuario")
+      }else {
+        resolve("correos validos")
+      }
+    })
     }else {
       resolve("correos validos")
     }
@@ -763,7 +765,7 @@ app.post('/insertar/empleado', (req, res) => {
     let empleado_id = resp_bd.rows[0].e_id_empleado
     return new Promise((resolve,reject) => {
       if(empleado["usuarios"].length > 0) {
-        daoEmpleado.asignarVariosUsuarios(empleado_id,empleado["usuarios"])
+        daoEmpleado.asignarVariosUsuarios(empleado_id,empleado.usuarios)
         .then((resp_bd) => {
           resolve("bien")
         })
@@ -799,7 +801,7 @@ app.post('/modificar/empleado', (req, res) => {
   let empleado_id = req.body.e_id_empleado
   let mensaje = ""
 
-  if(!validadorUsuarios.validarClaves(empleado["usuarios"])){
+  if(!validadorUsuarios.validarClaves(empleado.usuarios)){
     res.status(500).json({"ErrorMessage" : "Claves vacias o nulas"})
     return 0;
   }
@@ -2568,16 +2570,13 @@ app.get('/consultarLista/roles', (req, res) => {
   console.log("/consultarLista/roles")
 
   daoRol.consultarTodos()
-      .then( ({rows}) => {
-        console.log(rows);
-        res.status(200).json({"rows" : rows})
-
-      })
-      .catch( (bd_err)=> {
-        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
-        res.status(500).json(bd_err)
-
-      })
+    .then(({rows}) => {
+      res.status(200).json({"rows" : rows})
+    })
+    .catch((bd_err) => {
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+      res.status(500).json(bd_err)
+    })
 });
 
 app.post('/consultar/rol', (req, res) => {

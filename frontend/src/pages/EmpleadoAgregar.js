@@ -6,13 +6,14 @@ import {Button} from "react-bootstrap";
 
 import {MenuDashBoard} from "../components/MenuDashBoard";
 import {InputText} from "../components/InputText";
+import {DropdownV2} from "../components/DropdownV2";
 import {SectionTitle} from "../components/Header/SectionTitle";
 import {InputDate} from "../components/InputDate";
 import {GuardarCancelar} from "../components/GuardarCancelar";
 import { DropdownArreglado } from '../components/DropdownArreglado';
 import {Dropdown} from "../components/Dropdown";
 
-import {cleanerLugar, cleanerCargo} from "../utils/cleaner"
+import {cleanerLugar, cleanerCargo, cleanerRoles} from "../utils/cleaner"
 
 export class EmpleadoAgregar extends React.Component {
     constructor(props){
@@ -40,7 +41,8 @@ export class EmpleadoAgregar extends React.Component {
                 parroquia_id : 0
             },
             lugares : [],
-            cargos : []
+            cargos : [],
+            roles : []
         }
     }
 
@@ -51,24 +53,42 @@ export class EmpleadoAgregar extends React.Component {
         console.log(`----> localhost:4000/consultarLista/lugar`)
         axios.get('http://127.0.0.1:4000/consultarLista/lugar')
           .then( (res) => {
-            if(res.status === 200)
-              console.log(`<---- (OK 200) localhost:4000/consultarLista/lugar`)
-    
-            this.setState({
-                lugares : res.data.rows
-            })
+            if(res.status === 200){
+                console.log(`<---- (OK 200) localhost:4000/consultarLista/lugar`)
+                this.setState({
+                    lugares : res.data.rows
+                })
+            }                
+            else 
+                console.log(`<---- (ERROR 500) localhost:4000/consultarLista/lugar`)            
           })
           .then( (resLug) => {
             console.log(`----> localhost:4000/consultarLista/cargo`)
             axios.get('http://127.0.0.1:4000/consultarLista/cargo')
               .then( (res) => {
-                if(res.status === 200)
-                  console.log(`<---- (OK 200) localhost:4000/consultarLista/cargo`)
+                if(res.status === 200){
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/cargo`)
         
-                this.setState({
-                    cargos : res.data.rows
-                })
+                    this.setState({
+                        cargos : res.data.rows
+                    })
+                }else 
+                    console.log(`<---- (ERROR 500) localhost:4000/consultarLista/cargo`)               
 
+            })
+          })
+          .then((resCargo) => {
+            console.log(`----> localhost:4000/consultarLista/roles`)
+            axios.get('http://127.0.0.1:4000/consultarLista/roles')
+            .then((res) => {
+                if(res.status === 200){
+                    console.log(`<---- (OK 200) localhost:4000/consultarLista/roles`)            
+                    this.setState({
+                        roles : res.data.rows
+                    })
+                }else 
+                    console.log(`<---- (ERROR 500) localhost:4000/consultarLista/roles`)
+                
             })
           })
       }
@@ -79,7 +99,8 @@ export class EmpleadoAgregar extends React.Component {
             {
                 ...this.state.nuevo_empleado,
                 lugar_id : this.state.lugar.parroquia_id,
-                e_genero : this.state.nuevo_empleado.e_genero === 1 ? "m" : "f"
+                e_genero : this.state.nuevo_empleado.e_genero === 1 ? "m" : "f",
+                usuarios : this.state.users
             }
         )
         .then( (res) => {
@@ -133,30 +154,30 @@ export class EmpleadoAgregar extends React.Component {
         })
     }
 
-    changeUser = (opcion , id) => {
+    changeUsuario = (opcion , id) => {
         if (opcion.label) {
             console.log(`Users[ ${id} ].rol_id <-- ${opcion.value} (${opcion.label})`)
-            const nuevosRequisitos = this.state.requisitos.map( req => {
-                    if (req.m_id_mine_yaci === id){
-                        req.mineral_id = opcion.value
+            const nuevosUsuario = this.state.users.map( us => {
+                    if (us.u_id_usuario === id){
+                        us.rol_id = opcion.value
                     }
-                    return req
+                    return us
                 })
             this.setState({
-                requisitos : nuevosRequisitos
+                users : nuevosUsuario
             })
         } else {
-            console.log(`requisito[ ${id} ].m_cantidad <-- ${opcion.target.value}`)
-            const nuevosRequisitos = this.state.requisitos.map( req => {
-                if (req.m_id_mine_yaci === id){
-                    req.m_cantidad = opcion.target.value
+            console.log(`usuario[ ${id} ].${opcion.target.name} <-- ${opcion.target.value}`)
+            const nuevosUsers = this.state.users.map( us => {
+                if (us.u_id_usuario === id){
+                    us[opcion.target.name] = opcion.target.value
                 }
-                return req
+                return us
             })
             this.setState({
-                requisitos : nuevosRequisitos
+                users : nuevosUsers
             })
-        }
+        } 
         
     }
 
@@ -294,7 +315,7 @@ export class EmpleadoAgregar extends React.Component {
 
             <div className="Container-90p">
                 <div className="LabelContainer">
-                    Usuarios asociados al empleado (SEGUNDA ENTREGA)
+                    Usuarios asociados al empleado
                 </div>
                 {
                     this.state.users.map( (usuario,i)=>
@@ -337,15 +358,10 @@ export class EmpleadoAgregar extends React.Component {
                                 <DropdownV2
                                     placeholder="Rol ..."
                                     onChange={ event => 
-                                        this.changeUser(event , usuario.u_id_usuario)
+                                        this.changeUsuario(event , usuario.u_id_usuario)
                                     }
                                     options={
-                                        cleanerMineral.limpiarListaDropdown(
-                                            minerales.filter( m => 
-                                                !requisitos.find( r => r.mineral_id === m.m_id_mineral ) &&
-                                                m.m_id_mineral !== configuracion_yacimiento.mineral_id
-                                            )
-                                        )
+                                        cleanerRoles.limpiarListaDropdown(this.state.roles)
                                     }
                                 />
                             </div>

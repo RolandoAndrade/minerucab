@@ -330,6 +330,19 @@ const cleanerRoles = {
                 "r_id_rol" : p.r_id_rol,
                 "r_nombre" : p.r_nombre
             }))
+    },
+
+    limpiarListaDropdown(  rolesDB ) {
+        if ( rolesDB === undefined ||  rolesDB.length == 0)
+            return []
+        else
+            return  rolesDB.map( r => ({
+                ...r,
+                "text" : r.r_nombre,
+                "label" : r.r_nombre,
+                "id" : r.r_id_rol ,
+                "value" : r.r_id_rol
+            }))
     }
 }
 

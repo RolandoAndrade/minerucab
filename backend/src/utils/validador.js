@@ -177,9 +177,16 @@ const validadorGestorProyecto = {
 
 const validadorUsuarios = {
     validarClaves (usuarios) {
+        console.log("validando usuarios")
         if(!usuarios) return false
         usuarios.forEach((u) => {
             if(!u.u_clave || u.u_clave === "") {
+                return false
+            }
+            if(!u.u_correo || u.u_correo === "") {
+                return false
+            }
+            if(!u.rol_id || u.rol_id === 0) {
                 return false
             }
         })

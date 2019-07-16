@@ -24,6 +24,7 @@ const daoUsuario = {
     },
 
     validarNombreUsuario (empleado_id,usuarios) {
+        console.log("verifando nombres usados")
         let query = `
         SELECT * FROM USUARIO
         WHERE empleado_id != ${empleado_id}
@@ -31,7 +32,7 @@ const daoUsuario = {
         let i = 0
         usuarios.forEach( u => {
             i++;
-            query =  query + `${u.u_correo}${i < gastos.length ? ',' : ');' }`
+            query =  query + `'${u.u_correo}'${i < usuarios.length ? ',' : ');' }`
         })
         console.log(query)
         return psql.query(query)

@@ -22,6 +22,11 @@ export class HeaderLogin extends React.Component {
        this.setState({goToDashBoard: true});
    };
 
+   logout = () => {
+    localStorage.clear()
+    location.reload()
+   }
+
   render = () => (
 
     <div className="HeaderLogin">
@@ -32,7 +37,9 @@ export class HeaderLogin extends React.Component {
             <div className="HeaderTitle" onClick={this.goDash}>MinerUCAB</div>
         </div>
         <div className="HeaderContent align-right">
-            <i className="fas fa-user-circle fa-3x IconoUser"/>
+            <i className="fas fa-sign-out-alt fa-3x IconoUser"
+                onClick={this.logout}
+            />
         </div>
         {this.state.goToDashBoard && <Redirect push to="../../dashboard" /> }
     </div>

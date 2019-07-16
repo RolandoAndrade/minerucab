@@ -48,6 +48,7 @@ import {InventarioMovs} from "../pages/InventarioMovs";
 import {CrearRol} from "../pages/CrearRol";
 import {RolModificar} from "../pages/RolModificar";
 import {Rol} from "../pages/Rol";
+import { Reportes } from '../pages/Reportes';
 
 export const history = createHistory(); // PARA LLEVAR EL CONTROL DE PAGINAS VISITADAS POR USER
 
@@ -90,11 +91,14 @@ const AppRouter = () => (
         <PrivateRoute permisoPagina={18} path="/factura/:id" component={Facturita} />
         
 
-        <PublicRoute path="/inventario" component={InventarioMovs} />
+        <PrivateRoute path="/inventario" component={InventarioMovs} />
 
-        <PublicRoute path="/rol" component={Rol} />
-        <PublicRoute path="/crear/rol" component={CrearRol} />
-        <PublicRoute path="/editar/rol/:id" component={RolModificar} />
+        <PrivateRoute permisoPagina={49} path="/crear/rol" component={CrearRol} />
+        <PrivateRoute permisoPagina={50} path="/rol" component={Rol} />
+        <PrivateRoute permisoPagina={51} path="/editar/rol/:id" component={RolModificar} />
+
+
+        <PrivateRoute permisoPagina={57} path="/jasper" component={Reportes} />
         <PrivateRoute permisoPagina={38} path="/inventario" component={InventarioMovs} />
         {/*
           PAGINAS QUE CARGAN LOGEADOS 

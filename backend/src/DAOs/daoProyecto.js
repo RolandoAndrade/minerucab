@@ -10,10 +10,10 @@ const daoProyecto  = {
                 P.estado_id, E.e_nombre estado, 
                 P.yacimiento_id, Y.y_nombre yacimiento, 
                 P.pedido_id
-            FROM PROYECTO P, ESTADO E, YACIMIENTO Y, PEDIDO PE 
+            FROM ESTADO E, YACIMIENTO Y, PROYECTO P 
+                LEFT OUTER JOIN PEDIDO PE ON P.pedido_id = PE.p_id_pedido
             WHERE P.estado_id = E.e_id_estado AND
-                P.yacimiento_id = Y.y_id_yacimiento AND
-                P.pedido_id = PE.p_id_pedido
+                P.yacimiento_id = Y.y_id_yacimiento
         `)
     },
 
@@ -26,10 +26,10 @@ const daoProyecto  = {
                 P.estado_id, E.e_nombre estado, 
                 P.yacimiento_id, Y.y_nombre yacimiento, 
                 P.pedido_id
-            FROM PROYECTO P, ESTADO E, YACIMIENTO Y, PEDIDO PE 
+            FROM ESTADO E, YACIMIENTO Y, PROYECTO P 
+                LEFT OUTER JOIN PEDIDO PE ON P.pedido_id = PE.p_id_pedido
             WHERE P.estado_id = E.e_id_estado AND
                 P.yacimiento_id = Y.y_id_yacimiento AND
-                P.pedido_id = PE.p_id_pedido AND
                 P.p_id_proyecto = ${id}
         `)
     },
@@ -65,38 +65,55 @@ const daoProyecto  = {
         return psql.query(qry)
     },
 
-    /*
-    eliminar( id ){
-        return psql.query(`
-            DELETE FROM PROYECTO
-            WHERE p_id_proyecto = ${id}
-        `)
+    borrarEtapas (id) {
+        const qry = `
+        DELETE FROM ETAPA
+        WHERE proyecto_id = ${id}
+        `
+        return psql.query(qry)
     },
 
-    
-    insertar({ p_fecha_solicitud, cliente_id }){
-        return psql.query(`
-            INSERT INTO PEDIDO (p_id_pedido, p_fecha_solicitud, cliente_id)
-            VALUES (DEFAULT,
-                    ${p_fecha_solicitud ? `'${p_fecha_solicitud}'` : 'NULL'},
-                    ${cliente_id ? `'${cliente_id}'` : 'NULL'})`)
-
+    obtenerProyectoDesdePedido(pedido_id) {
+        let query = `
+        SELECT P.p_id_proyecto
+        FROM PROYECTO P
+        WHERE P.pedido_id = ${pedido_id}`
+        console.log(`\nobtener Proyecto Desde Pedido:\n${query}`)
+        return psql.query(query)
     },
 
-
-
-    modificar({ m_id_mineral, m_nombre, m_tipo, m_radioactivo, m_fecha_nacionalizacion, m_descripcion }){
-        return psql.query(`
-            UPDATE MINERAL SET
-                m_nombre = ${m_nombre ? `'${m_nombre}'` : 'NULL' },
-                m_tipo = ${m_tipo ? `'${m_tipo}'` : 'NULL'},
-                m_radioactivo = ${m_radioactivo ? 'TRUE' : 'FALSE'},
-                m_fecha_nacionalizacion = ${m_fecha_nacionalizacion ? `'${m_fecha_nacionalizacion}'` : 'NULL'},
-                m_descripcion = ${m_descripcion ? `'${m_descripcion}'` : 'NULL'}
-                WHERE m_id_mineral = ${m_id_mineral}
-        `)
+    actualizarEstado(proyecto_id,estado_id) {
+        let query = `
+        UPDATE PROYECTO
+        SET estado_id = ${estado_id}
+        WHERE p_id_proyecto = ${proyecto_id};`
+        console.log(`\nActualizar Estado Proyecto:\n${query}`)
+        return psql.query(query)
     },
-    */
+
+    tomarRecursos(proyecto_id, requisitos) {
+        console.log(`\nentrando a tomar recursos\n`)
+        let query = `
+        INSERT INTO INVENTARIO (i_id_inventario,i_cantidad,i_ingresado,i_fecha_modificacion,mineral_id,unidad_id,proyecto_id,solicitud_id,pedido_id)
+        VALUES `
+        let i = 0
+        requisitos.forEach((a) => {
+            i++
+            query += `(DEFAULT,${a.m_cantidad*1000},FALSE,now(),${a.mineral_id},6,${proyecto_id},NULL,NULL)${i < requisitos.length ? ',' : ';' }`
+        })
+        console.log(`\nTomar Recursos:\n${query}`)
+        return psql.query(query) 
+    },
+
+    almacenarExplotado(proyecto_id, articulos) {
+        let query = `
+        INSERT INTO INVENTARIO (i_id_inventario,i_cantidad,i_ingresado,i_fecha_modificacion,mineral_id,unidad_id,proyecto_id,solicitud_id,pedido_id)
+        VALUES (DEFAULT,${y_cantidad*1000},TRUE,now(),${mineral_id},6,${proyecto_id},NULL,NULL);`
+        
+        console.log(`\nAlmacenar Mineral Explotado:\n${query}`)
+        return psql.query(query)
+    },
+
 }
 
 export {daoProyecto}

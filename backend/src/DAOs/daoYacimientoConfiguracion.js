@@ -35,7 +35,7 @@ const daoYacimientoConfiguracion = {
         let i = 0
         requisitos.forEach((r) => {
             i++
-            query = query + `(DEFAULT,${yac_id},${r.m_id_mineral},${r.m_cantidad},7)${i < requisitos.length ? ',' : ';' }`
+            query = query + `(DEFAULT,${yac_id},${r.mineral_id},${r.m_cantidad},7)${i < requisitos.length ? ',' : ';' }`
         })
         return psql.query(query)
     },

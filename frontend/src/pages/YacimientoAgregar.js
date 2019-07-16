@@ -155,7 +155,7 @@ export class YacimientoAgregar extends React.Component {
                         <Dropdown id="CrearEmpleadoLugarEstado"
                             name="estado_id"
                             retrieveData={this.handleChangeLugar}
-                            placeholder="Estado donde vive..."
+                            placeholder="Estado donde se ubica..."
                             options={
                                 cleanerLugar.limpiarListaDropdown(
                                     this.state.lugares.filter( l => l.l_tipo === "estado")
@@ -165,7 +165,7 @@ export class YacimientoAgregar extends React.Component {
                         <Dropdown id="CrearEmpleadoLugarMunicipio"
                             name="municipio_id"
                             retrieveData={this.handleChangeLugar}
-                            placeholder="Municipio donde vive..."
+                            placeholder="Municipio se ubica..."
                             options={
                             cleanerLugar.limpiarListaDropdown(
                                 this.state.lugares.filter( l => l.lugar_id === this.state.lugar.estado_id)
@@ -175,7 +175,7 @@ export class YacimientoAgregar extends React.Component {
                         <Dropdown id="CrearEmpleadoLugarParroquia"
                             name="parroquia_id"
                             retrieveData={this.handleChangeLugar}
-                            placeholder="Parroquia donde vive..."
+                            placeholder="Parroquia se ubica..."
                             options={
                             cleanerLugar.limpiarListaDropdown(
                                 this.state.lugares.filter( l => l.lugar_id === this.state.lugar.municipio_id)

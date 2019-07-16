@@ -6,7 +6,7 @@ export const PublicRoute = ({
   ...rest
 }) => (
     <Route {...rest} component={(props) => (
-      localStorage.getItem('user') ? (
+      !!localStorage.getItem('user') ? (
         <Redirect to="/dashboard" />
       ) : (
           <Component {...props} />

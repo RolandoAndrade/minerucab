@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button} from 'react-bootstrap';
 
 import {DropdownV2} from "./DropdownV2"
 import {InputText} from "./InputText";
@@ -9,7 +10,9 @@ export class Etapa extends React.Component {
 
     render = () => {
         let {
-            etapa_configuracion, maquinarias, cargos, tipos, quitarEtapa, changeInfo, agregarFase, quitarFase, abrirFase, no_modificable
+            etapa_configuracion, maquinarias, cargos, tipos, quitarEtapa, changeInfo, 
+            agregarFase, quitarFase, abrirFase, no_modificable, esCerrable, 
+            cerrarEtapa, activarEtapa
         } = this.props
 
         let id = etapa_configuracion.e_id_etapa_configuracion
@@ -18,6 +21,23 @@ export class Etapa extends React.Component {
             <div className="marco-etapa-configuracion">
                 <div className="horizontal">
                     <div className="etapa-conf-izq">
+
+                        { etapa_configuracion.estado_id === 3 ? 
+                            <Button variant="warning" className="mc-boton" 
+                                onClick={() => activarEtapa(etapa_configuracion.e_id_etapa)}
+                            >
+                                Activar Etapa
+                            </Button>
+                        : etapa_configuracion.estado_id === 8 ?
+                            <Button variant="success" className="mc-boton" 
+                                onClick={() => cerrarEtapa(etapa_configuracion.e_id_etapa)}
+                                disabled={!esCerrable}
+                            >
+                                Cerrar Etapa
+                            </Button>
+                        : null
+                        }
+
                         <div>
                             <InputText
                                 id={`NombreEtapa_${id}_${etapa_configuracion.e_orden}_`} 
@@ -33,8 +53,8 @@ export class Etapa extends React.Component {
                             placeholder="Tipo ..."
                             value={{
                                 value : etapa_configuracion.e_tipo,
-                                label : etapa_configuracion.e_tipo === "explotacion" ? "Explotación" : 
-                                        etapa_configuracion.e_tipo === "refinacion" ? "Refinación" :
+                                label : etapa_configuracion.e_tipo === 1 || etapa_configuracion.e_tipo === "explotacion" ? "Explotación" : 
+                                        etapa_configuracion.e_tipo === 2 || etapa_configuracion.e_tipo === "refinacion" ? "Refinación" :
                                         "Tipo ..."
                             }}
                             options={[

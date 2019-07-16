@@ -59,7 +59,7 @@ const daoEmpleado = {
                 ${cargo_id ? cargo_id : 'NULL' },
                 ${lugar_id ? lugar_id : 'NULL' },
                 ${estado_id ? estado_id : 'NULL' }
-            )
+            ) RETURNING (e_id_empleado);
         `)
     },
 
@@ -82,7 +82,65 @@ const daoEmpleado = {
         `)
     },
 
+    modificarEstatusEmpleados(empleados, estatus_id){
+        let query = `
+            UPDATE EMPLEADO
+            SET estado_id = ${estatus_id}
+            WHERE e_id_empleado IN (
+        `
+        let i = 0
+        empleados.forEach( e => {
+            i++;
+            query = query + `${e.e_id_empleado}${i < empleados.length ? ',' : ');' } `
+        })
+        console.log(query)
+        return psql.query(query)
+    },
 
+    liberarEmpleadosProyecto(p_id){
+        let query = `
+            UPDATE EMPLEADO
+            SET estado_id = 11
+            WHERE e_id_empleado IN (
+            SELECT FE.empleado_id FROM FASE_EMPL FE, FASE F, ETAPA E
+            WHERE FE.fase_id = F.f_id_fase
+            AND F.etapa_id = E.e_id_etapa
+            AND E.proyecto_id = ${p_id});
+        `
+        console.log(query)
+        return psql.query(query)
+    },
+
+    liberarEmpleadosFase(fase_id){
+        let query = `
+            UPDATE EMPLEADO
+            SET estado_id = 11
+            WHERE e_id_empleado IN (
+            SELECT empleado_id FROM FASE_EMPL
+            WHERE fase_id = ${fase_id});
+        `
+        console.log(query)
+        return psql.query(query)
+    },
+
+    consultarUsuarios(empleado_id) {
+        return psql.query(`
+            SELECT * 
+            FROM USUARIO
+            WHERE empleado_id = ${empleado_id}
+        `)
+    },
+
+    asignarVariosUsuarios ( empleado_id, usuarios) {
+        let query = `INSERT INTO USUARIO (u_id_usuario,u_correo,u_clave,empleado_id,rol_id) VALUES`
+        let i = 0
+        usuarios.forEach( g => {
+            i++;
+            query =  query + `(DEFAULT,${u.u_correo},${u.u_clave},${empleado_id},${u.rol_id})${i < usuarios.length ? ',' : ';' }`
+        })
+        console.log(query)
+        return psql.query(query)
+    }
 }
 
 export {daoEmpleado}

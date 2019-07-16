@@ -5,29 +5,31 @@ import {Redirect} from 'react-router-dom';
 import {Modal, Button} from 'react-bootstrap';
 import MaterialTable from 'material-table';
 
-import {cleanerProyecto} from '../utils/cleaner';
+import {cleanerEmpleado} from '../utils/cleaner';
 import {MenuDashBoard} from "../components/MenuDashBoard";
 
-export class Proyecto extends React.Component {
+export class Solicitud extends React.Component {
   constructor(props){
     super(props)
     
     this.state  = {
-      proyectos : [],
-      consultarProyecto : null,
-      agregarPresionado : null
+      solicitudes : [],
+      textoBuscardor : "",
+      consultarSolicitud : null,
+      agregarPresionado : null,
     }
   }
 
   componentDidMount = () => {
-    console.log(`----> localhost:4000/consultarLista/proyecto`)
-    axios.get('http://127.0.0.1:4000/consultarLista/proyecto')
+    // API REQUEST GET
+    console.log(`----> localhost:4000/consultarLista/solicitud`)
+    axios.get('http://127.0.0.1:4000/consultarLista/solicitud')
       .then( (res) => {
         if(res.status === 200)
-          console.log(`<---- (OK 200) localhost:4000/consultarLista/proyecto`)
+          console.log(`<---- (OK 200) localhost:4000/consultarLista/solicitud`)
 
         this.setState({
-            proyectos : res.data.rows
+            solicitudes : res.data.rows
         })
 
       })
@@ -41,23 +43,35 @@ export class Proyecto extends React.Component {
   }
 
   handleConsultar = (id) => {
-    console.log(`consultarProyecto(${id})`)
-    const consultarProyecto = this.state.proyectos.find( p => p.p_id_proyecto == id)
+    console.log(`consultarSolicitud(${id})`)
+    const consultarSolicitud = this.state.solicitudes.find( s => s.s_id_solicitud == id)
 
     this.setState({
-      consultarProyecto
+      consultarSolicitud
     })
   }
 
-  handleModificar = () => {
-    console.log(`modificarProyecto(${this.state.consultarProyecto.p_id_proyecto})`)
-    this.setState({
-      modificarProyecto : this.state.consultarProyecto.p_id_proyecto
+  recibirRecursos = () => {
+    const id = this.state.consultarSolicitud.s_id_solicitud
+    console.log(`http://127.0.0.1:4000/atender/solicitud/(${id})`)
+
+    axios.post('http://127.0.0.1:4000/atender/solicitud', 
+    {
+        "s_id_solicitud" : this.state.consultarSolicitud.s_id_solicitud,
     })
+    .then( (res) => {
+        if( res.status === 200) {
+            console.log(`<---- (OK 200) localhost:4000/atender/solicitud`)
+            this.handleCloseModal()
+            this.handleCloseEliminar()
+            location.reload()
+        }
+    })
+    
   }
 
   handleEliminar = () => {
-    console.log(`eliminarYacimiento(${this.state.consultarProyecto.p_id_proyecto})`)
+    console.log(`eliminarEmpleado(${this.state.consultarSolicitud.s_id_solicitud})`)
 
     this.setState({
       warningEliminar : true
@@ -72,14 +86,14 @@ export class Proyecto extends React.Component {
   }
 
   handleEliminarSeguro = () => {
-    console.log(`----> localhost:4000/eliminar/proyecto/${this.state.consultarProyecto.p_id_proyecto}`)
-    axios.post('http://127.0.0.1:4000/eliminar/proyecto', 
+    console.log(`----> localhost:4000/eliminar/solicitud/${this.state.consultarSolicitud.s_id_solicitud}`)
+    axios.post('http://127.0.0.1:4000/eliminar/solicitud', 
         {
-            "p_id_proyecto" : this.state.consultarProyecto.p_id_proyecto,
+            "e_id_empleado" : this.state.consultarSolicitud.s_id_solicitud,
         })
         .then( (res) => {
             if( res.status === 200) {
-                console.log(`<---- (OK 200) localhost:4000/eliminar/proyecto`)
+                console.log(`<---- (OK 200) localhost:4000/eliminar/solicitud`)
                 this.handleCloseModal()
                 this.handleCloseEliminar()
                 location.reload()
@@ -89,63 +103,56 @@ export class Proyecto extends React.Component {
 
   handleCloseModal = () => {
     this.setState({
-      consultarProyecto: null
+      consultarSolicitud: null
     })
   }
     
   render = () => (
     <div>
-        <MenuDashBoard title={"Proyectos"}/>
+        <MenuDashBoard title={"Solicitudes"}/>
 
         <div className="ConsultarLista">
-          { this.state.proyectos &&
+          { this.state.solicitudes &&
             <MaterialTable
               style={{margin: "0 5%"}}
               columns={[
                 {
-                  title: 'ID', field: 'p_id_proyecto', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'desc',
+                  title: 'ID', field: 's_id_solicitud', type: 'string', headerStyle:{ textAlign : "center"}, defaultSort : 'desc',
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
                   }, 
                 },
                 {
-                  title: 'Nombre', field: 'p_nombre', type: 'string', headerStyle:{ textAlign : "center"},
+                  title: 'Proyecto', field: 'p_nombre', type: 'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"                    
                   },
                 },
                 {
-                  title: 'Inicio', field: 'p_fecha_inicio', type: 'string', headerStyle:{ textAlign : "center"},
+                  title: 'Fecha Solicitud', field: 's_fecha_solicitud', type: 'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
                   },
                 },
                 { 
-                  title: 'Yacimiento', field: 'yacimiento', type: 'string', headerStyle:{ textAlign : "center"},
+                  title: 'Fecha Pago', field: 's_fecha_pago', type: 'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
                     textAlign : "center"
                   },
                 },
                 { 
-                  title: 'ID Pedido', field: 'pedido_id', type:'string', headerStyle:{ textAlign : "center"},
+                  title: 'Estado', field: 'e_nombre', type: 'string', headerStyle:{ textAlign : "center"},
                   cellStyle : {
                     fontSize : "large",
-                    textAlign: "center"
-                  },
-                },
-                { 
-                  title: 'Estado Actual', field: 'estado', type:'string', headerStyle:{ textAlign : "center"},
-                  cellStyle : {
-                    fontSize : "large",
-                    textAlign: "center"
+                    textAlign : "center"
                   },
                 }
               ]}
-              data={ cleanerProyecto.limpiarLista( this.state.proyectos ) }
+              data={ this.state.solicitudes }
               title={null}
               
               options={{
@@ -156,28 +163,19 @@ export class Proyecto extends React.Component {
                 },
                 searchFieldAlignment: "left",
                 exportButton: true,
-                exportFileName: "Proyectos",
-
+                exportFileName: "empleados"
               }}
-			  
-              onRowClick={(event, rowData) => this.handleConsultar(rowData.p_id_proyecto)}
-			  localization={
-                  {
+
+              onRowClick={(event, rowData) => this.handleConsultar(rowData.s_id_solicitud)}
+              localization={{
                 toolbar : {
                   searchPlaceholder : "Buscar ..."
-                },
-                pagination:
-                {
-                    labelRowsSelect: "Filas"
-                },
-                body: {
-                    emptyDataSourceMessage: "No hay entradas disponibles"
                 }
               }}
 
               actions={[
                 {
-                  icon: () => <img 
+                  icon : () => <img 
                     src="../resources/icons/Agregar.png"
                     width="25px"
                     onClick={this.handleAgregar}
@@ -190,11 +188,11 @@ export class Proyecto extends React.Component {
 
             />
           }
-          
-          {!!this.state.consultarProyecto && 
+
+          {!!this.state.consultarSolicitud && 
           <Modal 
             size="lg"
-            show={!!this.state.consultarProyecto} 
+            show={!!this.state.consultarSolicitud} 
             onHide={this.handleCloseModal}
             centered
             scrollable
@@ -202,42 +200,34 @@ export class Proyecto extends React.Component {
           >
             <Modal.Header closeButton className="mc-header">
               <div></div>
-              <h1>{this.state.consultarProyecto.p_nombre.toUpperCase()}</h1>
+              <h1>{`${this.state.consultarSolicitud.s_id_solicitud} - ${this.state.consultarSolicitud.p_nombre}`}</h1>
             </Modal.Header>
 
             <Modal.Body className="mc-body"> 
               <p>
                 <span className="mc-atributo">ID</span>
-                <span> : {this.state.consultarProyecto.p_id_proyecto.toString(10).padStart(4, '0')}</span>
+                <span> : {this.state.consultarSolicitud.s_id_solicitud.toString(10).padStart(4, '0')}</span>
               </p>
               <p>
-                <span className="mc-atributo">Nombre</span>
-                <span> : {this.state.consultarProyecto.p_nombre}</span>
+                <span className="mc-atributo">Fecha Solicitud</span>
+                <span> : {this.state.consultarSolicitud.s_fecha_solicitud.split('T')[0]}</span>
               </p>
               <p>
-                <span className="mc-atributo">Fecha de Inicio</span>
-                <span> : {this.state.consultarProyecto.p_fecha_inicio ? this.state.consultarProyecto.p_fecha_inicio.split('T')[0] : "Sin fecha"}</span>
+                <span className="mc-atributo">Fecha Pago</span>
+                <span> : {this.state.consultarSolicitud.s_fecha_pago.split('T')[0]}</span>
               </p>
               <p>
-                <span className="mc-atributo">Estado</span>
-                <span> : {this.state.consultarProyecto.estado}</span>
+                <span className="mc-atributo">Estado Actual</span>
+                <span> : {this.state.consultarSolicitud.e_nombre}</span>
               </p>
-              <p>
-                <span className="mc-atributo">Yacimiento</span>
-                <span> : {this.state.consultarProyecto.yacimiento}</span>
-              </p>
-              <p>
-                <span className="mc-atributo">ID del Pedido Asociado</span>
-                <span> : {this.state.consultarProyecto.pedido_id ? this.state.consultarProyecto.pedido_id.toString(10).padStart(4, '0') : 'No tiene'}</span>
-              </p>
-
+             
             </Modal.Body>
             
             <Modal.Footer className="mc-footer">
-
-              <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.handleModificar}>
-                {this.state.consultarProyecto.estado_id === 3 ? "Modificar" : "Gestionar"}
-              </Button>
+              {this.state.consultarSolicitud.estado_id === 6 &&
+              <Button variant="primary" className="mc-boton mc-boton-guardar" onClick={this.recibirRecursos}>
+                Recibir Recursos
+              </Button>}
 
               <Button variant="danger" className="mc-boton" onClick={this.handleEliminar}>
                 Eliminar
@@ -261,7 +251,7 @@ export class Proyecto extends React.Component {
 
             <Modal.Body className="mc-body"> 
               <div>
-                <p style={{textAlign: "center"}}>{`¿Estas segur@ que deseas eliminar el ${this.state.consultarProyecto && this.state.consultarProyecto.p_nombre}?`}</p>
+                <p style={{textAlign: "center"}}>{`¿Estas segur@ que deseas eliminar la solicitud de ID ${this.state.consoltarSolicitud && this.state.consoltarSolicitud.s_id_solicitud}?`}</p>
               </div>
              
             </Modal.Body>
@@ -277,12 +267,7 @@ export class Proyecto extends React.Component {
             </Modal.Footer>
           </Modal>
           }
-
-          {!!this.state.modificarProyecto 
-            && <Redirect push to={`/editar/proyecto/${this.state.modificarProyecto}`} />
-          }
-          {this.state.agregarPresionado && <Redirect push to="/crear/proyecto" />}
-      </div>
-    </div>  
+    </div>
+    </div>
   )
 }

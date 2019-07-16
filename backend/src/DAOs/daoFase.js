@@ -3,9 +3,10 @@ import {psql} from '../postgreConnection'
 const daoFase = {
     consultarTodosEtapa(etapa_id) {
         return psql.query(`
-            SELECT * FROM FASE F, FASE_CONFIGURACION FC
+            SELECT F.*, Fc.*, E.e_nombre  FROM FASE F, FASE_CONFIGURACION FC, ESTADO E
             WHERE F.etapa_id = ${etapa_id}
             AND F.fase_configuracion_id = FC.f_id_fase_configuracion
+            AND F.estado_id = E.e_id_estado
         `)
     },
 
@@ -21,7 +22,7 @@ const daoFase = {
         const qry = `
             INSERT INTO FASE (f_id_fase,f_fecha_inicio,f_fecha_fin,etapa_id,fase_configuracion_id,estado_id) VALUES 
             (DEFAULT,${f_fecha_inicio ? `'${f_fecha_inicio}'` : 'null'},
-            ${f_fecha_fin ? `'${f_fecha_fin}'` : 'null'},${f_duracion},
+            ${f_fecha_fin ? `'${f_fecha_fin}'` : 'null'},
             ${etapa_id},${fase_configuracion_id},${estado_id}) RETURNING (f_id_fase);
         `
         console.log(qry)
@@ -43,15 +44,16 @@ const daoFase = {
         let i = 0
         empleados.forEach( e => {
             i++;
-            query = query + `(DEFAULT, ${e.f_viatico}, ${e.f_salario},${e.e_id_empleado},${fase_id},${e.h_id_horario},${e.unidad_id})${i < cargos.length ? ',' : ';' } `
+            query = query + `(DEFAULT, ${e.f_viatico? e.f_viatico : 0 }, ${e.f_salario? e.f_salario : 0},${e.e_id_empleado},${fase_id},${e.horario_id },11)${i < empleados.length ? ',' : ';' } `
         })
+
         console.log(query)
         return psql.query(query)
     },
 
     consultarEquipos(fase_id){
         return psql.query(`
-            SELECT F.*, E.e_id_equipo, E.e_marca, E.e_serial, M.m_id_maquinaria, M.m_nombre
+            SELECT F.*, E.e_id_equipo, E.e_marca, E.e_modelo, E.e_serial, M.m_id_maquinaria, M.m_nombre
             FROM FASE_EQUI F, EQUIPO E, MAQUINARIA M
             WHERE fase_id = ${fase_id}
                 AND F.equipo_id = E.e_id_equipo
@@ -60,12 +62,13 @@ const daoFase = {
     },
 
     asignarVariosEquipos(fase_id,equipos){
-        let query = `INSERT INTO FASE_EQUI (f_id_fase_equi,f_costo_alquiler,unidad_id,unidad_id,fase_id) VALUES `
+        let query = `INSERT INTO FASE_EQUI (f_id_fase_equi,f_costo_alquiler,unidad_id,equipo_id,fase_id) VALUES `
         let i = 0;
         equipos.forEach( e => {
             i++;
-            query =  query + `(DEFAULT,${e.f_costo_alquiler},${e.unidad_id},${e.unidad_id},${fase_id})${i < maquinarias.length ? ',' : ';' }`
+            query =  query + `(DEFAULT,${e.f_costo_alquiler},11,${e.e_id_equipo},${fase_id})${i < equipos.length ? ',' : ';' }`
         })
+        console.log(query)
         return psql.query(query)
     },
 
@@ -82,8 +85,9 @@ const daoFase = {
         let i = 0
         gastos.forEach( g => {
             i++;
-            query =  query + `(DEFAULT,${g.g_monto},${e.unidad_id},${g.g_concepto ? `'${g.g_concepto}'`:'null'},${g.unidad_id},${fase_id})${i < maquinarias.length ? ',' : ';' }`
+            query =  query + `(DEFAULT,${g.g_monto},${g.g_concepto ? `'${g.g_concepto}'`:'null'},11,${fase_id})${i < gastos.length ? ',' : ';' }`
         })
+        console.log(query)
         return psql.query(query)
     },
 
@@ -92,7 +96,23 @@ const daoFase = {
         return psql.query(`
         UPDATE FASE
         SET estado_id = ${estado_id}
-        WHERE f_fase = ${f_id_fase}
+        WHERE f_id_fase = ${f_id_fase}
+        `)
+    },
+
+    modificarFechaInicio(f_id_fase, f_fecha_inicio) {
+        return psql.query(`
+        UPDATE FASE
+        SET f_fecha_inicio = '${f_fecha_inicio}'
+        WHERE f_id_fase = ${f_id_fase}
+        `)
+    },
+
+    modificarFechaFin(f_id_fase, f_fecha_fin) {
+        return psql.query(`
+        UPDATE FASE
+        SET f_fecha_fin = '${f_fecha_fin}'
+        WHERE f_id_fase = ${f_id_fase}
         `)
     }
 }

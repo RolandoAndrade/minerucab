@@ -3,15 +3,19 @@ import {psql} from '../postgreConnection'
 const daoInventario = {
     consultarTodos() {
         return psql.query(`
-            SELECT M.m_id_mineral, M.m_nombre,
-                   (SELECT sum(i_cantidad) FROM INVENTARIO
-                    WHERE mineral_id = M.m_id_mineral
-                      and i_ingresado = true) -
-                   (SELECT sum(i_cantidad) FROM INVENTARIO
-                    WHERE mineral_id = m.m_id_mineral
-                      and i_ingresado = false) as cantidad_actual
-            FROM MINERAL M
-            WHERE m.m_id_mineral IN (SELECT distinct mineral_id FROM INVENTARIO)
+        SELECT M.m_id_mineral, M.m_nombre,
+		(SELECT sum(i_cantidad) FROM INVENTARIO
+		    WHERE i_ingresado = true) - 					
+        (SELECT sum(i_cantidad) FROM INVENTARIO
+            WHERE mineral_id != M.m_id_mineral
+            and i_ingresado = true) -
+        (SELECT sum(i_cantidad) FROM INVENTARIO
+		    WHERE i_ingresado = false) +
+        (SELECT sum(i_cantidad) FROM INVENTARIO
+            WHERE mineral_id != m.m_id_mineral
+                and i_ingresado = false) as cantidad_actual
+        FROM MINERAL M
+        WHERE m.m_id_mineral IN (SELECT distinct mineral_id FROM INVENTARIO)
         `)
     },
 
@@ -32,17 +36,45 @@ const daoInventario = {
     cantidadMineralGuardado( id )
     {
         return psql.query(`
-            SELECT M.m_id_mineral, M.m_nombre, 
+        SELECT M.m_id_mineral, M.m_nombre,
+		(SELECT sum(i_cantidad) FROM INVENTARIO
+		WHERE i_ingresado = true) - 					
                 (SELECT sum(i_cantidad) FROM INVENTARIO
-                WHERE mineral_id = M.m_id_mineral
-                and i_ingresado = true) - 
+                WHERE mineral_id != M.m_id_mineral
+                and i_ingresado = true) -
                 (SELECT sum(i_cantidad) FROM INVENTARIO
-                WHERE mineral_id = m.m_id_mineral
+		WHERE i_ingresado = false) +
+                (SELECT sum(i_cantidad) FROM INVENTARIO
+                WHERE mineral_id != m.m_id_mineral
                 and i_ingresado = false) as cantidad_actual
             FROM MINERAL M
-            WHERE m.m_id_mineral IN (SELECT distinct mineral_id FROM INVENTARIO)
-            AND m.m_id_mineral = ${id}
+            WHERE m.m_id_mineral = ${id}
         `)
+    },
+
+    consultarRequisitos (requisitos) 
+    {
+        let query = `
+        SELECT M.m_id_mineral, M.m_nombre,
+		(SELECT sum(i_cantidad) FROM INVENTARIO
+		WHERE i_ingresado = true) - 					
+                (SELECT sum(i_cantidad) FROM INVENTARIO
+                WHERE mineral_id != M.m_id_mineral
+                and i_ingresado = true) -
+                (SELECT sum(i_cantidad) FROM INVENTARIO
+		WHERE i_ingresado = false) +
+                (SELECT sum(i_cantidad) FROM INVENTARIO
+                WHERE mineral_id != m.m_id_mineral
+                and i_ingresado = false) as cantidad_actual
+            FROM MINERAL M
+            WHERE m.m_id_mineral IN (`
+        let i = 0
+        requisitos.forEach(m => {
+            i++
+            query += `${m.m_id_mineral}${i < requisitos.length ? ',' : ');' }`
+        });
+        console.log(`\n${query}\n`)
+        return psql.query(query)
     },
 
     consultarMovimientosMineral( id ){

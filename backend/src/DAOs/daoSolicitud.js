@@ -50,8 +50,12 @@ const daoSolicitud = {
     },
 
     atenderSolicitud(s_id_solicitud){
-        let query = `UPDATE SOLICITUD
-                        SET estado_id = 14`
+        let query = `
+        UPDATE SOLICITUD
+        SET estado_id = 14
+        WHERE s_id_solicitud = ${s_id_solicitud}`
+        console.log(`\nAtender Solicitud:\n${query}`)
+        return psql.query(query)
     },
 
     obtenerArticulosSolicitados(s_id_solicitud) {

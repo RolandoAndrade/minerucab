@@ -16,9 +16,9 @@ export class Mineral extends React.Component {
     this.state  = {
       minerales : [],
       textoBuscardor : "",
-      consultarMineral : null,
+      consultarRoles : null,
       agregarPresionado : null,
-      compuestos : []
+      permisos : []
     }
   }
 
@@ -58,8 +58,8 @@ export class Mineral extends React.Component {
           console.log(`<---- (OK 200) localhost:4000/consultarLista/mineral/hijos`)
 
           this.setState({
-            compuestos : res.data.rows,
-            consultarMineral : consultarMineral
+            permisos : res.data.rows,
+            consultarRoles : consultarMineral
           })
 
       })
@@ -67,14 +67,14 @@ export class Mineral extends React.Component {
   }
 
   handleModificar = () => {
-    console.log(`modificarMineral(${this.state.consultarMineral.m_id_mineral})`)
+    console.log(`modificarMineral(${this.state.consultarRoles.m_id_mineral})`)
     this.setState({
-      modificarMineral : this.state.consultarMineral.m_id_mineral
+      modificarRol : this.state.consultarRoles.m_id_mineral
     })
   }
 
   handleEliminar = () => {
-    console.log(`eliminarMineral(${this.state.consultarMineral.m_id_mineral})`)
+    console.log(`eliminarMineral(${this.state.consultarRoles.m_id_mineral})`)
 
     this.setState({
       warningEliminar : true
@@ -89,10 +89,10 @@ export class Mineral extends React.Component {
   }
 
   handleEliminarSeguro = () => {
-    console.log(`----> localhost:4000/eliminar/mineral/${this.state.consultarMineral.m_id_mineral}`)
+    console.log(`----> localhost:4000/eliminar/mineral/${this.state.consultarRoles.m_id_mineral}`)
     axios.post('http://127.0.0.1:4000/eliminar/mineral', 
         {
-            "m_id_mineral" : this.state.consultarMineral.m_id_mineral,
+            "m_id_mineral" : this.state.consultarRoles.m_id_mineral,
         })
         .then( (res) => {
             if( res.status === 200) {
@@ -106,8 +106,8 @@ export class Mineral extends React.Component {
 
   handleCloseModal = () => {
     this.setState({
-      consultarMineral: null,
-      compuestos : []
+      consultarRoles: null,
+      permisos : []
     })
   }
     
@@ -204,10 +204,10 @@ export class Mineral extends React.Component {
             />
           }
           
-          {!!this.state.consultarMineral && 
+          {!!this.state.consultarRoles &&
           <Modal 
             size="lg"
-            show={!!this.state.consultarMineral} 
+            show={!!this.state.consultarRoles}
             onHide={this.handleCloseModal}
             centered
             scrollable
@@ -215,40 +215,40 @@ export class Mineral extends React.Component {
           >
             <Modal.Header closeButton className="mc-header">
               <div></div>
-              <h1>{this.state.consultarMineral.m_nombre.toUpperCase()}</h1>
+              <h1>{this.state.consultarRoles.m_nombre.toUpperCase()}</h1>
             </Modal.Header>
 
             <Modal.Body className="mc-body"> 
               <p>
                 <span className="mc-atributo">ID</span>
-                <span> : {this.state.consultarMineral.m_id_mineral.toString(10).padStart(4, '0')}</span>
+                <span> : {this.state.consultarRoles.m_id_mineral.toString(10).padStart(4, '0')}</span>
               </p>
               <p>
                 <span className="mc-atributo">¿Metal?</span>
-                <span> : {this.state.consultarMineral.m_tipo === "metal" ? "Si" : "No"}</span>
+                <span> : {this.state.consultarRoles.m_tipo === "metal" ? "Si" : "No"}</span>
               </p>
               <p>
                 <span className="mc-atributo">¿Radioactivo?</span>
-                <span> : {this.state.consultarMineral.m_radioactivo ? "Si" : "No"}</span>
+                <span> : {this.state.consultarRoles.m_radioactivo ? "Si" : "No"}</span>
               </p>
               <p>
                 <span className="mc-atributo">Nacionalizado</span>
-                <span> : {this.state.consultarMineral.m_fecha_nacionalizacion ? this.state.consultarMineral.m_fecha_nacionalizacion.split('T')[0] : "No"}</span>
+                <span> : {this.state.consultarRoles.m_fecha_nacionalizacion ? this.state.consultarRoles.m_fecha_nacionalizacion.split('T')[0] : "No"}</span>
               </p>
               <p>
                 <span className="mc-atributo">Descripción</span>
-                <span> : {this.state.consultarMineral.m_descripcion || "El mineral no posee descripción"}</span>
+                <span> : {this.state.consultarRoles.m_descripcion || "El mineral no posee descripción"}</span>
               </p>
               <p><span className="mc-atributo">Yacimientos</span><span> :</span></p>
-              { this.state.consultarMineral.yacimientos ?
-                this.state.consultarMineral.yacimientos.map( (yacimiento, i) => (
+              { this.state.consultarRoles.yacimientos ?
+                this.state.consultarRoles.yacimientos.map( (yacimiento, i) => (
                   <p className="mc-multivalor" key={i}>- {yacimiento}</p>
                 )) :
                 <p className="mc-multivalor">El mineral no se ha registrado en ningún yacimiento.</p>
               }
               <p><span className="mc-atributo">Compuesto de</span><span> :</span></p>
-              { this.state.compuestos.length !== 0 ?
-                this.state.compuestos.map( (compuesto, i) => (
+              { this.state.permisos.length !== 0 ?
+                this.state.permisos.map( (compuesto, i) => (
                   <p className="mc-multivalor" key={i}>- {compuesto.m_nombre}</p>
                 )) :
                 <p className="mc-multivalor">El mineral no esta compuesto de otros minerales.</p>
@@ -288,7 +288,7 @@ export class Mineral extends React.Component {
 
             <Modal.Body className="mc-body"> 
               <div>
-                <p style={{textAlign: "center"}}>{`¿Estas segur@ que deseas eliminar el ${this.state.consultarMineral && this.state.consultarMineral.m_nombre}?`}</p>
+                <p style={{textAlign: "center"}}>{`¿Estas segur@ que deseas eliminar el ${this.state.consultarRoles && this.state.consultarRoles.m_nombre}?`}</p>
               </div>
              
             </Modal.Body>
@@ -305,8 +305,8 @@ export class Mineral extends React.Component {
           </Modal>
           }
 
-          {!!this.state.modificarMineral 
-            && <Redirect push to={`/editar/mineral/${this.state.modificarMineral}`} />
+          {!!this.state.modificarRol
+            && <Redirect push to={`/editar/mineral/${this.state.modificarRol}`} />
           }
           {this.state.agregarPresionado && <Redirect push to="/crear/mineral" />}
       </div>

@@ -301,8 +301,8 @@ app.post('/insertar/mineral', (req, res) => {
 
     })
     .then( (bd_response) => {
-        if (req.body.compuestos.length !== 0 ){
-          daoMineral.insertarCompuestos( bd_response.rows[0].m_id_mineral , req.body.compuestos)
+        if (req.body.permisos.length !== 0 ){
+          daoMineral.insertarCompuestos( bd_response.rows[0].m_id_mineral , req.body.permisos)
             .then( (bd_response) => {
               console.log(`STATUS OK : 200`) 
               // CUANDO SI TIENE COMPUESTOS
@@ -368,7 +368,7 @@ app.post('/modificar/mineral', (req, res) => {
           })
         .then( () => {
 
-            daoMineral.insertarCompuestos( req.body.m_id_mineral , req.body.compuestos)
+            daoMineral.insertarCompuestos( req.body.m_id_mineral , req.body.permisos)
             .then( (bd_response) => {
               console.log(`STATUS OK : 200`) 
               res.status(200).json({"rowCount" : bd_response.rowCount})
@@ -464,7 +464,7 @@ app.post('/consultarLista/mineral/posiblesHijos', (req, res) => {
 import {daoSolicitud} from './DAOs/daoSolicitud'
 
 app.get('/consultarLista/solicitud', (req, res) => {
-  
+
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
   console.log("/consultarLista/solicitud")
@@ -508,12 +508,12 @@ app.post('/eliminar/solicitud', (req,res) => {
     return daoPedido.eliminar(pedido_id)
   })
   .then( ({rows}) => {
-    console.log(`STATUS OK : 200`)      
+    console.log(`STATUS OK : 200`)
     res.status(200).json({"resp" : "solitud eliminada exitosamente"})
 
   })
   .catch( (bd_err) => {
-    console.log(`STATUS ERROR: 500`)      
+    console.log(`STATUS ERROR: 500`)
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
     res.status(500).json(bd_err)
   })
@@ -535,15 +535,15 @@ app.post('/atender/solicitud', (req,res) => {
     return daoSolicitud.atenderSolicitud(s_id_solicitud)
   })
   .then( ({rows}) => {
-    console.log(`STATUS OK : 200`)      
+    console.log(`STATUS OK : 200`)
     res.status(200).json({"resp" : "solitud de recursos registrada exitosamente"})
 
   })
   .catch( (bd_err) => {
-    console.log(`STATUS ERROR: 500`)      
+    console.log(`STATUS ERROR: 500`)
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
     res.status(500).json(bd_err)
-  }) 
+  })
 })
 
 
@@ -692,12 +692,12 @@ app.post('/consultar/empleado', (req, res) => {
     return daoEmpleado.consultarUsuarios(empleado_id)
   })
   .then((resp_bd) => {
-    console.log(`STATUS OK : 200`)      
+    console.log(`STATUS OK : 200`)
     empleado["usuarios"] = resp_bd.rows
     res.status(200).json({"rows" : empleado})
   })
   .catch( (bd_err) => {
-    console.log(`STATUS ERROR: 500`)      
+    console.log(`STATUS ERROR: 500`)
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
     res.status(500).json(bd_err)
@@ -754,7 +754,7 @@ app.post('/insertar/empleado', (req, res) => {
       })
     }else {
       resolve("correos validos")
-    }    
+    }
   }))
   .then((DATA_RESPUESTA) => {
     return daoEmpleado.insertar( empleado )
@@ -770,17 +770,17 @@ app.post('/insertar/empleado', (req, res) => {
       }else{
         resolve("bien")
       }
-    })   
-    
-  })  
+    })
+
+  })
   .then( (DATA_RESPUESTA) => {
-    console.log(`STATUS OK : 200`)    
-    
+    console.log(`STATUS OK : 200`)
+
     res.status(200).json({"resp" : "Empleado insertado exitosamente"})
 
   })
   .catch( (bd_err) => {
-    console.log(`STATUS ERROR: 500`)      
+    console.log(`STATUS ERROR: 500`)
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
     res.status(500).json({"Error":mensaje})
@@ -817,7 +817,7 @@ app.post('/modificar/empleado', (req, res) => {
       })
     }else {
       resolve("correos validos")
-    }    
+    }
   }))
   .then((DATA_RESPUESTA) => {
     return daoUsuario.eliminarUsuariosEmpleado(empleado_id)
@@ -836,17 +836,17 @@ app.post('/modificar/empleado', (req, res) => {
       }else{
         resolve("bien")
       }
-    })   
-    
-  })  
+    })
+
+  })
   .then( (DATA_RESPUESTA) => {
-    console.log(`STATUS OK : 200`)    
-    
+    console.log(`STATUS OK : 200`)
+
     res.status(200).json({"resp" : "Empleado modificado exitosamente"})
 
   })
   .catch( (bd_err) => {
-    console.log(`STATUS ERROR: 500`)      
+    console.log(`STATUS ERROR: 500`)
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
     res.status(500).json({"Error":mensaje})
@@ -863,7 +863,7 @@ app.post('/login/usuario', (req,res) => {
 
   const correo = req.body.u_correo ? req.body.u_correo : ""
   const clave = req.body.u_clave ? req.body.u_clave : ""
-  
+
   let usuario = null
   daoUsuario.obtenerUsuario(correo,clave)
   .then((resp_bd) => {
@@ -880,13 +880,13 @@ app.post('/login/usuario', (req,res) => {
     })
   })
   .then( (DATA_RESPUESTA) => {
-    console.log(`STATUS OK : 200`)      
-    
+    console.log(`STATUS OK : 200`)
+
     res.status(200).json({"usuario" : usuario})
 
   })
   .catch( (bd_err) => {
-    console.log(`STATUS ERROR: 500`)      
+    console.log(`STATUS ERROR: 500`)
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
     res.status(500).json(bd_err)
@@ -1191,7 +1191,7 @@ app.post('/consultar/detalle_yacimiento_configuracion', (req,res) => {
   .then(() => {
     return new Promise((resolve,reject) => {
       let promesas2 = []
-      yacimiento_configuracion["etapas"].map((e,i) => { 
+      yacimiento_configuracion["etapas"].map((e,i) => {
         daoFaseConfiguracion.consultarTodosEtapa(e.e_id_etapa_configuracion)
         .then((resp_bd) => {
           yacimiento_configuracion["etapas"][i]["fases"] = resp_bd.rows
@@ -1206,8 +1206,8 @@ app.post('/consultar/detalle_yacimiento_configuracion', (req,res) => {
                 yacimiento_configuracion["etapas"][i]["fases"][j]["maquinarias"] = resp_bd.rows ? resp_bd.rows : []
                 solve("continua")
                 if( (i === (yacimiento_configuracion["etapas"].length - 1)) && (j === (yacimiento_configuracion["etapas"][i]["fases"].length - 1)))
-                Promise.all(promesas2).then(() => resolve("bien!"))    
-              })              
+                Promise.all(promesas2).then(() => resolve("bien!"))
+              })
             }))
           })   
         })
@@ -1492,6 +1492,7 @@ import {daoHorario} from "./DAOs/daoHorario";
 import {daoEtapa} from "./DAOs/daoEtapa";
 import {daoFase} from "./DAOs/daoFase";
 import { daoUsuario } from "./DAOs/daoUsuario";
+import {daoRol} from "./DAOs/daoRol";
 
 app.get('/consultarLista/proyecto', (req, res) => {
   
@@ -1550,7 +1551,7 @@ app.post(`/consultar/detalle_proyecto`,(req,res) => {
   .then(() => {
     return new Promise((resolve,reject) => {
       let promesas2 = []
-      proyecto["etapas"].map((e,i) => { 
+      proyecto["etapas"].map((e,i) => {
         daoFase.consultarTodosEtapa(e.e_id_etapa)
         .then((resp_bd) => {
           proyecto["etapas"][i]["fases"] = resp_bd.rows
@@ -1571,9 +1572,9 @@ app.post(`/consultar/detalle_proyecto`,(req,res) => {
                 if( (i === (proyecto["etapas"].length - 1)) && (j === (proyecto["etapas"][i]["fases"].length - 1)))
                 Promise.all(promesas2).then(() => resolve("bien!"))
               })
-            }))                                
-          }) 
-        })   
+            }))
+          })
+        })
       })
     })
   })
@@ -1642,20 +1643,20 @@ app.post('/insertar/proyecto', (req,res) => {
             .then((resp_bd) => {
               if( (i === (p["etapas"].length - 1)) && (j === (p["etapas"][i]["fases"].length - 1)))
                   resolve("bien!")
-            })                         
+            })
           })
-        }) 
+        })
       })
     })
   })
   .then((DATA_RESPUESTA) => {
-    console.log(`STATUS OK : 200`)      
+    console.log(`STATUS OK : 200`)
     res.status(200).json({"message" : "Proyecto Insertado Exitosamente!!!!!"})
   })
   .catch( (bd_err) => {
-    console.log(`STATUS ERROR: 500`)      
+    console.log(`STATUS ERROR: 500`)
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
-  
+
     res.status(500).json(bd_err)
   })
 })
@@ -1668,7 +1669,7 @@ app.post('/modificar/proyecto', (req,res) => {
   let p = req.body
   const m = validadorProyecto.validar(p)
   if (m !== "") {
-    console.log(`\n\nSTATUS ERROR: 500`)      
+    console.log(`\n\nSTATUS ERROR: 500`)
     console.error(`\n\nERROR: Formato invalido: ${m}`)
 
     res.status(500).json({"ErrorMessage" : m})
@@ -1718,20 +1719,20 @@ app.post('/modificar/proyecto', (req,res) => {
             .then((resp_bd) => {
               if( (i === (p["etapas"].length - 1)) && (j === (p["etapas"][i]["fases"].length - 1)))
                   resolve("bien!")
-            })                         
+            })
           })
-        }) 
+        })
       })
     })
   })
   .then((DATA_RESPUESTA) => {
-    console.log(`STATUS OK : 200`)      
+    console.log(`STATUS OK : 200`)
     res.status(200).json({"message" : "Proyecto Modificado Exitosamente!!!!!"})
   })
   .catch( (bd_err) => {
-    console.log(`STATUS ERROR: 500`)      
+    console.log(`STATUS ERROR: 500`)
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
-  
+
     res.status(500).json(bd_err)
   })
 })
@@ -1743,7 +1744,7 @@ app.post('/iniciar/proyecto', (req,res) => {
 
   let proy_id = req.body.p_id_proyecto ? req.body.p_id_proyecto : 0
   let requisitos = req.body.requisitos ? req.body.requisitos : []
-  
+
   if (proy_id === 0) {
     res.status(500).json({"ErrorMessage" : "id proyecto invalido o vacio"})
     return 0;
@@ -1770,7 +1771,7 @@ app.post('/iniciar/proyecto', (req,res) => {
         else if (m.m_cantidad*1000 > n.cantidad_actual) lista_compra.push({"m_cantidad": m.m_cantidad*1000 - n.cantidad_actual, "m_id_mineral": m.m_id_mineral})
         if (index === requisitos.length - 1) resolve("bien")
       })
-    })    
+    })
   })
   .then((DATA_RESPUESTA) => {
     console.log(`\n\n:Lista compra: \n${JSON.stringify(lista_compra)}`)
@@ -1792,7 +1793,7 @@ app.post('/iniciar/proyecto', (req,res) => {
         })
       }else{
         resolve("bien")
-      }        
+      }
     })
   })
   .then((DATA_RESPUESTA) =>{
@@ -1826,15 +1827,15 @@ app.post('/iniciar/proyecto', (req,res) => {
     res.status(200).json({"resp" : mensaje})
   })
   .catch( (bd_err) => {
-    console.log(`STATUS ERROR: 500`)      
+    console.log(`STATUS ERROR: 500`)
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
     res.status(500).json({"resp": mensaje})
-  }) 
+  })
 })
 
 app.post('/eliminar/proyecto', (req, res) => {
-  
+
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
   console.log(`/eliminar/proyecto/${req.body.p_id_proyecto}`)
@@ -1845,13 +1846,13 @@ app.post('/eliminar/proyecto', (req, res) => {
   })
   .then ((resp_bd) => {
     return daoProyecto.eliminar(proy_id)
-  })  
+  })
   .then( (bd_response) => {
     console.log(`STATUS OK : 200`)
     res.status(200).json({"rowCount" : bd_response.rowCount})
   })
   .catch( (bd_err) => {
-    console.log(`STATUS ERROR: 500`)      
+    console.log(`STATUS ERROR: 500`)
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
     res.status(500).json(bd_err)
@@ -1888,7 +1889,7 @@ app.post('/activar/proyecto', (req,res) => {
         else if (m.m_cantidad*1000 > n.cantidad_actual) activable = false
         if (index === requisitos.length - 1) resolve("bien")
       })
-    })    
+    })
   })
   .then((DATA_RESPUESTA) => {
     return new Promise ((resolve,reject) => {
@@ -1915,7 +1916,7 @@ app.post('/activar/proyecto', (req,res) => {
     res.status(200).json({"resp" : "Recursos asignados exitosamente"})
   })
   .catch( (bd_err) => {
-    console.log(`STATUS ERROR: 500`)      
+    console.log(`STATUS ERROR: 500`)
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
     res.status(500).json(bd_err)
@@ -1939,18 +1940,18 @@ app.post('/finalizar/proyecto', (req,res) => {
     res.status(500).json({"ErrorMessage" : "Cantidad explotada nesativa"})
     return 0;
   }
-  explotado = req.body.mineral_id 
+  explotado = req.body.mineral_id
 
   daoProyecto.almacenarExplotado(proy_id,catidad,explotado)
   .then((resp_bd)=>{
     return daoProyecto.actualizarEstado(proy_id,10)
-  }) 
+  })
   .then((DATA_RESPUESTA) => {
     console.log(`STATUS OK : 200`)
     res.status(200).json({"resp" : "Proyecto cerrado exitosamente"})
   })
   .catch( (bd_err) => {
-    console.log(`STATUS ERROR: 500`)      
+    console.log(`STATUS ERROR: 500`)
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
     res.status(500).json(bd_err)
@@ -1971,7 +1972,7 @@ app.post('/activar/fase', (req,res) => {
 
   const m = validadorGestorProyecto.validarActivarFase(inicio_etapa, inicio_fase, fase_id)
   if (m !== "") {
-    console.log(`\n\nSTATUS ERROR: 500`)      
+    console.log(`\n\nSTATUS ERROR: 500`)
     console.error(`\n\nERROR: ${m}`)
 
     res.status(500).json({"ErrorMessage" : m})
@@ -1987,7 +1988,7 @@ app.post('/activar/fase', (req,res) => {
     res.status(200).json({"resp" : "fase iniciada exitosamente"})
   })
   .catch( (bd_err) => {
-    console.log(`STATUS ERROR: 500`)      
+    console.log(`STATUS ERROR: 500`)
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
     res.status(500).json(bd_err)
@@ -2006,7 +2007,7 @@ app.post('/finalizar/fase',(req,res) => {
 
   const m = validadorGestorProyecto.validarFinalizarFase(inicio_fase, fin_fase, fase_id)
   if (m !== "") {
-    console.log(`\n\nSTATUS ERROR: 500`)      
+    console.log(`\n\nSTATUS ERROR: 500`)
     console.error(`\n\nERROR: ${m}`)
 
     res.status(500).json({"ErrorMessage" : m})
@@ -2028,7 +2029,7 @@ app.post('/finalizar/fase',(req,res) => {
     res.status(200).json({"resp" : "fase finalizada exitosamente"})
   })
   .catch( (bd_err) => {
-    console.log(`STATUS ERROR: 500`)      
+    console.log(`STATUS ERROR: 500`)
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
     res.status(500).json(bd_err)
@@ -2049,7 +2050,7 @@ app.post('/activar/etapa',(req,res) => {
 
   const m = validadorGestorProyecto.validarActivaEtapa(inicio_proyecto, inicio_etapa, etapa_id)
   if (m !== "") {
-    console.log(`\n\nSTATUS ERROR: 500`)      
+    console.log(`\n\nSTATUS ERROR: 500`)
     console.error(`\n\nERROR: ${m}`)
 
     res.status(500).json({"ErrorMessage" : m})
@@ -2058,7 +2059,7 @@ app.post('/activar/etapa',(req,res) => {
   daoEtapa.modificarFechaInicio(etapa_id,inicio_etapa)
   .then((resp_bd) => {
     return daoEtapa.modificarEstado(etapa_id,8)
-  })  
+  })
   .then((resp_bd) => {
     console.log(`STATUS OK : 200`)
     res.status(200).json({"resp" : "Etapa iniciada exitosamente"})
@@ -2077,7 +2078,7 @@ app.post('/finalizar/etapa',(req,res) => {
   console.log(`/finalizar/etapa/${req.body.e_id_etapa}`)
 
   let etapa_id = req.body.e_id_etapa
-  
+
   if (etapa_id === 0) {
     res.status(500).json({"ErrorMessage" : "id etapa invalido o vacio"})
     return 0;
@@ -2089,7 +2090,7 @@ app.post('/finalizar/etapa',(req,res) => {
     res.status(200).json({"resp" : "Etapa finalizada exitosamente"})
   })
   .catch( (bd_err) => {
-    console.log(`STATUS ERROR: 500`)      
+    console.log(`STATUS ERROR: 500`)
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
     res.status(500).json(bd_err)
@@ -2173,7 +2174,7 @@ app.post('/eliminar/pedido', (req, res) => {
   console.log("\n\n")
   console.log(`----------------------> ${getAhora()}`)
   console.log(`/eliminar/pedido/${req.body.p_id_pedido}`)
-  
+
   p_id_pedido = req.body.p_id_pedido
   let proyecto_id = 0
   daoProyecto.obtenerProyectoDesdePedido(p_id_pedido)
@@ -2191,13 +2192,13 @@ app.post('/eliminar/pedido', (req, res) => {
     return daoPedido.eliminar(p_id_pedido)
   })
   .then( (bd_response) => {
-    console.log(`STATUS OK : 200`)      
-    
+    console.log(`STATUS OK : 200`)
+
     res.status(200).json({"rowCount" : bd_response.rowCount})
 
   })
   .catch( (bd_err) => {
-    console.log(`STATUS ERROR: 500`)      
+    console.log(`STATUS ERROR: 500`)
     console.error(`bd_err : ${JSON.stringify(bd_err)}`)
 
     res.status(500).json(bd_err)
@@ -2557,6 +2558,146 @@ app.post('/eliminar/horario', (req, res) => {
         res.status(500).json(bd_err)
 
       })
+});
+
+/* ****************************** ROL ****************************** */
+app.get('/consultarLista/roles', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log("/consultarLista/roles")
+
+  daoRol.consultarTodos()
+      .then( ({rows}) => {
+        console.log(rows);
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err)=> {
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/consultar/rol', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/consultar/rol/${req.body.r_id_rol}`)
+  daoRol.consultar(req.body.r_id_rol)
+      .then( ({rows}) => {
+        console.log(`STATUS OK : 200`)
+
+        res.status(200).json({"rows" : rows})
+
+      })
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/insertar/rol', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(req.body)
+  daoRol.insertar(req.body)
+      .then( (bd_response) => {
+        console.log(`STATUS OK : 200`)
+        res.status(200).json({"rows" : bd_response.rows})
+        let rol_id=bd_response.rows[0].r_id_rol;
+        let permisos = req.body.permisos;
+        let accion_id=1;
+        try
+        {
+          for (let i in permisos)
+          {
+            if(permisos[i])
+            {
+              daoRol.insertarAccion({rol_id,accion_id})
+            }
+            accion_id++;
+          }
+        }
+        catch (e)
+        {
+          console.log("Error")
+        }
+      })
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+        res.status(500).json(bd_err)
+
+      })
+});
+
+
+app.post('/editar/rol', (req, res) => {
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(req.body)
+  daoRol.modificar(req.body)
+      .then( (bd_response) => {
+        console.log(`STATUS OK : 200`)
+        daoRol.eliminarAccion(req.body).then((bd_response)=>{
+          let rol_id=req.body.r_id_rol;
+          let permisos = req.body.permisos;
+          let accion_id=1;
+          try
+          {
+            for (let i in permisos)
+            {
+              if(permisos[i])
+              {
+                daoRol.insertarAccion({rol_id,accion_id})
+              }
+              accion_id++;
+            }
+          }
+          catch (e)
+          {
+            console.log("Error")
+          }
+          res.status(200).json({"rowCount" : bd_response.rowCount})
+        })
+      })
+      .catch( (bd_err) => {
+        console.log(`STATUS ERROR: 500`)
+        console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+        res.status(500).json(bd_err)
+
+      })
+});
+
+app.post('/eliminar/rol', (req, res) => {
+
+
+  console.log("\n\n")
+  console.log(`----------------------> ${getAhora()}`)
+  console.log(`/eliminar/pedido/${req.body.r_id_rol}`)
+  daoRol.eliminar(req.body.r_id_rol)
+    .then( (bd_response) => {
+      console.log(`STATUS OK : 200`)
+
+      res.status(200).json({"rowCount" : bd_response.rowCount})
+
+    })
+    .catch( (bd_err) => {
+      console.log(`STATUS ERROR: 500`)
+      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
+
+      res.status(500).json(bd_err)
+
+    })
 });
 
 

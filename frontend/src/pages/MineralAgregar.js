@@ -25,7 +25,7 @@ export class MineralAgregar extends React.Component {
             m_nombre : "",
             m_descripcion : ""
         },
-        compuestos : [],
+        permisos : [],
         por_componer : null,
         porcentaje : "",
         openComponer : null,
@@ -70,8 +70,8 @@ export class MineralAgregar extends React.Component {
     this.handleCloseModal()
 
     this.setState( (prev) => ({
-        compuestos : [
-            ...prev.compuestos,
+        permisos : [
+            ...prev.permisos,
             { ...this.state.minerales.find( m => m.m_id_mineral === idCompuesto) }
         ]
     }))
@@ -79,9 +79,9 @@ export class MineralAgregar extends React.Component {
   }
   
   handleDescomponer = (idDescomponer) => {
-    const compuestosNuevo = this.state.compuestos.filter( (c) => c.m_id_mineral !== idDescomponer )
+    const compuestosNuevo = this.state.permisos.filter( (c) => c.m_id_mineral !== idDescomponer )
     this.setState({
-        compuestos : compuestosNuevo 
+        permisos : compuestosNuevo
     })
   };
 
@@ -90,7 +90,7 @@ export class MineralAgregar extends React.Component {
   {
       const nuevo_mineral = {
           ...this.state.nuevo_mineral,
-          compuestos: this.state.compuestos.map( c => ({
+          permisos: this.state.permisos.map(c => ({
               "m_id_mineral" : c.m_id_mineral,
               "m_nombre" : c.m_nombre
             }))
@@ -227,7 +227,7 @@ export class MineralAgregar extends React.Component {
                     />
                 </div>
                 <div>
-                    {this.state.compuestos.map( (compuesto, i) => (
+                    {this.state.permisos.map( (compuesto, i) => (
                         <div className="compuesto" key={i}>
                             <span>{compuesto.m_nombre}</span>
                             <img

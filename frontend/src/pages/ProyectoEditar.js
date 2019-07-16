@@ -853,15 +853,29 @@ export class ProyectoEditar extends React.Component {
     }
 
     // MANEJO DE ESTADOS -- GESTION DEL PROYECTO
-    iniciarProyecto = () => {
-        console.log(`---> iniciarProyecto : ${this.state.configuracion_yacimiento.p_id_proyecto}`)
-        this.setState({
-            configuracion_yacimiento : {
-                ...this.state.configuracion_yacimiento,
-                estado_id : 15
-            }
-        })
-        //location.reload()   
+    solicitarRecursos = () => {
+        console.log(`----> solicitarRecursos : localhost:4000/iniciar/proyecto`)
+        
+        return axios.post('http://127.0.0.1:4000/iniciar/proyecto',
+            {
+                p_id_proyecto : this.state.configuracion_yacimiento.p_id_proyecto,
+                requisitos : this.state.requisitos.map( r => ({
+                    ...r,
+                    m_cantidad : parseInt( r.m_cantidad )
+                }))
+            })
+            .then( (res) => {
+                if( res.status === 200) {
+                    console.log(`<---- (OK 200) localhost:4000/iniciar/proyecto`)
+                    this.setState({
+                        configuracion_yacimiento : {
+                            ...this.state.configuracion_yacimiento,
+                            estado_id : 15
+                        }
+                    })
+                }
+                return res
+            }).catch( err => err)
     }
 
     activarProyecto = () => {
@@ -1007,8 +1021,8 @@ export class ProyectoEditar extends React.Component {
                             <div className="confYacimientoIzq">
                                 { !!estado_id && estado_id === 3 ?
                                     <div style={{margin : "5px auto"}}>
-                                        <Button variant="warning" className="mc-boton" onClick={this.iniciarProyecto}>
-                                            Iniciar Proyecto
+                                        <Button variant="warning" className="mc-boton" onClick={this.solicitarRecursos}>
+                                            Solicitar Recursos
                                         </Button>
                                     </div> 
                                 : !!estado_id && estado_id === 15 ?

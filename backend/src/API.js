@@ -546,156 +546,7 @@ app.post('/atender/solicitud', (req,res) => {
   }) 
 })
 
-/*
-app.post('/consultar/mineral', (req, res) => {
-  
-  console.log("\n\n")
-  console.log(`----------------------> ${getAhora()}`)
-  console.log(`/consultar/mineral/${req.body.m_id_mineral}`)
-  daoSolicitud.consultar(req.body.m_id_mineral)
-    .then( ({rows}) => {
-      console.log(`STATUS OK : 200`)      
 
-      res.status(200).json({"rows" : rows})
-
-    })
-    .catch( (bd_err) => {
-      console.log(`STATUS ERROR: 500`)      
-      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
-
-      res.status(500).json(bd_err)
-
-    })
-});
-
-app.post('/eliminar/mineral', (req, res) => {
-  
-  console.log("\n\n")
-  console.log(`----------------------> ${getAhora()}`)
-  console.log(`/eliminar/mineral/${req.body.m_id_mineral}`)
-  daoSolicitud.eliminar(req.body.m_id_mineral)
-    .then( (bd_response) => {
-      console.log(`STATUS OK : 200`)      
-      
-      res.status(200).json({"rowCount" : bd_response.rowCount})
-
-    })
-    .catch( (bd_err) => {
-      console.log(`STATUS ERROR: 500`)      
-      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
-
-      res.status(500).json(bd_err)
-
-    })
-});
-
-app.post('/insertar/mineral', (req, res) => {
-  
-  console.log("\n\n")
-  console.log(`----------------------> ${getAhora()}`)
-  console.log(`/insertar/mineral/`)
-  console.log(req.body)
-
-  daoSolicitud.insertar( req.body )
-    .then( (bd_response) => {
-      console.log(`STATUS OK : 200`)
-      return (bd_response)
-    })
-    .catch( (bd_err) => {
-      console.log(`STATUS ERROR: 500`)      
-      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
-
-      res.status(500).json(bd_err)
-
-    })
-    .then( (bd_response) => {
-        if (req.body.compuestos.length !== 0 ){
-          daoSolicitud.insertarCompuestos( bd_response.rows[0].m_id_mineral , req.body.compuestos)
-            .then( (bd_response) => {
-              console.log(`STATUS OK : 200`) 
-              // CUANDO SI TIENE COMPUESTOS
-              res.status(200).json({"rowCount" : bd_response.rowCount})
-            })
-            .catch( (bd_err) => {
-              console.log(`STATUS ERROR: 500`)      
-              console.error(`bd_err : ${JSON.stringify(bd_err)}`)
-        
-              res.status(500).json(bd_err)
-        
-            })
-        } else {
-          // CUANDO NO TIENE COMPUESTOS
-          res.status(200).json({"rowCount" : bd_response.rowCount})
-        }
-
-    })
-
-
-});
-
-app.post('/modificar/mineral', (req, res) => {
-
-  console.log("\n\n")
-  console.log(`----------------------> ${getAhora()}`)
-  console.log(`/modificar/mineral/${req.body.m_id_mineral}`)
-  console.log(req.body)
-
-
-  daoSolicitud.modificar( req.body )
-    .then( (bd_response) => {
-      console.log(`STATUS OK : 200`)      
-      
-      if (!req.body.modificado){
-        res.status(200).json({"rowCount" : bd_response.rowCount})
-        return "listo"
-      }
-    })
-    .catch( (bd_err) => {
-      console.log(`STATUS ERROR: 500`)      
-      console.error(`bd_err : ${JSON.stringify(bd_err)}`)
-
-      res.status(500).json(bd_err)
-      return "error"
-    })
-    .then( mensaje => {
-      
-
-      if ( mensaje !== "listo" ){
-        
-        daoSolicitud.eliminarCompuestos( req.body.m_id_mineral )
-          .then( (bd_response) => {
-            console.log(`STATUS OK : 200`) 
-
-          })
-          .catch( (bd_err) => {
-            console.log(`STATUS ERROR: 500`)      
-            console.error(`bd_err : ${JSON.stringify(bd_err)}`)
-      
-            res.status(500).json(bd_err)
-
-          })
-        .then( () => {
-
-            daoSolicitud.insertarCompuestos( req.body.m_id_mineral , req.body.compuestos)
-            .then( (bd_response) => {
-              console.log(`STATUS OK : 200`) 
-              res.status(200).json({"rowCount" : bd_response.rowCount})
-            })
-            .catch( (bd_err) => {
-              console.log(`STATUS ERROR: 500`)      
-              console.error(`bd_err : ${JSON.stringify(bd_err)}`)
-        
-              res.status(500).json(bd_err)
-      
-            })
-        })
-        
-      } else {
-        res.status(200).json({"rowCount" : bd_response.rowCount})
-      }
-  })
-});
-*/
 /* ****************************** CLIENTE ****************************** */
 import {daoCliente} from './DAOs/daoCliente'
 
@@ -2083,7 +1934,17 @@ app.post('/finalizar/proyecto', (req,res) => {
     return 0;
   }
 
-  daoProyecto.actualizarEstado(proy_id,10)
+  let cantidad = req.body.y_cantidad
+  if (cantidad <= 0) {
+    res.status(500).json({"ErrorMessage" : "Cantidad explotada nesativa"})
+    return 0;
+  }
+  explotado = req.body.mineral_id 
+
+  daoProyecto.almacenarExplotado(proy_id,catidad,explotado)
+  .then((resp_bd)=>{
+    return daoProyecto.actualizarEstado(proy_id,10)
+  }) 
   .then((DATA_RESPUESTA) => {
     console.log(`STATUS OK : 200`)
     res.status(200).json({"resp" : "Proyecto cerrado exitosamente"})

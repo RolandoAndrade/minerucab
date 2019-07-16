@@ -53,20 +53,20 @@ export class Solicitud extends React.Component {
 
   recibirRecursos = () => {
     const id = this.state.consultarSolicitud.s_id_solicitud
-    /*console.log(`http://127.0.0.1:4000/eliminar/solicitud/(${id})`)
+    console.log(`http://127.0.0.1:4000/atender/solicitud/(${id})`)
 
-    axios.post('http://127.0.0.1:4000/eliminar/solicitud', 
+    axios.post('http://127.0.0.1:4000/atender/solicitud', 
     {
-        "e_id_empleado" : this.state.consultarSolicitud.s_id_solicitud,
+        "s_id_solicitud" : this.state.consultarSolicitud.s_id_solicitud,
     })
     .then( (res) => {
         if( res.status === 200) {
-            console.log(`<---- (OK 200) localhost:4000/eliminar/solicitud`)
+            console.log(`<---- (OK 200) localhost:4000/atender/solicitud`)
             this.handleCloseModal()
             this.handleCloseEliminar()
             location.reload()
         }
-    })*/
+    })
     
   }
 

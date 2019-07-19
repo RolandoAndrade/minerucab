@@ -134,9 +134,9 @@ const daoEmpleado = {
     asignarVariosUsuarios ( empleado_id, usuarios) {
         let query = `INSERT INTO USUARIO (u_id_usuario,u_correo,u_clave,empleado_id,rol_id) VALUES`
         let i = 0
-        usuarios.forEach( g => {
+        usuarios.forEach( u => {
             i++;
-            query =  query + `(DEFAULT,${u.u_correo},${u.u_clave},${empleado_id},${u.rol_id})${i < usuarios.length ? ',' : ';' }`
+            query =  query + `(DEFAULT,'${u.u_correo}','${u.u_clave}',${empleado_id},${u.rol_id})${i < usuarios.length ? ',' : ';' }`
         })
         console.log(query)
         return psql.query(query)

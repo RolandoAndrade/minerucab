@@ -8,24 +8,20 @@ import {MenuDashBoard} from "../components/MenuDashBoard";
 import {InputText} from "../components/InputText";
 import {SectionTitle} from "../components/Header/SectionTitle";
 import {InputDate} from "../components/InputDate";
+import {DropdownV2} from "../components/DropdownV2";
 import {GuardarCancelar} from "../components/GuardarCancelar";
 import { DropdownArreglado } from '../components/DropdownArreglado';
 import {Dropdown} from "../components/Dropdown"
 
-import {cleanerLugar, cleanerCargo} from "../utils/cleaner"
+import {cleanerLugar, cleanerCargo, cleanerRoles} from "../utils/cleaner"
 
 export class EmpleadoEditar extends React.Component {
     constructor(props){
         super(props);
 
         this.state = {
-            users: [{
-                u_id_usuario : 0,
-                u_correo : "",
-                u_clave : "",
-                rol_id : ""
-            }],
-            lastIndex : 0,
+            users: [],
+            lastIndex : 200,
             nuevo_empleado : {
                 e_id_empleado : 0,
                 e_cedula : "",
@@ -44,7 +40,7 @@ export class EmpleadoEditar extends React.Component {
                 municipio_id : 0,
                 parroquia_id : 0
             },
-            lugares : []
+            lugares : [],
         }
     }
 
@@ -58,15 +54,19 @@ export class EmpleadoEditar extends React.Component {
             .then( (res) => {
                 if(res.status === 200)
                 console.log(`<---- (OK 200) localhost:4000/consultar/empleado`)
-                
+                console.log(res)
                 const nuevo_empleado = {
-                    ...res.data.rows[0],
-                    e_fecha_nacimiento : res.data.rows[0].e_fecha_nacimiento.split('T')[0],
-                    e_fecha_ingreso : res.data.rows[0].e_fecha_ingreso.split('T')[0]
+                    ...res.data.rows,
+                    e_fecha_nacimiento : res.data.rows.e_fecha_nacimiento.split('T')[0],
+                    e_fecha_ingreso : res.data.rows.e_fecha_ingreso.split('T')[0]
                 }
 
+                const asd = res.data.rows.usuarios
+                console.log(asd)
+
                 this.setState({
-                    nuevo_empleado : nuevo_empleado
+                    nuevo_empleado : nuevo_empleado,
+                    users : asd
                 })
                 
                 return nuevo_empleado
@@ -108,6 +108,20 @@ export class EmpleadoEditar extends React.Component {
                 })
 
             })
+            .then((resCargo) => {
+                console.log(`----> localhost:4000/consultarLista/roles`)
+                axios.get('http://127.0.0.1:4000/consultarLista/roles')
+                .then((res) => {
+                    if(res.status === 200){
+                        console.log(`<---- (OK 200) localhost:4000/consultarLista/roles`)            
+                        this.setState({
+                            roles : res.data.rows
+                        })
+                    }else 
+                        console.log(`<---- (ERROR 500) localhost:4000/consultarLista/roles`)
+                    
+                })
+              })
       }
 
     establecerLugar = () => {
@@ -141,7 +155,8 @@ export class EmpleadoEditar extends React.Component {
                 ...this.state.nuevo_empleado,
                 lugar_id : this.state.lugar.parroquia_id,
                 e_genero : this.state.nuevo_empleado.e_genero === 1 || this.state.nuevo_empleado.e_genero === "m"
-                    ? "m" : "f"
+                    ? "m" : "f",
+                usuarios : this.state.users
             }
         )
         .then( (res) => {
@@ -161,31 +176,28 @@ export class EmpleadoEditar extends React.Component {
     }
 
 
-    addUser = () =>
-    {
-        let newUsers= this.state.users;
-        newUsers.push({
-            u_id_usuario : this.state.lastIndex +1,
-            u_correo : "",
-            u_clave : ""
-        });
-
-        this.setState(
-            {
-                users: newUsers,
-                lastIndex : this.state.lastIndex +1
-            }
-        )
+    addUser = () => {
+        console.log(`new users = users [ ${this.state.lastIndex + 1} ]`)
+        this.setState( (prev) => ({
+            users:[
+                ...prev.users, 
+                {
+                    u_id_usuario : prev.lastIndex + 1,
+                    u_correo : null,
+                    u_clave : null,
+                    rol_id : 0
+                }
+            ],
+            lastIndex : prev.lastIndex + 1
+        }))
     }
 
-    removeUser = (id) =>
-    {
-        const newUsers = this.state.users.filter( u => u.u_id_usuario !== id)
-        this.setState(
-            {
-                users: newUsers
-            }
-        )
+    removeUser = (id) => {
+        console.log(`quitar usuario[ ${id} ]`)
+        const usuarioNuevo = this.state.users.filter( (u) => u.u_id_usuario !== id)
+        this.setState({
+            users : usuarioNuevo
+        })
     }
 
     handleChange = (target) => {
@@ -207,6 +219,33 @@ export class EmpleadoEditar extends React.Component {
                 [target.name] : target.value
             }
         })
+    }
+
+    changeUsuario = (opcion , id) => {
+        if (opcion.label) {
+            console.log(`Users[ ${id} ].rol_id <-- ${opcion.value} (${opcion.label})`)
+            const nuevosUsuario = this.state.users.map( us => {
+                    if (us.u_id_usuario === id){
+                        us.rol_id = opcion.value
+                    }
+                    return us
+                })
+            this.setState({
+                users : nuevosUsuario
+            })
+        } else {
+            console.log(`usuario[ ${id} ].${opcion.target.name} <-- ${opcion.target.value}`)
+            const nuevosUsers = this.state.users.map( us => {
+                if (us.u_id_usuario === id){
+                    us[opcion.target.name] = opcion.target.value
+                }
+                return us
+            })
+            this.setState({
+                users : nuevosUsers
+            })
+        } 
+        
     }
 
     render = () => (
@@ -261,7 +300,7 @@ export class EmpleadoEditar extends React.Component {
                 </div>
                 <div className="WideContainer">
                     <div className="FormContainer">
-                        {this.state.cargos &&
+                        {this.state.cargos && this.state.nuevo_empleado.cargo_id &&
                         <Dropdown id="CrearEmpleadoCargo"
                                   name="cargo_id"
                                   defaultText={this.state.nuevo_empleado.cargo_inicial}
@@ -362,38 +401,65 @@ export class EmpleadoEditar extends React.Component {
 
             <div className="Container-90p">
                 <div className="LabelContainer">
-                    Usuarios asociados al empleado (SEGUNDA ENTREGA)
+                    Usuarios asociados al empleado
                 </div>
                 {
-                    this.state.users.map( (u,i)=>
-                    {
-                        return(
-                            <div className="RowContainer" key={i}>
-                                <div className="WideContainer" style={{justifyContent: "right", width: "30%"}}>
-                                    <i className="zmdi zmdi-close-circle-o LabelIcon" onClick={()=>this.removeUser(u.u_id_usuario)}></i>
-                                </div>
-                                <div className="WideContainer">
-                                    <InputText id={"CrearEmpleadoUsuarioCorreo"+i} label="Correo electrónico"/>
-                                </div>
-                                <div className="WideContainer">
-                                    <InputText id={"CrearEmpleadoUsuarioContra"+i} label="Contraseña inicial"/>
-                                </div>
-                                <div className="WideContainer">
-                                    <DropdownArreglado
-                                        name={`user_${u.u_id_usuario}`}
-                                        style={{}} 
-                                        options={[
-                                            {text: "Rol ...", value: 0},
-                                            {text: "Opción 1", value: 1},
-                                            {text: "Opción 2", value: 2},
-                                            {text: "Opción 3", value: 3},
-                                            {text: "Opción 4", value: 4}
-                                        ]} 
-                                    />
-                                </div>
+                    this.state.users.map( (usuario,i)=>
+                    (
+                        <div key={usuario.u_id_usuario} className="cargoHorizontal">
+                            <div>
+                                <i 
+                                    className="zmdi zmdi-close-circle-o LabelIcon pegar-derecha"
+                                    onClick={() => this.removeUser(
+                                        usuario.u_id_usuario
+                                    )}
+                                >
+                                </i>
                             </div>
-                        )
-                    })
+                            <div className="ancho-cantidad">
+                                <InputText 
+                                    id={`Correo_${usuario.u_id_usuario}_`}
+                                    label="Correo"
+                                    type="text"
+                                    name="u_correo"
+                                    value={usuario.u_correo}
+                                    onChange= { (event) =>
+                                        this.changeUsuario(event, usuario.u_id_usuario)
+                                    }
+                                />
+                            </div>
+                            <div className="ancho-cantidad">
+                                <InputText 
+                                    id={`Clave_${usuario.u_id_usuario}_`}
+                                    label="Clave"
+                                    type="text"
+                                    name="u_clave"
+                                    value={usuario.u_clave}
+                                    onChange= { (event) =>
+                                        this.changeUsuario(event, usuario.u_id_usuario)
+                                    }
+                                />
+                            </div>
+                            <div className="ancho-mineral">
+                                {!!this.state.roles &&
+                                <DropdownV2
+                                    placeholder="Rol ..."
+                                    onChange={ event => 
+                                        this.changeUsuario(event , usuario.u_id_usuario)
+                                    }
+                                    options={
+                                        cleanerRoles.limpiarListaDropdown(this.state.roles)
+                                    }
+                                    value={{
+                                        value: usuario.rol_id,
+                                        label: !!usuario.rol_id ? this.state.roles.find( r => r.r_id_rol === usuario.rol_id).r_nombre : "Rol ..."
+                                    }}
+                                />}
+                            </div>
+
+                        </div>
+                        
+                    ))
                 }
             </div>
 

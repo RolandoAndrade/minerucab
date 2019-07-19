@@ -3,8 +3,8 @@ import {psql} from '../postgreConnection'
 const daoRol= {
     consultarTodos() {
         return psql.query(`
-            SELECT R.*
-            FROM ROL R
+            SELECT *
+            FROM ROL
         `)
     },
 

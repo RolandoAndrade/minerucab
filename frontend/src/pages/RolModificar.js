@@ -18,42 +18,73 @@ export class RolModificar extends React.Component {
                 consultar_mineral: false,
                 modificar_mineral: false,
                 eliminar_mineral: false,
+
                 crear_compania:false,
                 consultar_compania: false,
                 modificar_compania: false,
                 eliminar_compania: false,
+
                 crear_empleado: false,
                 consultar_empleado: false,
                 modificar_empleado: false,
                 eliminar_empleado: false,
+
                 crear_producto: false,
                 consultar_producto: false,
                 modificar_producto: false,
                 eliminar_producto: false,
+
                 crear_pedido: false,
                 consultar_pedido: false,
                 modificar_pedido: false,
                 eliminar_pedido: false,
+
                 crear_cliente: false,
                 consultar_cliente: false,
                 modificar_cliente: false,
                 eliminar_cliente: false,
+
                 crear_proyecto: false,
                 consultar_proyecto: false,
                 modificar_proyecto: false,
                 eliminar_proyecto: false,
+
                 crear_yacimiento: false,
                 consultar_yacimiento: false,
                 modificar_yacimiento: false,
                 eliminar_yacimiento: false,
+
                 crear_solicitud: false,
                 consultar_solicitud: false,
                 modificar_solicitud: false,
                 eliminar_solicitud: false,
+
                 crear_inventario: false,
                 consultar_inventario: false,
                 modificar_inventario: false,
-                eliminar_inventario: false
+                eliminar_inventario: false,
+
+                crear_aliado: false,
+                consultar_aliado: false,
+                modificar_aliado:false,
+                eliminar_aliado:false,
+
+                crear_configuracion_de_yacimiento: false,
+                consultar_configuracion_de_yacimiento: false,
+                modificar_configuracion_de_yacimiento: false,
+                eliminar_configuracion_de_yacimiento: false,
+
+                crear_rol: false,
+                consultar_rol: false,
+                modificar_rol: false,
+                eliminar_rol: false,
+
+                crear_horario: false,
+                consultar_horario: false,
+                modificar_horario: false,
+                eliminar_horario: false,
+                
+                reportes: false
             },
             goEmpleado: false
         }
@@ -234,6 +265,9 @@ export class RolModificar extends React.Component {
                     </div>
                     <div className="FormContainer.Edit.More" style={{margin: "10px"}}>
                         Eliminar solicitud
+                    </div>
+                    <div className="FormContainer.Edit.More" style={{margin: "10px"}}>
+                        Reportes
                     </div>
                 </div>
                 <div className="WideContainer.Vertical" style={{width: "30%"}}>
@@ -648,6 +682,19 @@ export class RolModificar extends React.Component {
                                     name="eliminar_solicitud"
                                     onChange={this.handleBool}
                                     checked={this.state.permisos.eliminar_solicitud}
+                                />
+                                <i></i>
+                            </label>
+                        </form>
+                    </div>
+                    <div className="FormContainer.Edit">
+                        <form action="">
+                            <label className="form-switch">
+                                <input
+                                    type="checkbox"
+                                    name="reportes"
+                                    onChange={this.handleBool}
+                                    checked={this.state.permisos.reportes}
                                 />
                                 <i></i>
                             </label>

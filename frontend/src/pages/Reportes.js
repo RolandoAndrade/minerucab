@@ -62,10 +62,10 @@ export class Reportes extends React.Component {
                 window.open(`http://localhost:8081/jasperserver/rest_v2/reports/Reportes/presentacion_por_cliente.pdf`)
             break;
             case 9 :
-                window.open(`http://localhost:8081/jasperserver/rest_v2/reports/Reportes/maquinaria_mas_usada.pdf?${this.state.r9_fi}&fecha_fin=${this.state.r9_ff}`)
+                window.open(`http://localhost:8081/jasperserver/rest_v2/reports/Reportes/maquinaria_mas_usada.pdf?fecha_inicio=${this.state.r9_fi}&fecha_fin=${this.state.r9_ff}`)
             break;
             case 10 :
-                window.open(`http://localhost:8081/jasperserver/rest_v2/reports/Reportes/tipo_pago_preferido.pdf?${this.state.r10_fi}&fecha_fin=${this.state.r10_ff}`)
+                window.open(`http://localhost:8081/jasperserver/rest_v2/reports/Reportes/tipo_pago_preferido.pdf?fecha_inicio=${this.state.r10_fi}&fecha_fin=${this.state.r10_ff}`)
             break;
             
 

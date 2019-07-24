@@ -1019,7 +1019,11 @@ export class ProyectoEditar extends React.Component {
         console.log(`----> cerrarProyecto : localhost:4000/finalizar/proyecto`)
         return axios.post('http://127.0.0.1:4000/finalizar/proyecto',
             {
-                p_id_proyecto : this.state.configuracion_yacimiento.p_id_proyecto
+                p_id_proyecto : this.state.configuracion_yacimiento.p_id_proyecto,
+                m_id_mineral : this.state.configuracion_yacimiento.mineral_id,
+                requisitos : this.state.requisitos,
+                y_cantidad : this.state.configuracion_yacimiento.y_capacidad_explotacion
+
             })
             .then( (res) => {
                 if( res.status === 200) {

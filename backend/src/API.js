@@ -1935,15 +1935,15 @@ app.post('/finalizar/proyecto', (req,res) => {
     res.status(500).json({"ErrorMessage" : "id proyecto invalido o vacio"})
     return 0;
   }
-
+  console.log(req.body.y_cantidad)
   let cantidad = req.body.y_cantidad
   if (cantidad <= 0) {
     res.status(500).json({"ErrorMessage" : "Cantidad explotada nesativa"})
     return 0;
   }
-  explotado = req.body.mineral_id
+  let explotado = req.body.mineral_id || req.body.m_id_mineral
 
-  daoProyecto.almacenarExplotado(proy_id,catidad,explotado)
+  daoProyecto.almacenarExplotado(proy_id,cantidad,explotado)
   .then((resp_bd)=>{
     return daoProyecto.actualizarEstado(proy_id,10)
   })

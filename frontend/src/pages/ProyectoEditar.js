@@ -1019,7 +1019,11 @@ export class ProyectoEditar extends React.Component {
         console.log(`----> cerrarProyecto : localhost:4000/finalizar/proyecto`)
         return axios.post('http://127.0.0.1:4000/finalizar/proyecto',
             {
-                p_id_proyecto : this.state.configuracion_yacimiento.p_id_proyecto
+                p_id_proyecto : this.state.configuracion_yacimiento.p_id_proyecto,
+                m_id_mineral : this.state.configuracion_yacimiento.mineral_id,
+                requisitos : this.state.requisitos,
+                y_cantidad : this.state.configuracion_yacimiento.y_capacidad_explotacion
+
             })
             .then( (res) => {
                 if( res.status === 200) {
@@ -1092,7 +1096,7 @@ export class ProyectoEditar extends React.Component {
 
         const estado_id = configuracion_yacimiento.estado_id
 
-        const permisoModificar = tengoPermiso( 27 )
+        const permisoModificar = true
     
         return (
         <div>   
@@ -1106,13 +1110,13 @@ export class ProyectoEditar extends React.Component {
                             <div className="confYacimientoIzq">
                                 { !!estado_id && estado_id === 3 ?
                                     <div style={{margin : "5px auto"}}>
-                                        <Button disbaled={!permisoModificar} variant="warning" className="mc-boton" onClick={this.solicitarRecursos}>
+                                        <Button  variant="warning" className="mc-boton" onClick={this.solicitarRecursos}>
                                             Solicitar Recursos
                                         </Button>
                                     </div> 
                                 : !!estado_id && estado_id === 15 ?
                                     <div style={{margin : "5px auto"}}>
-                                        <Button disbaled={!permisoModificar} variant="warning" className="mc-boton" onClick={this.activarProyecto}>
+                                        <Button  variant="warning" className="mc-boton" onClick={this.activarProyecto}>
                                             Activar Proyecto
                                         </Button>
                                     </div>
@@ -1286,7 +1290,7 @@ export class ProyectoEditar extends React.Component {
                         }
                     </div>
                 </div>
-                <div>{ !!permisoModificar && 
+                <div>{ !!tengoPermiso(27) && 
                     <GuardarCancelar
                         position="center"
                         storeData={ estado_id === 3 ? this.guardarBD : this.goProyecto}
